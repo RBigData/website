@@ -1,69 +1,188 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>CSS Tabbed Navigation</title>
+	<meta http-equiv="content-type"	content="text/html;	charset=iso-8859-1"	/>
+	<meta name="author"	content="Ian Andolina" />
+	<meta name="robots"	content="all" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+	<meta name="description" content="CSS techniques demonstrating pure CSS navigation tabs / tabbed menus"	/>
+	<meta name="keywords" content="CSS cascading style sheet sheets boxes positioned CSS boxes tabbed menu tab tabbed navigation in-line list active hover floating fixed relative positioning" />
+	<style type="text/css">
+	body {
+		margin: 20px;
+		margin-top: 0;
+		padding: 0px;
+		background: #CACCB4;
+		font: 16px arial, sans-serif; }
 
-  <head>
+	pre {text-indent: 30px}
+
+	#tabmenu {
+		color: #000;
+		border-bottom: 2px solid black;
+		margin: 12px 0px 0px 0px;
+		padding: 0px;
+		z-index: 1;
+		padding-left: 6px }
+
+	#tabmenu li {
+		display: inline;
+		overflow: hidden;
+		list-style-type: none; }
+
+	#tabmenu a, a.active {
+		color: #DEDECF;
+		background: #898B5E;
+		font: bold 1em "Trebuchet MS", Arial, sans-serif;
+		border: 2px solid black;
+		padding: 2px 5px 0px 5px;
+		margin: 0;
+		text-decoration: none; }
+
+	#tabmenu a.active {
+		background: #ABAD85;
+		border-bottom: 3px solid #ABAD85; }
+
+	#tabmenu a:hover {
+		color: #fff;
+		background: #ADC09F; }
+
+	#tabmenu a:visited {
+		color: #E8E9BE; }
+
+	#tabmenu a.active:hover {
+		background: #ABAD85;
+		color: #DEDECF; }
+
+	#content {
+		text-align: justify;
+		background: #ABAD85;
+		padding: 5px;
+		border: 2px solid black;
+		border-top: none;
+		z-index: 2;	}
+
+	#content a {
+		text-decoration: none;
+		color: #E8E9BE; }
+
+	#content a:hover { background: #898B5E; }
+	</style>
+
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="description" content="Rbigdata.github.io : " />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Rbigdata.github.io</title>
-  </head>
+    <title>Programming with Big Data in R</title>
+
+</head>
+
+
+
 
   <body>
 
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/RBigData">View on GitHub</a>
-
-          <h1 id="project_title">Rbigdata.github.io</h1>
-          <h2 id="project_tagline"></h2>
-
+          <h1 id="project_title">Programming with Big Data in R</h1>
+          <h2 id="project_tagline">Simplifying Scalability</h2>
         </header>
     </div>
 
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+	<div id="wrap">
+	<div  id="content-wrap">
+	<div class="content-top"></div>
+	<div id="content">
+	
+	<div class="post" id="post_248">
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<!--	<h2 class="title">pbdR</h2>-->
 
-<h3>Designer Templates</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
 
-<h3>Rather Drive Stick?</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
 
-<h3>Authors and Contributors</h3>
+<ul id="tabmenu">
+	<li><a class="active" href="index.html">About</a></li>
+	<li><a href="packages.html">Packages</a></li>
+	<li><a href="publications.html">Publications</a></li>
+</ul>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
-<h3>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+<div id="content">
+<h3>Overview</h3>
+<p>The &#8220;Programming with Big Data in <a href="http://www.r-project.org/">R</a>&#8221; project (pbdR) enables high-level distributed data parallelism in R, so that it can easily utilize large HPC platforms and begin to use multiple levels of parallelism while retaining its original convenience for mathematics of data. We achieve this through, in part, providing a simplified interface to MPI as well as a tight coupling with distributed dense linear algebra software (PBLAS and ScaLAPACK, and their MPI library BLACS). The routines in these libraries are engaged through R&#8217;s classes and methods, so that the R language syntax is unchanged. While the user is not asked to deal with the details of managing the data distribution and MPI communication, the user is asked to be aware of the data distribution and provided with high-level functions to manage it if needed.</p>
+<p>To this end, we provide <a id="476_1" class="GTTabsLinks" onmouseover="GTTabsShowLinks(' Packages'); return true;" onmouseout="GTTabsShowLinks();">several R packages</a> which focus on analyzing big data, especially on large distributed machines. The packages are meant to be used in the <a id="476_4" class="GTTabsLinks" onmouseover="GTTabsShowLinks(' Useful Reading'); return true;" onmouseout="GTTabsShowLinks();">SPMD</a> programming model, with special focus on large scale computing clusters. Packages and instructions for installation are available in the <a id="476_2" class="GTTabsLinks" onmouseover="GTTabsShowLinks(' Download'); return true;" onmouseout="GTTabsShowLinks();">Download tab.</a></p>
 
-    
+
+<h3>Discussion Group</h3>
+<p>We maintain a google group, <a href="https://groups.google.com/forum/?fromgroups#!forum/rbigdataprogramming" target="_blank">RBigDataProgramming</a>, where you are encouraged to post discussions about the project, including any issues you may be experiencing.</p>
+
+
+<h3>Suggestions/Questions/Comments</h3>
+<p>The pbdR project is very much in its infancy.  In order to provide the best possible set of packages, we need user input.  For suggestions, questions, comments, bug reports, or anything else relevant that you wish to communicate, please do not hesitate to contact us at:</p>
+<ul>
+<li>Email at: <a href="mailto:RBigData AT gmail.com">RBigData AT gmail.com</a></li>
+</ul>
+<p>Or you can email the respective package&#8217;s maintainer.</p>
+
+
+
+<h3>Authors</h3>
+<p>
+  <a href="http://www.csm.ornl.gov/%7Eost/" target="_blank"> George Ostrouchov</a>, 
+  <a href="http://thirteen-01.stat.iastate.edu/snoweye/mypage/" target="_blank"> Wei-Chen Chen</a>, 
+  <a href="http://wrathematics.github.io/" target="_blank">Drew Schmidt</a>, 
+  and Pragneshkumar Patel.
+</p>
+
+<p style="text-align: left;">
+  <img class="alignnone  wp-image-733" title="ut" src="images/ut.png" alt="" width="147" height="52" >
+  <img class="alignnone  wp-image-735" title="rdav" src="images/rdav.png" alt="" width="149" height="52" >
+  <img class="alignnone  wp-image-738" title="nsf" src="images/nsf.png" alt="" width="50" height="52" >
+  <img class="alignnone  wp-image-739" title="xsede" src="images/xsede-2.png" alt="" width="158" height="52" >
+  <img class="alignnone  wp-image-734" title="ornl" src="images/ornl.png" alt="" width="133" height="52" />
+  <img class="alignnone size-full wp-image-736" title="sdg" src="images/sdg.png" alt="" width="132" height="52" />
+  <img class="alignnone  wp-image-737" title="doe" src="images/doe.png" alt="" width="51" height="52" />
+  <img class="alignnone  wp-image-740" title="olcf" src="images/olcf.png" alt="" width="198" height="52" />
+</p>
+
+
+
+<h3>Citation</h3>
+<p>When mentioning the Programming with Big Data in R, please cite:</p>
+<div style="width: 96.5%; padding: 0px; background-color: #d3d3d3; line-height: 1.0;">
+<pre>  
+@ONLINE{pbdR2012,
+  author = {Ostrouchov, G. and Chen, W.-C. and Schmidt, D. and Patel, P.},
+  title = {Programming with Big Data in R},
+  year = {2012},
+  url = {http://r-pbd.org/}
+}</pre>
+</div>
+<p>&nbsp;</p>
+</div>
+
+
+
+
+
+
+
+
+
+
 
   </body>
 </html>
