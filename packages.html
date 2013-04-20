@@ -64,10 +64,12 @@
 
 
 
-<h3>Packages</h3>
-<p>The pbdR project uses state of the art numerical libraries to bring massive scalability to R:</p>
-<div><center><img class="size-full wp-image-751 aligncenter" title="pbdR-Graph" src="images/libs.png" alt="" /></center></div>
+<h2>Packages</h2>
+If you have no idea where to begin and/or limited experience with MPI programming, 
+start by checking out the <a href="#demo">pbdDEMO package</a>, especially the 
+<a href="http://cran.r-project.org/web/packages/pbdDEMO/vignettes/pbdDEMO-guide.pdf/">pbdDEMO vignette</a>.
 
+<br><br>
 <center>
 <table width=95%>
 <tr valign="center" align="center">
@@ -94,17 +96,22 @@
 </center>
 
 
+<br>
 <h3>General</h3>
 
+
+<h5 id=demo>pbdDEMO</h5>
+This package offers a comprehensive set of over 20 package demos, and a textbook-style
+vignette that can take your programming from 1 to 10,000 cores
+
+
 <h5 id=mpi>pbdMPI</h5>
-<p><code>pbdMPI</code> provides an efficient interface to MPI by utilizing  R&#8217;s S4 classes and methods with a focus on Single Program, Multiple Data (SPMD) parallel programming style, which is intended for batch parallel execution. pbdMPI functions are SPMD extensions of MPI functions, rewritten from <a href="http://cran.r-project.org/web/packages/Rmpi/index.html">Rmpi</a> with many performance improvements, as well as a simplified interface.</p>
-<p>The <code>pbdMPI</code> package:</p>
+This package provides an efficient interface to MPI by utilizing  R's S4 classes and methods with a focus on Single Program, Multiple Data (SPMD) parallel programming style, which is intended for batch parallel execution. pbdMPI functions are SPMD extensions of MPI functions, rewritten from <a href="http://cran.r-project.org/web/packages/Rmpi/index.html">Rmpi</a> with many performance improvements, as well as a simplified interface.
 <ul>
 <li>Provides high-level, abstract interface to low-level, fast MPI code.</li>
-<li>Avoids potential dead locks in an interactive model.</li>
 <li>Gains performance from directly calling MPI functions.</li>
 <li>Reduces the cost of compression in communication.</li>
-<li>Offers easier programming and debugging efforts.</li>
+<li>Offers easy programming and debugging efforts.</li>
 </ul>
 
 
@@ -114,7 +121,13 @@
 
 
 
+<br>
 <h3>I/O</h3>
+<h5 id=ncdf4>pbdNCDF4</h5>
+This p
+<ul>
+<li>Provides high-level, abstract interface to low-level, fast MPI code.</li>
+</ul>
 
 
 
@@ -122,6 +135,9 @@
 
 
 
+
+
+<br>
 <h3>Computation</h3>
 
 
@@ -160,6 +176,7 @@
 
 
 
+<br>
 <h3>Application</h3>
 
 
