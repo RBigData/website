@@ -1,0 +1,13 @@
+@Misc{Chen2012pmclustpackage,
+  title = {pmclust: Parallel Model-Based Clustering},
+  author = {W.-C. Chen and G. Ostrouchov},
+  year = {2012},
+  note = {R Package, URL http://cran.r-project.org/package=pmclust},
+}
+
+@Manual{Chen2012pmclustvignette,
+  title = {A Quick Guide to the pmclust Package},
+  author = {W.-C. Chen and G. Ostrouchov},
+  year = {2012},
+  note = {R Vignette, URL http://cran.r-project.org/package=pmclust},
+}
