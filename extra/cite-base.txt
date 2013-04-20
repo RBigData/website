@@ -1,0 +1,15 @@
+@Misc{Schmidt2012pbdBASEpackage,
+  title = {pbdBASE: Programming with Big Data -- Core pbd Classes and Methods},
+  author = {Drew Schmidt and Wei-Chen Chen and George Ostrouchov and Pragneshkumar Patel},
+  year = {2012},
+  note = {{R} Package},
+  url = {http://cran.r-project.org/package=pbdBASE},
+}
+
+@Manual{Schmidt2012pbdBASEvignette,
+  title = {A Quick Guide for the pbdBASE Package},
+  author = {Drew Schmidt and Wei-Chen Chen and George Ostrouchov and Pragneshkumar Patel},
+  year = {2012},
+  note = {{R} Vignette},
+  url = {http://cran.r-project.org/package=pbdBASE},
+}
