@@ -65,11 +65,12 @@
 
 
 <h2>Packages</h2>
-If you have no idea where to begin and/or limited experience with MPI programming, 
+<p>
+If you have no idea where to begin and/or have limited experience with MPI programming, 
 start by checking out the <a href="#demo">pbdDEMO package</a>, especially the 
 <a href="http://cran.r-project.org/web/packages/pbdDEMO/vignettes/pbdDEMO-guide.pdf/">pbdDEMO vignette</a>.
+</p>
 
-<br><br>
 <center>
 <table width=95%>
 <tr valign="center" align="center">
@@ -86,7 +87,7 @@ start by checking out the <a href="#demo">pbdDEMO package</a>, especially the
   <a href="#ncdf4">pbdNCDF4</a>
   </td>
   <td>
-  <a href="#dmat">pbdDMAT</a><br>  <a href="#base">pbdBASE</a><br>  <a href="#slap">pbdSLAP</a>
+  <a href="#dmat">pbdDMAT</a><br>  <a href="#dmat">pbdBASE</a><br>  <a href="#dmat">pbdSLAP</a>
   </td>
   <td>
   <a href="#pmclust">pmclust</a>
@@ -101,17 +102,35 @@ start by checking out the <a href="#demo">pbdDEMO package</a>, especially the
 
 
 <h5 id=demo>pbdDEMO</h5>
-This package offers a comprehensive set of over 20 package demos, and a textbook-style
-vignette that can take your programming from 1 to 10,000 cores
+<p>
+This package offers a comprehensive set of over 20 pbdR package demos, and a textbook-style
+vignette that can quickly help you take your programming from 1 to 10,000+ cores.
+</p>
+
+<p>This package offers:</p>
+<ul>
+<li>A gentle introduction to high performance computing with R using the pbdR tools.</li>
+<li>An impressive set of <u>non-trivial</u> examples and companion text, specifically written with data scientists in mind.</li>
+</ul>
+
 
 
 <h5 id=mpi>pbdMPI</h5>
-This package provides an efficient interface to MPI by utilizing  R's S4 classes and methods with a focus on Single Program, Multiple Data (SPMD) parallel programming style, which is intended for batch parallel execution. pbdMPI functions are SPMD extensions of MPI functions, rewritten from <a href="http://cran.r-project.org/web/packages/Rmpi/index.html">Rmpi</a> with many performance improvements, as well as a simplified interface.
+<p>
+This package provides an efficient interface to MPI by utilizing  R's S4 classes 
+and methods with a focus on Single Program, Multiple Data (SPMD) parallel 
+programming style, which is intended for batch parallel execution. pbdMPI 
+functions are SPMD extensions of MPI functions, rewritten from 
+<a href="http://cran.r-project.org/web/packages/Rmpi/index.html">Rmpi</a> 
+with many performance improvements, as well as a simplified interface.
+</p>
+
+<p>This package offers:</p>
 <ul>
-<li>Provides high-level, abstract interface to low-level, fast MPI code.</li>
-<li>Gains performance from directly calling MPI functions.</li>
-<li>Reduces the cost of compression in communication.</li>
-<li>Offers easy programming and debugging efforts.</li>
+<li>High-level, abstract interface to low-level, fast MPI code.</li>
+<li>Performance gains from directly calling MPI functions.</li>
+<li>Reductions in cost of compression in communication.</li>
+<li>Easy programming and debugging efforts.</li>
 </ul>
 
 
@@ -124,9 +143,17 @@ This package provides an efficient interface to MPI by utilizing  R's S4 classes
 <br>
 <h3>I/O</h3>
 <h5 id=ncdf4>pbdNCDF4</h5>
-This p
+<p>
+This package offers a friendly syntax to enable the management of 
+<a href="http://www.unidata.ucar.edu/software/netcdf/">NetCDF4</a> 
+data in parallel for R users.  To get the most out of this package, you need to have a parallel
+file system available.
+</p>
+
+<p>This package offers:</p>
 <ul>
-<li>Provides high-level, abstract interface to low-level, fast MPI code.</li>
+<li>Fast, efficient wrappers for reading and writing NetCDF4 data in parallel.</li>
+<li>An extension of the <a href="http://cran.r-project.org/web/packages/ncdf4/index.html">ncdf4</a> package.</li>
 </ul>
 
 
@@ -141,34 +168,22 @@ This p
 <h3>Computation</h3>
 
 
-<h5 id=slap>pbdSLAP</h5>
-<p><code>pbdSLAP</code> provides access to low-level, distributed matrix algebra Fortran libraries for use with R.  Namely, the package offers the R user access to a subset of <a href="http://www.netlib.org/scalapack/">ScaLAPACK</a>, PBLAS, and <a href="http://www.netlib.org/blacs/">BLACS</a> routines, which are utilized in the <code>pbdBASE</code> and <code>pbdDMAT</code> packages.</p>
-<p>The <code>pbdSLAP</code> package:</p>
+<h5 id=dmat>pbdDMAT, pbdBASE, and pbdSLAP</h5>
+<p>
+These packages offer high-level syntax for large scale, distributed matrix algebra 
+and statistics operations.  Users need only worry about installing all three and 
+learning pbdDMAT.  However, developers and anyone with access to commercial matrix algebra
+libraries 
+(<a href="http://software.intel.com/en-us/intel-mkl">MKL</a>, <a href="http://www.nersc.gov/users/software/programming-libraries/math-libraries/libsci/">LibSci</a>, ...) 
+should, at the least, see the pbdBASE and pbdSLAP vignettes, 
+respectively.
+</p>
+
+<p>These packages provide:</p>
 <ul>
-<li>Simplifies installation for the higher level pbdR packages.</li>
-<li>Allows the R user access to fast Fortran libraries for distributed linear algebra.</li>
-<li>Provides a simple infrastructure for using other distributions of ScaLAPACK,  such as <a href="http://software.intel.com/en-us/intel-mkl/">Intel&#8217;s MKL</a>, within R and the pbdR toolchain (see package vignette for details).</li>
-</ul>
-
-
-<h5 id=base>pbdBASE</h5>
-<p><code>pbdBASE</code> offers a set of S4 classes and methods for dealing with distributed objects.  At present, this includes a distributed dense matrix class, which manages <a href="http://acts.nersc.gov/scalapack/hands-on/datadist.html">block-cyclically distributed data</a> for use with ScaLAPACK.  Most of the low-level details have been abstracted away for the typical user, while access to the full complexity of BLACS is available to advanced users familiar with ScaLAPACK.</p>
-<p>The <code>pbdBASE</code> package:</p>
-<ul>
-<li>Offers a set of S4 classes and methods for storing and manipulating distributed data.</li>
-<li>Wraps essential low-level functions to utilize <code>pbdSLAP</code> in the pbdR toolchain.</li>
-<li>Utilizes a specialized MPI communicator for use with ScaLAPACK.</li>
-</ul>
-
-
-<h5 id=dmat>pbdDMAT</h5>
-<p><code>pbdDMAT</code> is a set of computational methods for the distributed matrix class object defined in <code>pbdBASE</code> which attempt to mimic native R syntax as much as possible.  Currently, these methods include everything from <code>abs()</code> and <code>apply()</code> to <code>svd() </code>and <code>cov()</code>.</p>
-<p>The <code>pbdDMAT</code> package:</p>
-<ul>
-<li>Offers methods which make computations in R scalable.</li>
-<li>Gives ScaLAPACK speed with R syntax.</li>
-<li>Abstracts away difficult MPI programming techniques, while still offering great performance and scaling.</li>
-<li>Breaks R&#8217;s local memory cap for matrix objects by distributing the data across many processors.</li>
+<li>Nearly-native R syntax, but with massive scalability.</li>
+<li>A host of matrix and statistics operations, everything from <code>`[`</code> to <code>lm.fit()</code>.
+<li>Simple installation of high performance libraries.</li>
 </ul>
 
 

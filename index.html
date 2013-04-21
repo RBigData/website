@@ -69,18 +69,45 @@
 
 
 
-<h3>Overview</h3>
-<p>The "Programming with Big Data in <a href="http://www.r-project.org/">R</a>" project (pbdR) enables high-level distributed data parallelism in R, so that it can easily utilize large HPC platforms and begin to use multiple levels of parallelism while retaining its original convenience for mathematics of data. We achieve this through, in part, providing a simplified interface to MPI as well as a tight coupling with distributed dense linear algebra software (PBLAS and ScaLAPACK, and their MPI library BLACS). The routines in these libraries are engaged through R&#8217;s classes and methods, so that the R language syntax is unchanged. While the user is not asked to deal with the details of managing the data distribution and MPI communication, the user is asked to be aware of the data distribution and provided with high-level functions to manage it if needed.</p>
-<p>To this end, we provide <a id="476_1" class="GTTabsLinks" onmouseover="GTTabsShowLinks(' Packages'); return true;" onmouseout="GTTabsShowLinks();">several R packages</a> which focus on analyzing big data, especially on large distributed machines. The packages are meant to be used in the <a id="476_4" class="GTTabsLinks" onmouseover="GTTabsShowLinks(' Useful Reading'); return true;" onmouseout="GTTabsShowLinks();">SPMD</a> programming model, with special focus on large scale computing clusters. Packages and instructions for installation are available in the <a id="476_2" class="GTTabsLinks" onmouseover="GTTabsShowLinks(' Download'); return true;" onmouseout="GTTabsShowLinks();">Download tab.</a></p>
+<h2>Overview</h2>
+<p>The "Programming with Big Data in <a href="http://www.r-project.org/">R</a>" 
+project (pbdR) enables high-level distributed data parallelism in R, so that it 
+can easily utilize large HPC platforms and begin to use multiple levels of 
+parallelism while retaining its original convenience for mathematics of data. 
+</p>
+
+<p>
+We achieve this through, in part, providing a simplified interface to MPI as 
+well as a tight coupling with the distributed dense linear algebra software 
+<a href="http://www.netlib.org/scalapack/">ScaLAPACK</a>. 
+The routines in these libraries are
+engaged through R's classes and methods, so that the R language syntax is 
+unchanged. While the user is not asked to deal with the details of managing the 
+data distribution and MPI communication, the user is asked to be aware of the data 
+distribution and provided with high-level functions to manage it if needed.
+</p>
+
+<p>To this end, we provide 
+<a href="packages.html">several R packages</a> 
+which focus on analyzing big data, especially on large distributed machines. The 
+packages are meant to be used in the 
+<a href="https://en.wikipedia.org/wiki/SPMD"> Single Program/Multiple Data (SPMD)</a> 
+programming model 
+(<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/?item=spmd">see also</a>), 
+with special focus on large scale computing clusters. Packages and 
+instructions for installation are available on the 
+<a href="download.html">downloads page</a>.
+</p>
+
 
 
 <br>
-<h3>Discussion Group</h3>
+<h2>Discussion Group</h2>
 <p>We maintain a google group, <a href="https://groups.google.com/forum/?fromgroups#!forum/rbigdataprogramming" target="_blank">RBigDataProgramming</a>, where you are encouraged to post discussions about the project, including any issues you may be experiencing.</p>
 
 
 <br>
-<h3>Suggestions/Questions/Comments</h3>
+<h2>Suggestions/Questions/Comments</h2>
 <p>The pbdR project is very much in its infancy.  In order to provide the best possible set of packages, we need user input.  For suggestions, questions, comments, bug reports, or anything else relevant that you wish to communicate, please do not hesitate to contact us at:</p>
 <ul>
 <li>Email at: <a href="mailto:RBigData AT gmail.com">RBigData AT gmail.com</a></li>
@@ -89,14 +116,37 @@
 
 
 
+
+
 <br>
-<h3>Authors</h3>
+<h3>Authors and Citation</h3>
 <p>
   <a href="http://www.csm.ornl.gov/%7Eost/" target="_blank"> George Ostrouchov</a>, 
   <a href="http://thirteen-01.stat.iastate.edu/snoweye/mypage/" target="_blank"> Wei-Chen Chen</a>, 
   <a href="http://wrathematics.github.io/" target="_blank">Drew Schmidt</a>, 
   and Pragneshkumar Patel.
 </p>
+
+
+<p>When mentioning the pbdR project, please cite:</p>
+<div style="width: 96.5%; padding: 0px; background-color: #d3d3d3; line-height: 1.0;">
+<pre> 
+@ONLINE{
+  pbdR2012,
+  author = {Ostrouchov, G. and Chen, W.-C. and Schmidt, D. and Patel, P.},
+  title = {Programming with Big Data in R},
+  year = {2012},
+  url = {http://r-pbd.org/}
+}
+ 
+</pre>
+</div>
+
+
+<br>
+<br>
+
+
 
 <p style="text-align: left;">
 <!-- Incoming proof that I don't know javascript -->
@@ -118,13 +168,15 @@ ornl[i++]= "<img class='alignnone  wp-image-740' title='olcf' src='images/olcf.p
 
 n=Math.floor(10*Math.random());
 
+document.write('<div align=center>')
+
 // this is disgusting, but I don't actually know javascript so I can't make this acceptable
 if (n<6) // slight bias for UT
 {
   for (i=0; i<4; i++){
     document.write( ut[i] );
   }
-  document.write('<br>')
+  document.write("</div><div align=center style='line-height:0px'>")
   for (i=0; i<4; i++){
     document.write( ornl[i] );
   }
@@ -134,29 +186,14 @@ else
   for (i=0; i<4; i++){
     document.write( ornl[i] );
   }
-  document.write('<br>')
+  document.write("</div><div align=center style='line-height:0px'>")
   for (i=0; i<4; i++){
     document.write( ut[i] );
   }
+
+document.write('</div>')
 }
 </script>
-</p>
-
-
-
-<br>
-<h3>Citation</h3>
-<p>When mentioning the Programming with Big Data in R, please cite:</p>
-<div style="width: 96.5%; padding: 0px; background-color: #d3d3d3; line-height: 1.0;">
-<pre>  
-@ONLINE{pbdR2012,
-  author = {Ostrouchov, G. and Chen, W.-C. and Schmidt, D. and Patel, P.},
-  title = {Programming with Big Data in R},
-  year = {2012},
-  url = {http://r-pbd.org/}
-}</pre>
-</div>
-
 
 
   </body>
