@@ -1,0 +1,13 @@
+@Misc{Chen2012pbdSLAPpackage,
+  title = {{pbdSLAP}: Programming with Big Data -- Scalable Linear Algebra Packages},
+  author = {Wei-Chen Chen and Drew Schmidt and George Ostrouchov and Pragneshkumar Patel},
+  year = {2012},
+  note = {{R} Package, URL http://cran.r-project.org/package=pbdSLAP},
+}
+
+@Manual{Chen2012pbdSLAPvignette,
+  title = {A Quick Guide for the {pbdSLAP} Package},
+  author = {Wei-Chen Chen and Drew Schmidt and George Ostrouchov and Pragneshkumar Patel},
+  year = {2012},
+  note = {{R} Vignette, URL http://cran.r-project.org/package=pbdSLAP},
+}

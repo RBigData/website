@@ -1,0 +1,13 @@
+@Misc{Ostrouchov2012pbdNCDF4package,
+  title = {{pbdNCDF4}: Programming with Big Data -- Interface to Parallel Unidata {NetCDF4} Format Data Files},
+  author = {George Ostrouchov and Pragneshkumar Patel and Wei-Chen Chen and Drew Schmidt and David Pierce},
+  year = {2012},
+  note = {{R} Package, URL http://cran.r-project.org/package=pbdNCDF4},
+}
+
+@Manual{Ostrouchov2012pbdNCDF4vignette,
+  title = {A Quick Guide for the {pbdNCDF4} Package},
+  author = {George Ostrouchov and Pragneshkumar Patel and Wei-Chen Chen and Drew Schmidt and David Pierce},
+  year = {2012},
+  note = {{R} Vignette, URL http://cran.r-project.org/package=pbdNCDF4},
+}
