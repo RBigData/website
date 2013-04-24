@@ -268,7 +268,7 @@ Full-Width Styles
 
 .inner {
   position: relative;
-  max-width: 640px;
+  max-width: 720px;
   padding: 0px 0px;
   margin: 0 auto;
 }
@@ -315,7 +315,8 @@ Full-Width Styles
   font-size: 24px;
   text-align: right;
   font-weight: 300;
-  padding: 0px 15px 0px 0px;
+/*  padding: 0px 15px 0px 0px; */
+  padding: 0px 53px 0px 0px; 
   background: none;
   text-shadow: #111 0px 0px 10px;
 }
