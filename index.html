@@ -73,22 +73,23 @@
 <h2>Overview</h2>
 <p>The "Programming with Big Data in <a href="http://www.r-project.org/">R</a>" 
 project (pbdR) enables high-level distributed data parallelism in R, so that it 
-can easily utilize large HPC platforms and begin to use multiple levels of 
-parallelism while retaining its original convenience for mathematics of data. 
+can easily utilize large HPC platforms with thousands of cores, making the R
+language scale to unparalleled heights.
 </p>
 
 <p>
-We achieve this through, in part, providing a simplified interface to MPI as 
-well as a tight coupling with the distributed dense linear algebra software 
-<a href="http://www.netlib.org/scalapack/">ScaLAPACK</a>. 
+We achieve this, in part, by providing a simple interface to scalable, high performance
+libraries, such as <a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a>,
+<a href="https://en.wikipedia.org/wiki/ScaLAPACK">ScaLAPACK</a>, and 
+<a href="https://en.wikipedia.org/wiki/NetCDF#Parallel-NetCDF">PnetCDF</a>.
 The routines in these libraries are
-engaged through R's classes and methods, so that the R language syntax is 
-unchanged. While the user is not asked to deal with the details of managing the 
-data distribution and MPI communication, the user is asked to be aware of the data 
-distribution and provided with high-level functions to manage it if needed.
+engaged through R's classes and methods, so that the R language syntax is largely 
+preserved, but with new, scalable, compiled code underneath. Most of the cumbersome
+distributed details are abstracted away for the user, although they are readily 
+accessible should the user desire them.
 </p>
 
-<p>To this end, we provide 
+<p>We provide 
 <a href="packages.html">several R packages</a> 
 which focus on analyzing big data, especially on large distributed machines. The 
 packages are meant to be used in the 
@@ -103,17 +104,30 @@ instructions for installation are available on the
 
 
 <br>
-<h2>Discussion Group</h2>
-<p>We maintain a google group, <a href="https://groups.google.com/forum/?fromgroups#!forum/rbigdataprogramming" target="_blank">RBigDataProgramming</a>, where you are encouraged to post discussions about the project, including any issues you may be experiencing.</p>
+<h2>Bugs/Suggestions/Questions/Comments</h2>
+<p>
+In order to provide the best 
+possible set of packages, we need user input.  For suggestions, questions, 
+comments, bug reports, or anything else relevant that you wish to communicate, 
+please do not hesitate to contact us.
+</p>
 
 
-<br>
-<h2>Suggestions/Questions/Comments</h2>
-<p>The pbdR project is very much in its infancy.  In order to provide the best possible set of packages, we need user input.  For suggestions, questions, comments, bug reports, or anything else relevant that you wish to communicate, please do not hesitate to contact us at:</p>
+<p>
+We maintain a google group, 
+<a href="https://groups.google.com/forum/?fromgroups#!forum/rbigdataprogramming" target="_blank">RBigDataProgramming</a>, 
+where you are encouraged to post discussions about the project, including any 
+issues you may be experiencing.
+</p>
+
+<p>
+Or if you prefer, feel free to email us at:
 <ul>
-<li>Email at: <a href="mailto:RBigData AT gmail.com">RBigData AT gmail.com</a></li>
+  <li>Email at: <a href="mailto:RBigData AT gmail.com">RBigData AT gmail.com</a></li>
 </ul>
-<p>Or you can email the respective package's maintainer.</p>
+<p>
+You can also email the respective package's maintainer.
+</p>
 
 
 
