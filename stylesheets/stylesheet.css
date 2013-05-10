@@ -307,7 +307,7 @@ Full-Width Styles
   text-align: center;
   font-size: 42px;
   font-weight: 700;
-  text-shadow: #111 0px 0px 10px;
+  text-shadow: #111 6px 6px 10px;
 }
 
 #project_tagline {
@@ -316,7 +316,7 @@ Full-Width Styles
   text-align: right;
   font-weight: 300;
 /*  padding: 0px 15px 0px 0px; */
-  padding: 0px 53px 0px 0px; 
+  padding: 0px 60px 0px 0px; 
   background: none;
   text-shadow: #111 0px 0px 10px;
 }
