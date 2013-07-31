@@ -19,7 +19,23 @@
   
   <!-- google botnet -->
   <script src="javascripts/botnet.js"></script>
-
+  
+  <!-- Link hiding css -->
+    <style>
+        li div {
+            display:none;
+            margin-left:10px;
+        }   
+    </style>
+    <script>
+        function togglechild(item){
+            if(item.getElementsByTagName("div")[0].style.display=="block")
+                item.getElementsByTagName("div")[0].style.display="none";
+            else
+                item.getElementsByTagName("div")[0].style.display="block";
+        }
+    </script>
+  
 </head>
 
 
@@ -66,39 +82,56 @@
 
 
 <h2>FAQ</h2>
+
+
+
+
 <ul>
-  <li>
-  <i>How hard is pbdR to install?</i><br>
-  The short answer is that it should mostly be as simple as issuing 
-  several <code>install.packages()</code> commands.  The hardest part
-  generally involves installing R and an MPI library.  There are some
-  special caveats to this for Windows users.  See our 
-  <a href="install.html">installation page</a> for full details about
-  setting up a pbdR environment.
-  </li>
-  <br>
-  <li>
-  <i>How do I get started with this?</i><br>
-  The best resource for getting started with this stuff is the
-  <a href="http://cran.r-project.org/web/packages/pbdDEMO/index.html">pbdDEMO package</a>, 
-  including its informative textbook-style vignette
-  <a href="http://cran.r-project.org/web/packages/pbdDEMO/vignettes/pbdDEMO-guide.pdf">Speaking Serial R with a Parallel Accent</a>.
-  The <a href="tutorial.html">tutorial page</a> on this site offers some other good 
-  advice.
-  </li>
-  <br>
-  <li>
-  <i>Where is pbdR installed and maintained?</i><br>
-    Our packages are installed and maintained on several systems:
-    <ul>
-      <li><a href="http://www.nics.tennessee.edu/computing-resources/nautilus">Nautilus</a>, NICS, University of Tennessee Knoxville, USA</li>
-      <li><a href="http://www.nics.tennessee.edu/computing-resources/kraken">Kraken</a>, NICS, University of Tennessee Knoxville, USA</li>
-      <li><a href="https://newton.utk.edu/">Newton</a>, University of Tennessee Knoxville, USA</li>
-      <li><a href="http://www.olcf.ornl.gov/titan/">Titan</a>, Oak Ridge National Laboratory, USA</li>
-    </ul>
-    If you have installed our packages on your cluster, we would love to hear
-    from you.  Email us at <a href="mailto:RBigData AT gmail.com">RBigData AT gmail.com</a>
-  </li>
+    <li>
+      <a href="javascript:void(0)" onclick="togglechild(this.parentNode)">
+        <i>How hard is pbdR to install?</i>
+      </a>
+        <div>
+          The short answer is that it should mostly be as simple as issuing 
+          several <code>install.packages()</code> commands.  The hardest part
+          generally involves installing R and an MPI library.  There are some
+          special caveats to this for Windows users.  See our 
+          <a href="install.html">installation page</a> for full details about
+          setting up a pbdR environment.
+        </div>
+    </li>
+    <li>
+      <a href="javascript:void(0)" onclick="togglechild(this.parentNode)">
+        <i>How do I get started with this?</i>
+      </a>
+        <div>
+            The best resource for getting started with this stuff is the
+            <a href="http://cran.r-project.org/web/packages/pbdDEMO/index.html">pbdDEMO package</a>, 
+            including its informative textbook-style vignette
+            <a href="http://cran.r-project.org/web/packages/pbdDEMO/vignettes/pbdDEMO-guide.pdf">Speaking Serial R with a Parallel Accent</a>.
+            The <a href="tutorial.html">tutorial page</a> on this site offers some other good 
+            advice.
+        </div>
+    </li>
+    <li>
+      <a href="javascript:void(0)" onclick="togglechild(this.parentNode)">
+        <i>Where is pbdR installed and maintained?</i>
+      </a>
+        <div>
+              Our packages are installed and maintained on several systems:
+              <ul>
+                <li><a href="http://www.nics.tennessee.edu/computing-resources/nautilus">Nautilus</a>, NICS, University of Tennessee Knoxville (UTK), USA</li>
+                <li><a href="http://www.nics.tennessee.edu/computing-resources/kraken">Kraken</a>, NICS, University of Tennessee Knoxville (UTK), USA</li>
+                <li><a href="https://newton.utk.edu/">Newton</a>, University of Tennessee Knoxville (UTK), USA</li>
+                <li><a href="http://www.olcf.ornl.gov/titan/">Titan</a>, Oak Ridge National Laboratory (ORNL), USA</li>
+                <li><a href="http://www.umbc.edu/hpcf/index.html">tara</a>, University of Maryland Baltimore County (UMBC), USA</li>
+              </ul>
+              If you have installed our packages on your cluster, or have questions about
+              installing them on your cluster, we would love to hear from you.  
+              Email us at <a href="mailto:RBigData AT gmail.com">RBigData AT gmail.com</a>
+              
+        </div>
+    </li>
 </ul>
 
 
