@@ -82,16 +82,24 @@ start by checking out the <a href="#demo">pbdDEMO package</a>, especially the
 </tr>
 <tr valign="center" align="center">
   <td>
-  <a href="#demo">pbdDEMO</a> <br> <a href="#mpi">pbdMPI</a>
+    <a href="#demo">pbdDEMO</a> 
+    <br> 
+    <a href="#mpi">pbdMPI</a>
+    <br>
+    <a href="prof">pbdPROF</a>
   </td>
   <td>
-  <a href="#ncdf4">pbdNCDF4</a>
+    <a href="#ncdf4">pbdNCDF4</a>
   </td>
   <td>
-  <a href="#dmat">pbdDMAT</a><br>  <a href="#dmat">pbdBASE</a><br>  <a href="#dmat">pbdSLAP</a>
+    <a href="#dmat">pbdDMAT</a>
+    <br>  
+    <a href="#dmat">pbdBASE</a>
+    <br>  
+    <a href="#dmat">pbdSLAP</a>
   </td>
   <td>
-  <a href="#pmclust">pmclust</a>
+    <a href="#pmclust">pmclust</a>
   </td>
 </tr>
 </table>
@@ -110,8 +118,8 @@ vignette that can quickly help you take your programming from 1 to 10,000+ cores
 
 <p>This package offers:</p>
 <ul>
-<li>A gentle introduction to high performance computing with R using the pbdR tools.</li>
-<li>An impressive set of <u>non-trivial</u> examples and companion text, specifically written with data scientists in mind.</li>
+  <li>A gentle introduction to high performance computing with R using the pbdR tools.</li>
+  <li>An impressive set of <u>non-trivial</u> examples and companion text, specifically written with data scientists in mind.</li>
 </ul>
 
 
@@ -128,12 +136,40 @@ with many performance improvements, as well as a simplified interface.
 
 <p>This package offers:</p>
 <ul>
-<li>High-level, abstract interface to low-level, fast MPI code.</li>
-<li>Performance gains from directly calling MPI functions.</li>
-<li>Reductions in cost of compression in communication.</li>
-<li>Easy programming and debugging efforts.</li>
+  <li>High-level, abstract interface to low-level, fast MPI code.</li>
+  <li>Performance gains from directly calling MPI functions.</li>
+  <li>Reductions in cost of compression in communication.</li>
+  <li>Easy programming and debugging efforts.</li>
 </ul>
 
+
+<h6 id=prof>pbdPROF</h6>
+<p>
+This package provides access to MPI profiling by way of managing the
+complicated compiling and linking issues.  In this way, a user need only
+install pbdPROF and then pass an install flag for an MPI-using R package
+(which has been set up for compatibility with pbdPROF).  Additionally, 
+the package offers parsing and plotting utilities for profiler outputs.
+</p>
+
+<p>
+Like all of our packages, pbdPROF has a very useful vignette, especially
+for package developers who are directly interfacing to MPI with compiled
+code (C or Fortran).  Currently, only the profiler 
+<a href="http://www.mcs.anl.gov/research/projects/fpmpi/WWW/features.html">fpmpi</a>
+is supported, although we plan to 
+soon support 
+<a href="http://mpip.sourceforge.net/">mpiP</a>
+and 
+<a href="http://www.cs.uoregon.edu/research/paracomp/tau/tauprofile/images/openmpi/">TAU</a>
+</p>
+
+<p>This package offers:</p>
+<ul>
+  <li>Easy installation.</li>
+  <li>The ability to profile MPI-using R code.</li>
+  <li>Parsing and plotting utilities for understanding profiler output.</li>
+</ul>
 
 
 
@@ -182,9 +218,9 @@ respectively.
 
 <p>These packages provide:</p>
 <ul>
-<li>Nearly-native R syntax, but with massive scalability.</li>
-<li>A host of matrix and statistics operations, everything from <code>`[`</code> to <code>lm.fit()</code>.
-<li>Simple installation of high performance libraries.</li>
+  <li>Nearly-native R syntax, but with massive scalability.</li>
+  <li>A host of matrix and statistics operations, everything from <code>`[`</code> to <code>lm.fit()</code>.
+  <li>Simple installation of high performance libraries.</li>
 </ul>
 
 
@@ -204,8 +240,8 @@ finite mixture Gaussian models.
 
 <p>This package offers:</p>
 <ul>
-<li>Fast, high-level model-based clustering for .</li>
-<li>An implementation of k-means clustering using the distributed matrix methods of pbdDMAT.</li>
+  <li>Fast, high-level model-based clustering for .</li>
+  <li>An implementation of k-means clustering using the distributed matrix methods of pbdDMAT.</li>
 </ul>
 
 
