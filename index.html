@@ -10,14 +10,14 @@
   <meta name="MSSmartTagsPreventParsing" content="true" />
   <meta name="description" content="pbdR - Programming with Big Data in R" />
   <meta name="keywords" content="pbdR,R,Big Data,pbdMPI,pbdSLAP,pbdBASE,pbdDMAT,pbdDEMO,pbdNCDF4,pbdPROF,Statistical Computing,Parallel Computing" />
-	
+
   <meta charset='utf-8' />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="description" content="Rbigdata.github.io : " />
 
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/nav.css">
-  
+
   <!-- google botnet -->
   <script src="javascripts/botnet.js"></script>
 
@@ -44,7 +44,7 @@
 	<div  id="content-wrap">
 	<div class="content-top"></div>
 	<div id="content">
-	
+
 	<div class="post" id="post_248">
 
 
@@ -73,8 +73,8 @@
 
 
 <h2>Overview</h2>
-<p>The "Programming with Big Data in <a href="http://www.r-project.org/">R</a>" 
-project (pbdR) enables high-level distributed data parallelism in R, so that it 
+<p>The "Programming with Big Data in <a href="http://www.r-project.org/">R</a>"
+project (pbdR) enables high-level distributed data parallelism in R, so that it
 can easily utilize large HPC platforms with thousands of cores, making the R
 language scale to unparalleled heights.
 </p>
@@ -82,24 +82,24 @@ language scale to unparalleled heights.
 <p>
 We achieve this, in part, by providing a simple interface to scalable, high performance
 libraries, such as <a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a>,
-<a href="https://en.wikipedia.org/wiki/ScaLAPACK">ScaLAPACK</a>, and 
+<a href="https://en.wikipedia.org/wiki/ScaLAPACK">ScaLAPACK</a>, and
 <a href="https://en.wikipedia.org/wiki/NetCDF">NetCDF4</a>.
 The routines in these libraries are
-engaged through R's classes and methods, so that the R language syntax is largely 
+engaged through R's classes and methods, so that the R language syntax is largely
 preserved, but with new, scalable, compiled code underneath. Most of the cumbersome
-distributed details are abstracted away for the user, although they are readily 
+distributed details are abstracted away for the user, although they are readily
 accessible should the user desire them.
 </p>
 
-<p>We provide 
-<a href="packages.html">several R packages</a> 
-which focus on analyzing big data, especially on large distributed machines. The 
-packages are meant to be used in the 
-<a href="https://en.wikipedia.org/wiki/SPMD"> Single Program/Multiple Data (SPMD)</a> 
-programming model 
-(<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/?item=spmd">see also</a>), 
-with special focus on large scale computing clusters. Packages and 
-instructions for installation are available on the 
+<p>We provide
+<a href="packages.html">several R packages</a>
+which focus on analyzing big data, especially on large distributed machines. The
+packages are meant to be used in the
+<a href="https://en.wikipedia.org/wiki/SPMD"> Single Program/Multiple Data (SPMD)</a>
+programming model
+(<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/?item=spmd">see also</a>),
+with special focus on large scale computing clusters. Packages and
+instructions for installation are available on the
 <a href="download.html">downloads page</a>.
 </p>
 
@@ -108,17 +108,17 @@ instructions for installation are available on the
 <br>
 <h2>Bugs/Suggestions/Questions/Comments</h2>
 <p>
-In order to provide the best 
-possible set of packages, we need user input.  For suggestions, questions, 
-comments, bug reports, or anything else relevant that you wish to communicate, 
+In order to provide the best
+possible set of packages, we need user input.  For suggestions, questions,
+comments, bug reports, or anything else relevant that you wish to communicate,
 please do not hesitate to contact us.
 </p>
 
 
 <p>
-We maintain a google group, 
-<a href="https://groups.google.com/forum/?fromgroups#!forum/rbigdataprogramming" target="_blank">RBigDataProgramming</a>, 
-where you are encouraged to post discussions about the project, including any 
+We maintain a google group,
+<a href="https://groups.google.com/forum/?fromgroups#!forum/rbigdataprogramming" target="_blank">RBigDataProgramming</a>,
+where you are encouraged to post discussions about the project, including any
 issues you may be experiencing.
 </p>
 
@@ -138,16 +138,16 @@ You can also email the respective package's maintainer.
 <br>
 <h2>Authors and Citation</h2>
 <p>
-  <a href="http://www.csm.ornl.gov/%7Eost/" target="_blank"> George Ostrouchov</a>, 
-  <a href="http://thirteen-01.stat.iastate.edu/snoweye/mypage/" target="_blank"> Wei-Chen Chen</a>, 
-  <a href="http://wrathematics.github.io/" target="_blank">Drew Schmidt</a>, 
+  <a href="http://www.csm.ornl.gov/%7Eost/" target="_blank"> George Ostrouchov</a>,
+  <a href="http://thirteen-01.stat.iastate.edu/snoweye/mypage/" target="_blank"> Wei-Chen Chen</a>,
+  <a href="http://wrathematics.github.io/" target="_blank">Drew Schmidt</a>,
   and Pragneshkumar Patel.
 </p>
 
 
 <p>When mentioning the pbdR project, please cite:</p>
 <div style="width: 96.5%; padding: 0px; background-color: #d3d3d3; line-height: 1.0;">
-<pre> 
+<pre>
 @ONLINE{
   pbdR2012,
   author = {Ostrouchov, G. and Chen, W.-C. and Schmidt, D. and Patel, P.},
@@ -155,7 +155,7 @@ You can also email the respective package's maintainer.
   year = {2012},
   url = {http://r-pbd.org/}
 }
- 
+
 </pre>
 </div>
 
@@ -165,15 +165,15 @@ You can also email the respective package's maintainer.
 <p style="text-align: left;">
 <!-- Incoming proof that I don't know javascript -->
 <script language="Javascript">
-function banner() { }; 
-  ut = new banner(); 
+function banner() { };
+  ut = new banner();
   i = 0
   ut[i++]= "<img title='ut' src='images/ut.png' alt='' width=147 height=52>"
   ut[i++]= "<img title='rdav' src='images/rdav.png' alt='' width=149 height=52>"
   ut[i++]= "<img title='nsf' src='images/nsf.png' alt='' width=50 height=52>"
   ut[i++]= "<img title='xsede' src='images/xsede-2.png' alt='' width=158 height=52>"
 
-  ornl = new banner(); 
+  ornl = new banner();
   i = 0
   ornl[i++]= "<img title='ornl' src='images/ornl.png' alt='' width=133 height=52>"
   ornl[i++]= "<img title='sdg' src='images/sdg.png' alt='' width=132 height=52>"
@@ -183,7 +183,7 @@ function banner() { };
   n=Math.floor(10*Math.random());
 
   document.write("<div align=center style='line-height:0px'>")
-  document.write("<img title='pbdR' src='images/simple.png' alt='' height=75>")
+  document.write("<img title='pbdR' src='images/newpbdr.png' alt='' height=75>")
   document.write("</div><div align=center style='line-height:0px'>")
   // this is disgusting, but I don't actually know javascript so I can't make this acceptable
   if (n<6) // slight bias for UT
