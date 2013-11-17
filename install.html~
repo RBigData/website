@@ -94,21 +94,17 @@ pbdR is currently installed on the following HPC resources:
 <tr valign="center" align="center">
   <td>Kraken (XSEDE)</td>
   <td>Titan</td>
-  <td>Stampede, TACC (XSEDE)
 </tr>
 <tr valign="center" align="center">
   <td> Nautilus </td>
   <td>Lens</td>
-  <td>tara, UMBC</td>
 </tr>
 <tr valign="center" align="center">
   <td> Darter </td>
   <td>Chester</td>
-  <td>Hopper, NERSC</td>
 <tr valign="center" align="center">
   <td> Newton </td>
   <td>Sith</td>
-  <td>Edison, NERSC</td>
 </tr>
 </table>
 
