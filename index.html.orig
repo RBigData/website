@@ -31,7 +31,7 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-    <h1 id="project_title"><font color="#38761D">p</font><font color="#990000">b</font><font color="#BF9000">d</font><font color="#8698C0">R</font>:<br> <font color="#38761D">p</font>rogramming with <font color="#990000">b</font>ig <font color="#BF9000">d</font>ata in <font color="#8698C0">R</font></h1>
+    <h1 id="project_title"><font color="#38761D">p</font><font color="#990000">b</font><font color="#BF9000">d</font><font color="#8698C0">R</font>: <font color="#38761D">p</font>rogramming with <font color="#990000">b</font>ig <font color="#BF9000">d</font>ata in <font color="#8698C0">R</font></h1>
           <h2 id="project_tagline">Simplifying Scalability</h2>
         </header>
     </div>
@@ -59,7 +59,11 @@
 	<li><a href="install.html">Install</a></li>
 	<li><a href="tutorials.html">Tutorials</a></li>
 	<li><a href="faq.html">FAQ</a></li>
+<<<<<<< HEAD
+    <li><a href="highlight.html">Highlight</a></li>
+=======
 	<li><a href="misc.html">Misc</a></li>
+>>>>>>> 9c19f1057171f0d5effd4fa82850db57aafeb20e
 </ul>
 
 
@@ -169,14 +173,12 @@ function banner() { };
   ut = new banner();
   i = 0
   ut[i++]= "<img title='ut' src='images/ut.png' alt='' width=147 height=52>"
-  ut[i++]= "<img title='rdav' src='images/rdav.png' alt='' width=149 height=52>"
   ut[i++]= "<img title='nsf' src='images/nsf.png' alt='' width=50 height=52>"
   ut[i++]= "<img title='xsede' src='images/xsede-2.png' alt='' width=158 height=52>"
 
   ornl = new banner();
   i = 0
   ornl[i++]= "<img title='ornl' src='images/ornl.png' alt='' width=133 height=52>"
-  ornl[i++]= "<img title='sdg' src='images/sdg.png' alt='' width=132 height=52>"
   ornl[i++]= "<img title='doe' src='images/doe.png' alt='' width=51 height=52>"
   ornl[i++]= "<img title='olcf' src='images/olcf.png' alt='' width=198 height=52>"
 
