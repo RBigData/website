@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+img {border:1px solid black;}
+img {width:80%;}
+</style>
+<meta charset="utf-8" />
+<title>NIMBioS Tutorial -- Computing in the Cloud</title>
+</head>
+<body>
+<h3>How to Launch Our Public Amazon Machine Image (AMI) as an Elastic Compute Cloud (EC2) Instance </h3>
+<ol>
+<li>
+	<p>From the  <a href="http://aws.amazon.com">Amazon Web Services homepage</a> , select "AWS Management Console" from the "My Account/Console" drop down menu.</p>
+	<img src="1.png" alt="">
+</li>
+<li>
+	<p>Enter your AWS account credentials and sign in.
+	</p>
+	<img src="2.png" alt=""></li>
+<li>
+	<p>Select "EC2: Virtual Servers in the Cloud" from the selection list.</p>
+	<img src="3.png" alt="">
+</li>
+<li>
+	<p> Change the current region to US East (N. Virginia) from the right side of the top navigation menu (if it is not already selected). Our provided Amazon Machine Images are located in the US East datacenter.</p>
+		<img src="4.png" alt="">
+</li>
+<li>
+	<p>Select "AMIs" from the left-hand selection list, under the "Images" section.</p>
+	<img src="5.png" alt="">
+</li>
+<li>
+	<p>From the "Filter" Bar, under the drop down menu labeled "Owned by me", select "Public images".</p>
+	<img src="6.png" alt="">
+</li>
+<li>
+	<p>Enter the AMI ID which we have provided to you into the search area. Select the AMI and then click "Launch".</p>
+	<img src="7.png" alt="">
+</li>
+<li>
+	<p>Select the type of EC2 instance to run. Here we choose "General purpose".</p>
+	<img src="8.png" alt="">
+</li>
+<li>
+	<p>Now select the specific instance type. Here we choose "m3.2xlarge", an 8 vCPU instance. Afterwards, select "Review and Launch".</p>
+	<img src="9.png" alt="">
+</li>
+<li>
+	<p>Select "Launch" in the lower right hand corner.</p>
+	<img src="10.png" alt="">
+</li>
+<li>
+	<p>For users who only wish to use Rstudio, you will not need to worry about setting up an RSA key pair during this step. 
+	<br/>Select "Proceed without a key pair", click the checkbox, and then click "Launch Instances".
+	</p>
+	<img src="11.png" alt="">
+</li>
+<li>
+	<p>Check the launch log of your instances if you wish. When you are finished, click "View Instances".</p>
+	<img src="12.png" alt="">
+</li>
+<li>
+	<p>Select the running instance which we have created. In the bottom portion of the screen, additional details are displayed.
+	<br/>Copy the "Public DNS" field. We will need this in the next step to access the Rstudio web interface.</p>
+	<img src="13.png" alt="">
+</li>
+<li>
+	<p>Paste the "Public DNS" from the previous step into the web browser URL area. 
+	<br/>If your instance is currently running, then you should be greeted with the Rstudio login page.
+	<br/>Enter "rstudio" for both the username and password to login as the "rstudio" user.
+	</p>
+	<img src="14.png" alt="">
+</li>
+<li>
+	<p>Congratulations, you have now successfully set up Rstudio on your own server in the cloud.</p>
+	<img src="15.png" alt="">
+</li>
+</ol>
+</body>
+</html>
