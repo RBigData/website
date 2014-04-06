@@ -63,7 +63,13 @@ img {width:80%;}
 </li>
 <li>
 	<p>Select the running instance which we have created. In the bottom portion of the screen, additional details are displayed.
-	<br/>Copy the "Public DNS" field. We will need this in the next step to access the Rstudio web interface.</p>
+	<br/>Copy the "Public DNS" field. We will need this in the next step to access the Rstudio web interface.
+	<br>
+	From our instances page, we select the running instance.  In the description box in
+	the lower portion of the screen, locate "Security groups", click the first one.
+	Right click the security group, select "Edit inboud rules".  Select "Add Rule", and
+	from the dropdown select "HTTP" and then click save.
+	</p>
 	<img src="13.png" alt="">
 </li>
 <li>
