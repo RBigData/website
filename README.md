@@ -1,6 +1,6 @@
 The website for the pbdR project.
 
-Copyright (C) 2013 pbdR Core Team
+Copyright (C) 2013-2014 pbdR Core Team
 
 Permission is hereby granted, free of charge, to any person obtaining a copy 
 of this software and associated documentation files (the "Software"), to 
