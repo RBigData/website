@@ -7,7 +7,7 @@
   <meta name="MSSmartTagsPreventParsing" content="true" />
   <meta name="description" content="Programming with Big Data in R" />
   <meta name="keywords" content="R,pbdR,Big Data,pbdMPI,pbdSLAP,pbdBASE,pbdDMAT,pbdDEMO,Statistical Computing,Parallel Computing" />
-	
+
   <meta charset='utf-8' />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="description" content="Rbigdata.github.io : " />
@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/nav.css">
 
   <title>Programming with Big Data in R</title>
-  
+
   <!-- google botnet -->
   <script src="javascripts/botnet.js"></script>
 </head>
@@ -43,7 +43,7 @@
 	<div  id="content-wrap">
 	<div class="content-top"></div>
 	<div id="content">
-	
+
 	<div class="post" id="post_248">
 
 
@@ -67,23 +67,23 @@
 
 <h2>Packages</h2>
 <p>
-If you have no idea where to begin and/or have limited experience with MPI programming, 
-start by checking out the <a href="#demo">pbdDEMO package</a>, especially the 
-<a href="http://cran.r-project.org/web/packages/pbdDEMO/vignettes/pbdDEMO-guide.pdf/">pbdDEMO vignette</a>.
+If you have no idea where to begin and/or have limited experience with MPI programming,
+start by checking out the <a href="#demo">pbdDEMO package</a>, especially the
+<a href="http://cran.r-project.org/web/packages/pbdDEMO/vignettes/pbdDEMO-guide.pdf">pbdDEMO vignette</a>.
 </p>
 
 <center>
 <table width=95%>
 <tr valign="center" align="center">
-  <th>General</th> 
-  <th>I/O</th> 
-  <th>Computation</th> 
+  <th>General</th>
+  <th>I/O</th>
+  <th>Computation</th>
   <th>Application</th>
 </tr>
 <tr valign="center" align="center">
   <td>
-    <a href="#demo">pbdDEMO</a> 
-    <br> 
+    <a href="#demo">pbdDEMO</a>
+    <br>
     <a href="#mpi">pbdMPI</a>
     <br>
     <a href="#prof">pbdPROF</a>
@@ -93,9 +93,9 @@ start by checking out the <a href="#demo">pbdDEMO package</a>, especially the
   </td>
   <td>
     <a href="#dmat">pbdDMAT</a>
-    <br>  
+    <br>
     <a href="#dmat">pbdBASE</a>
-    <br>  
+    <br>
     <a href="#dmat">pbdSLAP</a>
   </td>
   <td>
@@ -126,11 +126,11 @@ vignette that can quickly help you take your programming from 1 to 10,000+ cores
 
 <h6 id=mpi>pbdMPI</h6>
 <p>
-This package provides an efficient interface to MPI by utilizing  R's S4 classes 
-and methods with a focus on Single Program, Multiple Data (SPMD) parallel 
-programming style, which is intended for batch parallel execution. pbdMPI 
-functions are SPMD extensions of MPI functions, rewritten from 
-<a href="http://cran.r-project.org/web/packages/Rmpi/index.html">Rmpi</a> 
+This package provides an efficient interface to MPI by utilizing  R's S4 classes
+and methods with a focus on Single Program, Multiple Data (SPMD) parallel
+programming style, which is intended for batch parallel execution. pbdMPI
+functions are SPMD extensions of MPI functions, rewritten from
+<a href="http://cran.r-project.org/web/packages/Rmpi/index.html">Rmpi</a>
 with many performance improvements, as well as a simplified interface.
 </p>
 
@@ -148,19 +148,19 @@ with many performance improvements, as well as a simplified interface.
 This package provides access to MPI profiling by way of managing the
 complicated compiling and linking issues.  In this way, a user need only
 install pbdPROF and then pass an install flag for an MPI-using R package
-(which has been set up for compatibility with pbdPROF).  Additionally, 
+(which has been set up for compatibility with pbdPROF).  Additionally,
 the package offers parsing and plotting utilities for profiler outputs.
 </p>
 
 <p>
 Like all of our packages, pbdPROF has a very useful vignette, especially
 for package developers who are directly interfacing to MPI with compiled
-code (C or Fortran).  Currently, only the profiler 
+code (C or Fortran).  Currently, only the profiler
 <a href="http://www.mcs.anl.gov/research/projects/fpmpi/WWW/features.html">fpmpi</a>
-is supported, although we plan to 
-soon support 
+is supported, although we plan to
+soon support
 <a href="http://mpip.sourceforge.net/">mpiP</a>
-and 
+and
 <a href="http://www.cs.uoregon.edu/research/paracomp/tau/tauprofile/images/openmpi/">TAU</a>
 </p>
 
@@ -181,8 +181,8 @@ and
 <h3>I/O</h3>
 <h6 id=ncdf4>pbdNCDF4</h6>
 <p>
-This package offers a friendly syntax to enable the management of 
-<a href="http://www.unidata.ucar.edu/software/netcdf/">NetCDF4</a> 
+This package offers a friendly syntax to enable the management of
+<a href="http://www.unidata.ucar.edu/software/netcdf/">NetCDF4</a>
 data in parallel for R users.  To get the most out of this package, you need to have a parallel
 file system available.
 </p>
@@ -207,12 +207,12 @@ file system available.
 
 <h6 id=dmat>pbdDMAT, pbdBASE, and pbdSLAP</h6>
 <p>
-These packages offer high-level syntax for large scale, distributed matrix algebra 
-and statistics operations.  Users need only worry about installing all three and 
+These packages offer high-level syntax for large scale, distributed matrix algebra
+and statistics operations.  Users need only worry about installing all three and
 learning pbdDMAT.  However, developers and anyone with access to commercial matrix algebra
-libraries 
-(<a href="http://software.intel.com/en-us/intel-mkl">MKL</a>, <a href="http://www.nersc.gov/users/software/programming-libraries/math-libraries/libsci/">LibSci</a>, ...) 
-should, at the least, see the pbdBASE and pbdSLAP vignettes, 
+libraries
+(<a href="http://software.intel.com/en-us/intel-mkl">MKL</a>, <a href="http://www.nersc.gov/users/software/programming-libraries/math-libraries/libsci/">LibSci</a>, ...)
+should, at the least, see the pbdBASE and pbdSLAP vignettes,
 respectively.
 </p>
 
@@ -232,10 +232,10 @@ respectively.
 <h3>Application</h3>
 <h6 id=pmclust>pmclust</h6>
 <p>
-This package implements parallel model-based clustering, an unsupervised learning 
-technique, for high dimensional and ultra large distributed data. The package employs 
-pbdMPI to perform an expectation-gathering-maximization (EGM)  algorithm for 
-finite mixture Gaussian models. 
+This package implements parallel model-based clustering, an unsupervised learning
+technique, for high dimensional and ultra large distributed data. The package employs
+pbdMPI to perform an expectation-gathering-maximization (EGM)  algorithm for
+finite mixture Gaussian models.
 </p>
 
 <p>This package offers:</p>
