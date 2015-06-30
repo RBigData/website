@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>headsortails. pbdDMAT 0.3-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">pbdDMAT 0.3-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Head and Tail of a Distributed Matrix</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>"head"(x, n&nbsp;=&nbsp;6L, ...)</div>
+<div>"tail"(x, n&nbsp;=&nbsp;6L, ...)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd>numeric distributed matrix.</dd>
+      <dt>n</dt>
+      <dd>a single integer. If positive, size for the resulting object:
+number of elements for a vector (including lists), rows for a matrix or data
+frame or lines for a function. If negative, all but the <code>n</code> last/first
+number of elements of <code>x</code>.</dd>
+      <dt>...</dt>
+      <dd>additional arguments.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a distributed matrix.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>The functions rely on reblocking across different BLACS contexts.  If
+<code>i</code> is not empty, then the input distributed matrix will be
+redistributed along context 1, where extracting/deleting rows does not
+destroy block-cyclicality. Likewise, if <code>j</code> is not empty, then the
+input distributed matrix will be redistributed along context 2. When
+extraction is complete, the matrix will be redistributed across its input
+context.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
+# # &gt; mpiexec -np 2 Rscript demo.r
+# 
+# library(pbdDMAT, quiet = TRUE)
+# init.grid()
+# 
+# x &lt;- ddmatrix(1:9, 3, bldim=2)
+# 
+# y &lt;- head(y, 2)
+# print(y)
+# 
+# finalize()
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>head.ddmatrix</li><li>headsortails</li><li>tail.ddmatrix</li>
+    </ul>
+    <ul>
+      <li>Extraction</li><li>Methods</li>
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

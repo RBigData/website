@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>math. pbdDMAT 0.3-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">pbdDMAT 0.3-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Miscellaneous Mathematical Functions</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>"sqrt"(x)</div>
+<div>"abs"(x)</div>
+<div>"exp"(x)</div>
+<div>"log"(x, base&nbsp;=&nbsp;exp(1))</div>
+<div>"log2"(x)</div>
+<div>"log10"(x)</div>
+<div>"log1p"(x)</div>
+<div>"sin"(x)</div>
+<div>"cos"(x)</div>
+<div>"tan"(x)</div>
+<div>"asin"(x)</div>
+<div>"acos"(x)</div>
+<div>"atan"(x)</div>
+<div>"sinh"(x)</div>
+<div>"cosh"(x)</div>
+<div>"tanh"(x)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd>numeric distributed matrix</dd>
+      <dt>base</dt>
+      <dd>a positive number: the base with respect to which logarithms are
+computed. Defaults to e='exp(1)'.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a distributed matrix.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Binary operations for distributed matrix/distributed matrix and distributed
+matrix/vector operations.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Performs the miscellaneous mathematical calculation on a distributed matrix.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
+# # &gt; mpiexec -np 2 Rscript demo.r
+# 
+# library(pbdDMAT, quiet = TRUE)
+# init.grid()
+# 
+# # don&#39;t do this in production code
+# x &lt;- matrix(1:9, 3)
+# x &lt;- as.ddmatrix(x)
+# 
+# y &lt;- sqrt(abs(log(x/10)))
+# comm.print(y)
+# 
+# finalize()
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>abs,ddmatrix-method</li><li>acos,ddmatrix-method</li><li>asin,ddmatrix-method</li><li>atan,ddmatrix-method</li><li>cos,ddmatrix-method</li><li>cosh,ddmatrix-method</li><li>exp,ddmatrix-method</li><li>log,ddmatrix-method</li><li>log10,ddmatrix-method</li><li>log1p,ddmatrix-method</li><li>log2,ddmatrix-method</li><li>math</li><li>sin,ddmatrix-method</li><li>sinh,ddmatrix-method</li><li>sqrt,ddmatrix-method</li><li>tan,ddmatrix-method</li><li>tanh,ddmatrix-method</li>
+    </ul>
+    <ul>
+      <li>Methods</li>
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

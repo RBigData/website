@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>ddmatrix-apply. pbdDMAT 0.3-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">pbdDMAT 0.3-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Apply Family of Functions</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>"apply"(X, MARGIN, FUN, ..., reduce&nbsp;=&nbsp;FALSE, proc.dest&nbsp;=&nbsp;"all")</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>X</dt>
+      <dd>distributed matrix</dd>
+      <dt>MARGIN</dt>
+      <dd>subscript over which the function will be applied</dd>
+      <dt>FUN</dt>
+      <dd>the function to be applied</dd>
+      <dt>...</dt>
+      <dd>additional arguments to FUN</dd>
+      <dt>reduce</dt>
+      <dd>logical or string. See details</dd>
+      <dt>proc.dest</dt>
+      <dd>Destination process (or 'all') if a reduction occurs</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a distributed matrix unless a reduction is requested, then a
+global matrix/vector is returned.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Apply a function to the margins of a distributed matrix.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>If <code>reduce==TRUE</code> then a global matrix or vector (whichever is more
+appropriate) will be returned. The argument <code>proc.dest=</code> behaves
+exactly as in the <code>as.vector()</code> and <code>as.matrix()</code> functions of
+<span class = "pkg">pbdDMAT</span>. If <code>reduce=FALSE</code> then a distributed matrix is returned.
+Other acceptable arguments are <code>reduce="matrix"</code> and
+<code>reduce="vector"</code> which demand global matrix or vector return,
+respectively. This should generally be slightly more efficient than running
+apply and then calling <code>as.vector()</code> or <code>as.matrix()</code>.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
+# # &gt; mpiexec -np 2 Rscript demo.r
+# 
+# library(pbdDMAT, quiet = TRUE)
+# init.grid()
+# 
+# x &lt;- ddmatrix(1:9, 3, bldim=2)
+# 
+# y &lt;- as.vector(apply(x, 1, mean))
+# comm.print(y)
+# 
+# finalize()
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>apply</li><li>apply,ddmatrix-method</li><li>ddmatrix-apply</li>
+    </ul>
+    <ul>
+      <li>Extraction</li><li>Methods</li>
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

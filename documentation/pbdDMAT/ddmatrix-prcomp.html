@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>ddmatrix-prcomp. pbdDMAT 0.3-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">pbdDMAT 0.3-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Principal Components Analysis</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>prcomp(x, ...)</div>
+<div>"prcomp"(x, retx&nbsp;=&nbsp;TRUE, center&nbsp;=&nbsp;TRUE, scale.&nbsp;=&nbsp;FALSE, tol&nbsp;=&nbsp;NULL, ...)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd>numeric distributed matrix.</dd>
+      <dt>...</dt>
+      <dd>Ignored.</dd>
+      <dt>retx</dt>
+      <dd>logical, indicates whether the rotated variables should be
+returned</dd>
+      <dt>center</dt>
+      <dd>logical value, determines whether or not columns are zero
+centered</dd>
+      <dt>scale.</dt>
+      <dd>logical value, determines whether or not columns are rescaled
+to unit variance</dd>
+      <dt>tol</dt>
+      <dd>a value indicating the magnitude below which components should be
+omitted. (Components are omitted if their standard deviations are less than
+or equal to <code>tol</code> times the standard deviation of the first component.)
+With the default null setting, no components are omitted.  Other settings
+for tol could be <code>tol = 0</code> or <code>tol = sqrt(.Machine$double.eps)</code>,
+which would omit essentially constant components</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a list.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Performs the principal components analysis.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p><code>prcomp()</code> performs the principal components analysis on the data
+matrix by taking the SVD. Sometimes core R and pbdDMAT will disagree
+slightly in what the rotated variables are because of how the SVD is
+caluclated.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
+# # &gt; mpiexec -np 2 Rscript demo.r
+# 
+# library(pbdDMAT, quiet = TRUE)
+# init.grid()
+# 
+# comm.set.seed(diff=T)
+# 
+# x &lt;- ddmatrix(&quot;rnorm&quot;, 10, 10)
+# 
+# y &lt;- prcomp(x)
+# comm.print(y)
+# 
+# finalize()
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>ddmatrix-prcomp</li><li>prcomp</li><li>prcomp,ddmatrix-method</li>
+    </ul>
+    <ul>
+      <li>Methods</li>
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

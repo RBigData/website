@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>na. pbdDMAT 0.3-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">pbdDMAT 0.3-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Handle Missing Values in Distributed Matrices</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>na.exclude(object, ...)</div>
+<div>"na.exclude"(object, ..., ICTXT)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>object</dt>
+      <dd>numeric distributed matrix</dd>
+      <dt>...</dt>
+      <dd>extra arguments</dd>
+      <dt>ICTXT</dt>
+      <dd>optional BLACS context number for output</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Dealing with NA's and NaN's.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Removes rows containing NA's and NaN's.</p>
+  
+      <p>The function relies on reblocking across different BLACS contexts.  The
+input distributed matrix will be redistributed along context 1, where
+extracting/deleting rows does not destroy block-cyclicality.</p>
+  
+      <p>Only advanced users should supply an <code>ICTXT</code> value. Most should simply
+leave this argument blank.</p>
+  
+      <p>The context of the return is dependent on the function arguments.  If the
+<code>ICTXT=</code> argument is missing, then the return will be redistributed
+across its input context <code>object@ICTXT</code>.  Otherwise, the return will be
+redistributed across the supplied <code>ICTXT</code>.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
+# # &gt; mpiexec -np 2 Rscript demo.r
+# 
+# library(pbdDMAT, quiet = TRUE)
+# init.grid()
+# 
+# # don&#39;t do this in production code
+# x &lt;- matrix(1:9, 3)
+# x[1, 1] &lt;- NA
+# x &lt;- as.ddmatrix(x)
+# 
+# y &lt;- na.exclude(x)
+# comm.print(y)
+# 
+# finalize()
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>na</li><li>na.exclude</li><li>na.exclude,ddmatrix-method</li>
+    </ul>
+    <ul>
+      <li>Extraction</li><li>Methods</li><li>Type</li>
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Index. pbdDMAT 0.3-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">pbdDMAT 0.3-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <div class="row">
+  <div class="span8">
+    <h1>pbdDMAT</h1>
+
+<ul>
+<li><strong>Version:</strong> 0.3-3</li>
+<li><strong>License:</strong> <a href="http://www.gnu.org/licenses/gpl-2.0.html"><img src="http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-orange.svg?style=flat" alt="License"/></a></li>
+<li><strong>Author:</strong> See section below.</li>
+</ul>
+
+<p>pbdDMAT is an R package for distributed matrix algebra and statistics 
+computations over MPI.</p>
+
+<p>With few exceptions (ff, bigalgebra, etc.), R does computations in memory.
+If the memory of a matrix is too large for a single node, then
+distributing the ownership of the matrix across multiple nodes is
+an effective strategy in working with such large data.</p>
+
+<p>The pbdDMAT package contains numerous routines to help with the
+distribution and management of data, as well as functions for
+summarizing, inspecting, and analyzing distributed matrices.</p>
+
+<p>Often the syntax is identical to serial R, only instead of calling
+<code>cov(x)</code> on a matrix <code>x</code>, you would call it on a distributed matrix
+<code>x</code>.  This is possible by extensive use of R&#39;s S3 and S4 methods.</p>
+
+<p>Much of the numerical linear algebra is powered by the ScaLAPACK
+library, which is the distributed analogue of LAPACK, used
+extensively by R.</p>
+
+<h2>Usage</h2>
+
+<pre><code class="r"># load the package
+library(pbdDMAT)
+
+# initialize the specialized MPI communicators
+init.grid()
+
+# create a 100x100 distributed matrix object
+dx &lt;- ddmatrix(1:100, 10)
+
+# print
+dx
+print(dx, all=TRUE)
+
+
+# shut down the communicators and exit
+finalize()
+</code></pre>
+
+<p>Save this program as <code>pbd_example.r</code> and run it via:</p>
+
+<pre><code>mpirun -np 2 Rscript pbd_example.r
+</code></pre>
+
+<p>Numerous other examples can be found in both the
+<a href="https://github.com/wrathematics/pbdDMAT/blob/master/inst/doc/pbdDMAT-guide.pdf">pbdDMAT vignette</a>
+as well as the <a href="https://github.com/wrathematics/pbdDEMO">pbdDEMO package</a>
+and its corresponding <a href="https://github.com/wrathematics/pbdDEMO/blob/master/inst/doc/pbdDEMO-guide.pdf">vignette</a>.</p>
+
+<h2>Installation</h2>
+
+<p>pbdDMAT requires</p>
+
+<ul>
+<li>A system installation of MPI</li>
+<li>R version 2.14.0 or higher</li>
+<li>The pbdMPI and pbdBASE packages, as well as their dependencies.</li>
+</ul>
+
+<p>The package can be installed from the CRAN via the usual
+<code>install.packages(&quot;pbdDMAT&quot;)</code>, or via the devtools package:</p>
+
+<pre><code class="r">library(devtools)
+install_github(&quot;wrathematics/pbdDMAT&quot;)
+</code></pre>
+
+<p>See the vignette for installation troubleshooting.</p>
+
+<h2>Authors</h2>
+
+<p>pbdDMAT is authored and maintained by the pbdR core team:</p>
+
+<ul>
+<li>Drew Schmidt</li>
+<li>Wei-Chen Chen</li>
+<li>George Ostrouchov</li>
+<li>Pragneshkumar Patel</li>
+</ul>
+
+<p>With additional contributions from:</p>
+
+<ul>
+<li>The R Core team (some wrapper code taken from the base and stats packages)</li>
+<li>ZhaoKang Wang</li>
+</ul>
+
+
+    <h2>Help topics</h2>
+
+    <h3></h3>
+    
+    
+    <ul class="index">
+        
+      <li>
+        <code><a href="accessors.html">Accessors</a></code>(ICTXT, ICTXT,ddmatrix-method, NCOL, NCOL,ddmatrix-method, NROW, NROW,ddmatrix-method, bldim, bldim,ddmatrix-method, dim,ddmatrix-method, ldim, ldim,ddmatrix-method, length,ddmatrix-method, ncol, ncol,ddmatrix-method, nrow, nrow,ddmatrix-method, submatrix, submatrix,ddmatrix-method)<br />Accessor Functions for Distributed Matrix Slots</li>
+            
+      <li>
+        <code><a href="arithmetic.html">arithmetic</a></code>(*,ddmatrix,ddmatrix-method, *,ddmatrix,numeric-method, *,numeric,ddmatrix-method, +,ddmatrix,ddmatrix-method, +,ddmatrix,numeric-method, +,numeric,ddmatrix-method, -,ddmatrix,ddmatrix-method, -,ddmatrix,missing-method, -,ddmatrix,numeric-method, -,numeric,ddmatrix-method, /,ddmatrix,ddmatrix-method, /,ddmatrix,numeric-method, /,numeric,ddmatrix-method, %/%,ddmatrix,ddmatrix-method, %/%,ddmatrix,numeric-method, %/%,numeric,ddmatrix-method, %%,ddmatrix,ddmatrix-method, %%,ddmatrix,numeric-method, %%,numeric,ddmatrix-method, ^,ddmatrix,ddmatrix-method, ^,ddmatrix,numeric-method)<br />Arithmetic Operators</li>
+            
+      <li>
+        <code><a href="as.ddmatrix.html">as.ddmatrix</a></code>(as.ddmatrix,NULL-method, as.ddmatrix,matrix-method, as.ddmatrix,vector-method, distribute)<br />Non-Distributed object to Distributed Object Converters</li>
+            
+      <li>
+        <code><a href="as.matrix.html">as.matrix</a></code>(as.matrix,ddmatrix-method)<br />Distributed object to Matrix Converters</li>
+            
+      <li>
+        <code><a href="as.rowcyclic.html">as.rowcyclic</a></code>(as.block, as.blockcyclic, as.colblock, as.colcyclic, as.rowblock)<br />Distribute/Redistribute matrices across the process grid</li>
+            
+      <li>
+        <code><a href="as.vector.html">as.vector</a></code>(as.vector,ANY-method, as.vector,ddmatrix-method)<br />Distributed object to Vector Converters</li>
+            
+      <li>
+        <code><a href="binds.html">binds</a></code>(cbind,ANY-method, rbind,ANY-method)<br />Row and Column binds for Distributed Matrices</li>
+            
+      <li>
+        <code><a href="chol2inv.html">chol2inv</a></code>(chol2inv,ddmatrix-method, chol2inv-method)<br />Inverse from Choleski (or QR) Decomposition</li>
+            
+      <li>
+        <code><a href="companion.html">companion</a></code><br />Generate Companion Matrices</li>
+            
+      <li>
+        <code><a href="Comparators.html">Comparators</a></code>(!=,ddmatrix,ddmatrix-method, !=,ddmatrix,numeric-method, !=,numeric,ddmatrix-method, &amp;,ddmatrix,ddmatrix-method, &amp;,ddmatrix,numeric-method, &amp;,numeric,ddmatrix-method, &lt;,ddmatrix,ddmatrix-method, &lt;,ddmatrix,numeric-method, &lt;,numeric,ddmatrix-method, &lt;=,ddmatrix,ddmatrix-method, &lt;=,ddmatrix,numeric-method, &lt;=,numeric,ddmatrix-method, ==,ddmatrix,ddmatrix-method, ==,ddmatrix,numeric-method, ==,numeric,ddmatrix-method, &gt;,ddmatrix,ddmatrix-method, &gt;,ddmatrix,numeric-method, &gt;,numeric,ddmatrix-method, &gt;=,ddmatrix,ddmatrix-method, &gt;=,ddmatrix,numeric-method, &gt;=,numeric,ddmatrix-method, all,ddmatrix-method, any,ddmatrix-method, |,ddmatrix,ddmatrix-method, |,ddmatrix,numeric-method, |,numeric,ddmatrix-method)<br />Logical Comparisons</li>
+            
+      <li>
+        <code><a href="condnums.html">condnums</a></code>(kappa.ddmatrix, rcond,ddmatrix-method)<br />Compute or estimate the Condition Number of a Distributed Matrix</li>
+            
+      <li>
+        <code><a href="covariance.html">covariance</a></code>(cor,ddmatrix-method, cov,ddmatrix-method, cov2cor,ddmatrix-method, var,ddmatrix-method)<br />Covariance and Correlation</li>
+            
+      <li>
+        <code><a href="ddmatrix-apply.html">ddmatrix-apply</a></code>(apply, apply,ddmatrix-method)<br />Apply Family of Functions</li>
+            
+      <li>
+        <code><a href="ddmatrix-chol.html">ddmatrix-chol</a></code>(chol, chol,ddmatrix-method)<br />Cholesky Factorization</li>
+            
+      <li>
+        <code><a href="ddmatrix-class.html">ddmatrix-class</a></code><br />Class ddmatrix</li>
+            
+      <li>
+        <code><a href="ddmatrix-constructors.html">ddmatrix-constructors</a></code>(ddmatrix, ddmatrix,character-method, ddmatrix,ddmatrix-method, ddmatrix,matrix-method, ddmatrix,missing-method, ddmatrix,vector-method, ddmatrix.local, ddmatrix.local,character-method, ddmatrix.local,matrix-method, ddmatrix.local,missing-method, ddmatrix.local,vector-method)<br />Distributed Matrix Creation</li>
+            
+      <li>
+        <code><a href="ddmatrix-eigen.html">ddmatrix-eigen</a></code>(eigen, eigen,ddmatrix-method)<br />eigen</li>
+            
+      <li>
+        <code><a href="ddmatrix-lu.html">ddmatrix-lu</a></code>(lu, lu,ddmatrix-method)<br />LU Factorization</li>
+            
+      <li>
+        <code><a href="ddmatrix-norm.html">ddmatrix-norm</a></code>(norm, norm,ddmatrix,ANY-method)<br />Norm</li>
+            
+      <li>
+        <code><a href="ddmatrix-prcomp.html">ddmatrix-prcomp</a></code>(prcomp, prcomp,ddmatrix-method)<br />Principal Components Analysis</li>
+            
+      <li>
+        <code><a href="ddmatrix-print.html">ddmatrix-print</a></code>(print, print,ddmatrix-method, show,ddmatrix-method)<br />Printing a Distributed Matrix</li>
+            
+      <li>
+        <code><a href="ddmatrix-scale.html">ddmatrix-scale</a></code>(scale, scale,ddmatrix-method)<br />Scale</li>
+            
+      <li>
+        <code><a href="ddmatrix-solve.html">ddmatrix-solve</a></code>(solve,ddmatrix,ANY-method, solve,ddmatrix,ddmatrix-method)<br />Solve</li>
+            
+      <li>
+        <code><a href="ddmatrix-summary.html">ddmatrix-summary</a></code>(summary, summary,ddmatrix-method)<br />Distributed Matrix Summary</li>
+            
+      <li>
+        <code><a href="ddmatrix-sumstats.html">ddmatrix-sumstats</a></code>(max,ddmatrix-method, mean,ddmatrix-method, median,ddmatrix-method, min,ddmatrix-method, prod,ddmatrix-method, sum,ddmatrix-method)<br />Basic Summary Statistics</li>
+            
+      <li>
+        <code><a href="ddmatrix-svd.html">ddmatrix-svd</a></code>(La.svd, La.svd,ANY-method, La.svd,ddmatrix-method, svd, svd,ANY-method, svd,ddmatrix-method)<br />Singular Value Decomposition</li>
+            
+      <li>
+        <code><a href="diag-constructors.html">diag-constructors</a></code>(diag, diag,character-method, diag,ddmatrix-method, diag,matrix-method, diag,vector-method)<br />Distributed Matrix Diagonals</li>
+            
+      <li>
+        <code><a href="eigen2.html">eigen2</a></code><br />eigen2</li>
+            
+      <li>
+        <code><a href="expm.html">expm</a></code>(expm,ddmatrix-method, expm,matrix-method)<br />Matrix Exponentiation</li>
+            
+      <li>
+        <code><a href="extract.html">extract</a></code>([,ddmatrix-method)<br />Extract or Replace Parts of a Distributed Matrix</li>
+            
+      <li>
+        <code><a href="headsortails.html">headsortails</a></code>(head.ddmatrix, tail.ddmatrix)<br />Head and Tail of a Distributed Matrix</li>
+            
+      <li>
+        <code><a href="Hilbert.html">Hilbert</a></code><br />Generate Hilbert Matrices</li>
+            
+      <li>
+        <code><a href="insert.html">insert</a></code>([&lt;-,ddmatrix,ANY,ANY,ANY-method, [&lt;-,ddmatrix,ANY,ANY,ddmatrix-method)<br />Directly Insert Into Distributed Matrix Submatrix Slot</li>
+            
+      <li>
+        <code><a href="isdot.html">isdot</a></code>(is.ddmatrix, is.infinite,ddmatrix-method, is.na,ddmatrix-method, is.nan,ddmatrix-method, is.numeric,ddmatrix-method)<br />Type Checks, Including NA, NaN, etc.</li>
+            
+      <li>
+        <code><a href="isSymmetric.html">isSymmetric</a></code>(isSymmetric,ddmatrix-method)<br />isSymmetric</li>
+            
+      <li>
+        <code><a href="lm.fit.html">lm.fit</a></code>(lm.fit,ddmatrix,ddmatrix-method)<br />Fitter for Linear Models</li>
+            
+      <li>
+        <code><a href="math.html">math</a></code>(abs,ddmatrix-method, acos,ddmatrix-method, asin,ddmatrix-method, atan,ddmatrix-method, cos,ddmatrix-method, cosh,ddmatrix-method, exp,ddmatrix-method, log,ddmatrix-method, log10,ddmatrix-method, log1p,ddmatrix-method, log2,ddmatrix-method, sin,ddmatrix-method, sinh,ddmatrix-method, sqrt,ddmatrix-method, tan,ddmatrix-method, tanh,ddmatrix-method)<br />Miscellaneous Mathematical Functions</li>
+            
+      <li>
+        <code><a href="matmult.html">matmult</a></code>(%*%,ddmatrix,ddmatrix-method, crossprod,ddmatrix-method, tcrossprod,ddmatrix-method)<br />Matrix Multiplication</li>
+            
+      <li>
+        <code><a href="na.html">na</a></code>(na.exclude, na.exclude,ddmatrix-method)<br />Handle Missing Values in Distributed Matrices</li>
+            
+      <li>
+        <code><a href="control.html">pbdDMAT Control</a></code>(.BLDIM, .ICTXT)<br />Some default parameters for pbdDMAT.</li>
+            
+      <li>
+        <code><a href="pbdDMAT-package.html">pbdDMAT-package</a></code><br />Distributed Matrix Methods</li>
+            
+      <li>
+        <code><a href="qr.html">qr</a></code>(qr,ddmatrix-method, qr.Q, qr.Q,ANY-method, qr.R, qr.R,ANY-method, qr.qty, qr.qty,ANY-method, qr.qy, qr.qy,ANY-method)<br />QR Decomposition Methods</li>
+            
+      <li>
+        <code><a href="redistribute.html">redistribute</a></code>(reblock)<br />Distribute/Redistribute matrices across the process grid</li>
+            
+      <li>
+        <code><a href="reductions.html">reductions</a></code>(colMax, colMax,ddmatrix-method, colMeans,ddmatrix-method, colMin, colMin,ddmatrix-method, colMin,matrix-method, colSums,ddmatrix-method, rowMax, rowMax,ddmatrix-method, rowMax,matrix-method, rowMeans,ddmatrix-method, rowMin, rowMin,ddmatrix-method, rowMin,matrix-method, rowSums,ddmatrix-method)<br />Arithmetic Reductions: Sums, Means, and Prods</li>
+            
+      <li>
+        <code><a href="rounding.html">rounding</a></code>(ceiling,ddmatrix-method, floor,ddmatrix-method, round,ddmatrix-method)<br />Rounding of Numbers</li>
+            
+      <li>
+        <code><a href="sd.html">sd</a></code>(sd,ANY-method, sd,ddmatrix-method)<br />Covariance and Correlation</li>
+            
+      <li>
+        <code><a href="sparsity.html">sparsity</a></code>(sparsity,dmat-method, sparsity,matrix-method, sparsity,vector-method, sparsity-method)<br />Sparsity of Matrix Objects</li>
+            
+      <li>
+        <code><a href="sweep.html">sweep</a></code>(sweep,ddmatrix,ANY,ddmatrix-method, sweep,ddmatrix,ANY,vector-method)<br />Sweep</li>
+            
+      <li>
+        <code><a href="transpose.html">transpose</a></code>(t, t,ddmatrix-method)<br />Distributed Matrix Transpose</li>
+    
+    </ul>
+  </div>
+  
+  <div class="span3 offset1">
+    <h2>Vignettes</h2>
+    <ul>
+      <li><a href="vignettes/pbdDMAT-guide.pdf">pbdDMAT-guide</a></li>
+    </ul>
+        
+    <h2>Dependencies</h2>
+    <ul>
+      <li><strong>Depends</strong>: methods, pbdMPI, pbdBASE</li>
+      <li><strong>Imports</strong>: utils</li>
+      
+      
+    </ul>
+    <h2>Authors</h2>
+    <ul>
+      <li><a href="mailto:schmidt@math.utk.edu">Drew Schmidt</a> [aut, cre]</li>
+      <li>Wei-Chen Chen [aut]</li>
+      <li>George Ostrouchov [aut]</li>
+      <li>Pragneshkumar Patel [aut]</li>
+      <li>R Core team [ctb]</li>
+      <li>ZhaoKang Wang [ctb]</li>
+    </ul>
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

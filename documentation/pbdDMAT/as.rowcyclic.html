@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>as.rowcyclic. pbdDMAT 0.3-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">pbdDMAT 0.3-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Distribute/Redistribute matrices across the process grid</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>as.rowcyclic(dx, bldim&nbsp;=&nbsp;.BLDIM)</div>
+<div>as.colcyclic(dx, bldim&nbsp;=&nbsp;.BLDIM)</div>
+<div>as.blockcyclic(dx, bldim&nbsp;=&nbsp;.BLDIM)</div>
+<div>as.block(dx, square.bldim&nbsp;=&nbsp;TRUE)</div>
+<div>as.rowblock(dx)</div>
+<div>as.colblock(dx)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>dx</dt>
+      <dd>numeric distributed matrix</dd>
+      <dt>bldim</dt>
+      <dd>the blocking dimension for block-cyclically distributing the
+matrix across the process grid.</dd>
+      <dt>square.bldim</dt>
+      <dd>logical.  Determines whether or not the blocking factor
+for the resulting redistributed matrix will be square or not.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a distributed matrix.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Takes either an R matrix and distributes it as a distributed matrix, or
+takes a distributed matrix and redistributes it across a (possibly) new
+BLACS context, using a (possibly) new blocking dimension.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>These functions are simple wrappers of the very general
+<code>redistribute()</code> funciton.  Different
+distributed matrix distributions of note can be classified into three
+categories: block, cyclic, and block-cyclic.</p>
+  
+      <p><code>as.block()</code> will convert <code>ddmatrix</code> into one which is merely
+"block" distributed, i.e., the blocking factor is chosen in such a way that
+there will be no cycling.  By default, this new blocking factor will be
+square.  This can result in some raggedness (some processors owning less
+than others --- or nothing) if the matrix is far from square itself.
+However, the methods of factoring <code>ddmatrix</code> objects, and therefore
+anything that relies on (distributed) matrix factorizations such as
+computing an inverse, least squares solution, etc., require that blocking
+factors be square.  The matrix will not change BLACS contexts.</p>
+  
+      <p><code>as.rowblock()</code> will convert a distributed matrix into one which is
+distributed by row into a block distributed matrix.  That is, the rows are
+stored contiguously, and different processors will own different rows, but
+with no cycling.  In other words, it block redistributes the data across
+context 2.</p>
+  
+      <p><code>as.colblock()</code> is the column-wise analogue of <code>as.rowblock()</code>.
+In other words, it block redistributes the data across context 1.</p>
+  
+      <p><code>as.rowcyclic()</code> is a slightly more general version of
+<code>as.rowblock()</code>, in that the data will be distributed row-wise, but
+with the possibility of cycling, as determined by the blocking factor.  In
+other words it block-cyclically redistributes the data across context 2.</p>
+  
+      <p><code>as.colcyclic()</code> is a the column-wise analogue of
+<code>as.rowcyclic()</code>.  In other words, it block-cyclically redistributes
+the data across context 1.</p>
+  
+      <p><code>as.blockcyclic()</code> moves the distributed matrix into a general
+block-cyclic distribution across a 2-dimensional process grid.  In other
+words, it block-cyclically redistributes the data across context 0.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
+# # &gt; mpiexec -np 2 Rscript demo.r
+# 
+# library(pbdDMAT, quiet = TRUE)
+# init.grid()
+# 
+# dx &lt;- ddmatrix(1:30, nrow=10)
+# 
+# x &lt;- as.block(dx)
+# x
+# 
+# x &lt;- as.rowblock(dx)
+# x
+# 
+# x &lt;- as.colblock(dx)
+# x
+# 
+# x &lt;- as.rowcyclic(dx)
+# x
+# 
+# x &lt;- as.colcyclic(dx)
+# x
+# 
+# x &lt;- as.blockcyclic(dx)
+# x
+# 
+# finalize()
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>as.block</li><li>as.blockcyclic</li><li>as.colblock</li><li>as.colcyclic</li><li>as.rowblock</li><li>as.rowcyclic</li>
+    </ul>
+    <ul>
+      <li>BLACS</li><li>Data</li><li>Distributing</li>
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

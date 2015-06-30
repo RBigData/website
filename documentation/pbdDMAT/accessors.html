@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Accessors. pbdDMAT 0.3-3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">pbdDMAT 0.3-3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Accessor Functions for Distributed Matrix Slots</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>nrow(x)</div>
+<div>"nrow"(x)</div>
+<div>NROW(x)</div>
+<div>"NROW"(x)</div>
+<div>ncol(x)</div>
+<div>"ncol"(x)</div>
+<div>NCOL(x)</div>
+<div>"NCOL"(x)</div>
+<div>submatrix(x, ...)</div>
+<div>"submatrix"(x)</div>
+<div>ldim(x, ...)</div>
+<div>"ldim"(x)</div>
+<div>bldim(x, ...)</div>
+<div>"bldim"(x)</div>
+<div>ICTXT(x, ...)</div>
+<div>"ICTXT"(x)</div>
+<div>"dim"(x)</div>
+<div>"length"(x)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd>numeric distributed matrix</dd>
+      <dt>...</dt>
+      <dd>Extra arguments.</dd>
+      <dt>dim</dt>
+      <dd>global dimension.</dd>
+      <dt>bldim</dt>
+      <dd>blocking dimension.</dd>
+      <dt>ICTXT</dt>
+      <dd>BLACS context.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Each of <code>dim()</code>, <code>ldim()</code>, <code>bldim()</code> return a length
+2 vector.</p>
+  
+      <p>Each of <code>nrow()</code>, <code>ncol()</code>, and <code>length()</code> return a length 1
+vector. Likewise, so does <code>ICTXT()</code>.</p>
+  
+      <p><code>submatrix()</code> returns a matrix; namely, <code>submatrix(x)</code> returns a
+matrix of dimensions <code>ldim(x)</code>.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Functions to get dimension information, local storage, or current BLACS
+context from a distributed matrix.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The functions <code>nrow()</code>, <code>ncol()</code>, <code>length()</code> and <code>dim()</code>
+are the natural extensions of their ordinary matrix counterparts.</p>
+  
+      <p><code>ldim()</code> will give the dimension of the matrix stored locally on the
+process which runs the function. This is a local value, so its return is
+process-dependent.  For example, if the 3x3 global matrix <code>x</code> is
+distributed as the <code>ddmatrix</code> <code>dx</code> across two processors with
+process 0 owning the first two rows and process 1 owning the third, then
+<code>ldim(dx)</code> will return <code>2 3</code> on process 0 and <code>1 3</code> on
+process 1.</p>
+  
+      <p><code>bldim()</code> will give the blocking dimension that was used to
+block-cyclically distribute the distributed matrix.</p>
+  
+      <p><code>submatrix()</code> will give the local storage for the requested object.</p>
+  
+      <p><code>ICTXT()</code> will give the current BLACS context (slot ICTXT) for the
+requested object.</p>
+  
+      <p><code>ownany()</code> is intended mostly for developers.  It answers the question
+"do I own any of the data?".  The user can either pass a distributed matrix
+object or the dim, bldim, and ICTXT of one.</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt>list("signature(x = \"ddmatrix\")")</dt><dd></dd>
+ </dl></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
+# # &gt; mpiexec -np 2 Rscript demo.r
+# 
+# library(pbdDMAT, quiet = TRUE)
+# init.grid()
+# 
+# x &lt;- ddmatrix(1:9, 3, bldim=2)
+# 
+# y &lt;- list(dim=dim(x), ldim=ldim(x), bldim=bldim(x))
+# comm.print(y)
+# 
+# finalize()
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>Accessors</li><li>ICTXT</li><li>ICTXT,ddmatrix-method</li><li>NCOL</li><li>NCOL,ddmatrix-method</li><li>NROW</li><li>NROW,ddmatrix-method</li><li>bldim</li><li>bldim,ddmatrix-method</li><li>dim,ddmatrix-method</li><li>ldim</li><li>ldim,ddmatrix-method</li><li>length,ddmatrix-method</li><li>ncol</li><li>ncol,ddmatrix-method</li><li>nrow</li><li>nrow,ddmatrix-method</li><li>submatrix</li><li>submatrix,ddmatrix-method</li>
+    </ul>
+    <ul>
+      <li>Methods</li>
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
