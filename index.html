@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+<html lang="en">
+  <head>
   <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
   <meta name="author" content="wrathematics" />
   <meta name="robots"	content="all" />
@@ -12,62 +12,46 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="description" content="Rbigdata.github.io : " />
 
-  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/nav.css">
-
   <title>pbdR - Programming with Big Data in R</title>
 
   <!-- google botnet -->
-  <script src="javascripts/botnet.js"></script>
+  <script src="ui/js/botnet.js"></script>
 
-</head>
-
-
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="ui/css/bootstrap.min.css" media="screen">
+  </head>
   <body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-    <h1 id="project_title"><font color="#38761D">p</font><font color="#990000">b</font><font color="#BF9000">d</font><font color="#8698C0">R</font>:<br> <font color="#38761D">p</font>rogramming with <font color="#990000">b</font>ig <font color="#BF9000">d</font>ata in <font color="#8698C0">R</font></h1>
-          <h2 id="project_tagline">Simplifying Scalability</h2>
-        </header>
-    </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="index.html" class="navbar-brand">
+            <font color="#38761D">p</font><font color="#990000">b</font><font color="#BF9000">d</font><font color="#8698C0">R</font>
+          </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">About</a></li>
+            <li><a href="misc.html">Publications</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="install.html">Install</a></li>
+            <li><a href="tutorials.html">Tutorials</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-
-	<div id="wrap">
-	<div  id="content-wrap">
-	<div class="content-top"></div>
-	<div id="content">
-
-	<div class="post" id="post_248">
-
-
-<!--	<h2 class="title">pbdR</h2>-->
-
-
-
-<ul id="tabmenu">
-	<li><a class="active" href="index.html">About</a></li>
-	<li><a href="misc.html">Publications</a></li>
-	<li><a href="packages.html">Packages</a></li>
-	<li><a href="download.html">Download</a></li>
-	<li><a href="install.html">Install</a></li>
-	<li><a href="tutorials.html">Tutorials</a></li>
-	<li><a href="faq.html">FAQ</a></li>
-</ul>
-
-
-
-
-
-
-
-
+  <body>
+<div class="container">
+<br><br><br>
 
 
 
@@ -149,62 +133,14 @@ also email the respective package's maintainer.
   year = {2012},
   url = {http://r-pbd.org/}
 }
-
 </pre>
 </div>
-
-
+</p>
 
 
 <p style="text-align: left;">
-<!-- Incoming proof that I don't know javascript -->
-<script language="Javascript">
-function banner() { };
-  ut = new banner();
-  i = 0
-  ut[i++]= "<img title='ut' src='images/ut.png' alt='' width=147 height=52>"
-  ut[i++]= "<img title='nsf' src='images/nsf.png' alt='' width=50 height=52>"
-  ut[i++]= "<img title='xsede' src='images/xsede-2.png' alt='' width=158 height=52>"
-
-  ornl = new banner();
-  i = 0
-  ornl[i++]= "<img title='ornl' src='images/ornl.png' alt='' width=133 height=52>"
-  ornl[i++]= "<img title='doe' src='images/doe.png' alt='' width=51 height=52>"
-  ornl[i++]= "<img title='olcf' src='images/olcf.png' alt='' width=198 height=52>"
-
-  n=Math.floor(10*Math.random());
-
-  document.write("<div align=center style='line-height:0px'>")
-  document.write("<img title='pbdR' src='images/newpbdr.png' alt='' height=75>")
-  document.write("</div><div align=center style='line-height:0px'>")
-  // this is disgusting, but I don't actually know javascript so I can't make this acceptable
-
-  numpics=3;
-
-  if (n<6) // slight bias for UT
-  {
-    for (i=0; i<numpics; i++){
-      document.write( ut[i] );
-    }
-    document.write("</div><div align=center style='line-height:0px'>")
-    for (i=0; i<numpics; i++){
-      document.write( ornl[i] );
-    }
-  }
-  else
-  {
-    for (i=0; i<numpics; i++){
-      document.write( ornl[i] );
-    }
-    document.write("</div><div align=center style='line-height:0px'>")
-    for (i=0; i<numpics; i++){
-      document.write( ut[i] );
-    }
-
-  document.write('</div>')
-}
-</script>
-
+<script src="ui/js/images.js"></script>
+</p>
 
   </body>
 </html>

@@ -1,85 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<html lang="en">
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
   <meta name="author" content="wrathematics" />
   <meta name="robots"	content="all" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <meta name="description" content="Programming with Big Data in R" />
-  <meta name="keywords" content="R,pbdR,Big Data,pbdMPI,pbdSLAP,pbdBASE,pbdDMAT,pbdDEMO,Statistical Computing,Parallel Computing" />
+  <meta name="description" content="pbdR - Programming with Big Data in R" />
+  <meta name="keywords" content="pbdR,R,Big Data,pbdMPI,pbdSLAP,pbdBASE,pbdDMAT,pbdDEMO,pbdNCDF4,pbdPROF,Statistical Computing,Parallel Computing" />
 
   <meta charset='utf-8' />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="description" content="Rbigdata.github.io : " />
 
-  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/nav.css">
-
-  <title>Programming with Big Data in R</title>
+  <title>pbdR - Programming with Big Data in R</title>
 
   <!-- google botnet -->
-  <script src="javascripts/botnet.js"></script>
+  <script src="ui/js/botnet.js"></script>
 
-</head>
-
-
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="ui/css/bootstrap.min.css" media="screen">
+  </head>
   <body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-    <h1 id="project_title"><font color="#38761D">p</font><font color="#990000">b</font><font color="#BF9000">d</font><font color="#8698C0">R</font>:<br> <font color="#38761D">p</font>rogramming with <font color="#990000">b</font>ig <font color="#BF9000">d</font>ata in <font color="#8698C0">R</font></h1>
-          <h2 id="project_tagline">Simplifying Scalability</h2>
-        </header>
-    </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="index.html" class="navbar-brand">
+            <font color="#38761D">p</font><font color="#990000">b</font><font color="#BF9000">d</font><font color="#8698C0">R</font>
+          </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">About</a></li>
+            <li class="active"><a href="misc.html">Publications</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="download.html">Download</a></li>
+            <li><a href="install.html">Install</a></li>
+            <li><a href="tutorials.html">Tutorials</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-
-	<div id="wrap">
-	<div  id="content-wrap">
-	<div class="content-top"></div>
-	<div id="content">
-
-	<div class="post" id="post_248">
-
-
-<!--	<h2 class="title">pbdR</h2>-->
-
-
-<ul id="tabmenu">
-	<li><a href="index.html">About</a></li>
-	<li><a class="active" href="misc.html">Publications</a></li>
-	<li><a href="packages.html">Packages</a></li>
-	<li><a href="download.html">Download</a></li>
-	<li><a href="install.html">Install</a></li>
-	<li><a href="tutorials.html">Tutorials</a></li>
-	<li><a href="faq.html">FAQ</a></li>
-</ul>
+  <body>
+<div class="container">
+<br><br><br>
 
 
-
-<!--<h2>Highlight</h2>-->
-<!--<ol>-->
-<!--<li value="5">-->
-<!--  <a href="http://www.r-bloggers.com/r-tackles-big-garbage/" target="_blank">-->
-<!--  R Tackles Big Garbage</a>. (Apr. 1, 2013)-->
-<!--<li value="4">-->
-<!--  <a href="http://www.r-bloggers.com/100-most-read-r-posts-for-2012-stats-from-r-bloggers-big-data-visualization-data-manipulation-and-other-languages/" target="_blank">-->
-<!--  100 most read R posts for 2012 (stats from R-bloggers) -- big data, visualization, data manipulation, and other languages</a>.-->
-<!--<li value="3">-->
-<!--  <a href="https://rdav.nics.tennessee.edu/2012/10/project-takes-r-programming-language-to-high-performance-computing-level/" target="_blank">-->
-<!--  Project Takes R Programming Language to High Performance Computing Level</a>.-->
-<!--<li value="2">-->
-<!--  <a href="http://www.r-bloggers.com/r-at-12000-cores/" target="_blank">-->
-<!--  R at 12,000 Cores</a>. (Oct. 16, 2012)-->
-<!--<li value="1">-->
-<!--  <a href="http://cran.r-project.org/web/views/HighPerformanceComputing.html" target="_blank">-->
-<!--  CRAN Task View: High-Performance and Parallel Computing with R</a>.-->
-<!--</ol>-->
 
 
 <br>
@@ -89,7 +63,7 @@
   <li value="12">
     <a href="http://ura3.c.ism.ac.jp/hpccon/">
     ISM HPCCON 2015 / ISM HPC on R Workshop</a>, Oct. 9-12, 2015,
-    Tokyo, Japan (<a href="handouts/pbdr_ISM_HPCCON.pdf">slides</a>)
+    Tokyo, Japan (<a href="tutorials/ism2015/handouts/pbdr_ISM_HPCCON.pdf">slides</a>)
   <li value="11">
     <a href="http://www.cvent.com/events/2015-spring-research-conference/agenda-b7b5867fe2f6400bba4542da092df210.aspx">
     Spring Research Conference</a>, May 20-22, 2015, Cincinnati,
