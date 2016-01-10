@@ -20,6 +20,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="ui/css/bootstrap.min.css" media="screen">
   <link rel="stylesheet" href="ui/css/custom.css" media="screen">
+  <style>
+    li div {
+        display:none;
+        margin-left:10px;
+    }
+  </style>
+  <script>
+    function togglechild(item){
+        if(item.getElementsByTagName("div")[0].style.display=="block")
+            item.getElementsByTagName("div")[0].style.display="none";
+        else
+            item.getElementsByTagName("div")[0].style.display="block";
+    }
+  </script>
+
 </head>
 
 <body>
@@ -53,13 +68,13 @@
 <xmp theme="" style="display:none;">
 ## FAQ
 
--   [*How hard is pbdR to install?*](javascript:void(0))
+-   <a href="javascript:void(0)" onclick="togglechild(this.parentNode)">*How hard is pbdR to install?*</a>
 
     The short answer is that it should mostly be as simple as issuing
     several `install.packages()` commands. The hardest part generally
     involves installing R and an MPI library. There are some special
-    caveats to this for Windows users. See our [installation
-    page](install.html) for full details about setting up a pbdR
+    caveats to this for Windows users. See our [packages
+    page](p.html) for full details about setting up a pbdR
     environment.
 
 
@@ -89,9 +104,6 @@
 |Newton          | Sith      | Edison, NERSC           
 
 </center />
-
-Please contact us at Email at: **RBigData AT gmail** if you are interested
-in installing pbdR on your shared resources.
 </xmp>
 
 <script src="ui/strapdown/strapdown.js"></script>
