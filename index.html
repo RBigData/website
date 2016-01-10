@@ -49,98 +49,82 @@
       </div>
     </nav>
 
-  <body>
-<div class="container">
-<br><br><br>
 
 
 
-<h2>Overview</h2>
-<p>The "Programming with Big Data in <a href="http://www.r-project.org/">R</a>"
-project (pbdR) enables high-level distributed data parallelism in R, so that it
-can easily utilize large HPC platforms with thousands of cores, making the R
-language scale to unparalleled heights. We interpret big data
-quite literally to mean that its size requires parallel processing
+<xmp theme="" style="display:none;">
+## Overview
+
+The "Programming with Big Data in [R](http://www.r-project.org/)"
+project (pbdR) enables high-level distributed data parallelism in R, so
+that it can easily utilize large HPC platforms with thousands of cores,
+making the R language scale to unparalleled heights. We interpret big
+data quite literally to mean that its size requires parallel processing
 either because it does not fit in the memory of a single multicore
 machine or because we need to make its processing time tolerable.
-</p>
 
-<p>
-We achieve this, in part, by providing a simple interface to scalable, high performance
-libraries, such as <a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a>,
-<a href="https://en.wikipedia.org/wiki/ScaLAPACK">ScaLAPACK</a>, and
-<a href="https://en.wikipedia.org/wiki/NetCDF">NetCDF4</a>.
-The routines in these libraries are
-engaged through R's classes and methods, so that the R language syntax is largely
-preserved, but with new, scalable, compiled code underneath. Most of the cumbersome
-distributed details are abstracted away for the user, although they are readily
-accessible should the user desire them. While these libraries shine
-brightest on large distributed platforms, they also work rather well
-on small clusters and often, surprisingly, even on a laptop with only
-two cores.
-</p>
+We achieve this, in part, by providing a simple interface to scalable,
+high performance libraries, such as
+[MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface),
+[ScaLAPACK](https://en.wikipedia.org/wiki/ScaLAPACK), and
+[NetCDF4](https://en.wikipedia.org/wiki/NetCDF). The routines in these
+libraries are engaged through R's classes and methods, so that the R
+language syntax is largely preserved, but with new, scalable, compiled
+code underneath. Most of the cumbersome distributed details are
+abstracted away for the user, although they are readily accessible
+should the user desire them. While these libraries shine brightest on
+large distributed platforms, they also work rather well on small
+clusters and often, surprisingly, even on a laptop with only two cores.
 
-<p>We provide
-<a href="packages.html">several R packages</a>
-which focus on analyzing big data, especially on large distributed machines. The
-packages are meant to be used in the
-<a href="https://en.wikipedia.org/wiki/SPMD"> Single Program/Multiple Data (SPMD)</a>
-programming model
-(<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/?item=spmd">see also</a>),
+We provide [several R packages](packages.html) which focus on analyzing
+big data, especially on large distributed machines. The packages are
+meant to be used in the [Single Program/Multiple Data
+(SPMD)](https://en.wikipedia.org/wiki/SPMD) programming model ([see
+also](http://thirteen-01.stat.iastate.edu/snoweye/hpsc/?item=spmd)),
 with special focus on large scale computing clusters. Packages and
-instructions for installation are available on the
-<a href="download.html">downloads page</a>.
-</p>
+instructions for installation are available on the [downloads
+page](download.html).
 
 
 
-<br>
-<h2>Bugs/Suggestions/Questions/Comments</h2>
-<p>
-In order to provide the best
-possible set of packages, we need user input.  For suggestions, questions,
-comments, bug reports, or anything else relevant that you wish to communicate,
-please do not hesitate to contact us.
-</p>
+## Bugs/Suggestions/Questions/Comments
 
+In order to provide the best possible set of packages, we need user
+input. For suggestions, questions, comments, bug reports, or anything
+else relevant that you wish to communicate, please do not hesitate to
+contact us.
 
-<p>
 We maintain a google group,
-<a href="https://groups.google.com/forum/?fromgroups#!forum/rbigdataprogramming" target="_blank">RBigDataProgramming</a>,
-where you are encouraged to post discussions about the project, including any
-issues you may be experiencing. The developers monitor the group email. You can
-also email the respective package's maintainer.
-</p>
+[RBigDataProgramming](https://groups.google.com/forum/?fromgroups#!forum/rbigdataprogramming),
+where you are encouraged to post discussions about the project,
+including any issues you may be experiencing. The developers monitor the
+group email. You can also email the respective package's maintainer.
 
 
-<br>
-<h2>Authors and Citation</h2>
-<p>
-  <a href="http://www.csm.ornl.gov/%7Eost/" target="_blank"> George Ostrouchov</a>,
-  <a href="http://thirteen-01.stat.iastate.edu/snoweye/mypage/" target="_blank"> Wei-Chen Chen</a>,
-  <a href="http://wrathematics.github.io/" target="_blank">Drew Schmidt</a>,
-  and Pragneshkumar Patel.
-</p>
 
+## Authors and Citation
 
-<p>When mentioning the pbdR project, please cite:</p>
-<div style="width: 96.5%; padding: 0px; background-color: #d3d3d3; line-height: 1.0;">
-<pre>
-@ONLINE{
-  pbdR2012,
-  author = {Ostrouchov, G. and Chen, W.-C. and Schmidt, D. and Patel, P.},
-  title = {Programming with Big Data in R},
-  year = {2012},
-  url = {http://r-pbd.org/}
-}
-</pre>
-</div>
-</p>
+[George Ostrouchov](http://www.csm.ornl.gov/%7Eost/),
+[Wei-Chen Chen](http://thirteen-01.stat.iastate.edu/snoweye/mypage/),
+[Drew Schmidt](http://wrathematics.github.io/),
+and Pragneshkumar Patel.
 
+When mentioning the pbdR project, please cite:
+
+```
+    @ONLINE{
+      pbdR2012,
+      author = {Ostrouchov, G. and Chen, W.-C. and Schmidt, D. and Patel, P.},
+      title = {Programming with Big Data in R},
+      year = {2012},
+      url = {http://r-pbd.org/}
+    }
+```
+</xmp>
 
 <p style="text-align: left;">
 <script src="ui/js/images.js"></script>
 </p>
 
-  </body>
+<script src="ui/strapdown/strapdown.js"></script>
 </html>
