@@ -52,18 +52,25 @@
 <xmp theme="" style="display:none;">
 # pbdR Packages
 
-We maintain stable distributions of all of our packages on the
-[Comprehensive R Archive Network (CRAN)](http://r-project.org/). For
-information about installing these packages, see our comprehensive set
-of [installation instructions](install.html).
+* <a href="#application">Application</a>
+* <a href="#communication">Communication</a>
+* <a href="#computation">Computation</a>
+* <a href="#developers">Developers</a>
+* <a href="#io">I/O</a>
+* <a href="#profiling">Profiling</a>
 
+
+
+We maintain stable distributions of all of our packages on our 
+[GitHub project page](https://github.com/RBigData).  We also try, whenever
+possible, to maintain releases on the [CRAN](http://r-project.org/).
 Additionally, you can find current binaries of our packages for the
 Windows operating system at our sister site,
 [HPSC](http://thirteen-01.stat.iastate.edu/snoweye/pbdr/?item=download).
 
 
 
-## Application
+<h2 id="application">Application <small>Specifically purposed packages that utilize pbdR.</small></h2>
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
@@ -73,7 +80,7 @@ Windows operating system at our sister site,
 
 
 
-## Communication
+## <a id="communication"></a>Communication <small>Tools for handling multi-machine communication.</small>
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
@@ -83,19 +90,26 @@ Windows operating system at our sister site,
 
 
 
-## Computation
+## <a id="computation"></a>Computation <small>Packages frameworks for building other scalable tools.</small>
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
 | pbdDMAT | Distributed matrix classes and methods.  The package includes numerous methods for manipulating and reshaping distributed matrices, as well as linear algebra and statistics routines.  Through extensive use of R's S4 methods, these functions have identical syntax to serial R. | [ghbutton](https://github.com/RBigData/pbdDMAT) <br> [cranbutton](http://cran.r-project.org/package=pbdDMAT)
-| pbdBASE | Base utilities for distributed matrices.  For advanced programmers only. | [ghbutton](https://github.com/RBigData/pbdBASE) <br> [cranbutton](http://cran.r-project.org/package=pbdBASE)
-| pbdSLAP | The Scalable Linear Algebra Package.  A distribution of ScaLAPACK, this package greatly simplifies package build and linking issues for distribute matrix programming. | [ghbutton](https://github.com/RBigData/pbdSLAP) <br> [cranbutton](http://cran.r-project.org/package=pbdSLAP)
 | pbdMPI  | A high-level interface to MPI.  The package handles linking issues, as well as offers a very simple R interface for MPI programming. | [ghbutton](https://github.com/RBigData/pbdMPI) <br> [cranbutton](http://cran.r-project.org/package=pbdMPI)
 
 
 
+## <a id="developers"></a>Developers <small>Tools for developers.</small>
 
-## I/O
+| Package | Description  | Download |
+|---------|------------- | :------: |
+| pbdTEST | A testing framework for pbdR. | [ghbutton](https://github.com/RBigData/pbdTEST) <br> [cranbutton](http://cran.r-project.org/package=pbdTEST)
+| pbdBASE | Base utilities for distributed matrices.  For advanced programmers only. | [ghbutton](https://github.com/RBigData/pbdBASE) <br> [cranbutton](http://cran.r-project.org/package=pbdBASE)
+| pbdSLAP | The Scalable Linear Algebra Package.  A distribution of ScaLAPACK, this package greatly simplifies package build and linking issues for distribute matrix programming. | [ghbutton](https://github.com/RBigData/pbdSLAP) <br> [cranbutton](http://cran.r-project.org/package=pbdSLAP)
+
+
+
+## <a id="io"></a>I/O <small>Packages for large, scalable I/O.</small>
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
@@ -103,7 +117,7 @@ Windows operating system at our sister site,
 
 
 
-## Profiling
+## <a id="profiling"></a>Profiling <small>Performance analysis packages.</small>
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
