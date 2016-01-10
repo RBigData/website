@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
   <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
   <meta name="author" content="wrathematics" />
   <meta name="robots"	content="all" />
@@ -17,10 +17,12 @@
   <!-- google botnet -->
   <script src="ui/js/botnet.js"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="ui/css/bootstrap.min.css" media="screen">
-  </head>
-  <body>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="ui/css/bootstrap.min.css" media="screen">
+  <link rel="stylesheet" href="ui/css/custom.css" media="screen">
+</head>
+
+<body>
 
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -38,9 +40,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="index.html">About</a></li>
-            <li><a href="misc.html">Publications</a></li>
             <li class="active"><a href="packages.html">Packages</a></li>
-            <li><a href="download.html">Download</a></li>
+            <li><a href="publications.html">Publications</a></li>
             <li><a href="install.html">Install</a></li>
             <li><a href="tutorials.html">Tutorials</a></li>
             <li><a href="faq.html">FAQ</a></li>
@@ -50,134 +51,161 @@
     </nav>
 
 
-
 <xmp theme="" style="display:none;">
-## Packages
+# pbdR Packages
 
-If you have no idea where to begin and/or have limited experience with
-MPI programming, start by checking out the [pbdDEMO package](#demo),
-especially the [pbdDEMO
-vignette](http://cran.r-project.org/web/packages/pbdDEMO/vignettes/pbdDEMO-guide.pdf).
+We maintain stable distributions of all of our packages on the
+[Comprehensive R Archive Network (CRAN)](http://r-project.org/). For
+information about installing these packages, see our comprehensive set
+of [installation instructions](install.html).
+
+Additionally, you can find current binaries of our packages for the
+Windows operating system at our sister site,
+[HPSC](http://thirteen-01.stat.iastate.edu/snoweye/pbdr/?item=download).
+
+
+
+## Application
+
+| Package | Description  |
+|---------|------------- |
+| [pmclust](http://cran.r-project.org/package=pmclust) | Parallel model-based clustering.
+| [pbdDEMO](http://cran.r-project.org/package=pbdDEMO) | Package demonstrations and examples.
+
+
+
+## Computation
+
+| Package | Description  |
+|---------|------------- |
+| [pbdDMAT](http://cran.r-project.org/package=pbdDMAT) | Distributed Matrix Methods
+| [pbdBASE](http://cran.r-project.org/package=pbdBASE) | Base Wrappers for Distributed Matrices
+| [pbdSLAP](http://cran.r-project.org/package=pbdSLAP) | Scalable Linear Algebra Package
+| [pbdMPI](http://cran.r-project.org/package=pbdMPI) | Interface to MPI
+
+
+
+## I/O
+
+| Package | Description  |
+|---------|------------- |
+| [pbdNCDF4](http://cran.r-project.org/package=pbdNCDF4) | Parallel NetCDF version 4.
+
+
+
+## Profiling
+
+| Package | Description  |
+|---------|------------- |
+| [pbdPROF](href="http://cran.r-project.org/package=pbdPROF) | MPI profiling tools. |
+
+
+
+# Installation Instructions
+
+Below are sets of pbdR installation instructions for each major OS
+platform (or all three). These instructions include information for
+installing MPI and R in addition to installing the pbdR packages.
+
+If you have questions about installing a particular pbdR package, then
+you may need to consult with that package's vignette, which you can find
+on the [download page](download.html).
+
+We also maintain a Linux virtual machine (VM) with all of the pbdR
+packages installed and set up. You can find information about it
+[here](http://thirteen-01.stat.iastate.edu/snoweye/pbdr/?item=vm). This
+is especially encouraged for Windows users, for whom the general
+installation process is non-trivial.
+
+<table>
+<tr valign="center" align="center">
+  <th>Screenshots</th>
+  <th>All OS's</th>
+  <th>Linux</th>
+  <th>Mac</th>
+  <th>Windows</th>
+</tr>
+<tr valign="center" align="center">
+  <td>Without</td>
+  <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/without_screenshots/pdf/installation_all.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/without_screenshots/html/index_all.html" target="_blank">html</a>
+  </td>
+  <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/without_screenshots/pdf/installation_linux.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/without_screenshots/html/index_linux.html" target="_blank">html</a>
+  </td>
+  <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/without_screenshots/pdf/installation_mac.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/without_screenshots/html/index_mac.html" target="_blank">html</a>
+  </td>
+  <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/without_screenshots/pdf/installation_windows.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/without_screenshots/html/index_windows.html" target="_blank">html</a>
+  </td>
+</tr>
+
+<tr valign="center" align="center">
+  <td>With</td>
+  <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/with_screenshots/pdf/installation_all.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/with_screenshots/html/index_all.html" target="_blank">html</a>
+  </td>
+  <td width=25%>
+    NA
+  </td>
+  <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/with_screenshots/pdf/installation_mac.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/with_screenshots/html/index_mac.html" target="_blank">html</a>
+  </td>
+  <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/with_screenshots/pdf/installation_windows.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/with_screenshots/html/index_windows.html" target="_blank">html</a>
+  </td>
+</tr>
+
+</table>
+</center>
+
+We also maintain a special set of instructions for supercomputers,
+which often have their own <i>special</i> way of doing things.  At
+the moment, only Crays are documented.  SGI machines should be
+a bit easier generally (see Linux instructions above for SGI).
+If you discover issues with other architectures, please let us
+know.
 
 <center>
-
-|General            | I/O                |  Computation       |   Application
-|-------------------|--------------------|--------------------|---------------------
-|[pbdDEMO](#demo)   | [pbdNCDF4](#ncdf4) |  [pbdDMAT](#dmat)  |  [pmclust](#pmclust)
-| [pbdMPI](#mpi)    |                    |  [pbdBASE](#dmat)  | 
-| [pbdPROF](#prof)  |                    |   [pbdSLAP](#dmat) | 
-
-</center />
-
-### General
-
-###### pbdDEMO <a name="#demo"></a>
-
-This package offers a comprehensive set of over 20 pbdR package demos,
-and a textbook-style vignette that can quickly help you take your
-programming from 1 to 10,000+ cores.
-
-This package offers:
-
--   A gentle introduction to high performance computing with R using the
-    pbdR tools.
--   An impressive set of non-trivial examples and companion text,
-    specifically written with data scientists in mind.
-
-###### pbdMPI <a name="#mpi"></a>
-
-This package provides an efficient interface to MPI by utilizing R's S4
-classes and methods with a focus on Single Program, Multiple Data (SPMD)
-parallel programming style, which is intended for batch parallel
-execution. pbdMPI functions are SPMD extensions of MPI functions,
-rewritten from
-[Rmpi](http://cran.r-project.org/web/packages/Rmpi/index.html) with many
-performance improvements, as well as a simplified interface.
-
-This package offers:
-
--   High-level, abstract interface to low-level, fast MPI code.
--   Performance gains from directly calling MPI functions.
--   Reductions in cost of compression in communication.
--   Easy programming and debugging efforts.
-
-###### <a name="#prof"></a> pbdPROF 
-
-This package provides access to MPI profiling by way of managing the
-complicated compiling and linking issues. In this way, a user need only
-install pbdPROF and then pass an install flag for an MPI-using R package
-(which has been set up for compatibility with pbdPROF). Additionally,
-the package offers parsing and plotting utilities for profiler outputs.
-
-Like all of our packages, pbdPROF has a very useful vignette, especially
-for package developers who are directly interfacing to MPI with compiled
-code (C or Fortran). Currently, only the profiler
-[fpmpi](http://www.mcs.anl.gov/research/projects/fpmpi/WWW/features.html)
-is supported, although we plan to soon support
-[mpiP](http://mpip.sourceforge.net/) and
-[TAU](http://www.cs.uoregon.edu/research/paracomp/tau/tauprofile/images/openmpi/)
-
-This package offers:
-
--   Easy installation.
--   The ability to profile MPI-using R code.
--   Parsing and plotting utilities for understanding profiler output.
-
-\
-### I/O
-
-###### pbdNCDF4 {#ncdf4}
-
-This package offers a friendly syntax to enable the management of
-[NetCDF4](http://www.unidata.ucar.edu/software/netcdf/) data in parallel
-for R users. To get the most out of this package, you need to have a
-parallel file system available.
-
-This package offers:
-
--   Fast, efficient wrappers for reading and writing NetCDF4 data in
-    parallel.
--   An extension of the
-    [ncdf4](http://cran.r-project.org/web/packages/ncdf4/index.html)
-    package.
-
-\
-### Computation
-
-###### pbdDMAT, pbdBASE, and pbdSLAP {#dmat}
-
-These packages offer high-level syntax for large scale, distributed
-matrix algebra and statistics operations. Users need only worry about
-installing all three and learning pbdDMAT. However, developers and
-anyone with access to commercial matrix algebra libraries
-([MKL](http://software.intel.com/en-us/intel-mkl),
-[LibSci](http://www.nersc.gov/users/software/programming-libraries/math-libraries/libsci/),
-...) should, at the least, see the pbdBASE and pbdSLAP vignettes,
-respectively.
-
-These packages provide:
-
--   Nearly-native R syntax, but with massive scalability.
--   A host of matrix and statistics operations, everything from
-    `` `[` `` to `lm.fit()`.
--   Simple installation of high performance libraries.
-
-\
-### Application
-
-###### pmclust
-
-This package implements parallel model-based clustering, an unsupervised
-learning technique, for high dimensional and ultra large distributed
-data. The package employs pbdMPI to perform an
-expectation-gathering-maximization (EGM) algorithm for finite mixture
-Gaussian models.
-
-This package offers:
-
--   Fast, high-level model-based clustering for .
--   An implementation of k-means clustering using the distributed matrix
-    methods of pbdDMAT.
+(html files are experimental at this time)
+<table>
+<tr valign="center" align="center">
+  <th>Cray</th>
+  <th>Other</th>
+</tr>
+<tr valign="center" align="center">
+  <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/without_screenshots/pdf/installation_hpc.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/without_screenshots/html/index_hpc.html" target="_blank">html</a>
+    |
+    <a href="https://rawgit.com/wrathematics/installation-instructions/master/hpc/cray_pbdR.sh" target="_blank">build</a>
+        |
+    <a href="https://rawgit.com/wrathematics/installation-instructions/master/hpc/dyn_libs_copy.sh" target="_blank">dynlibs</a>
+  </td>
+    <td width=25%>
+    <a href="https://github.com/wrathematics/installation-instructions/raw/master/output/without_screenshots/pdf/installation_linux.pdf">pdf</a>
+    |
+    <a href="https://rawgithub.com/wrathematics/installation-instructions/master/output/without_screenshots/html/index_linux.html" target="_blank">html</a>
+        |
+    <a href="https://rawgit.com/wrathematics/installation-instructions/master/hpc/dyn_libs_copy.sh" target="_blank">dynlibs</a>
+  </td>
+</tr>
 </xmp>
 
 <script src="ui/strapdown/strapdown.js"></script>
