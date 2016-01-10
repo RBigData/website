@@ -67,8 +67,19 @@ Windows operating system at our sister site,
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
-| pmclust | Parallel model-based clustering. | [ghbutton](https://github.com/RBigData/pmclust) <br> [cranbutton](http://cran.r-project.org/package=pmclust)
-| pbdDEMO | Package demonstrations and examples. | [ghbutton](https://github.com/RBigData/pbdDEMO) <br> [cranbutton](http://cran.r-project.org/package=pbdDEMO)
+| pbdML   | Machine learning algorithms, using pbdDMAT. | [ghbutton](https://github.com/RBigData/pbdML)
+| pmclust | Tools for parallel model-based clustering.  These include k-means and Gaussian mixture modeling, and can be applied to ad hoc distributed matrices as well as pbdDMAT conformable ones. | [ghbutton](https://github.com/RBigData/pmclust) <br> [cranbutton](http://cran.r-project.org/package=pmclust)
+| pbdDEMO | A collection of pbdR package demonstrations and examples.  Also included is a lengthy, textbook-style vignette to help quickly move R programmers from their laptops to distributed platforms. | [ghbutton](https://github.com/RBigData/pbdDEMO) <br> [cranbutton](http://cran.r-project.org/package=pbdDEMO)
+
+
+
+## Communication
+
+| Package | Description  | Download |
+|---------|------------- | :------: |
+| remoter | A collection of utilities for performing R computations on a remote resource.  With the package, one can use their local R session (and gui of preference, e.g. RStudio) to connect to a remote server instance, and without modifying their code, have it executed on the remote instance.  The package is a version of pbdCS with the MPI innards stripped out. | [ghbutton](https://github.com/wrathematics/remoter)
+| pbdCS   | A client/server framework for pbdR.  With this package, one can move from batch SPMD programming to interactivity at thousands of cores. | [ghbutton](https://github.com/wrathematics/pbdZMQ)
+| pbdZMQ  | A set of bindings for the well-known ZeroMQ communication library.  pbdZMQ greatly eases the burdens of network programming for R users.  Additionally, the package serves as a distribution of ZeroMQ, making installation trivial.  It serves as the foundation of the remoter and pbdCS packages. | [ghbutton](https://github.com/RBigData/pbdZMQ) <br> [cranbutton](http://cran.r-project.org/package=pbdZMQ)
 
 
 
@@ -76,10 +87,10 @@ Windows operating system at our sister site,
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
-| pbdDMAT | Distributed matrix methods. | [ghbutton](https://github.com/RBigData/pbdDMAT) <br> [cranbutton](http://cran.r-project.org/package=pbdDMAT)
-| pbdBASE | Base Wrappers for distributed matrices. | [ghbutton](https://github.com/RBigData/pbdBASE) <br> [cranbutton](http://cran.r-project.org/package=pbdBASE)
-| pbdSLAP | The Scalable Linear Algebra Package. | [ghbutton](https://github.com/RBigData/pbdSLAP) <br> [cranbutton](http://cran.r-project.org/package=pbdSLAP)
-| pbdMPI | Interface to MPI. | [ghbutton](https://github.com/RBigData/pbdMPI) <br> [cranbutton](http://cran.r-project.org/package=pbdMPI)
+| pbdDMAT | Distributed matrix classes and methods.  The package includes numerous methods for manipulating and reshaping distributed matrices, as well as linear algebra and statistics routines.  Through extensive use of R's S4 methods, these functions have identical syntax to serial R. | [ghbutton](https://github.com/RBigData/pbdDMAT) <br> [cranbutton](http://cran.r-project.org/package=pbdDMAT)
+| pbdBASE | Base utilities for distributed matrices.  For advanced programmers only. | [ghbutton](https://github.com/RBigData/pbdBASE) <br> [cranbutton](http://cran.r-project.org/package=pbdBASE)
+| pbdSLAP | The Scalable Linear Algebra Package.  A distribution of ScaLAPACK, this package greatly simplifies package build and linking issues for distribute matrix programming. | [ghbutton](https://github.com/RBigData/pbdSLAP) <br> [cranbutton](http://cran.r-project.org/package=pbdSLAP)
+| pbdMPI  | A high-level interface to MPI.  The package handles linking issues, as well as offers a very simple R interface for MPI programming. | [ghbutton](https://github.com/RBigData/pbdMPI) <br> [cranbutton](http://cran.r-project.org/package=pbdMPI)
 
 
 
@@ -88,7 +99,7 @@ Windows operating system at our sister site,
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
-| pbdNCDF4 | Parallel NetCDF version 4. | [ghbutton](https://github.com/RBigData/pbdNCDF4) <br> [cranbutton](http://cran.r-project.org/package=pbdNCDF4)
+| pbdNCDF4 | An R package interface to NetCDF version 4.  The package adds collective parallel read and write capability to the R package ncdf4 version 1.8. | [ghbutton](https://github.com/RBigData/pbdNCDF4) <br> [cranbutton](http://cran.r-project.org/package=pbdNCDF4)
 
 
 
@@ -96,9 +107,9 @@ Windows operating system at our sister site,
 
 | Package | Description  | Download |
 |---------|------------- | :------: |
+| scribe  | Profiler visualizations.  The package offers numerous plotters for data generated by pbdPROF and pbdPAPI.  The package is kept separate so as not to include the graphics dependency chain on pbdPAPI and pbdPROF, as these dependencies may not be easily installed on supercomputers. | [ghbutton](https://github.com/RBigData/scribe)
 | pbdPROF | MPI profiling tools.  The package offers utilities for linking with MPI-using R packages (pbdMPI and Rmpi), as well as tools for parsing profiler output files. fpmpi and mpiP are supported. | [ghbutton](https://github.com/RBigData/pbdPROF) <br> [cranbutton](http://cran.r-project.org/package=pbdPROF)
 | pbdPAPI | Bindings for PAPI.  The package offers utilities for measuring and collecting performance counter data, such as number of floating point operations or cache misses.  Linux (or FreeBSD with a custom kernel) only. | [ghbutton](https://github.com/RBigData/pbdPAPI) 
-| scribe  | Profiler visualizations.  The package offers numerous plotters for data generated by pbdPROF and pbdPAPI.  The package is kept separate so as not to include the graphics dependency chain on pbdPAPI and pbdPROF, as these dependencies may not be easily installed on supercomputers. | [ghbutton](https://github.com/RBigData/scribe)
 
 
 
@@ -212,7 +223,7 @@ know.
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="ui/strapdown/strapdown.js"></script>
-<script src="ui/js/buttons.js"></script>
+<!--<script src="ui/js/buttons.js"></script>-->
 
 </body>
 </html>
