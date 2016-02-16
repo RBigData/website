@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>server. remoter 0.3-0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">remoter 0.3-0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Server Launcher</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>server(port&nbsp;=&nbsp;55555, password&nbsp;=&nbsp;NULL, maxretry&nbsp;=&nbsp;5, secure&nbsp;=&nbsp;has.sodium(), log&nbsp;=&nbsp;TRUE, verbose&nbsp;=&nbsp;FALSE, showmsg&nbsp;=&nbsp;FALSE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>port</dt>
+      <dd>The port (number) that will be used for communication between 
+the client and server.  The port value for the client and server
+must agree.</dd>
+      <dt>password</dt>
+      <dd>A password the client must enter before the user can process
+commands on the server.  If the value is <code>NULL</code>, then no
+password checking takes place.</dd>
+      <dt>maxretry</dt>
+      <dd>The maximum number of retries for passwords before shutting
+everything down.</dd>
+      <dt>secure</dt>
+      <dd>Logical; enables encryption via public key cryptography of
+the 'sodium' package is available.</dd>
+      <dt>log</dt>
+      <dd>Logical; enables some basic logging in the server.</dd>
+      <dt>verbose</dt>
+      <dd>Logical; enables the verbose logger.</dd>
+      <dt>showmsg</dt>
+      <dd>Logical; if TRUE, messages from the client are logged</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns <code>TRUE</code> invisibly on successful exit.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Launcher for the remoter server.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>By a 'secure' server, we mean one that encrypts messages it
+sends and only accepts encrypted messages.  Encryption uses
+public key cryptography, using the 'sodium' package.</p>
+  
+      <p>If the 'sodium' package is available to the server, then by 
+default the server will be secure.  If the package is not
+available, then you will not be able to start a secure server.
+If the server is secure, then a client can only connect if
+the client has the 'sodium' package available.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>server</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
