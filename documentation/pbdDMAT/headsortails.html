@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Head and Tail of a Distributed Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for headsortails {pbdDMAT}"><tr><td>headsortails {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Head and Tail of a Distributed Matrix</h2>
+
+<h3>Description</h3>
+
+<p>The functions rely on reblocking across different BLACS contexts.  If
+<code>i</code> is not empty, then the input distributed matrix will be
+redistributed along context 1, where extracting/deleting rows does not
+destroy block-cyclicality. Likewise, if <code>j</code> is not empty, then the
+input distributed matrix will be redistributed along context 2. When
+extraction is complete, the matrix will be redistributed across its input
+context.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ddmatrix'
+head(x, n = 6L, ...)
+
+## S3 method for class 'ddmatrix'
+tail(x, n = 6L, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>a single integer. If positive, size for the resulting object:
+number of elements for a vector (including lists), rows for a matrix or data
+frame or lines for a function. If negative, all but the <code>n</code> last/first
+number of elements of <code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- ddmatrix(1:9, 3, bldim=2)
+
+y &lt;- head(y, 2)
+print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

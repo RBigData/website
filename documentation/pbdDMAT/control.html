@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Some default parameters for pbdDMAT.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pbdDMAT Control {pbdDMAT}"><tr><td>pbdDMAT Control {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Some default parameters for pbdDMAT.</h2>
+
+<h3>Description</h3>
+
+<p>This set of controls is used to provide default values in this package.
+</p>
+
+
+<h3>Format</h3>
+
+<p>Objects contain several parameters for communicators and methods.</p>
+
+
+<h3>Details</h3>
+
+<p>The default blocking <code>dmat_opts$BLDIM</code> is <code>c(16,16)</code>, which results in a 16 by
+16 blocking dimension for distributed matrices.  Any time a function takes
+the <code>bldim=</code> argument, it will default to this value unless the user
+specifies an alternative.
+</p>
+<p>The default ICTXT is 0.  This is the full 2-dimensional processor grid.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Handle Missing Values in Distributed Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for na {pbdDMAT}"><tr><td>na {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Handle Missing Values in Distributed Matrices</h2>
+
+<h3>Description</h3>
+
+<p>Dealing with NA's and NaN's.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+na.exclude(object, ...)
+
+## S4 method for signature 'ddmatrix'
+na.exclude(object, ..., ICTXT)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>numeric distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>optional BLACS context number for output</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Removes rows containing NA's and NaN's.
+</p>
+<p>The function relies on reblocking across different BLACS contexts.  The
+input distributed matrix will be redistributed along context 1, where
+extracting/deleting rows does not destroy block-cyclicality.
+</p>
+<p>Only advanced users should supply an <code>ICTXT</code> value. Most should simply
+leave this argument blank.
+</p>
+<p>The context of the return is dependent on the function arguments.  If the
+<code>ICTXT=</code> argument is missing, then the return will be redistributed
+across its input context <code>object@ICTXT</code>.  Otherwise, the return will be
+redistributed across the supplied <code>ICTXT</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:9, 3)
+x[1, 1] &lt;- NA
+x &lt;- as.ddmatrix(x)
+
+y &lt;- na.exclude(x)
+comm.print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Shell Execution via cmd windows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for shellexec.wcc {pbdZMQ}"><tr><td>shellexec.wcc {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Shell Execution via cmd windows</h2>
+
+<h3>Description</h3>
+
+<p>This function is an extension to the <code>shell.exec</code>() which is a native
+function of R
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+shellexec.wcc(file, SW.cmd = 7L)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>a file name as in <code>shell.exec</code>()</p>
+</td></tr>
+<tr valign="top"><td><code>SW.cmd</code></td>
+<td>
+<p>a SW_* command of showing windows</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>shell.exec("a.txt")</code> will open a windows (notepad) to edit the file
+<code>a.txt</code> in windows system. However, the notepad will block the (parent)
+active R windows, i.e. <code>SW.cmd = 5</code> as <code>SH_SHOW</code> by default.
+</p>
+<p>The <code>shellexec.wcc("a.txt", SW.cmd = 7L)</code> will open the notepad, but in
+a minimized window. Therefore, there is no blocking to the active R windows.
+See the website in the references section to see more options to control the
+behavior of new windows. Possible choices are
+</p>
+<p><code>SW_SHOW (5)</code>: Activates the window and displays it in its current size
+and position.
+</p>
+<p><code>SW_SHOWMINIMIZED (2)</code>: Activates the window and displays it as a
+minimized window.
+</p>
+<p><code>SW_SHOWMINNOACTIVE (7)</code>: Displays the window as a minimized window.
+The active window remains active.
+</p>
+<p><code>SW_SHOWNA (8)</code>: Displays the window in its current state.  The active
+window remains active.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A new windows with certain applications depending on the association
+of the input <code>file</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Microsoft, Windows Dev Center: Windows desktop applications &gt;
+Develop &gt; Desktop technologies &gt; Desktop Environment &gt; The Windows Shell &gt;
+Shell Reference &gt; Shell Functions &gt; ShellExecute
+</p>
+<p><code>https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>shell.exec()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(pbdZMQ, quietly = TRUE)
+
+shellexec.wcc("a.txt", 5L)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

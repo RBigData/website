@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Singular Value Decomposition</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ddmatrix-svd {pbdDMAT}"><tr><td>ddmatrix-svd {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Singular Value Decomposition</h2>
+
+<h3>Description</h3>
+
+<p>SVD for distributed matrices with R-like syntax, with
+calculations performed by the PBLAS and ScaLAPACK libraries.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ANY'
+La.svd(x, nu = min(n, p), nv = min(n, p))
+
+## S4 method for signature 'ddmatrix'
+La.svd(x, nu = min(n, p), nv = min(n, p))
+
+## S4 method for signature 'ANY'
+svd(x, nu = min(n, p), nv = min(n, p), LINPACK = FALSE)
+
+## S4 method for signature 'ddmatrix'
+svd(x, nu = min(n, p), nv = min(n, p))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrices.</p>
+</td></tr>
+<tr valign="top"><td><code>nu</code></td>
+<td>
+<p>number of left singular vectors to return when calculating
+singular values.</p>
+</td></tr>
+<tr valign="top"><td><code>nv</code></td>
+<td>
+<p>number of right singular vectors to return when calculating
+singular values.</p>
+</td></tr>
+<tr valign="top"><td><code>LINPACK</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Extensions of R linear algebra functions.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>La.svd()</code> performs singular value decomposition, and returns the
+transpose of right singular vectors if any are requested. Singular values
+are stored as a global R vector. Left and right singular vectors are unique
+up to sign. Sometimes core R (via LAPACK) and ScaLAPACK will disagree as to
+what the left/right singular vectors are, but the disagreement is always
+only up to sign.
+</p>
+<p><code>svd()</code> performs singular value decomposition. Differs from
+<code>La.svd()</code> in that the right singular vectors, if requested, are
+returned non-transposed. Singular values are stored as a global R vector.
+Sometimes core R (via LAPACK) and ScaLAPACK will disagree as to what the
+left/right singular vectors are, but the disagreement is always only up to
+sign.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:9, 3)
+x &lt;- as.ddmatrix(x)
+
+y &lt;- svd(A)
+print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Miscellaneous Mathematical Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for math {pbdDMAT}"><tr><td>math {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Miscellaneous Mathematical Functions</h2>
+
+<h3>Description</h3>
+
+<p>Binary operations for distributed matrix/distributed matrix and distributed
+matrix/vector operations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix'
+sqrt(x)
+
+## S4 method for signature 'ddmatrix'
+abs(x)
+
+## S4 method for signature 'ddmatrix'
+exp(x)
+
+## S4 method for signature 'ddmatrix'
+log(x, base = exp(1))
+
+## S4 method for signature 'ddmatrix'
+log2(x)
+
+## S4 method for signature 'ddmatrix'
+log10(x)
+
+## S4 method for signature 'ddmatrix'
+log1p(x)
+
+## S4 method for signature 'ddmatrix'
+sin(x)
+
+## S4 method for signature 'ddmatrix'
+cos(x)
+
+## S4 method for signature 'ddmatrix'
+tan(x)
+
+## S4 method for signature 'ddmatrix'
+asin(x)
+
+## S4 method for signature 'ddmatrix'
+acos(x)
+
+## S4 method for signature 'ddmatrix'
+atan(x)
+
+## S4 method for signature 'ddmatrix'
+sinh(x)
+
+## S4 method for signature 'ddmatrix'
+cosh(x)
+
+## S4 method for signature 'ddmatrix'
+tanh(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>base</code></td>
+<td>
+<p>a positive number: the base with respect to which logarithms are
+computed. Defaults to e='exp(1)'.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Performs the miscellaneous mathematical calculation on a distributed matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:9, 3)
+x &lt;- as.ddmatrix(x)
+
+y &lt;- sqrt(abs(log(x/10)))
+comm.print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

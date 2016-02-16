@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: SLAP Grid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SLAP Grid Information {pbdSLAP}"><tr><td>SLAP Grid Information {pbdSLAP}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>SLAP Grid</h2>
+
+<h3>Description</h3>
+
+<p>These functions initializes a grid of <code>pbdSLAP</code>, assigns the
+information to a global object, and free the grid.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  slap.init.grid(nprow, npcol = 1, ictxt = 0)
+  slap.exit.grid(ictxt)
+  slap.finalize(quit.mpi = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nprow</code></td>
+<td>
+<p>number of row processors.</p>
+</td></tr>
+<tr valign="top"><td><code>npcol</code></td>
+<td>
+<p>number of column processors.</p>
+</td></tr>
+<tr valign="top"><td><code>ictxt</code></td>
+<td>
+<p>the grid id</p>
+</td></tr>
+<tr valign="top"><td><code>quit.mpi</code></td>
+<td>
+<p>if finalize MPI.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function arranges all processors in a (nprow * npcol) grid and
+the grid will map the big data matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>slap.init.grid</code> assigns a global object <code>.__grid_info_0</code> for
+<code>ictxt = 0</code> containing the grid information. <code>slap.exit.grid</code>
+free the grid. <code>slap.finalize</code> free all memory.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, Drew Schmidt,
+George Ostrouchov, and Pragneshkumar Patel.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+<p>ScaLAPACK Website:
+<a href="http://www.netlib.org/scalapack/">http://www.netlib.org/scalapack/</a>
+</p>
+<p>ScaLAPACK Block Cyclic Data Distribution Website:
+<a href="http://acts.nersc.gov/scalapack/hands-on/datadist.html">http://acts.nersc.gov/scalapack/hands-on/datadist.html</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+
+mpiexec -np 2 Rscript -e "demo(gridinfo,'pbdSLAP',ask=F,echo=F)"
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdSLAP</em> version 0.2-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

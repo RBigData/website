@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Matrix Exponentiation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for expm {pbdDMAT}"><tr><td>expm {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Matrix Exponentiation</h2>
+
+<h3>Description</h3>
+
+<p>Routines for matrix exponentiation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+expm(x, t = 1, p = 6)
+
+## S4 method for signature 'matrix'
+expm(x, t = 1, p = 6)
+
+## S4 method for signature 'ddmatrix'
+expm(x, t = 1, p = 6)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A numeric matrix or a numeric distributed matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>t</code></td>
+<td>
+<p>Scaling parameter for x.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Order of the Pade' approximation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Formally, the exponential of a square matrix <code>X</code> is a power series:
+</p>
+<p><i>expm(X) = id + X/1! + X^2/2! + X^3/3! + &hellip;</i>
+</p>
+<p>where the powers on the matrix correspond to matrix-matrix multiplications.
+</p>
+<p><code>expm()</code> directly computes the matrix exponential of a distributed,
+dense matrix.  The implementation uses Pade' approximations and a
+scaling-and-squaring technique (see references).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>References</h3>
+
+<p>&quot;New Scaling and Squaring Algorithm for the Matrix Exponential&quot;
+Awad H. Al-Mohy and Nicholas J. Higham, August 2009
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- matrix("rnorm", 5, 5, bldim=2)
+expm(x)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

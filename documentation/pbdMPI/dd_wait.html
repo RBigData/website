@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Wait Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for wait {pbdMPI}"><tr><td>wait {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Wait Functions </h2>
+
+<h3>Description</h3>
+
+<p>The functions call MPI wait functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+wait(request = .pbd_env$SPMD.CT$request,
+     status = .pbd_env$SPMD.CT$status)
+waitany(count, status = .pbd_env$SPMD.CT$status)
+waitsome(count)
+waitall(count)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>request</code></td>
+<td>
+<p>a request number.</p>
+</td></tr>
+<tr valign="top"><td><code>status</code></td>
+<td>
+<p>a status number.</p>
+</td></tr>
+<tr valign="top"><td><code>count</code></td>
+<td>
+<p>a count number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are for internal uses. Potentially, they wait after some
+nonblocking MPI calls.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An invisible state of MPI call is returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+.comm.size &lt;- comm.size()
+.comm.rank &lt;- comm.rank()
+
+### Examples.
+N &lt;- 5
+x &lt;- (1:N) + N * .comm.rank
+if(.comm.rank == 0){
+  isend(list(x))
+}
+if(.comm.rank == 1){
+  y &lt;- irecv(list(x))
+}
+wait()
+comm.print(y, rank.print = 1L)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

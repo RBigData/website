@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Send and Receive an Object to and from Other Ranks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sendrecv.replace-method {pbdMPI}"><tr><td>sendrecv.replace-method {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Send and Receive an Object to and from Other Ranks </h2>
+
+<h3>Description</h3>
+
+<p>This method lets a rank send an object to the other rank and
+receive an object from another rank in the same communicator.
+The default return is <code>x</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+sendrecv.replace(x,
+  rank.dest = (comm.rank(.pbd_env$SPMD.CT$comm) + 1) %%
+              comm.size(.pbd_env$SPMD.CT$comm),
+  send.tag = .pbd_env$SPMD.CT$tag,
+  rank.source = (comm.rank(.pbd_env$SPMD.CT$comm) - 1) %%
+                comm.size(.pbd_env$SPMD.CT$comm),
+  recv.tag = .pbd_env$SPMD.CT$tag,
+  comm = .pbd_env$SPMD.CT$comm, status = .pbd_env$SPMD.CT$status)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object to be sent from a rank.</p>
+</td></tr>
+<tr valign="top"><td><code>rank.dest</code></td>
+<td>
+<p>a rank of destination where <code>x</code> send to.</p>
+</td></tr>
+<tr valign="top"><td><code>send.tag</code></td>
+<td>
+<p>a send tag number.</p>
+</td></tr>
+<tr valign="top"><td><code>rank.source</code></td>
+<td>
+<p>a source rank where <code>x</code> sent from.</p>
+</td></tr>
+<tr valign="top"><td><code>recv.tag</code></td>
+<td>
+<p>a receive tag number.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>status</code></td>
+<td>
+<p>a status number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A corresponding <code>sendrecv.replace()</code> should be evoked at the
+corresponding ranks <code>rank.dest</code> and <code>rank.source</code>.
+</p>
+<p><code>rank.dest</code> and <code>rank.source</code> can be <code>as.integer(NULL)</code> to
+create a silent sendrecv operation which is more efficient than setting
+<code>rank.dest</code> and <code>rank.source</code> to be equal.
+</p>
+<p><strong>Warning:</strong> <code>sendrecv.replace()</code> is not safe for <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> since <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> is
+not a thread safe package that a dynamic returning object requires certain
+blocking or barrier at some where. The replaced object or memory address
+&lsquo;MUST&rsquo; return correctly. This is almost equivalent to <code>sendrecv()</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>x</code> is returned by default.
+</p>
+
+
+<h3>Methods</h3>
+
+<p>For calling <code>spmd.sendrecv.replace.*()</code>:
+</p>
+
+<dl>
+<dt><code>signature(x = "ANY")</code></dt><dd></dd>
+<dt><code>signature(x = "integer")</code></dt><dd></dd>
+<dt><code>signature(x = "numeric")</code></dt><dd></dd>
+<dt><code>signature(x = "raw")</code></dt><dd></dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="ad_sendrecv-method.html">sendrecv</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+.comm.size &lt;- comm.size()
+.comm.rank &lt;- comm.rank()
+
+### Examples.
+N &lt;- 5
+x &lt;- (1:N) + N * .comm.size
+x &lt;- sendrecv.replace(matrix(x, nrow = 1))
+comm.print(x, rank.print = 1)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

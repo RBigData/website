@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A Simple Parallel CSV Reader</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read.csv.ddmatrix {pbdDEMO}"><tr><td>read.csv.ddmatrix {pbdDEMO}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A Simple Parallel CSV Reader</h2>
+
+<h3>Description</h3>
+
+<p>Read in a table from a CSV file in parallel as a distributed matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read.csv.ddmatrix(file, sep = ",", nrows, ncols, header = FALSE,
+  bldim = 4, num.rdrs = 1, ICTXT = 0, exact.linecount = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>csv file name.</p>
+</td></tr>
+<tr valign="top"><td><code>sep</code></td>
+<td>
+<p>separator character.</p>
+</td></tr>
+<tr valign="top"><td><code>nrows, ncols</code></td>
+<td>
+<p>dimensions of the csv file. Allowed to be missing in
+function call.</p>
+</td></tr>
+<tr valign="top"><td><code>header</code></td>
+<td>
+<p>logical indicating presence/absence of character header for
+file.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>the blocking dimension for block-cyclically distributing the
+matrix across the process grid</p>
+</td></tr>
+<tr valign="top"><td><code>num.rdrs</code></td>
+<td>
+<p>numer of processes to be used to read in the table</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number for return</p>
+</td></tr>
+<tr valign="top"><td><code>exact.linecount</code></td>
+<td>
+<p>linecount In the event that <code>nrows</code> is missing, this
+determines whether or not the exact number of rows should be determined
+(which requires a file read), or if an estimate should be used.  Default is
+<code>TRUE</code>, meaning that the file will be scanned.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function reads in data from a csv file into a distributed matrix.  This
+function sits somewhere between <code>scan()</code> and <code>read.csv()</code>, but for
+parallel reads into a distributed matrix.
+</p>
+<p>The arguments <code>nrow=</code> and <code>ncol=</code> are optional.  In the case that
+they are left blank, they will be determined.  However, note that doing so
+is costly, so knowing the dimensions beforehand can greatly improve
+performance.
+</p>
+<p>Although frankly, the performance-minded should not be using csv's in the
+first place.  Consider using the <code>pbdNCDF4</code> package for managing data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDEMO</em> version 0.3-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

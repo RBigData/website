@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distributed Matrix Creation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ddmatrix-constructors {pbdDMAT}"><tr><td>ddmatrix-constructors {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distributed Matrix Creation</h2>
+
+<h3>Description</h3>
+
+<p>Methods for simple construction of distributed matrices.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ddmatrix(data, ...)
+
+## S4 method for signature 'ddmatrix'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE,
+  ..., bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'missing'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE, ...,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'vector'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE, ...,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'matrix'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE, ...,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'character'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE,
+  ..., min = 0, max = 1, mean = 0, sd = 1, rate = 1, shape,
+  scale = 1, bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+ddmatrix.local(data, ...)
+
+## S4 method for signature 'missing'
+ddmatrix.local(data, nrow = 1, ncol = 1,
+  byrow = FALSE, ..., bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$BLDIM)
+
+## S4 method for signature 'vector'
+ddmatrix.local(data, nrow = 1, ncol = 1, byrow = FALSE,
+  ..., bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'matrix'
+ddmatrix.local(data, nrow = 1, ncol = 1, byrow = FALSE,
+  ..., bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'character'
+ddmatrix.local(data, nrow = 1, ncol = 1,
+  byrow = FALSE, ..., min = 0, max = 1, mean = 0, sd = 1, rate = 1,
+  shape, scale = 1, bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>optional data vector.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Extra arguments</p>
+</td></tr>
+<tr valign="top"><td><code>nrow</code></td>
+<td>
+<p>number of rows.  Global rows for <code>ddmatrix()</code>. Local rows
+for <code>ddmatrix.local()</code>.  See details below.</p>
+</td></tr>
+<tr valign="top"><td><code>ncol</code></td>
+<td>
+<p>number of columns.  Global columns for <code>ddmatrix()</code>.  Local
+columns for <code>ddmatrix.local()</code>.  See details below.</p>
+</td></tr>
+<tr valign="top"><td><code>byrow</code></td>
+<td>
+<p>logical. If <code>FALSE</code> then the distributed matrix will be
+filled by column major storage, otherwise row-major.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>blocking dimension.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+<tr valign="top"><td><code>min, max</code></td>
+<td>
+<p>Min and max values for random uniform generation.</p>
+</td></tr>
+<tr valign="top"><td><code>mean, sd</code></td>
+<td>
+<p>Mean and standard deviation for random normal generation.</p>
+</td></tr>
+<tr valign="top"><td><code>rate</code></td>
+<td>
+<p>Rate for random exponential generation.</p>
+</td></tr>
+<tr valign="top"><td><code>shape, scale</code></td>
+<td>
+<p>Shape and scale parameters for random weibull generation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These methods are simplified methods of creating distributed matrices,
+including random ones.  These methods involve only local computations, i.e.,
+no communication is performed in the construction of a <code>ddmatrix</code> using
+these methods (in contrast to using <code>as.ddmatrix()</code> et al).
+</p>
+<p>For non-character inputs, the methods attempt to mimic R as closely as
+possible.  So <code>ddmatrix(1:3, 5, 7)</code> produces the distributed analogue
+of <code>matrix(1:3, 5, 7)</code>.
+</p>
+<p>For character inputs, you may also specify additional parametric family
+information.
+</p>
+<p>The functions predicated with <code>.local</code> generate data with a fixed local
+dimension, i.e., each processor gets an identical amount of data.  Likewise,
+the remaining functions generate a fixed global amount of data, and each
+processor may or may not have an identical amount of local data.
+</p>
+<p>To ensure good random number generation, you should only consider using the
+character methods with the <code>comm.set.seed()</code> function from pbdMPI which
+uses the method of L'Ecuyer via the rlecuyer package.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+dx &lt;- ddmatrix(data="rnorm", nrow=5, ncol=6, mean=10, sd=100, bldim=2)
+dx
+
+dy &lt;- ddmatrix(data=1:4, nrow=7, ncol=5, bldim=2)
+dy
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

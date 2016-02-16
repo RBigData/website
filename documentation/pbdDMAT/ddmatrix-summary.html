@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distributed Matrix Summary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ddmatrix-summary {pbdDMAT}"><tr><td>ddmatrix-summary {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distributed Matrix Summary</h2>
+
+<h3>Description</h3>
+
+<p>Summarize a distributed matrix.  Gives min, max, mean, etc. by column.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+summary(object, ...)
+
+## S4 method for signature 'ddmatrix'
+summary(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>numeric distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The return is on process 0 only.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A table on processor 0, <code>NULL</code> on all other processors.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:16, ncol=4)
+dx &lt;- as.ddmatrix(x) 
+
+summary(dx)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global Quick Sort for Distributed Vectors or Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global sort {pbdMPI}"><tr><td>global sort {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global Quick Sort for Distributed Vectors or Matrices </h2>
+
+<h3>Description</h3>
+
+<p>This function globally sorts distributed data for all ranks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.sort(x, decreasing = FALSE, na.last = NA,
+          comm = .pbd_env$SPMD.CT$comm,
+          status = .pbd_env$SPMD.CT$status)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a vector.</p>
+</td></tr>
+<tr valign="top"><td><code>decreasing</code></td>
+<td>
+<p>logical. Should the sort order be increasing or decreasing?</p>
+</td></tr>
+<tr valign="top"><td><code>na.last</code></td>
+<td>
+<p>for controlling the treatment of <code>NA</code>s.
+If <code>TRUE</code>, missing values in the data are put last;
+if <code>FALSE</code>, they are put first; if <code>NA</code>,
+they are removed.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>status</code></td>
+<td>
+<p>a status number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The distributed quick sort is implemented for this functions.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The returns are the same size of <code>x</code> but in global sorting order.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>All ranks may not have a NULL <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+.comm.size &lt;- comm.size()
+.comm.rank &lt;- comm.rank()
+
+### Examples.
+comm.set.seed(123456, diff = TRUE)
+x &lt;- c(rnorm(5 + .comm.rank * 2), NA)
+# x &lt;- sample(1:5, 5 + .comm.rank * 2, replace = TRUE)
+comm.end.seed()
+
+if(.comm.rank == 1){
+  x &lt;- NULL    ### Test for NULL or 0 vector
+}
+
+y &lt;- allgather(x)
+comm.print(y)
+
+y &lt;- comm.sort(x)
+y &lt;- allgather(y)
+comm.print(y)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

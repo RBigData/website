@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Visualizing the DMAT Data Structure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot_dmat {pbdDEMO}"><tr><td>plot_dmat {pbdDEMO}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Visualizing the DMAT Data Structure</h2>
+
+<h3>Description</h3>
+
+<p>Plot a (small) global matrix as though it had been chopped up into pieces in
+the block-cyclic fashion.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot_dmat(nrow, ncol, nprow, npcol, bldim, ..., labeling = "blacs",
+  col = "rainbow")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nrow, ncol</code></td>
+<td>
+<p>Number of global rows/columns of the matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>nprow, npcol</code></td>
+<td>
+<p>Number of processor rows/columns in the BLACS grid.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>The blocking factor for the data distribution.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments</p>
+</td></tr>
+<tr valign="top"><td><code>labeling</code></td>
+<td>
+<p>Character argument; should be &quot;blacs&quot; or &quot;mpi&quot;.  This
+determines how the processor labeling should be, either in the 2-d BLACS
+way, or in the 1-d MPI way.</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>R plots color argument</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function helps the user visualize 2-d block-cyclic distributed data.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDEMO</em> version 0.3-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

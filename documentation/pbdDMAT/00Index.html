@@ -1,0 +1,554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>R: Programming with Big Data - Distributed Matrix Methods</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+<h1> Programming with Big Data - Distributed Matrix Methods
+<img class="toplogo" src="../../../doc/html/logo.jpg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;pbdDMAT&rsquo; version 0.4-0</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+<li><a href="../demo">Code demos</a>.  Use <a href="../../utils/help/demo">demo()</a> to run them.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<p style="text-align: center;">
+<a href="# "> </a>
+<a href="#A">A</a>
+<a href="#B">B</a>
+<a href="#C">C</a>
+<a href="#D">D</a>
+<a href="#E">E</a>
+<a href="#F">F</a>
+<a href="#G">G</a>
+<a href="#H">H</a>
+<a href="#I">I</a>
+<a href="#K">K</a>
+<a href="#L">L</a>
+<a href="#M">M</a>
+<a href="#N">N</a>
+<a href="#P">P</a>
+<a href="#Q">Q</a>
+<a href="#R">R</a>
+<a href="#S">S</a>
+<a href="#T">T</a>
+<a href="#V">V</a>
+<a href="#misc">misc</a>
+</p>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="pbdDMAT-package.html">pbdDMAT-package</a></td>
+<td>Distributed Matrix Methods</td></tr>
+</table>
+
+<h2><a name="A">-- A --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="math.html">abs-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">Accessors</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">acos-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">all-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">any-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-apply.html">apply</a></td>
+<td>Apply Family of Functions</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-apply.html">apply-method</a></td>
+<td>Apply Family of Functions</td></tr>
+<tr><td style="width: 25%;"><a href="arithmetic.html">arithmetic</a></td>
+<td>Arithmetic Operators</td></tr>
+<tr><td style="width: 25%;"><a href="as.rowcyclic.html">as.block</a></td>
+<td>Distribute/Redistribute matrices across the process grid</td></tr>
+<tr><td style="width: 25%;"><a href="as.rowcyclic.html">as.blockcyclic</a></td>
+<td>Distribute/Redistribute matrices across the process grid</td></tr>
+<tr><td style="width: 25%;"><a href="as.rowcyclic.html">as.colblock</a></td>
+<td>Distribute/Redistribute matrices across the process grid</td></tr>
+<tr><td style="width: 25%;"><a href="as.rowcyclic.html">as.colcyclic</a></td>
+<td>Distribute/Redistribute matrices across the process grid</td></tr>
+<tr><td style="width: 25%;"><a href="as.ddmatrix.html">as.ddmatrix</a></td>
+<td>Non-Distributed object to Distributed Object Converters</td></tr>
+<tr><td style="width: 25%;"><a href="as.ddmatrix.html">as.ddmatrix-method</a></td>
+<td>Non-Distributed object to Distributed Object Converters</td></tr>
+<tr><td style="width: 25%;"><a href="as.matrix.html">as.matrix</a></td>
+<td>Distributed object to Matrix Converters</td></tr>
+<tr><td style="width: 25%;"><a href="as.matrix.html">as.matrix-method</a></td>
+<td>Distributed object to Matrix Converters</td></tr>
+<tr><td style="width: 25%;"><a href="as.rowcyclic.html">as.rowblock</a></td>
+<td>Distribute/Redistribute matrices across the process grid</td></tr>
+<tr><td style="width: 25%;"><a href="as.rowcyclic.html">as.rowcyclic</a></td>
+<td>Distribute/Redistribute matrices across the process grid</td></tr>
+<tr><td style="width: 25%;"><a href="as.vector.html">as.vector</a></td>
+<td>Distributed object to Vector Converters</td></tr>
+<tr><td style="width: 25%;"><a href="as.vector.html">as.vector-method</a></td>
+<td>Distributed object to Vector Converters</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">asin-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">atan-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+</table>
+
+<h2><a name="B">-- B --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="binds.html">binds</a></td>
+<td>Row and Column binds for Distributed Matrices</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">bldim</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">bldim-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+</table>
+
+<h2><a name="C">-- C --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="binds.html">cbind-method</a></td>
+<td>Row and Column binds for Distributed Matrices</td></tr>
+<tr><td style="width: 25%;"><a href="rounding.html">ceiling-method</a></td>
+<td>Rounding of Numbers</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-chol.html">chol</a></td>
+<td>Cholesky Factorization</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-chol.html">chol-method</a></td>
+<td>Cholesky Factorization</td></tr>
+<tr><td style="width: 25%;"><a href="chol2inv.html">chol2inv</a></td>
+<td>Inverse from Choleski (or QR) Decomposition</td></tr>
+<tr><td style="width: 25%;"><a href="chol2inv.html">chol2inv-method</a></td>
+<td>Inverse from Choleski (or QR) Decomposition</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">colMax</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">colMax-method</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">colMeans-method</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">colMin</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">colMin-method</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">colSums-method</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="companion.html">companion</a></td>
+<td>Generate Companion Matrices</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">Comparators</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="condnums.html">condnums</a></td>
+<td>Compute or estimate the Condition Number of a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="covariance.html">cor-method</a></td>
+<td>Covariance and Correlation</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">cos-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">cosh-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="covariance.html">cov-method</a></td>
+<td>Covariance and Correlation</td></tr>
+<tr><td style="width: 25%;"><a href="covariance.html">cov2cor-method</a></td>
+<td>Covariance and Correlation</td></tr>
+<tr><td style="width: 25%;"><a href="covariance.html">covariance</a></td>
+<td>Covariance and Correlation</td></tr>
+<tr><td style="width: 25%;"><a href="matmult.html">crossprod-method</a></td>
+<td>Matrix Multiplication</td></tr>
+</table>
+
+<h2><a name="D">-- D --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="ddmatrix-constructors.html">ddmatrix</a></td>
+<td>Distributed Matrix Creation</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-apply.html">ddmatrix-apply</a></td>
+<td>Apply Family of Functions</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-chol.html">ddmatrix-chol</a></td>
+<td>Cholesky Factorization</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-class.html">ddmatrix-class</a></td>
+<td>Class ddmatrix</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-constructors.html">ddmatrix-constructors</a></td>
+<td>Distributed Matrix Creation</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-eigen.html">ddmatrix-eigen</a></td>
+<td>eigen</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-lu.html">ddmatrix-lu</a></td>
+<td>LU Factorization</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-constructors.html">ddmatrix-method</a></td>
+<td>Distributed Matrix Creation</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-norm.html">ddmatrix-norm</a></td>
+<td>Norm</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-prcomp.html">ddmatrix-prcomp</a></td>
+<td>Principal Components Analysis</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-print.html">ddmatrix-print</a></td>
+<td>Printing a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-scale.html">ddmatrix-scale</a></td>
+<td>Scale</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-solve.html">ddmatrix-solve</a></td>
+<td>Solve</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-summary.html">ddmatrix-summary</a></td>
+<td>Distributed Matrix Summary</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-sumstats.html">ddmatrix-sumstats</a></td>
+<td>Basic Summary Statistics</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-svd.html">ddmatrix-svd</a></td>
+<td>Singular Value Decomposition</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-constructors.html">ddmatrix.local</a></td>
+<td>Distributed Matrix Creation</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-constructors.html">ddmatrix.local-method</a></td>
+<td>Distributed Matrix Creation</td></tr>
+<tr><td style="width: 25%;"><a href="diag-constructors.html">diag</a></td>
+<td>Distributed Matrix Diagonals</td></tr>
+<tr><td style="width: 25%;"><a href="diag-constructors.html">diag-constructors</a></td>
+<td>Distributed Matrix Diagonals</td></tr>
+<tr><td style="width: 25%;"><a href="diag-constructors.html">diag-method</a></td>
+<td>Distributed Matrix Diagonals</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">dim-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="as.ddmatrix.html">distribute</a></td>
+<td>Non-Distributed object to Distributed Object Converters</td></tr>
+</table>
+
+<h2><a name="E">-- E --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="ddmatrix-eigen.html">eigen</a></td>
+<td>eigen</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-eigen.html">eigen-method</a></td>
+<td>eigen</td></tr>
+<tr><td style="width: 25%;"><a href="eigen2.html">eigen2</a></td>
+<td>eigen2</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">exp-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="expm.html">expm</a></td>
+<td>Matrix Exponentiation</td></tr>
+<tr><td style="width: 25%;"><a href="expm.html">expm-method</a></td>
+<td>Matrix Exponentiation</td></tr>
+<tr><td style="width: 25%;"><a href="extract.html">extract</a></td>
+<td>Extract or Replace Parts of a Distributed Matrix</td></tr>
+</table>
+
+<h2><a name="F">-- F --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="rounding.html">floor-method</a></td>
+<td>Rounding of Numbers</td></tr>
+</table>
+
+<h2><a name="G">-- G --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="getLocal.html">getLocal</a></td>
+<td>getLocal</td></tr>
+</table>
+
+<h2><a name="H">-- H --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="headsortails.html">head.ddmatrix</a></td>
+<td>Head and Tail of a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="headsortails.html">headsortails</a></td>
+<td>Head and Tail of a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="Hilbert.html">Hilbert</a></td>
+<td>Generate Hilbert Matrices</td></tr>
+</table>
+
+<h2><a name="I">-- I --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="accessors.html">ICTXT</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">ICTXT-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="insert.html">insert</a></td>
+<td>Directly Insert Into Distributed Matrix Submatrix Slot</td></tr>
+<tr><td style="width: 25%;"><a href="isdot.html">is.ddmatrix</a></td>
+<td>Type Checks, Including NA, NaN, etc.</td></tr>
+<tr><td style="width: 25%;"><a href="isdot.html">is.infinite-method</a></td>
+<td>Type Checks, Including NA, NaN, etc.</td></tr>
+<tr><td style="width: 25%;"><a href="isdot.html">is.na-method</a></td>
+<td>Type Checks, Including NA, NaN, etc.</td></tr>
+<tr><td style="width: 25%;"><a href="isdot.html">is.nan-method</a></td>
+<td>Type Checks, Including NA, NaN, etc.</td></tr>
+<tr><td style="width: 25%;"><a href="isdot.html">is.numeric-method</a></td>
+<td>Type Checks, Including NA, NaN, etc.</td></tr>
+<tr><td style="width: 25%;"><a href="isdot.html">isdot</a></td>
+<td>Type Checks, Including NA, NaN, etc.</td></tr>
+<tr><td style="width: 25%;"><a href="isSymmetric.html">isSymmetric</a></td>
+<td>isSymmetric</td></tr>
+<tr><td style="width: 25%;"><a href="isSymmetric.html">isSymmetric-method</a></td>
+<td>isSymmetric</td></tr>
+</table>
+
+<h2><a name="K">-- K --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="condnums.html">kappa.ddmatrix</a></td>
+<td>Compute or estimate the Condition Number of a Distributed Matrix</td></tr>
+</table>
+
+<h2><a name="L">-- L --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="ddmatrix-svd.html">La.svd</a></td>
+<td>Singular Value Decomposition</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-svd.html">La.svd-method</a></td>
+<td>Singular Value Decomposition</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">ldim</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">ldim-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">length-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="lm.fit.html">lm.fit</a></td>
+<td>Fitter for Linear Models</td></tr>
+<tr><td style="width: 25%;"><a href="lm.fit.html">lm.fit-method</a></td>
+<td>Fitter for Linear Models</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">log-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">log10-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">log1p-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">log2-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-lu.html">lu</a></td>
+<td>LU Factorization</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-lu.html">lu-method</a></td>
+<td>LU Factorization</td></tr>
+</table>
+
+<h2><a name="M">-- M --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="math.html">math</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="matmult.html">matmult</a></td>
+<td>Matrix Multiplication</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-sumstats.html">max-method</a></td>
+<td>Basic Summary Statistics</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-sumstats.html">mean-method</a></td>
+<td>Basic Summary Statistics</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-sumstats.html">median-method</a></td>
+<td>Basic Summary Statistics</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-sumstats.html">min-method</a></td>
+<td>Basic Summary Statistics</td></tr>
+</table>
+
+<h2><a name="N">-- N --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="na.html">na</a></td>
+<td>Handle Missing Values in Distributed Matrices</td></tr>
+<tr><td style="width: 25%;"><a href="na.html">na.exclude</a></td>
+<td>Handle Missing Values in Distributed Matrices</td></tr>
+<tr><td style="width: 25%;"><a href="na.html">na.exclude-method</a></td>
+<td>Handle Missing Values in Distributed Matrices</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">NCOL</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">ncol</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">NCOL-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">ncol-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-norm.html">norm</a></td>
+<td>Norm</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-norm.html">norm-method</a></td>
+<td>Norm</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">NROW</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">nrow</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">NROW-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">nrow-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+</table>
+
+<h2><a name="P">-- P --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="control.html">pbdDMAT Control</a></td>
+<td>Some default parameters for pbdDMAT.</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-prcomp.html">prcomp</a></td>
+<td>Principal Components Analysis</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-prcomp.html">prcomp-method</a></td>
+<td>Principal Components Analysis</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-print.html">print</a></td>
+<td>Printing a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-print.html">print-method</a></td>
+<td>Printing a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-sumstats.html">prod-method</a></td>
+<td>Basic Summary Statistics</td></tr>
+</table>
+
+<h2><a name="Q">-- Q --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="qr.html">qr</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr-method</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr.Q</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr.Q-method</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr.qty</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr.qty-method</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr.qy</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr.qy-method</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr.R</a></td>
+<td>QR Decomposition Methods</td></tr>
+<tr><td style="width: 25%;"><a href="qr.html">qr.R-method</a></td>
+<td>QR Decomposition Methods</td></tr>
+</table>
+
+<h2><a name="R">-- R --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="binds.html">rbind-method</a></td>
+<td>Row and Column binds for Distributed Matrices</td></tr>
+<tr><td style="width: 25%;"><a href="condnums.html">rcond-method</a></td>
+<td>Compute or estimate the Condition Number of a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="redistribute.html">reblock</a></td>
+<td>Distribute/Redistribute matrices across the process grid</td></tr>
+<tr><td style="width: 25%;"><a href="redistribute.html">redistribute</a></td>
+<td>Distribute/Redistribute matrices across the process grid</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">reductions</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="rounding.html">round-method</a></td>
+<td>Rounding of Numbers</td></tr>
+<tr><td style="width: 25%;"><a href="rounding.html">rounding</a></td>
+<td>Rounding of Numbers</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">rowMax</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">rowMax-method</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">rowMeans-method</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">rowMin</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">rowMin-method</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+<tr><td style="width: 25%;"><a href="reductions.html">rowSums-method</a></td>
+<td>Arithmetic Reductions: Sums, Means, and Prods</td></tr>
+</table>
+
+<h2><a name="S">-- S --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="ddmatrix-scale.html">scale</a></td>
+<td>Scale</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-scale.html">scale-method</a></td>
+<td>Scale</td></tr>
+<tr><td style="width: 25%;"><a href="sd.html">sd</a></td>
+<td>Covariance and Correlation</td></tr>
+<tr><td style="width: 25%;"><a href="sd.html">sd-method</a></td>
+<td>Covariance and Correlation</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-print.html">show-method</a></td>
+<td>Printing a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">sin-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">sinh-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-solve.html">solve-method</a></td>
+<td>Solve</td></tr>
+<tr><td style="width: 25%;"><a href="sparsity.html">sparsity</a></td>
+<td>Sparsity of Matrix Objects</td></tr>
+<tr><td style="width: 25%;"><a href="sparsity.html">sparsity-method</a></td>
+<td>Sparsity of Matrix Objects</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">sqrt-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">submatrix</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="accessors.html">submatrix-method</a></td>
+<td>Accessor Functions for Distributed Matrix Slots</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-sumstats.html">sum-method</a></td>
+<td>Basic Summary Statistics</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-summary.html">summary</a></td>
+<td>Distributed Matrix Summary</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-summary.html">summary-method</a></td>
+<td>Distributed Matrix Summary</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-svd.html">svd</a></td>
+<td>Singular Value Decomposition</td></tr>
+<tr><td style="width: 25%;"><a href="ddmatrix-svd.html">svd-method</a></td>
+<td>Singular Value Decomposition</td></tr>
+<tr><td style="width: 25%;"><a href="sweep.html">sweep</a></td>
+<td>Sweep</td></tr>
+<tr><td style="width: 25%;"><a href="sweep.html">sweep-method</a></td>
+<td>Sweep</td></tr>
+</table>
+
+<h2><a name="T">-- T --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="transpose.html">t</a></td>
+<td>Distributed Matrix Transpose</td></tr>
+<tr><td style="width: 25%;"><a href="transpose.html">t-method</a></td>
+<td>Distributed Matrix Transpose</td></tr>
+<tr><td style="width: 25%;"><a href="headsortails.html">tail.ddmatrix</a></td>
+<td>Head and Tail of a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">tan-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="math.html">tanh-method</a></td>
+<td>Miscellaneous Mathematical Functions</td></tr>
+<tr><td style="width: 25%;"><a href="matmult.html">tcrossprod-method</a></td>
+<td>Matrix Multiplication</td></tr>
+<tr><td style="width: 25%;"><a href="transpose.html">transpose</a></td>
+<td>Distributed Matrix Transpose</td></tr>
+</table>
+
+<h2><a name="V">-- V --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="covariance.html">var-method</a></td>
+<td>Covariance and Correlation</td></tr>
+</table>
+
+<h2><a name="misc">-- misc --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="Comparators.html">!=-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="arithmetic.html">%%-method</a></td>
+<td>Arithmetic Operators</td></tr>
+<tr><td style="width: 25%;"><a href="matmult.html">%*%-method</a></td>
+<td>Matrix Multiplication</td></tr>
+<tr><td style="width: 25%;"><a href="arithmetic.html">%/%-method</a></td>
+<td>Arithmetic Operators</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">&amp;-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="arithmetic.html">*-method</a></td>
+<td>Arithmetic Operators</td></tr>
+<tr><td style="width: 25%;"><a href="arithmetic.html">+-method</a></td>
+<td>Arithmetic Operators</td></tr>
+<tr><td style="width: 25%;"><a href="arithmetic.html">--method</a></td>
+<td>Arithmetic Operators</td></tr>
+<tr><td style="width: 25%;"><a href="arithmetic.html">/-method</a></td>
+<td>Arithmetic Operators</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">&lt;-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">&lt;=-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">==-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">&gt;-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">&gt;=-method</a></td>
+<td>Logical Comparisons</td></tr>
+<tr><td style="width: 25%;"><a href="extract.html">[-method</a></td>
+<td>Extract or Replace Parts of a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="insert.html">[&lt;--method</a></td>
+<td>Directly Insert Into Distributed Matrix Submatrix Slot</td></tr>
+<tr><td style="width: 25%;"><a href="arithmetic.html">^-method</a></td>
+<td>Arithmetic Operators</td></tr>
+<tr><td style="width: 25%;"><a href="Comparators.html">|-method</a></td>
+<td>Logical Comparisons</td></tr>
+</table>
+</body></html>

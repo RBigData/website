@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Scale</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ddmatrix-scale {pbdDMAT}"><tr><td>ddmatrix-scale {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Scale</h2>
+
+<h3>Description</h3>
+
+<p>Centers and/or scales the columns of a distributed matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+scale(x, center = TRUE, scale = TRUE)
+
+## S4 method for signature 'ddmatrix'
+scale(x, center = TRUE, scale = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>center</code></td>
+<td>
+<p>logical value, determines whether or not columns are zero
+centered</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+<p>logical value, determines whether or not columns are rescaled
+to unit variance</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+comm.set.seed(diff=T)
+
+x &lt;- ddmatrix("rnorm", 10, 10)
+y &lt;- scale(x)
+
+print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

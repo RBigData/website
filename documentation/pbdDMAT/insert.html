@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Directly Insert Into Distributed Matrix Submatrix Slot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for insert {pbdDMAT}"><tr><td>insert {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Directly Insert Into Distributed Matrix Submatrix Slot</h2>
+
+<h3>Description</h3>
+
+<p>Allows you to directly replace the submatrix of a distributed matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 replacement method for signature 'ddmatrix,ANY,ANY,ANY'
+x[i, j, ...] &lt;- value
+
+## S4 replacement method for signature 'ddmatrix,ANY,ANY,ddmatrix'
+x[i, j, ...] &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>i, j</code></td>
+<td>
+<p>global integer indices.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments.</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>replacement value. Can be a global vector or a <code>ddmatrix</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>[&lt;-</code> allows the user to insert values into a distributed matrix in
+exactly the same way one would with an ordinary matrix. The indices here are
+global, meaning that <code>x[i, j]</code> refers to the <code>(i, j)</code>'th element
+of the &quot;full&quot;, global matrix, and not necessarily the <code>(i, j)</code>'th
+element of the local submatrix.
+</p>
+<p>On the other hand, <code>submatrix&lt;-</code> is different. It is basically
+syntactic sugar for:
+</p>
+<p><code>x@Data &lt;- newMatrix</code>
+</p>
+<p>It does not alter the distributed matrix <code>x</code>'s <code>dim</code> or
+<code>bldim</code>. It <em>does</em> adjust the <code>ldim</code> automatically.  However,
+using this can be dangerous. It is merely provided to give consistent
+behavior with the <code>submatrix()</code> function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- ddmatrix(1:9, 3, bldim=2)
+
+x[1, ] &lt;- 0
+comm.print(submatrix(x), all.rank=T)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global Pairwise Evaluations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global pairwise {pbdMPI}"><tr><td>global pairwise {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global Pairwise Evaluations </h2>
+
+<h3>Description</h3>
+
+<p>This function provides global pairwise evaluations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.pairwise(X, pairid.gbd = NULL,
+    FUN = function(x, y, ...){ return(as.vector(dist(rbind(x, y), ...))) },
+    ..., diag = FALSE, symmetric = TRUE, comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>a common matrix across ranks, or a gbd matrix. (See details.)</p>
+</td></tr>
+<tr valign="top"><td><code>pairid.gbd</code></td>
+<td>
+<p>a pair-wise id in a gbd format. (See details.)</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>a function to be evaluated for given pairs.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra variables for <code>FUN</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>diag</code></td>
+<td>
+<p>if matching the same elements, <code>(i, i)</code> for all <code>i</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>symmetric</code></td>
+<td>
+<p>if matching upper triangular elements. TRUE for
+<code>i &gt;= j</code> only, otherwise for all <code>(i, j)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function evaluates the objective function
+<code>FUN(X[i,], X[j, ])</code> (usually distance of two elements)
+on any given pair <code>(i, j)</code> of a matrix <code>X</code>.
+</p>
+<p>The input <code>X</code> should be in common across all ranks if <code>pairid.gbd</code>
+is provided, e.g. from <code>comm.pairwise()</code>.
+i.e. <code>X</code> is exactly the same in every ranks, but
+<code>pairid.gbd</code> is different and in gbd format indicating the row pair
+<code>(i, j)</code> should be evaluated. The returning gbd matrix is ordered
+and indexed by <code>pairid.gbd</code>.
+</p>
+<p>Note that checking consistence of <code>X</code> across all ranks is not
+implemented within this function since that drops performance and
+may be not accurate.
+</p>
+<p>The input <code>X</code> should be a gbd format in row major blocks
+(i.e. <code>X.gbd</code>) if <code>pairid.gbd</code> is <code>NULL</code>. A internal
+pair indices will be built implicitly for evaluation. The returning
+gbd matrix is ordered and indexed by <code>X.gbd</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>This function returns a common matrix with 3 columns
+named <code>i</code>, <code>j</code>, and <code>value</code>. Each <code>value</code> is the
+returned value and computed by <code>FUN(X[i,], X[j,])</code> where
+<code>(i, j)</code> is the global index as ordered in a distance matrix
+for i-th row and j-th columns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="xx_comm_pairwise.html">comm.pairwise</a>()</code>, and
+<code><a href="xx_comm_dist.html">comm.dist</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+
+### Examples.
+comm.set.seed(123456, diff = FALSE)
+X &lt;- matrix(rnorm(10), ncol = 2)
+id.matrix &lt;- comm.allpairs(nrow(X))
+
+### Method original.
+dist.org &lt;- dist(X)
+
+### Method 1.
+dist.common &lt;- comm.pairwise(X, pairid.gbd = id.matrix)
+
+### Method 2.
+# if(comm.rank() != 0){
+#   X &lt;- matrix(0, nrow = 0, ncol = 4)
+# }
+X.gbd &lt;- comm.as.gbd(X)    ### The other way.
+dist.gbd &lt;- comm.pairwise(X.gbd)
+
+### Verify.
+d.org &lt;- as.vector(dist.org)
+d.1 &lt;- do.call("c", allgather(dist.common[, 3]))
+d.2 &lt;- do.call("c", allgather(dist.gbd[, 3]))
+comm.print(all(d.org == d.1))
+comm.print(all(d.org == d.2))
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

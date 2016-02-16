@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Programming with Big Data - Scalable Linear Algebra Packages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pbdSLAP-package {pbdSLAP}"><tr><td>pbdSLAP-package {pbdSLAP}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Programming with Big Data &ndash; Scalable Linear Algebra Packages</h2>
+
+<h3>Description</h3>
+
+<p>pbdSLAP utilizes scalable linear algebra packages mainly
+including BLACS, PBLAS, and ScaLAPACK in double precision via
+pbdMPI based on ScaLAPACK version 2.0.2.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Package: </td><td style="text-align: left;"> pbdSLAP</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  Type: </td><td style="text-align: left;"> Package</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+
+
+  License: </td><td style="text-align: left;"> MPL2</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  LazyLoad: </td><td style="text-align: left;"> yes</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>This package requires <span class="pkg">pbdMPI</span> and MPI system. The main purpose of
+<span class="pkg">pbdSLAP</span> is to provide several scalable linear algebra packages
+containing double precision libraries for <span class="pkg">pbdDMAC</span> or other useful
+packages.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, Drew Schmidt,
+George Ostrouchov, and Pragneshkumar Patel.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+<p>ScaLAPACK Website:
+<a href="http://www.netlib.org/scalapack/">http://www.netlib.org/scalapack/</a>
+</p>
+<p>ScaLAPACK Block Cyclic Data Distribution Website:
+<a href="http://acts.nersc.gov/scalapack/hands-on/datadist.html">http://acts.nersc.gov/scalapack/hands-on/datadist.html</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+
+mpiexec -np 2 Rscript -e "demo(gridinfo,'pbdSLAP',ask=F,echo=F)"
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdSLAP</em> version 0.2-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

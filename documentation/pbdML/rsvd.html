@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random SVD</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rsvd {pbdML}"><tr><td>rsvd {pbdML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random SVD</h2>
+
+<h3>Description</h3>
+
+<p>Random SVD
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rsvd(x, k = 1, q = 3, retu = TRUE, retvt = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>The input data matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>The number of singular values and/or left/right singular vectors
+to estimate.</p>
+</td></tr>
+<tr valign="top"><td><code>q</code></td>
+<td>
+<p>An integer exponent, say 1, 2, or 3.  See the paper for details.</p>
+</td></tr>
+<tr valign="top"><td><code>retu</code></td>
+<td>
+<p>Logical; should the left singular vectors (&quot;U&quot;) be returned?</p>
+</td></tr>
+<tr valign="top"><td><code>retvt</code></td>
+<td>
+<p>Logical; should the transposed right singular vectors (&quot;VT&quot;) be returned?</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list cotaining the singular values, and, if requested, the
+left and/or right singular vectors.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>George Ostrouchov and Drew Schmidt
+</p>
+
+
+<h3>References</h3>
+
+<p>Halko, Martinsson, and Tropp. 2011. Finding structure with 
+randomness: probabilistic algorithms for constructing approximate
+matrix decompositions. SIAM Review 53 217-288.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+x &lt;- matrix(rnorm(30), 10)
+
+rsvd(x)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdML</em> version 0.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

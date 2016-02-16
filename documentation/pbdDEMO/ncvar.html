@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Read and Write Parallel NetCDF4 Files in GBD and ddmatrix...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ncvar {pbdDEMO}"><tr><td>ncvar {pbdDEMO}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read and Write Parallel NetCDF4 Files in GBD and ddmatrix Format</h2>
+
+<h3>Description</h3>
+
+<p>These functions write and read NetCDF4 files in GBD and ddmatrix format.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+demo.ncvar_put_dmat(nc, varid, vals, verbose = FALSE,
+  comm = .pbd_env$SPMD.CT$comm)
+
+demo.ncvar_put_gbd(nc, varid, vals, verbose = FALSE,
+  comm = .pbd_env$SPMD.CT$comm, gbd.major = .pbd_env$gbd.major)
+
+demo.ncvar_get_dmat(nc, varid, verbose = FALSE, signedbyte = TRUE,
+  collapse_degen = TRUE, bldim = .pbd_env$bldim, ICTXT = .pbd_env$ictxt,
+  comm = .pbd_env$SPMD.CT$comm)
+
+demo.ncvar_get_gbd(nc, varid, verbose = FALSE, signedbyte = TRUE,
+  collapse_degen = TRUE, comm = .pbd_env$SPMD.CT$comm,
+  gbd.major = .pbd_env$gbd.major)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nc</code></td>
+<td>
+<p>an object of class <code>ncdf4</code> (as returned by either function
+<code>nc_open_par</code> or function <code>nc_create_par</code>), indicating what file
+to read from.</p>
+</td></tr>
+<tr valign="top"><td><code>varid</code></td>
+<td>
+<p>See <code>ncvar_get</code> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>vals</code></td>
+<td>
+<p>See <code>ncvar_put</code> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>See <code>ncvar_get</code> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>gbd.major</code></td>
+<td>
+<p>a GBD major, either 1 for row-major or 2 for column-major.</p>
+</td></tr>
+<tr valign="top"><td><code>signedbyte</code></td>
+<td>
+<p>See <code>ncvar_get</code> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>collapse_degen</code></td>
+<td>
+<p>See <code>ncvar_get</code> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>the blocking dimension for block-cyclically distributing the
+matrix across the process grid.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number for return.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>demo.ncvar_get_*</code> are similar to <code>ncvar_get</code> of <span class="pkg">pbdNCDF4</span>,
+but focus on 2D arrays and return a ddmatrix or GBD matrix.
+</p>
+<p><code>demo.ncvar_put_*</code> are also similar to <code>ncvar_put</code> of
+<span class="pkg">pbdNCDF4</span>, but only dump 2D arrays.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>demo.ncvar_get_dmat</code> returns a <code>ddmatrix</code>, and
+<code>demo.ncvar_get_gbd</code> returns a GBD matrix in either row- or column
+major specified by <code>gbd.major</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 4 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 4 Rscript -e "demo(nc4_serial,'pbdDEMO',ask=F,echo=F)"
+mpiexec -np 4 Rscript -e "demo(nc4_parallel,'pbdDEMO',ask=F,echo=F)"
+mpiexec -np 4 Rscript -e "demo(nc4_dmat,'pbdDEMO',ask=F,echo=F)"
+mpiexec -np 4 Rscript -e "demo(nc4_gbdc,'pbdDEMO',ask=F,echo=F)"
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDEMO</em> version 0.3-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

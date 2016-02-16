@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: getLocal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for getLocal {pbdDMAT}"><tr><td>getLocal {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>getLocal</h2>
+
+<h3>Description</h3>
+
+<p>getLocal
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+getLocal(x, gi, gj, all.rank = TRUE, gridinfo)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A distributed matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>gi, gj</code></td>
+<td>
+<p>Global row and column indices, respectively.</p>
+</td></tr>
+<tr valign="top"><td><code>all.rank</code></td>
+<td>
+<p>Logical; if <code>TRUE</code>, then all processes will hold the desired
+value on exit.  Otherwise, only the process who owns the local
+value returns this value, while every other process returns <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>gridinfo</code></td>
+<td>
+<p>An optional parameter; each local data lookup requires the data
+contained in <code>gridinfo(ICTXT(x))</code>.  So you may specify it
+yourself (and if you are making many function calls, this is
+preferable performance-wise), or the lookup will be performed
+for you.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT)
+init.grid()
+
+x &lt;- ddmatrix(1:100, 10, bldim=c(2, 2))
+
+val &lt;- getLocal(x, 5, 1)
+comm.print(val, all.rank=TRUE)
+
+val &lt;- getLocal(x, 5, 1, all.rank=FALSE)
+comm.print(val, all.rank=TRUE)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

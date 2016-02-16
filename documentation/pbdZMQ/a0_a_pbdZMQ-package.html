@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Programming with Big Data - Interface to ZeroMQ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pbdZMQ-package {pbdZMQ}"><tr><td>pbdZMQ-package {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Programming with Big Data &ndash; Interface to ZeroMQ</h2>
+
+<h3>Description</h3>
+
+<p>ZeroMQ is a well-known library for high-performance
+asynchronous messaging in scalable, distributed applications.  This
+package provides high level R wrapper functions to easily utilize
+ZeroMQ. We mainly focus on interactive client/server programming 
+frameworks. For convenience, a minimal ZeroMQ library (4.1.0 rc1)
+is shipped with pbdZMQ, which can be used if no system installation
+of ZeroMQ is available.  A few wrapper functions compatible with
+rzmq are also provided.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"> 
+  Package: </td><td style="text-align: left;"> pbdZMQ </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  Type: </td><td style="text-align: left;"> Package </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  License: </td><td style="text-align: left;"> GPL-3 2.0 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  LazyLoad: </td><td style="text-align: left;"> yes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>The install command using default <span class="pkg">pbdZMQ</span>'s internal ZeroMQ library is
+<br /> <br /> 
+<code>&gt; R CMD INSTALL pbdZMQ_0.1-0.tar.gz</code> <br /> 
+<code>--configure-args="--enable-internal-zmq"</code> 
+<br /> <br /> 
+Other available variables include 
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Variable </td><td style="text-align: left;"> Default </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+  <code>ZMQ_INCLUDE</code> </td><td style="text-align: left;"> <code>-I./zmqsrc/include</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+  <code>ZMQ_LDFLAGS</code> </td><td style="text-align: left;"> <code>-L./ -lzmq</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>ZMQ_POLLER</code> </td><td style="text-align: left;"> <code>select</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+ 
+<p>See the package source file <code>pbdZMQ/configure.ac</code> for details.
+</p>
+<p>For installation using an external ZeroMQ library, see the package source
+file <code>pbdZMQ/INSTALL</code> for details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="a0_d_context.html">zmq.ctx.new</a>()</code>, <code><a href="a1_socket.html">zmq.socket</a>()</code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Functions for Task Pull Parallelism</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Task Pull {pbdMPI}"><tr><td>Task Pull {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Functions for Task Pull Parallelism</h2>
+
+<h3>Description</h3>
+
+<p>These functions are designed in SPMD but assuming rank 0 is a master and
+rests are workers.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+task.pull(jids, FUN, ..., rank.master = .pbd_env$SPMD.CT$rank.root,
+          comm = .pbd_env$SPMD.CT$comm, bcast = .pbd_env$SPMD.TP$bcast,
+          barrier = .pbd_env$SPMD.TP$barrier,
+          try = .pbd_env$SPMD.TP$try,
+          try.silent = .pbd_env$SPMD.TP$try.silent)
+
+task.pull.workers(FUN = function(jid, ...){ return(jid) }, ...,
+                  rank.master = .pbd_env$SPMD.CT$rank.root,
+                  comm = .pbd_env$SPMD.CT$comm,
+                  try = .pbd_env$SPMD.TP$try,
+                  try.silent = .pbd_env$SPMD.TP$try.silent)
+task.pull.master(jids, rank.master = .pbd_env$SPMD.CT$rank.root,
+                 comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>jids</code></td>
+<td>
+<p>all job ids.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>a function to be evaluated in workers.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra variables for <code>FUN</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>rank.master</code></td>
+<td>
+<p>a rank of master where <code>jid</code> sent from.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>bcast</code></td>
+<td>
+<p>if bcast to all ranks.</p>
+</td></tr>
+<tr valign="top"><td><code>barrier</code></td>
+<td>
+<p>if barrier for all ranks.</p>
+</td></tr>
+<tr valign="top"><td><code>try</code></td>
+<td>
+<p>if use <code>try()</code> to avoid breaks. CAUTION: <code>try = FALSE</code>
+is not safe and can stop all MPI/R jobs.</p>
+</td></tr>
+<tr valign="top"><td><code>try.silent</code></td>
+<td>
+<p>if turn off the error message from <code>try()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>All of these functions are for SPMD, NOT for master/workers.
+</p>
+<p><code>FUN</code> is a user defined function which has <code>jid</code> as
+the first argument and other variables are given in <code>...</code>.
+</p>
+<p>The <code>jids</code> will be asked by workers when jobs are available and
+workers are no job in hand.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with length <code>comm.size() - 1</code>
+will be returned for mater, but <code>NULL</code> for workers.
+Each element of the list contains job id <code>jid</code> and
+returns <code>ret</code> of the <code>FUN</code> call.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="vv_get_jid.html">get.jid</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 4 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 4 Rscript -e "demo(task_pull,'pbdMPI',ask=F,echo=F)"
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

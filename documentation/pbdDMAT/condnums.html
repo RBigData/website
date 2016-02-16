@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute or estimate the Condition Number of a Distributed...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for condnums {pbdDMAT}"><tr><td>condnums {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute or estimate the Condition Number of a Distributed Matrix</h2>
+
+<h3>Description</h3>
+
+<p>Computes or estimates the condition number.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ddmatrix'
+kappa(z, exact = FALSE, norm = NULL, method = c("qr",
+  "direct"), ...)
+
+## S4 method for signature 'ddmatrix'
+rcond(x, norm = c("O", "I", "1"), triangular = FALSE,
+  ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>exact</code></td>
+<td>
+<p>logical. Determines whether exact condition number or
+approximation should be computed.</p>
+</td></tr>
+<tr valign="top"><td><code>norm</code></td>
+<td>
+<p>character. Determines which matrix norm is to be used.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>character. Determines the method use in computing condition
+number.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Extra arguments.</p>
+</td></tr>
+<tr valign="top"><td><code>x, z</code></td>
+<td>
+<p>numeric distributed matrices.</p>
+</td></tr>
+<tr valign="top"><td><code>triangular</code></td>
+<td>
+<p>logical. If true, only the lower triangle is used.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a number.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+comm.set.seed(diff=T)
+x &lt;- ddmatrix("rnorm", 10, 10, bldim=2)
+
+cn &lt;- rcond(x)
+
+comm.print(cn)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

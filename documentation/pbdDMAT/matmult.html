@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Matrix Multiplication</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for matmult {pbdDMAT}"><tr><td>matmult {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Matrix Multiplication</h2>
+
+<h3>Description</h3>
+
+<p>Multiplies two distributed matrices, if they are conformable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix,ddmatrix'
+x %*% y
+
+## S4 method for signature 'ddmatrix'
+crossprod(x, y = NULL)
+
+## S4 method for signature 'ddmatrix'
+tcrossprod(x, y = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+<p>numeric distributed matrices</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>x</code> and <code>y</code> must be conformable, on the same BLACS context, but
+they need not be blocked with the same blocking dimension. The return will
+default to the blocking dimension of <code>x</code>.
+</p>
+<p>If you need to use <code>x</code> and <code>y</code> with differing blocking dimensions
+and you want the return to have blocking different from that of <code>x</code>,
+then use the function <code>base.rpdgemm()</code>.
+</p>
+<p>The <code>crossprod()</code> and <code>tcrossprod()</code> functions behave exactly as
+their R counterparts.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:9, 3)
+x &lt;- as.ddmatrix(x)
+
+y &lt;- x %*% x
+print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Basic Summary Statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ddmatrix-sumstats {pbdDMAT}"><tr><td>ddmatrix-sumstats {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Basic Summary Statistics</h2>
+
+<h3>Description</h3>
+
+<p>Get basic summary statistics.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix'
+sum(x, ..., na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+mean(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+prod(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+min(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+max(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+median(x, na.rm = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments.</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>Handling of NA's.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The return is on process 0 only.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single value, owned by all ranks in the MPI communicator.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:16, ncol=4)
+dx &lt;- as.ddmatrix(x) 
+
+summary(dx)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

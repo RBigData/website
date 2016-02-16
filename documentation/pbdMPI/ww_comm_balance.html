@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global Balance Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global balanc {pbdMPI}"><tr><td>global balanc {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global Balance Functions </h2>
+
+<h3>Description</h3>
+
+<p>These functions are global balance methods for gbd <code>data.frame</code> (or
+<code>matrix</code>) distributed in row blocks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.balance.info(X.gbd, balance.method = .pbd_env$SPMD.IO$balance.method[1],
+                  comm = .pbd_env$SPMD.CT$comm)
+comm.load.balance(X.gbd, bal.info = NULL,
+                  balance.method = .pbd_env$SPMD.IO$balance.method[1],
+                  comm = .pbd_env$SPMD.CT$comm)
+comm.unload.balance(new.X.gbd, bal.info, comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X.gbd</code></td>
+<td>
+<p>a gbd <code>data.frame</code> (or <code>matrix</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>balance.method</code></td>
+<td>
+<p>a balance method.</p>
+</td></tr>
+<tr valign="top"><td><code>bal.info</code></td>
+<td>
+<p>a balance information returned from
+<code>comm.balance.info()</code>. If <code>NULL</code>, then
+this will be generated inside <code>comm.load.balance()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>new.X.gbd</code></td>
+<td>
+<p>a new gbd of <code>X.gbd</code> (may be generated from
+<code>comm.load.balance()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A typical use is to balance an input dataset <code>X.gbd</code> from
+<code><a href="ww_comm_read.html">comm.read.table</a>()</code>.  Since by default, a two dimension
+<code>data.frame</code> is distributed in row blocks, but each processor (rank)
+may not (or closely) have the same number of rows.
+These functions redistribute the <code>data.frame</code> (and maybe
+<code>matrix</code>) according to the specified way in <code>bal.info</code>.
+</p>
+<p>Currently, there are three balance methods are supported, <code>block</code>
+(uniform distributed but favor higher ranks), <code>block0</code>
+(as <code>block</code> but favor lower ranks), and <code>block.cyclic</code>
+(as block cyclic with one big block in one cycle).
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>comm.balance.info()</code> returns a <code>list</code> containing
+balance information based on the input <code>X.gbd</code> and <code>balance.method</code>.
+</p>
+<p><code>comm.load.balance()</code> returns a new gbd <code>data.frame</code> (or
+<code>matrix</code>).
+</p>
+<p><code>comm.unload.balance()</code> also returns the new gbd <code>data.frame</code> back
+to the original <code>X.gbd</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="ww_comm_read.html">comm.read.table</a>()</code>,
+<code><a href="ww_comm_write.html">comm.write.table</a>()</code>, and
+<code><a href="ww_comm_as_gbd.html">comm.as.gbd</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 4 processors by
+### SHELL&gt; mpiexec -np 4 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+
+### Get two gbd row-block data.frame.
+da.block &lt;- iris[get.jid(nrow(iris), method = "block"),]
+da.block0 &lt;- iris[get.jid(nrow(iris), method = "block0"),]
+
+### Load balance one and unload it.
+bal.info &lt;- comm.balance.info(da.block0)
+da.new &lt;- comm.load.balance(da.block0)
+da.org &lt;- comm.unload.balance(da.new, bal.info)
+
+### Check if all are equal.
+comm.print(c(sum(da.new != da.block), sum(da.org != da.block0)),
+           all.rank = TRUE)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: New Poll Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Poll Functions {pbdZMQ}"><tr><td>Poll Functions {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>New Poll Functions</h2>
+
+<h3>Description</h3>
+
+<p>New Poll functions
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+zmq.poll2(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC)
+
+zmq.poll2.interrupt(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC)
+
+zmq.poll2.get.revents(index = 1L, poller)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>socket</code></td>
+<td>
+<p>a vector of ZMQ sockets</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>a vector of socket types corresponding to <code>socket</code> argument</p>
+</td></tr>
+<tr valign="top"><td><code>timeout</code></td>
+<td>
+<p>timeout for poll, see ZeroMQ manual for details</p>
+</td></tr>
+<tr valign="top"><td><code>MC</code></td>
+<td>
+<p>a message control, see <code><a href="zz_zmq_control.html">ZMQ.MC</a>()</code> for details</p>
+</td></tr>
+<tr valign="top"><td><code>index</code></td>
+<td>
+<p>an index of ZMQ poll items to obtain revents</p>
+</td></tr>
+<tr valign="top"><td><code>poller</code></td>
+<td>
+<p>a pointer of ZMQ poller</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>zmq.poll2()</code> initials ZMQ poll items given  ZMQ <code>socket</code>'s
+and ZMQ poll <code>type</code>'s. Both <code>socket</code> and <code>type</code> are
+in vectors of the same length, while <code>socket</code> contains socket pointers
+and <code>type</code> contains types of poll.
+See <code><a href="zz_zmq_control.html">ZMQ.PO</a>()</code> for the possible values of
+<code>type</code>. ZMQ defines several poll types and utilize
+them to poll multiple sockets.
+</p>
+<p><code>zmq.poll2.interrupt()</code> call <code>zmq.poll2()</code> and raise an interrupt
+signal if <code>ret$pollret[1] == -1</code> and <code>ret$pollret[2] == 4</code>.
+</p>
+<p><code>zmq.poll2.get.revents()</code> obtains revent types from ZMQ poll item by
+the input index..
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>zmq.poll2()</code> returns a ZMQ code, an errno, and a pollitem
+pointer.
+No error/warning/interrupt in this
+<code>R</code> function, but some error/warning/interrupt may catch by
+the <code>C</code> function <code>zmq_poll()</code>.
+See ZeroMQ manual for details.
+</p>
+<p><code>zmq.poll.get.revents.new()</code> returns the revent type.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="b0_sendrecv.html">zmq.recv</a>()</code>, <code><a href="b0_sendrecv.html">zmq.send</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Multiple socket reader as in the ZeroMQ guide.
+# SHELL&gt; Rscript wuserver.r &amp;
+# SHELL&gt; Rscript taskvent.r &amp;
+# SHELL&gt; Rscript mspoller2.r
+# SHELL&gt; rm weather.ipc
+
+library(pbdZMQ, quietly = TRUE)
+
+### Initial.
+context &lt;- zmq.ctx.new()
+receiver &lt;- zmq.socket(context, .pbd_env$ZMQ.ST$PULL)
+zmq.connect(receiver, "tcp://localhost:5557")
+subscriber &lt;- zmq.socket(context, .pbd_env$ZMQ.ST$SUB)
+zmq.connect(subscriber, "tcp://localhost:5556")
+zmq.setsockopt(subscriber, .pbd_env$ZMQ.SO$SUBSCRIBE, "20993")
+
+### Process messages from both sockets.
+cat("Press Ctrl+C or Esc to stop mspoller.\n")
+i.rec &lt;- 0
+i.sub &lt;- 0
+while(TRUE){
+  ### Set poller.
+  poller &lt;- zmq.poll2(c(receiver, subscriber),
+                      c(.pbd_env$ZMQ.PO$POLLIN, .pbd_env$ZMQ.PO$POLLIN))
+
+  ### Check receiver.
+  if(bitwAnd(zmq.poll2.get.revents(1, poller),
+             .pbd_env$ZMQ.PO$POLLIN)){
+    ret &lt;- zmq.recv(receiver)
+    if(ret$len != -1){
+      cat("task ventilator:", ret$buf, "at", i.rec, "\n")
+      i.rec &lt;- i.rec + 1
+    }
+  }
+
+  ### Check subscriber.
+  if(bitwAnd(zmq.poll2.get.revents(2, poller),
+             .pbd_env$ZMQ.PO$POLLIN)){
+    ret &lt;- zmq.recv(subscriber)
+    if(ret$len != -1){
+      cat("weather update:", ret$buf, "at", i.sub, "\n")
+      i.sub &lt;- i.sub + 1
+    }
+  }
+
+  if(i.rec &gt;= 5 &amp; i.sub &gt;= 5){
+    break
+  }
+
+  Sys.sleep(runif(1, 0.5, 1))
+}
+
+### Finish.
+zmq.close(receiver)
+zmq.close(subscriber)
+zmq.ctx.destroy(context)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

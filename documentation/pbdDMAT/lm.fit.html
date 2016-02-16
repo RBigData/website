@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fitter for Linear Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lm.fit {pbdDMAT}"><tr><td>lm.fit {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fitter for Linear Models</h2>
+
+<h3>Description</h3>
+
+<p>Fits a real linear model via QR with a &quot;limited pivoting strategy&quot;, as in
+R's DQRDC2 (fortran).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix,ddmatrix'
+lm.fit(x, y, tol = 1e-07, singular.ok = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+<p>numeric distributed matrices</p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+<p>tolerance for numerical rank estimation in QR decomposition.</p>
+</td></tr>
+<tr valign="top"><td><code>singular.ok</code></td>
+<td>
+<p>logical. If <code>FALSE</code> then a singular model
+(rank-deficient <code>x</code>) produces an error.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Solves the linear least squares problem, which is to find an <code>x</code>
+(possibly non-uniquely) such that || Ax - b ||^2 is minimized, where
+<code>A</code> is a given n-by-p model matrix, <code>b</code> is a &quot;right hand side&quot;
+n-by-1 vector (multiple right hand sides can be solved at once, but the
+solutions are independent, i.e. not simultaneous), and &quot;||&quot; is the l2 norm.
+</p>
+<p>Uses level 3 PBLAS and ScaLAPACK routines (modified PDGELS) to get a linear
+least squares solution, using the 'limited pivoting strategy' from R's
+DQRDC2 (unsed in DQRLS) routine as a way of dealing with (possibly) rank
+deficient model matrices.
+</p>
+<p>A model matrix with many dependent columns will likely experience poor
+performance, especially at scale, due to all the data swapping that must
+occur to handle rank deficiency.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a list of values similar to R's <code>lm.fit()</code>. Namely, the
+list contains: 
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  <code>coefficients</code> </td><td style="text-align: left;"> (distributed matrix) solution to the linear least squares problem </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>residuals</code> </td><td style="text-align: left;"> (distributed matrix) difference in the numerical fit and the observed </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>effects</code> </td><td style="text-align: left;"> (distributed matrix) <code>t(Q) %*% y</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>rank</code> </td><td style="text-align: left;"> (global numeric) numerical column rank </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>fitted.values</code> </td><td style="text-align: left;"> (distributed matrix) Numerical fit <code>A %*% x</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>assign</code> </td><td style="text-align: left;"> <code>NULL</code> if <code>lm.fit()</code> is called directly </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>qr</code> </td><td style="text-align: left;"> list, same as return from <code>qr()</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+  <code>df.residual</code> </td><td style="text-align: left;"> (global numeric) degrees of freedom of residuals</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(rnorm(9), 3)
+y &lt;- matrix(rnorm(3))
+
+dx &lt;- as.ddmatrix(x)
+dy &lt;- as.ddmatrix(y)
+
+fit &lt;- lm.fit(x=dx, y=dy)
+
+print(fit)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

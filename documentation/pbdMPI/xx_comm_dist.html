@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global Distance for Distributed Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global distance function {pbdMPI}"><tr><td>global distance function {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global Distance for Distributed Matrices </h2>
+
+<h3>Description</h3>
+
+<p>These functions globally compute distance for all ranks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.dist(X.gbd, method = "euclidean", diag = FALSE, upper = FALSE,
+          p = 2, comm = .pbd_env$SPMD.CT$comm,
+          return.type = c("common", "gbd"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X.gbd</code></td>
+<td>
+<p>a gbd matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>as in <code>dist()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>diag</code></td>
+<td>
+<p>as in <code>dist()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>upper</code></td>
+<td>
+<p>as in <code>dist()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>as in <code>dist()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>return.type</code></td>
+<td>
+<p>returning type for the distance.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The distance function is implemented for a distributed matrix.
+</p>
+<p>The return type <code>common</code> is only useful when the number
+of rows of the matrix is small since the returning matrix is <code>N * N</code>
+for every rank where <code>N</code> is the total number of rows of <code>X.gbd</code>
+of all ranks.
+</p>
+<p>The return type <code>gbd</code> returns a gbd matrix (distributed across
+all ranks, and the gbd matrix has 3 columns, named &quot;i&quot;, &quot;j&quot;, and &quot;value&quot;,
+where <code>(i, j)</code> is the global indices of the
+i-th and j-th rows of <code>X.gbd</code>, and <code>value</code> is the corresponding
+distance. The <code>(i, j)</code> is ordered as a distance matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A full distance matrix is returned from the <code>common</code> return type.
+Suppose <code>N.gbd</code> is total rows of <code>X.gbd</code>, then
+the distance will have <code>N.gbd * (N.gbd - 1) / 2</code> elements
+and the distance matrix will have <code>N.gbd^2</code> elements.
+</p>
+<p>A gbd distance matrix with 3 columns is returned from the
+<code>gbd</code> return type.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>The distance or distance matrix could be huge.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="xx_comm_allpairs.html">comm.allpairs</a>()</code> and
+<code><a href="xx_comm_pairwise.html">comm.pairwise</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+
+### Examples.
+comm.set.seed(123456, diff = TRUE)
+
+X.gbd &lt;- matrix(runif(6), ncol = 3)
+dist.X.common &lt;- comm.dist(X.gbd)
+dist.X.gbd &lt;- comm.dist(X.gbd, return.type = "gbd")
+
+### Verify.
+dist.X &lt;- dist(do.call("rbind", allgather(X.gbd)))
+comm.print(all(dist.X == dist.X.common))
+
+### Verify 2.
+dist.X.df &lt;- do.call("rbind", allgather(dist.X.gbd))
+comm.print(all(dist.X == dist.X.df[, 3]))
+comm.print(dist.X)
+comm.print(dist.X.df)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

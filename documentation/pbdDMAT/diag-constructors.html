@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distributed Matrix Diagonals</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for diag-constructors {pbdDMAT}"><tr><td>diag-constructors {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distributed Matrix Diagonals</h2>
+
+<h3>Description</h3>
+
+<p>Get the diagonal of a distributed matrix, or construct a distributed matrix
+which is diagonal.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'vector'
+diag(x, nrow, ncol, type = "matrix", ...,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'character'
+diag(x, nrow, ncol, type = "matrix", ..., min = 0,
+  max = 1, mean = 0, sd = 1, rate = 1, shape, scale = 1,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'ddmatrix'
+diag(x)
+
+## S4 method for signature 'matrix'
+diag(x, nrow, ncol)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>distributed matrix or a vector.</p>
+</td></tr>
+<tr valign="top"><td><code>nrow, ncol</code></td>
+<td>
+<p>in the case that <code>x</code> is a vector, these specify the
+global dimension of the diagonal distributed matrix to be created.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>character. Options are 'matrix' or 'ddmatrix', with partial
+matching.  This specifies the return type.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Extra arguments</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>blocking dimension.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+<tr valign="top"><td><code>min, max</code></td>
+<td>
+<p>Min and max values for random uniform generation.</p>
+</td></tr>
+<tr valign="top"><td><code>mean, sd</code></td>
+<td>
+<p>Mean and standard deviation for random normal generation.</p>
+</td></tr>
+<tr valign="top"><td><code>rate</code></td>
+<td>
+<p>Rate for random exponential generation.</p>
+</td></tr>
+<tr valign="top"><td><code>shape, scale</code></td>
+<td>
+<p>Shape and scale parameters for random weibull generation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Gets the diagonal of a distributed matrix and stores it as a global R vector
+owned by all processes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If a distributed matrix is passed to <code>diag()</code> then it returns a
+global R vector.
+</p>
+<p>If a vector (numeric or character) is passed to <code>diag()</code> and
+<code>type='ddmatrix'</code>, then the return is a diagonal distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+### Grab diagonal of a ddmatrix
+x &lt;- ddmatrix(1:16, 4, bldim=2)
+y &lt;- diag(x)
+comm.print(y)
+
+### Construct a diagonal ddmatrix
+eye &lt;- diag(1, 10, type="ddmatrix", bldim=2)
+eye
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

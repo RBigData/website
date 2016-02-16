@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global As GBD Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global as.gbd {pbdMPI}"><tr><td>global as.gbd {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global As GBD Function </h2>
+
+<h3>Description</h3>
+
+<p>This function redistributes a regular matrix existed in rank.soure
+and turns it in a gbd matrix in row blocks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.as.gbd(X, balance.method = .pbd_env$SPMD.IO$balance.method,
+            rank.source = .pbd_env$SPMD.CT$rank.source,
+            comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>a regular <code>matrix</code> in <code>rank.source</code> and to be
+redistributed as a gbd.</p>
+</td></tr>
+<tr valign="top"><td><code>balance.method</code></td>
+<td>
+<p>a balance method.</p>
+</td></tr>
+<tr valign="top"><td><code>rank.source</code></td>
+<td>
+<p>a rank of source where elements of <code>x</code> scatter from.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>X</code> matrix in <code>rank.source</code> will be redistributed as a gbd
+matrix in row blocks.
+</p>
+<p>This function will first set <code>NULL</code> to <code>X</code> if it is not
+located in <code>rank.source</code>, then called <code><a href="ww_comm_balance.html">comm.load.balance</a>()</code>
+to redistributed the one located in <code>rank.source</code> to all other ranks.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>X.gbd</code> will be returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="ww_comm_balance.html">comm.load.balance</a>()</code>,
+<code><a href="ww_comm_read.html">comm.read.table</a>()</code> and
+<code><a href="ww_comm_write.html">comm.write.table</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 4 processors by
+### SHELL&gt; mpiexec -np 4 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+
+### Examples.
+X &lt;- matrix(1:15, ncol = 3)
+X.gbd &lt;- comm.as.gbd(X)
+comm.print(X.gbd, all.rank = TRUE)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

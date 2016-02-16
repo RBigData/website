@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Covariance and Correlation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sd {pbdDMAT}"><tr><td>sd {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Covariance and Correlation</h2>
+
+<h3>Description</h3>
+
+<p><code>sd()</code> will compute the standard deviations of the columns, equivalent
+to calling <code>apply(x, MARGIN=2, FUN=sd)</code> (which will work for
+distributed matrices, by the way). However, this should be much faster and
+use less memory than <code>apply()</code>.  If <code>reduce=FALSE</code> then the return
+is a distributed matrix consisting of one (global) row; otherwise, an
+<code>R</code> vector is returned, with ownership of this vector determined by
+<code>proc.dest</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix'
+sd(x, na.rm = FALSE, reduce = FALSE,
+  proc.dest = "all")
+
+## S4 method for signature 'ANY'
+sd(x, na.rm = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrices.</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>Logical; if TRUE, then <code>na.exclude()</code> is called first.</p>
+</td></tr>
+<tr valign="top"><td><code>reduce</code></td>
+<td>
+<p>logical or string. See details</p>
+</td></tr>
+<tr valign="top"><td><code>proc.dest</code></td>
+<td>
+<p>Destination process (or 'all') if a reduction occurs</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- ddmatrix("rnorm", nrow=3, ncol=3)
+
+cv &lt;- cov(x)
+print(cv)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

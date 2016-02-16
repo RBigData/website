@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sets of controls in pbdMPI.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SPMD Control {pbdMPI}"><tr><td>SPMD Control {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sets of controls in pbdMPI.</h2>
+
+<h3>Description</h3>
+
+<p>These sets of controls are used to provide default values in this package.
+</p>
+
+
+<h3>Format</h3>
+
+<p>Objects contain several parameters for communicators and methods.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The elements of <code>.pbd_env$SPMD.CT</code> are default values for controls
+including
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Elements              </td><td style="text-align: center;"> Default    </td><td style="text-align: left;"> Usage </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>comm</code>           </td><td style="text-align: center;"> 0L         </td><td style="text-align: left;"> a communicator index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>intercomm</code>      </td><td style="text-align: center;"> 2L         </td><td style="text-align: left;"> an inter communicator index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>info</code>           </td><td style="text-align: center;"> 0L         </td><td style="text-align: left;"> an info index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>newcomm</code>        </td><td style="text-align: center;"> 1L         </td><td style="text-align: left;"> a new communicator index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>op</code>             </td><td style="text-align: center;"> "sum"      </td><td style="text-align: left;"> an operation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>port.name</code>      </td><td style="text-align: center;"> "spmdport" </td><td style="text-align: left;"> an operation </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>print.all.rank</code> </td><td style="text-align: center;"> FALSE      </td><td style="text-align: left;"> if all ranks print message </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>print.quiet</code>    </td><td style="text-align: center;"> FALSE      </td><td style="text-align: left;"> if print/cat rank information </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>rank.root</code>      </td><td style="text-align: center;"> 0L         </td><td style="text-align: left;"> a rank of root </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>rank.source</code>    </td><td style="text-align: center;"> 0L         </td><td style="text-align: left;"> a rank of source </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>rank.dest</code>      </td><td style="text-align: center;"> 1L         </td><td style="text-align: left;"> a rank of destination </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>request</code>        </td><td style="text-align: center;"> 0L         </td><td style="text-align: left;"> a request index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>serv.name</code>      </td><td style="text-align: center;"> "spmdserv" </td><td style="text-align: left;"> a service name </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>status</code>         </td><td style="text-align: center;"> 0L         </td><td style="text-align: left;"> a status index </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>tag</code>            </td><td style="text-align: center;"> 0L         </td><td style="text-align: left;"> a tag number </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>unlist</code>         </td><td style="text-align: center;"> FALSE      </td><td style="text-align: left;"> if unlist returning </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>divide.method</code>  </td><td style="text-align: center;"> "block"    </td><td style="text-align: left;"> a way to divide jobs or data </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>mpi.finalize</code>   </td><td style="text-align: center;"> TRUE       </td><td style="text-align: left;"> if shutdown MPI </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>quit</code>           </td><td style="text-align: center;"> TRUE       </td><td style="text-align: left;"> if quit when errors occur </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>msg.flush</code>      </td><td style="text-align: center;"> TRUE       </td><td style="text-align: left;"> if flush message for comm.cat/comm.print </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>msg.barrier</code>    </td><td style="text-align: center;"> TRUE       </td><td style="text-align: left;"> if barrier message for comm.cat/comm.print </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>Rprof.all.rank</code> </td><td style="text-align: center;"> FALSE      </td><td style="text-align: left;"> if call Rprof on all ranks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>lazy.check</code>     </td><td style="text-align: center;"> TRUEE      </td><td style="text-align: left;"> if use lazy check on all ranks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>The elements of <code>.pbd_env$SPMD.OP</code> list the implemented operations for
+<code>reduce()</code> and <code>allreduce()</code>. Currently, four operations are
+implemented &quot;sum&quot;, &quot;prod&quot;, &quot;max&quot;, and &quot;min&quot;.
+</p>
+<p>The elements of <code>.SPMD.IO</code> are default values for input and output
+including
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Elements              </td><td style="text-align: center;"> Default    </td><td style="text-align: left;"> Usage </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>max.read.size</code>  </td><td style="text-align: center;"> 5.2e6      </td><td style="text-align: left;"> max of reading size (5 MB) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>max.test.lines</code> </td><td style="text-align: center;"> 500        </td><td style="text-align: left;"> max of testing lines </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>read.method</code>    </td><td style="text-align: center;"> "gbd"      </td><td style="text-align: left;"> default reading method </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>balance.method</code> </td><td style="text-align: center;"> "block"    </td><td style="text-align: left;"> default load balance method </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>where <code>balance.method</code> is only used for &quot;gbd&quot; reading method when
+<code>nrows = -1</code> and <code>skip = 0</code> are set.
+</p>
+<p>The elements of <code>.pbd_env$SPMD.TP</code> are default values mainly for
+task pull including
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Elements          </td><td style="text-align: center;"> Default </td><td style="text-align: left;"> Usage </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>bcast</code>      </td><td style="text-align: center;"> FALSE   </td><td style="text-align: left;"> if <code>bcase()</code> objects to all ranks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>barrier</code>    </td><td style="text-align: center;"> TRUE    </td><td style="text-align: left;"> if call <code>barrier()</code> for all ranks </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>try</code>        </td><td style="text-align: center;"> TRUE    </td><td style="text-align: left;"> if use <code>try()</code> in works </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>try.silent</code> </td><td style="text-align: center;"> FALSE   </td><td style="text-align: left;"> if silent the <code>try()</code> message </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  See <code><a href="yy_api_task_pull.html">task.pull</a>()</code> for details.
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

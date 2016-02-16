@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global Range, Max, and Min Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global range, max, and min {pbdMPI}"><tr><td>global range, max, and min {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global Range, Max, and Min Functions </h2>
+
+<h3>Description</h3>
+
+<p>These functions are global range, max and min applying on distributed data
+for all ranks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.range(..., na.rm = FALSE, comm = .pbd_env$SPMD.CT$comm)
+comm.max(..., na.rm = FALSE, comm = .pbd_env$SPMD.CT$comm)
+comm.min(..., na.rm = FALSE, comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>an 'numeric' objects.</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>if <code>NA</code> removed or not.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions will apply <code>range()</code>, <code>max()</code> and <code>min()</code>
+locally, and apply allgather to get all local results from other ranks,
+then apply <code>range()</code>, <code>max()</code> and <code>min()</code> on all local
+results.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The global values (range, max, or min) are returned to all ranks.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+if(comm.size() != 2){
+  comm.cat("2 processors are requried.\n", quiet = TRUE)
+  finalize()
+}
+
+### Examples.
+a &lt;- 1:(comm.rank() + 1)
+
+b &lt;- comm.range(a)
+comm.print(b)
+b &lt;- comm.max(a)
+comm.print(b)
+b &lt;- comm.min(a)
+comm.print(b)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

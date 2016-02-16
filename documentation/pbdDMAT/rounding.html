@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rounding of Numbers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rounding {pbdDMAT}"><tr><td>rounding {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Rounding of Numbers</h2>
+
+<h3>Description</h3>
+
+<p>Extensions of R rounding functions for distributed matrices.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix'
+round(x, digits = 0)
+
+## S4 method for signature 'ddmatrix'
+ceiling(x)
+
+## S4 method for signature 'ddmatrix'
+floor(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>integer indicating the number of decimal places
+(<code>round()</code>) or significant digits (<code>signif()</code>) to be used.
+Negative values are allowed (see 'Details').</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Rounding to a negative number of digits means rounding to a power of ten, so
+for example <code>round(x, digits = -2)</code> rounds to the nearest hundred.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:9, 3)
+x &lt;- as.ddmatrix(x)
+
+y &lt;- ceiling(x/3)
+print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

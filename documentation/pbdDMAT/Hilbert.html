@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate Hilbert Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Hilbert {pbdDMAT}"><tr><td>Hilbert {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate Hilbert Matrices</h2>
+
+<h3>Description</h3>
+
+<p>Methods for constructing Hilbert matrices: H[i,j] = 1/(i+j-1)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Hilbert(n, type = "matrix", ..., bldim = .pbd_env$BLDIM,
+  ICTXT = .pbd_env$ICTXT)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of rows and columns.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>&quot;matrix&quot; or &quot;ddmatrix&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>blocking dimension.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This constructs the square Hilbert matrix of order <code>n</code>. The return is
+either a matrix or a distributed matrix depending on the argument
+<code>type=</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a matrix or a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+dx &lt;- Hilbert(100, type="ddmatrix")
+
+print(dx)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

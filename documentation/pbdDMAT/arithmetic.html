@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Arithmetic Operators</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for arithmetic {pbdDMAT}"><tr><td>arithmetic {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Arithmetic Operators</h2>
+
+<h3>Description</h3>
+
+<p>Binary operations for distributed matrix/distributed matrix and distributed
+matrix/vector operations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix,numeric'
+e1 + e2
+
+## S4 method for signature 'numeric,ddmatrix'
+e1 + e2
+
+## S4 method for signature 'ddmatrix,ddmatrix'
+e1 + e2
+
+## S4 method for signature 'ddmatrix,numeric'
+e1 - e2
+
+## S4 method for signature 'numeric,ddmatrix'
+e1 - e2
+
+## S4 method for signature 'ddmatrix,ddmatrix'
+e1 - e2
+
+## S4 method for signature 'ddmatrix,missing'
+e1 - e2
+
+## S4 method for signature 'ddmatrix,numeric'
+e1 * e2
+
+## S4 method for signature 'numeric,ddmatrix'
+e1 * e2
+
+## S4 method for signature 'ddmatrix,ddmatrix'
+e1 * e2
+
+## S4 method for signature 'ddmatrix,numeric'
+e1 / e2
+
+## S4 method for signature 'numeric,ddmatrix'
+e1 / e2
+
+## S4 method for signature 'ddmatrix,ddmatrix'
+e1 / e2
+
+## S4 method for signature 'ddmatrix,numeric'
+e1 ^ e2
+
+## S4 method for signature 'ddmatrix,ddmatrix'
+e1 ^ e2
+
+## S4 method for signature 'ddmatrix,ddmatrix'
+e1 %% e2
+
+## S4 method for signature 'ddmatrix,numeric'
+e1 %% e2
+
+## S4 method for signature 'numeric,ddmatrix'
+e1 %% e2
+
+## S4 method for signature 'ddmatrix,ddmatrix'
+e1 %/% e2
+
+## S4 method for signature 'numeric,ddmatrix'
+e1 %/% e2
+
+## S4 method for signature 'ddmatrix,numeric'
+e1 %/% e2
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>e1, e2</code></td>
+<td>
+<p>numeric distributed matrices or numeric vectors</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>e1</code> and <code>e2</code> are distributed matrices, then they must be
+conformable, on the same BLACS context, and have the same blocking
+dimension.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- ddmatrix(1:9, 3, bldim=2)
+
+y &lt;- (2*x) - x^(.5)
+print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

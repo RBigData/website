@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gridexit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gridexit {pbdBASE}"><tr><td>gridexit {pbdBASE}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gridexit</h2>
+
+<h3>Description</h3>
+
+<p>Frees a BLACS context.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+base.gridexit(ICTXT, override = FALSE)
+
+gridexit(ICTXT, override = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+<tr valign="top"><td><code>override</code></td>
+<td>
+<p>logical; if TRUE, ignores normal check preventing the
+closing of <code>ICTXT</code> values of 0, 1, and 2.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For advanced users only.
+</p>
+<p>The function frees the requested BLACS context. It is a trivial wrapper for
+the BLACS routine <code>BLACS_GRIDEXIT</code>. Also removes the object
+<code>.__blacs_gridinfo_ICTXT</code>.
+</p>
+<p>Contexts 0, 1, and 2 can not be freed in this way unless the argument
+<code>override=FALSE</code>. This will probably break something and I do not
+recommend it.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Silently returns 0 when successful. Silently returns 1 when
+requested <code>ICTXT</code> does not exist.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdBASE</em> version 0.5-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

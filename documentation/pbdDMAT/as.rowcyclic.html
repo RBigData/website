@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distribute/Redistribute matrices across the process grid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for as.rowcyclic {pbdDMAT}"><tr><td>as.rowcyclic {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distribute/Redistribute matrices across the process grid</h2>
+
+<h3>Description</h3>
+
+<p>Takes either an R matrix and distributes it as a distributed matrix, or
+takes a distributed matrix and redistributes it across a (possibly) new
+BLACS context, using a (possibly) new blocking dimension.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+as.rowcyclic(dx, bldim = .pbd_env$BLDIM)
+
+as.colcyclic(dx, bldim = .pbd_env$BLDIM)
+
+as.blockcyclic(dx, bldim = .pbd_env$BLDIM)
+
+as.block(dx, square.bldim = TRUE)
+
+as.rowblock(dx)
+
+as.colblock(dx)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dx</code></td>
+<td>
+<p>numeric distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>the blocking dimension for block-cyclically distributing the
+matrix across the process grid.</p>
+</td></tr>
+<tr valign="top"><td><code>square.bldim</code></td>
+<td>
+<p>logical.  Determines whether or not the blocking factor
+for the resulting redistributed matrix will be square or not.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are simple wrappers of the very general
+<code>redistribute()</code> funciton.  Different
+distributed matrix distributions of note can be classified into three
+categories: block, cyclic, and block-cyclic.
+</p>
+<p><code>as.block()</code> will convert <code>ddmatrix</code> into one which is merely
+&quot;block&quot; distributed, i.e., the blocking factor is chosen in such a way that
+there will be no cycling.  By default, this new blocking factor will be
+square.  This can result in some raggedness (some processors owning less
+than others &mdash; or nothing) if the matrix is far from square itself.
+However, the methods of factoring <code>ddmatrix</code> objects, and therefore
+anything that relies on (distributed) matrix factorizations such as
+computing an inverse, least squares solution, etc., require that blocking
+factors be square.  The matrix will not change BLACS contexts.
+</p>
+<p><code>as.rowblock()</code> will convert a distributed matrix into one which is
+distributed by row into a block distributed matrix.  That is, the rows are
+stored contiguously, and different processors will own different rows, but
+with no cycling.  In other words, it block redistributes the data across
+context 2.
+</p>
+<p><code>as.colblock()</code> is the column-wise analogue of <code>as.rowblock()</code>.
+In other words, it block redistributes the data across context 1.
+</p>
+<p><code>as.rowcyclic()</code> is a slightly more general version of
+<code>as.rowblock()</code>, in that the data will be distributed row-wise, but
+with the possibility of cycling, as determined by the blocking factor.  In
+other words it block-cyclically redistributes the data across context 2.
+</p>
+<p><code>as.colcyclic()</code> is a the column-wise analogue of
+<code>as.rowcyclic()</code>.  In other words, it block-cyclically redistributes
+the data across context 1.
+</p>
+<p><code>as.blockcyclic()</code> moves the distributed matrix into a general
+block-cyclic distribution across a 2-dimensional process grid.  In other
+words, it block-cyclically redistributes the data across context 0.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+dx &lt;- ddmatrix(1:30, nrow=10)
+
+x &lt;- as.block(dx)
+x
+
+x &lt;- as.rowblock(dx)
+x
+
+x &lt;- as.colblock(dx)
+x
+
+x &lt;- as.rowcyclic(dx)
+x
+
+x &lt;- as.colcyclic(dx)
+x
+
+x &lt;- as.blockcyclic(dx)
+x
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

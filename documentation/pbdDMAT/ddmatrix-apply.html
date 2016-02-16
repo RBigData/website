@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Apply Family of Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ddmatrix-apply {pbdDMAT}"><tr><td>ddmatrix-apply {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply Family of Functions</h2>
+
+<h3>Description</h3>
+
+<p>Apply a function to the margins of a distributed matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix'
+apply(X, MARGIN, FUN, ..., reduce = FALSE,
+  proc.dest = "all")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>MARGIN</code></td>
+<td>
+<p>subscript over which the function will be applied</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>the function to be applied</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to FUN</p>
+</td></tr>
+<tr valign="top"><td><code>reduce</code></td>
+<td>
+<p>logical or string. See details</p>
+</td></tr>
+<tr valign="top"><td><code>proc.dest</code></td>
+<td>
+<p>Destination process (or 'all') if a reduction occurs</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>reduce==TRUE</code> then a global matrix or vector (whichever is more
+appropriate) will be returned. The argument <code>proc.dest=</code> behaves
+exactly as in the <code>as.vector()</code> and <code>as.matrix()</code> functions of
+<span class="pkg">pbdDMAT</span>. If <code>reduce=FALSE</code> then a distributed matrix is returned.
+Other acceptable arguments are <code>reduce="matrix"</code> and
+<code>reduce="vector"</code> which demand global matrix or vector return,
+respectively. This should generally be slightly more efficient than running
+apply and then calling <code>as.vector()</code> or <code>as.matrix()</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix unless a reduction is requested, then a
+global matrix/vector is returned.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- ddmatrix(1:9, 3, bldim=2)
+
+y &lt;- as.vector(apply(x, 1, mean))
+comm.print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sets of controls in pbdZMQ.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ZMQ Control Environment {pbdZMQ}"><tr><td>ZMQ Control Environment {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sets of controls in pbdZMQ.</h2>
+
+<h3>Description</h3>
+
+<p>These sets of controls are used to provide default values in this package.
+</p>
+
+
+<h3>Format</h3>
+
+<p>Objects contain several parameters for communicators and methods.</p>
+
+
+<h3>Details</h3>
+
+<p>The elements of <code>.pbd_env$ZMQ.ST</code> are default values for socket types
+as defined in &lsquo;zmq.h&rsquo; including </p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"> Elements </td><td style="text-align: center;"> Value </td><td style="text-align: left;">
+Usage </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>PAIR</code> </td><td style="text-align: center;"> 0L </td><td style="text-align: left;"> socket type PAIR </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>PUB</code> </td><td style="text-align: center;"> 1L
+</td><td style="text-align: left;"> socket type PUB </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>SUB</code> </td><td style="text-align: center;"> 2L </td><td style="text-align: left;"> socket type SUB </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code>REQ</code> </td><td style="text-align: center;"> 3L </td><td style="text-align: left;"> socket type REQ </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>REP</code> </td><td style="text-align: center;"> 4L </td><td style="text-align: left;"> socket
+type REP </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>DEALER</code> </td><td style="text-align: center;"> 5L </td><td style="text-align: left;"> socket type DEALER </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>ROUTER</code>
+</td><td style="text-align: center;"> 6L </td><td style="text-align: left;"> socket type ROUTER </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>PULL</code> </td><td style="text-align: center;"> 7L </td><td style="text-align: left;"> socket type
+PULL </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>PUSH</code> </td><td style="text-align: center;"> 8L </td><td style="text-align: left;"> socket type PUSH </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>XPUB</code> </td><td style="text-align: center;"> 9L
+</td><td style="text-align: left;"> socket type XPUB </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>XSUB</code> </td><td style="text-align: center;"> 10L </td><td style="text-align: left;"> socket type XSUB </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code>STREAM</code> </td><td style="text-align: center;"> 11L </td><td style="text-align: left;"> socket type STREAM </td>
+</tr>
+
+</table>
+
+<p>The elements of <code>.pbd_env$ZMQ.SO</code> are default values for socket
+options as defined in &lsquo;zmq.h&rsquo; including 60 different values, see
+<code>.pbd_env$ZMQ.SO</code> and &lsquo;zmq.h&rsquo; for details.
+</p>
+<p>The elements of <code>.pbd_env$ZMQ.SR</code> are default values for send/recv
+options as defined in &lsquo;zmq.h&rsquo; including </p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"> Elements </td><td style="text-align: center;"> Value
+</td><td style="text-align: left;"> Usage </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>BLOCK</code> </td><td style="text-align: center;"> 0L </td><td style="text-align: left;"> send/recv option BLOCK </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code>DONTWAIT</code> </td><td style="text-align: center;"> 1L </td><td style="text-align: left;"> send/recv option DONTWAIT </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>NOBLOCK</code>
+</td><td style="text-align: center;"> 1L </td><td style="text-align: left;"> send/recv option NOBLOCK </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> <code>SNDMORE</code> </td><td style="text-align: center;"> 2L </td><td style="text-align: left;">
+send/recv option SNDMORE (not supported) </td>
+</tr>
+
+</table>
+
+<p>The elements of <code>.pbd_env$ZMQ.MC</code> are default values for warning and
+stop controls in R. These are not the ZeroMQ's internal default values. They
+are defined as </p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"> Elements </td><td style="text-align: center;"> Value </td><td style="text-align: left;"> Usage </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code>warning.at.error</code> </td><td style="text-align: center;"> TRUE </td><td style="text-align: left;"> if warn at error </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code>stop.at.error</code> </td><td style="text-align: center;"> TRUE </td><td style="text-align: left;"> if stop at error </td>
+</tr>
+
+</table>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="a0_c_options.html">.zmqopt_init</a>()</code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

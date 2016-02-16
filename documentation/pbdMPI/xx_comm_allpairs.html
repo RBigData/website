@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global All Pairs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global all pairs {pbdMPI}"><tr><td>global all pairs {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global All Pairs </h2>
+
+<h3>Description</h3>
+
+<p>This function provide global all pairs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.allpairs(N, diag = FALSE, symmetric = TRUE,
+              comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>N</code></td>
+<td>
+<p>number of elements for matching, <code>(i, j)</code> for all
+<code>1 &lt;= i,j &lt;= N</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>diag</code></td>
+<td>
+<p>if matching the same elements, <code>(i, i)</code> for all <code>i</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>symmetric</code></td>
+<td>
+<p>if matching upper triangular elements. TRUE for
+<code>i &gt;= j</code> only, otherwise for all <code>(i, j)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function generates all combinations of <code>N</code> elements.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The function returns a gbd matrix in row blocks with 2 columns
+named <code>i</code> and <code>j</code>. The number of rows is dependent
+on the options <code>diag</code> and <code>symmetric</code>. If <code>diag = TRUE</code> and
+<code>symmetric = FALSE</code>, then this case has the maximum number of rows,
+<code>N^2</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="xx_comm_dist.html">comm.dist</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+
+### Examples.
+id.matrix &lt;- comm.allpairs(comm.size() + 1)
+comm.print(id.matrix, all.rank = TRUE)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Inverse from Choleski (or QR) Decomposition</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for chol2inv {pbdDMAT}"><tr><td>chol2inv {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Inverse from Choleski (or QR) Decomposition</h2>
+
+<h3>Description</h3>
+
+<p><code>qr()</code> takes the QR decomposition.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix'
+chol2inv(x, size = NCOL(x))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrices for</p>
+</td></tr>
+<tr valign="top"><td><code>size</code></td>
+<td>
+<p>number of columns of <code>x</code> containing the Choleski
+factorization.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function returns the inverse of a choleski factored matrix, or the
+inverse of <code>crossprod(x)</code> if <code>qr.R(qr(x))</code> is passed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric distributed matrix.
+</p>
+
+
+<h3>Methods</h3>
+
+ <dl>
+<dt>list(&quot;signature(x = \&quot;ddmatrix\&quot;)&quot;)</dt><dd></dd>
+<dt>list(&quot;signature(x = \&quot;ANY\&quot;)&quot;)</dt><dd></dd> </dl>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+comm.set.seed(diff=T)
+x &lt;- ddmatrix("rnorm", 3, 3, bldim=2)
+
+R &lt;- qr.R(qr(x))
+xtx.inv &lt;- chol2inv(R)
+
+id &lt;- as.matrix(xtx.inv %*% crossprod(x))
+
+comm.print(id)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sweep</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sweep {pbdDMAT}"><tr><td>sweep {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sweep</h2>
+
+<h3>Description</h3>
+
+<p>Sweep vector or ddmatrix from a distributed matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+sweep(x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)
+
+## S4 method for signature 'ddmatrix,ANY,vector'
+sweep(x, MARGIN, STATS, FUN = "-")
+
+## S4 method for signature 'ddmatrix,ANY,ddmatrix'
+sweep(x, MARGIN, STATS, FUN = "-")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>MARGIN</code></td>
+<td>
+<p>subscript over which the function will be applied</p>
+</td></tr>
+<tr valign="top"><td><code>STATS</code></td>
+<td>
+<p>array to be swept out.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>function used in the sweep. Only <code>+</code>, <code>-</code>, <code>*</code>,
+and <code>/</code> are accepted.  For more general operations, use <code>apply()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>check.margin, ...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

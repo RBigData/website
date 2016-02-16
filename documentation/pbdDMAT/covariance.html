@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Covariance and Correlation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for covariance {pbdDMAT}"><tr><td>covariance {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Covariance and Correlation</h2>
+
+<h3>Description</h3>
+
+<p><code>cov()</code>
+and <code>var()</code> form the variance-covariance matrix.  <code>cor()</code> forms
+the correlation matrix.  <code>cov2cor()</code> scales a covariance matrix into a
+correlation matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix'
+cov(x, y = NULL, use = "everything",
+  method = "pearson")
+
+## S4 method for signature 'ddmatrix'
+var(x, y = NULL, na.rm = FALSE, use)
+
+## S4 method for signature 'ddmatrix'
+cor(x, y = NULL, use = "everything",
+  method = "pearson")
+
+## S4 method for signature 'ddmatrix'
+cov2cor(V)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y, V</code></td>
+<td>
+<p>numeric distributed matrices.</p>
+</td></tr>
+<tr valign="top"><td><code>use</code></td>
+<td>
+<p>character indicating how missing values should be treated.
+Acceptable values are the same as <code>R</code>'s, namely &quot;everything&quot;,
+&quot;all.obs&quot;, &quot;complete.obs&quot;, &quot;na.or.complete&quot;, or &quot;pairwise.complete.obs&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>character argument indicating which method should be used to
+calculate covariances. Currently only &quot;spearman&quot; is available for
+<code>ddmatrix</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>logical, determines whether or not <code>NA</code>'s should be dealth
+with.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>cov()</code> forms the variance-covariance matrix. Only
+<code>method="pearson"</code> is implemented at this time.
+</p>
+<p><code>var()</code> is a shallow wrapper for <code>cov()</code> in the case of a
+distributed matrix.
+</p>
+<p><code>cov2cor()</code> scales a covariance matrix into a correlation matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- ddmatrix("rnorm", nrow=3, ncol=3), bldim=2
+
+cv &lt;- cov(x)
+print(cv)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

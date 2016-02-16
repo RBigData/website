@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Arithmetic Reductions: Sums, Means, and Prods</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for reductions {pbdDMAT}"><tr><td>reductions {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Arithmetic Reductions: Sums, Means, and Prods</h2>
+
+<h3>Description</h3>
+
+<p>Arithmetic reductions for distributed matrices.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rowMin(x, ...)
+
+rowMax(x, ...)
+
+colMin(x, ...)
+
+colMax(x, ...)
+
+## S4 method for signature 'ddmatrix'
+rowSums(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+colSums(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+rowMeans(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+colMeans(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+rowMin(x, na.rm = FALSE)
+
+## S4 method for signature 'matrix'
+rowMin(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+colMin(x, na.rm = FALSE)
+
+## S4 method for signature 'matrix'
+colMin(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+rowMax(x, na.rm = FALSE)
+
+## S4 method for signature 'matrix'
+rowMax(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+colMax(x, na.rm = FALSE)
+
+## S4 method for signature 'matrix'
+colMin(x, na.rm = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>logical. Should missing (including <code>NaN</code>) be removed?</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Performs the reduction operation on a distributed matrix.
+</p>
+<p>There are several legitimately new operations, including <code>rowMin()</code>,
+<code>rowMax()</code>, <code>colMin()</code>, and <code>colMax()</code>.  These
+implementations are not really necessary in R because one can easily (and
+reasonably efficiently) do something like
+</p>
+<p><code>apply(X=x, MARGIN=1L, FUN=min, na.rm=TRUE)</code>
+</p>
+<p>But <code>apply()</code> on a <code>ddmatrix</code> is <em>very</em> costly, and should be
+used sparingly.
+</p>
+<p><code>sd()</code> will compute the standard deviations of the columns, equivalent
+to calling <code>apply(x, MARGIN=2, FUN=sd)</code> (which will work for
+distributed matrices, by the way). However, this should be much faster and
+use less memory than <code>apply()</code>.  If <code>reduce=FALSE</code> then the return
+is a distributed matrix consisting of one (global) row; otherwise, an
+<code>R</code> vector is returned, with ownership of this vector determined by
+<code>proc.dest</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a global numeric vector.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:9, 3)
+x &lt;- as.ddmatrix(x)
+
+y &lt;- sum(colMeans(x))
+comm.print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

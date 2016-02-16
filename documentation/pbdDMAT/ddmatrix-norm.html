@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Norm</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ddmatrix-norm {pbdDMAT}"><tr><td>ddmatrix-norm {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Norm</h2>
+
+<h3>Description</h3>
+
+<p>Computes the norm of a distributed matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix,ANY'
+norm(x, type = c("O", "I", "F", "M", "2"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrices.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>character. Determines which matrix norm is to be used.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a number.
+</p>
+
+
+<h3>Methods</h3>
+
+ <dl>
+<dt>list(&quot;signature(x = \&quot;ddmatrix\&quot;)&quot;)</dt><dd></dd> </dl>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+comm.set.seed(diff=T)
+x &lt;- ddmatrix("rnorm", 10, 10)
+
+nrm &lt;- norm(x)
+
+comm.print(nrm)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>
