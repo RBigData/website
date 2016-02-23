@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>R: Parallel Model-Based Clustering using
+Expectation-Gathering-Maximization Algorithm for Finite Mixture
+Gaussian Model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+<h1> Parallel Model-Based Clustering using
+Expectation-Gathering-Maximization Algorithm for Finite Mixture
+Gaussian Model
+<img class="toplogo" src="../../../doc/html/logo.jpg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;pmclust&rsquo; version 0.1-7</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+<li><a href="../demo">Code demos</a>.  Use <a href="../../utils/help/demo">demo()</a> to run them.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="00_pmclust-package.html">pmclust-package</a></td>
+<td>Parallel Model-Based Clustering</td></tr>
+<tr><td style="width: 25%;"><a href="13_d.control.html">.PMC.CT</a></td>
+<td>A Set of Controls in Model-Based Clustering.</td></tr>
+<tr><td style="width: 25%;"><a href="11_d.set.global.html">.pmclustEnv</a></td>
+<td>Set Global Variables According to the global matrix X.gbd (X.spmd) or X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_like.html">aecm.step</a></td>
+<td>EM-like Steps for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_like.html">apecm.step</a></td>
+<td>EM-like Steps for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_like.html">apecma.step</a></td>
+<td>EM-like Steps for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="50-as.dmat.spmd.html">as.dmat</a></td>
+<td>Convert between X.gbd (X.spmd) and X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="50-as.dmat.spmd.html">as.gbd</a></td>
+<td>Convert between X.gbd (X.spmd) and X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="50-as.dmat.spmd.html">as.spmd</a></td>
+<td>Convert between X.gbd (X.spmd) and X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="20-assign.N.sample.html">assign.N.sample</a></td>
+<td>Obtain a Set of Random Samples for X.spmd</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">CHECK</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">CLASS.dmat</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">CLASS.spmd</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">COMM.RANK</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">COMM.SIZE</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="13_d.control.html">CONTROL</a></td>
+<td>A Set of Controls in Model-Based Clustering.</td></tr>
+<tr><td style="width: 25%;"><a href="30-em.one.e.html">e.step</a></td>
+<td>Compute One E-step and Log Likelihood Based on Current Parameters</td></tr>
+<tr><td style="width: 25%;"><a href="30-em.one.e.html">e.step.dmat</a></td>
+<td>Compute One E-step and Log Likelihood Based on Current Parameters</td></tr>
+<tr><td style="width: 25%;"><a href="30-em.one.html">em.onestep</a></td>
+<td>One EM Step for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="30-em.one.html">em.onestep.dmat</a></td>
+<td>One EM Step for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_like.html">em.step</a></td>
+<td>EM-like Steps for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_like.html">em.step.dmat</a></td>
+<td>EM-like Steps for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="50-update.class.html">em.update.class</a></td>
+<td>Update CLASS.spmd Based on the Final Iteration</td></tr>
+<tr><td style="width: 25%;"><a href="50-update.class.html">em.update.class.dmat</a></td>
+<td>Update CLASS.spmd Based on the Final Iteration</td></tr>
+<tr><td style="width: 25%;"><a href="12_d.param.html">ETA</a></td>
+<td>A Set of Parameters in Model-Based Clustering.</td></tr>
+<tr><td style="width: 25%;"><a href="40-generate.basic.html">generate.basic</a></td>
+<td>Generate Examples for Testing</td></tr>
+<tr><td style="width: 25%;"><a href="40-generate.MixSim.html">generate.MixSim</a></td>
+<td>Generate MixSim Examples for Testing</td></tr>
+<tr><td style="width: 25%;"><a href="41-get.N.CLASS.html">get.CLASS</a></td>
+<td>Obtain Total Elements for Every Clusters</td></tr>
+<tr><td style="width: 25%;"><a href="41-get.N.CLASS.html">get.N.CLASS</a></td>
+<td>Obtain Total Elements for Every Clusters</td></tr>
+<tr><td style="width: 25%;"><a href="41-get.N.CLASS.html">get.N.CLASS.dmat</a></td>
+<td>Obtain Total Elements for Every Clusters</td></tr>
+<tr><td style="width: 25%;"><a href="50-indep.logL.html">indep.logL</a></td>
+<td>Independent Function for Log Likelihood</td></tr>
+<tr><td style="width: 25%;"><a href="50-indep.logL.html">indep.logL.dmat</a></td>
+<td>Independent Function for Log Likelihood</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_initial.html">initial.center</a></td>
+<td>Initialization for EM-like Algorithms</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_initial.html">initial.center.dmat</a></td>
+<td>Initialization for EM-like Algorithms</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_initial.html">initial.em</a></td>
+<td>Initialization for EM-like Algorithms</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_initial.html">initial.em.dmat</a></td>
+<td>Initialization for EM-like Algorithms</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_initial.html">initial.RndEM</a></td>
+<td>Initialization for EM-like Algorithms</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_initial.html">initial.RndEM.dmat</a></td>
+<td>Initialization for EM-like Algorithms</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_like.html">kmeans.step</a></td>
+<td>EM-like Steps for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="30-em_like.html">kmeans.step.dmat</a></td>
+<td>EM-like Steps for GBD</td></tr>
+<tr><td style="width: 25%;"><a href="50-update.class.html">kmeans.update.class</a></td>
+<td>Update CLASS.spmd Based on the Final Iteration</td></tr>
+<tr><td style="width: 25%;"><a href="50-update.class.html">kmeans.update.class.dmat</a></td>
+<td>Update CLASS.spmd Based on the Final Iteration</td></tr>
+<tr><td style="width: 25%;"><a href="30-em.one.m.html">m.step</a></td>
+<td>Compute One M-Step Based on Current Posterior Probabilities</td></tr>
+<tr><td style="width: 25%;"><a href="30-em.one.m.html">m.step.dmat</a></td>
+<td>Compute One M-Step Based on Current Posterior Probabilities</td></tr>
+<tr><td style="width: 25%;"><a href="50-mb.print.html">mb.print</a></td>
+<td>Print Results of Model-Based Clustering</td></tr>
+<tr><td style="width: 25%;"><a href="12_d.param.html">MU</a></td>
+<td>A Set of Parameters in Model-Based Clustering.</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">p.times.logtwopi</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="12_d.param.html">PARAM</a></td>
+<td>A Set of Parameters in Model-Based Clustering.</td></tr>
+<tr><td style="width: 25%;"><a href="12_d.param.html">PARAM.org</a></td>
+<td>A Set of Parameters in Model-Based Clustering.</td></tr>
+<tr><td style="width: 25%;"><a href="01-pmclust_pkmeans.html">pkmeans</a></td>
+<td>Parallel Model-Based Clustering and Parallel K-means Algorithm</td></tr>
+<tr><td style="width: 25%;"><a href="01-pmclust_pkmeans.html">pmclust</a></td>
+<td>Parallel Model-Based Clustering and Parallel K-means Algorithm</td></tr>
+<tr><td style="width: 25%;"><a href="60-print.html">print.pkmeans</a></td>
+<td>Functions for Printing or Summarizing Objects According to Classes</td></tr>
+<tr><td style="width: 25%;"><a href="60-print.html">print.pmclust</a></td>
+<td>Functions for Printing or Summarizing Objects According to Classes</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">readme</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">readme.dmat</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">SAVE.iter</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">SAVE.param</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="11_d.set.global.html">set.global</a></td>
+<td>Set Global Variables According to the global matrix X.gbd (X.spmd) or X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="11_d.set.global.html">set.global.dmat</a></td>
+<td>Set Global Variables According to the global matrix X.gbd (X.spmd) or X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="11_d.set.global.html">set.global.gbd</a></td>
+<td>Set Global Variables According to the global matrix X.gbd (X.spmd) or X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="12_d.param.html">SIGMA</a></td>
+<td>A Set of Parameters in Model-Based Clustering.</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">U.dmat</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">U.spmd</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">W.dmat</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">W.dmat.rowSums</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">W.spmd</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">W.spmd.rowSums</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="11_d.set.global.html">X.dmat</a></td>
+<td>Set Global Variables According to the global matrix X.gbd (X.spmd) or X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="11_d.set.global.html">X.gbd</a></td>
+<td>Set Global Variables According to the global matrix X.gbd (X.spmd) or X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="11_d.set.global.html">X.spmd</a></td>
+<td>Set Global Variables According to the global matrix X.gbd (X.spmd) or X.dmat</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">Z.colSums</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">Z.dmat</a></td>
+<td>Read Me First Function</td></tr>
+<tr><td style="width: 25%;"><a href="10_d.readme.html">Z.spmd</a></td>
+<td>Read Me First Function</td></tr>
+</table>
+</body></html>

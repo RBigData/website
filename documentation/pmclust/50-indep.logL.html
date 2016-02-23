@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Independent Function for Log Likelihood</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Independent logL {pmclust}"><tr><td>Independent logL {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Independent Function for Log Likelihood</h2>
+
+<h3>Description</h3>
+
+<p>This function is for debugging only and for checking if the observed data
+log likelihood is consistent for each EM iteration.
+</p>
+<p><code>indep.logL.dmat</code> is a <code>ddmatrix</code> version of <code>indep.logL</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  indep.logL(PARAM)
+
+  indep.logL.dmat(PARAM)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>PARAM</code></td>
+<td>
+<p>a set of parameters.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function will provide an observed data log likelihood based on the
+current parameter <code><a href="12_d.param.html">PARAM</a></code>.
+This function will take in information from global, but
+no global variables will be updated by this function.
+</p>
+<p>This function also don't take care the numerical issues, so the return
+value may be inaccurate sometimes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An observed data log likelihood will be returned.
+This value can quickly compare with the log likelihood computed inside
+<code><a href="30-em.one.html">em.onestep</a></code>. Small difference is allowed, but
+large difference indicates bugs of code or illness of data.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="11_d.set.global.html">set.global</a></code>,
+<code><a href="30-em.one.html">em.onestep</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# This is a core function for em.estep()
+# see the source code for details.
+# Reset .pmclustEnv$CONTROL$debug to turn on this function
+# automatically for each EM iteration.
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

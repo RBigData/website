@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Parallel Model-Based Clustering and Parallel K-means...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pmclust and pkmeans {pmclust}"><tr><td>pmclust and pkmeans {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parallel Model-Based Clustering and Parallel K-means Algorithm</h2>
+
+<h3>Description</h3>
+
+<p>Parallel Model-Based Clustering and Parallel K-means Algorithm
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  pmclust(X = NULL, K = 2, MU = NULL,
+    algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
+    CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
+    rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm)
+
+  pkmeans(X = NULL, K = 2, MU = NULL,
+    algorithm = c("kmeans", "kmeans.dmat"),
+    CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
+    rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>a GBD row-major matrix or a <code>ddmatrix</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>K</code></td>
+<td>
+<p>number of clusters.</p>
+</td></tr>
+<tr valign="top"><td><code>MU</code></td>
+<td>
+<p>pre-specified centers.</p>
+</td></tr>
+<tr valign="top"><td><code>algorithm</code></td>
+<td>
+<p>types of EM algorithms.</p>
+</td></tr>
+<tr valign="top"><td><code>RndEM.iter</code></td>
+<td>
+<p>number of Rand-EM iterations.</p>
+</td></tr>
+<tr valign="top"><td><code>CONTROL</code></td>
+<td>
+<p>a control for algorithms, see <code><a href="13_d.control.html">CONTROL</a></code> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>method.own.X</code></td>
+<td>
+<p>how <code>X</code> is distributed.</p>
+</td></tr>
+<tr valign="top"><td><code>rank.own.X</code></td>
+<td>
+<p>who own <code>X</code> if <code>method.own.X = "single"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>MPI communicator.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are high-level functions for several functions in <span class="pkg">pmclust</span>
+including: data distribution, setting global environment <code>.pmclustEnv</code>,
+initializations, algorithm selection, etc.
+</p>
+<p>The input <code>X</code> is either in <code>ddmatrix</code> or <code>gbd</code>. It will
+be converted in <code>gbd</code> row-major format and copied into
+<code>.pmclustEnv</code> for computation. By default, <span class="pkg">pmclust</span> uses a
+GBD row-major format (<code>gbdr</code>). While <code>common</code> means that
+<code>X</code> is identical on all processors, and <code>single</code> means that
+<code>X</code> only exist on one processor <code>rank.own.X</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>These functions return a list with class <code>pmclust</code> or <code>pkmeans</code>.
+</p>
+<p>See the help page of <code><a href="12_d.param.html">PARAM</a></code> or <code><a href="12_d.param.html">PARAM.org</a></code>
+for details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="11_d.set.global.html">set.global</a></code>,
+<code><a href="30-em.one.e.html">e.step</a></code>,
+<code><a href="30-em.one.m.html">m.step</a></code>. <br />
+<code><a href="11_d.set.global.html">set.global.dmat</a></code>,
+<code><a href="30-em.one.e.html">e.step.dmat</a></code>,
+<code><a href="30-em.one.m.html">m.step.dmat</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run in 4 processors by
+# &gt; mpiexec -np 4 Rscript demo.r
+
+### Setup environment.
+library(pmclust, quiet = TRUE)
+
+### Load data
+X &lt;- as.matrix(iris[, -5])
+
+### Distribute data
+jid &lt;- get.jid(nrow(X))
+X.gbd &lt;- X[jid,]
+
+### Standardized
+N &lt;- allreduce(nrow(X.gbd))
+p &lt;- ncol(X.gbd)
+mu &lt;- allreduce(colSums(X.gbd / N))
+X.std &lt;- sweep(X.gbd, 2, mu, FUN = "-")
+std &lt;- sqrt(allreduce(colSums(X.std^2 / (N - 1))))
+X.std &lt;- sweep(X.std, 2, std, FUN = "/")
+
+### Clustering
+library(pmclust, quiet = TRUE)
+comm.set.seed(123, diff = TRUE)
+
+ret.mb1 &lt;- pmclust(X.std, K = 3)
+comm.print(ret.mb1)
+
+ret.kms &lt;- pkmeans(X.std, K = 3)
+comm.print(ret.kms)
+
+### Finish
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

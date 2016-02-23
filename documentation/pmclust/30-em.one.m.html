@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute One M-Step Based on Current Posterior Probabilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for One M-Step {pmclust}"><tr><td>One M-Step {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute One M-Step Based on Current Posterior Probabilities</h2>
+
+<h3>Description</h3>
+
+<p>This function will perform one M-step based on current posterior
+probabilities.
+This is a core function of <code><a href="30-em.one.html">em.onestep</a></code>.
+</p>
+<p><code>m.step.dmat</code> is a <code>ddmatrix</code> version of <code>m.step</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  m.step(PARAM)
+
+  m.step.dmat(PARAM)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>PARAM</code></td>
+<td>
+<p>a set of parameters.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function will base on the current posterior probabilities
+<code><a href="10_d.readme.html">Z.spmd</a></code> to estimate the parameters <code><a href="12_d.param.html">PARAM</a></code>
+mainly including mixing proportions <code><a href="12_d.param.html">ETA</a></code>,
+centers of clusters <code><a href="12_d.param.html">MU</a></code>, and
+dispersions of clusters <code><a href="12_d.param.html">SIGMA</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returning a new <code><a href="12_d.param.html">PARAM</a></code> which maximizes the complete data log
+likelihood for the current iteration.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="11_d.set.global.html">set.global</a></code>,
+<code><a href="30-em.one.html">em.onestep</a></code>,
+<code><a href="30-em.one.e.html">e.step</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# This is a core function for em.onestep()
+# see the source code for details.
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>
