@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Open a parallel NetCDF File</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nc_open_par {pbdNCDF4}"><tr><td>nc_open_par {pbdNCDF4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Open a parallel NetCDF File</h2>
+
+<h3>Description</h3>
+
+<p>Opens an existing NetCDF file for reading (or, optionally, writing) in
+parallel.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nc_open_par(filename, write = FALSE, readunlim = TRUE,
+              verbose = FALSE, comm = 0L, info = 0L)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>Name of the existing NetCDF file to be opened.</p>
+</td></tr>
+<tr valign="top"><td><code>write</code></td>
+<td>
+<p>If FALSE (default), then the file is opened read-only.
+If TRUE, then writing to the file is allowed.</p>
+</td></tr>
+<tr valign="top"><td><code>readunlim</code></td>
+<td>
+<p>When invoked, this function reads in the values of all
+dimensions from the associated variables. This can be
+slow for a large file with a long unlimited dimension.
+If set to FALSE, the values for the unlimited dimension
+are not automatically read in (they can be read in later,
+manually, using <code><a href="ncvar_get.html">ncvar_get</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>If TRUE, then messages are printed out during execution of
+this function.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number from <span class="pkg">pbdMPI</span>.</p>
+</td></tr>
+<tr valign="top"><td><code>info</code></td>
+<td>
+<p>a info number from <span class="pkg">pbdMPI</span>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>See <code><a href="nc_open.html">nc_open</a></code> details. The parallel version
+is able to coordinate with other <code>nc_open_par</code>
+instances for more efficient operation in parallel. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>ncdf4</code> that has the fields described above.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>George Ostrouchov, Pragneshkumar Patel <a href="mailto:pragnesh@utk.edu">pragnesh@utk.edu</a>,
+Wei-Chen Chen, and Drew Schmidt.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code>nc_create_par</code>, <code>nc_var_par_access</code>,
+<code><a href="ncdim_def.html">ncdim_def</a></code>, <code><a href="ncvar_def.html">ncvar_def</a></code>. 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 2 Rscript -e "demo(ncwrite,'pbdNCDF4',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(ncread,'pbdNCDF4',ask=F,echo=F)"
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdNCDF4</em> version 0.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Write data to a netCDF file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ncvar_put {pbdNCDF4}"><tr><td>ncvar_put {pbdNCDF4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Write data to a netCDF file</h2>
+
+<h3>Description</h3>
+
+<p>Writes data to an existing netCDF file.  The variable to be written to
+must already exist on disk (i.e., you must call either
+<code><a href="nc_create.html">nc_create</a></code> or <code><a href="nc_open.html">nc_open</a></code>
+before calling this function).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ncvar_put( nc, varid, vals, start=NA, count=NA, verbose=FALSE ) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nc</code></td>
+<td>
+<p>An object of class <code>ncdf4</code> (as returned by either function
+<code><a href="nc_open.html">nc_open</a></code>
+or <code><a href="nc_create.html">nc_create</a></code>), indicating what file to write to.</p>
+</td></tr>
+<tr valign="top"><td><code>varid</code></td>
+<td>
+<p>What variable to write the data to.  Can be a string with the name
+of the variable or an object of class <code>ncvar4</code>, as
+returned by <code><a href="ncvar_def.html">ncvar_def</a></code> or  <code><a href="nc_open.html">nc_open</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>vals</code></td>
+<td>
+<p>The values to be written.</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>A vector of indices indicating where to start writing the passed values
+(starting at 1).  
+The length of this vector must equal the number of dimensions the variable has.
+Order is X-Y-Z-T (i.e., the time dimension is last).  If not specified, writing 
+starts at the beginning of the file (1,1,1,...).</p>
+</td></tr>
+<tr valign="top"><td><code>count</code></td>
+<td>
+<p>A vector of integers indicating the count of values to write
+along each dimension (order is X-Y-Z-T).  
+The length of this vector must equal the number of dimensions the variable has.
+If not specified and the variable does
+NOT have an unlimited dimension, the entire variable is written.  If the variable
+has an unlimited dimension, this argument must be specified.  As a special case, the value
+&quot;-1&quot; indicates that all entries along that dimension should be written.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>If true, prints information while executing.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This routine writes data values to a variable in a netCDF file.  The file
+should have either been created with <code><a href="nc_create.html">nc_create</a></code>, or 
+opened with <code><a href="nc_open.html">nc_open</a></code> called with parameter <code>write=TRUE</code>.
+</p>
+<p>Note that the data type (i.e., precision) of the values written to the file is determined when the
+variable is created; in particular, it does not matter what type you pass
+to this function to be written.  In other words, if the variable was created
+with type 'integer', passing double precision values to this routine will 
+still result in integer values being written to disk.
+</p>
+<p>Values of &quot;NA&quot; are supported; they are converted to the netCDF variable's
+missing value attribute before being written.  See <code><a href="ncvar_change_missval.html">ncvar_change_missval</a></code>
+for more information.
+</p>
+<p>Data in a netCDF file is conceived as being a multi-dimensional array.
+The number and length of dimensions is determined when the variable is
+created.  The 'start' and 'count' indices that this routine takes indicate
+where the writing starts along each dimension, and the count of values
+along each dimension to write.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>David W. Pierce <a href="mailto:dpierce@ucsd.edu">dpierce@ucsd.edu</a></p>
+
+
+<h3>References</h3>
+
+<p>http://dwpierce.com/software
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="ncdim_def.html">ncdim_def</a></code>, 
+<code><a href="nc_create.html">nc_create</a></code>, 
+<code><a href="nc_open.html">nc_open</a></code>, 
+<code><a href="ncvar_get.html">ncvar_get</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+#--------------------------------
+# Make a few dimensions we can use
+#--------------------------------
+nx &lt;- 3
+ny &lt;- 4
+nt &lt;- 5
+xvals &lt;- (1:nx)*100.
+dimX &lt;- ncdim_def( "X", "meters", xvals )
+dimY &lt;- ncdim_def( "Y", "meters", (1:ny)*100. )
+dimT &lt;- ncdim_def( "Time", "seconds", (1:nt)/100., unlim=TRUE )
+
+#-------------------------------------------------------------------
+# Make varables of various dimensionality, for illustration purposes
+#-------------------------------------------------------------------
+mv &lt;- 1.e30		# missing value to use
+var1d &lt;- ncvar_def( "var1d", "units", dimX, mv )
+var2d &lt;- ncvar_def( "var2d", "units", list(dimX,dimY), mv )
+var3d &lt;- ncvar_def( "var3d", "units", list(dimX,dimY,dimT), mv )
+
+#---------------------
+# Create the test file
+#---------------------
+nc &lt;- nc_create( "writevals.nc", list(var1d,var2d,var3d) )
+
+#----------------------------
+# Write some data to the file
+#----------------------------
+data1d &lt;- runif(nx)
+ncvar_put( nc, var1d, data1d )	# no start or count: write all values
+ncvar_put( nc, var1d, 27.5, start=3, count=1 ) # Write a value to the third slot
+
+data2d &lt;- runif(nx*ny)
+ncvar_put( nc, var2d, data2d )	# no start or count: write all values
+
+#--------------------------------
+# Write a 1-d slice to the 2d var
+#--------------------------------
+ncvar_put( nc, var2d, data1d, start=c(1,2), count=c(nx,1) )	
+
+#--------------------------------------------------------------
+# Note how "-1" in the count means "the whole dimension length", 
+# which equals nx in this case
+#--------------------------------------------------------------
+ncvar_put( nc, var2d, data1d, start=c(1,3), count=c(-1,1) )	
+
+#-------------------------------------------------------------------------------
+# The 3-d variable has an unlimited dimension.  We will loop over the timesteps,
+# writing one 2-d slice per timestep.
+#-------------------------------------------------------------------------------
+for( i in 1:nt) 
+	ncvar_put( nc, var3d, data2d, start=c(1,1,i), count=c(-1,-1,1) )
+
+nc_close(nc)
+
+#----------------------------------------------------------------------
+# Illustrate creating a character type variable
+#----------------------------------------------------------------------
+cnames   &lt;- c("red", "orange", "green", "yellow", "puce", "colorwithverylongname" )
+nstrings &lt;- length(cnames)
+
+#--------------------------------------------------------------
+# Make dimensions. Setting "dimnchar" to have a length of 12
+# means that the maximum color name
+# length can be 12.  Longer names will be truncated to this.
+# We don't need dimvars for this example.
+#--------------------------------------------------------------
+dimnchar   &lt;- ncdim_def("nchar",   "", 1:12, create_dimvar=FALSE )
+dimcolorno &lt;- ncdim_def("colorno", "", 1:nstrings, create_dimvar=FALSE )
+
+#------------------------------------------------------------------------
+# NOTE in the following call that units is set to the empty string (""),
+# which suppresses creation of a units attribute, and the missing value
+# is entirely omitted, which suppresses creation of the missing value att
+#------------------------------------------------------------------------
+varcolors  &lt;- ncvar_def("colors", "", list(dimnchar, dimcolorno), 
+			prec="char" )
+
+ncid &lt;- nc_create( "colornames.nc", list(varcolors) )
+
+ncvar_put( ncid, "colors", cnames, verbose=TRUE )
+
+nc_close( ncid )
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdNCDF4</em> version 0.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>
