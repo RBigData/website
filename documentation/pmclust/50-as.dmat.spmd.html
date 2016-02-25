@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert between X.gbd (X.spmd) and X.dmat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for as functions {pmclust}"><tr><td>as functions {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert between X.gbd (X.spmd) and X.dmat</h2>
+
+<h3>Description</h3>
+
+<p>This function will convert a matrix of format from
+GBD row-major to ddmatrix vice versa.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  as.dmat(X.spmd, bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT,
+          comm = .pbd_env$SPMD.CT$comm)
+
+  as.gbd(X.dmat, comm = .pbd_env$SPMD.CT$comm)
+  as.spmd(X.dmat, comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X.spmd</code></td>
+<td>
+<p>an input dataset of format GBD/SPMD row-major to be converted.</p>
+</td></tr>
+<tr valign="top"><td><code>X.dmat</code></td>
+<td>
+<p>an input dataset of format <code>ddmatrix</code> to be converted.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>block dimension, see <span class="pkg">pbdBASE</span> and <span class="pkg">pbdDMAT</span> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>block context, see <span class="pkg">pbdBASE</span> and <span class="pkg">pbdDMAT</span> for details.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>communicator, see <span class="pkg">pbdMPI</span> for details.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function will provide a quick conversion to the input data <code>X.spmd</code>
+which is a default dataset to be clustered in <span class="pkg">pmclust</span>. Usually, this
+matrix is distributed in GBD row-major format. For fully utilizing
+<span class="pkg">pbdBASE</span> and <span class="pkg">pbdDMAT</span>, it need to be converted to <code>ddmatrix</code>
+format.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>ddmatrix</code> is returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="30-em_like.html">kmeans.step.dmat</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Examples can be found in the help pages of
+# kmeans.step.dmat().
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Set Global Variables According to the global matrix X.gbd...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Set Global Variables {pmclust}"><tr><td>Set Global Variables {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set Global Variables According to the global matrix X.gbd (X.spmd) or X.dmat</h2>
+
+<h3>Description</h3>
+
+<p>This function will set several sets of variables globally in the
+environment <code>.pmclustEnv</code> according to the global matrix
+<code>X.gbd/X.spmd</code>.
+</p>
+<p><code>set.global.dmat</code> is a <code>ddmatrix</code> version of <code>set.global.gbd</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  set.global.gbd(K = 2, X.gbd = NULL, PARAM = NULL,
+      algorithm = c("em", "aecm", "apecm", "apecma", "kmeans"),
+      RndEM.iter = 10)
+  set.global.dmat(K = 2, X.dmat = NULL, PARAM = NULL,
+      algorithm = c("em.dmat", "kmeans.dmat"),
+      RndEM.iter = 10)
+
+  set.global(K = 2, X.spmd = NULL, PARAM = NULL,
+      algorithm = c("em", "aecm", "apecm", "apecma", "kmeans"),
+      RndEM.iter = 10)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>K</code></td>
+<td>
+<p>an original set of parameters generated
+by <code>set.global</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>X.gbd</code></td>
+<td>
+<p>an input GBD matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>X.dmat</code></td>
+<td>
+<p>an input <code>ddmatrix</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>X.spmd</code></td>
+<td>
+<p>an input SPMD matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>PARAM</code></td>
+<td>
+<p>an original set of parameters generated
+by <code>set.global</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>algorithm</code></td>
+<td>
+<p>an original set of parameters generated
+by <code>set.global</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>RndEM.iter</code></td>
+<td>
+<p>number of RndEM iterations.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>WARNING: A global variable named <code>X.gbd/X.spmd</code> should be set before
+calling <code>set.global</code> where <code>X.gbd/X.spmd</code> is a matrix containing data
+with dimension <code>N.spmd * p</code>. i.e. <code>N.spmd</code> observations and
+<code>p</code> variables.
+</p>
+<p>WARNING: A global variable named <code>X.dmat</code> should be set before
+calling <code>set.global.dmat</code> where <code>X.dmat</code> is a <code>ddmatrix</code>
+(in block-cyclic format) containing data with dimension <code>N * p</code>.
+</p>
+<p><code>X.gbd/X.spmd</code> and <code>X.dmat</code> are supposed to exist in <code>.GlobalEnv</code>.
+If not, they should be as an input object and will be copied into
+<code>.pmclustEnv</code> which is less efficient.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A new set of <code><a href="12_d.param.html">PARAM</a></code> will be returned and several global
+variables will be set according to the data <code>X.gbd/X.spmd</code>.
+</p>
+<p>Sets of global variables are store in the default environment
+<code>.pmclustEnv</code>.
+</p>
+<p>Use <code><a href="10_d.readme.html">readme</a></code> to see all global variables set by this function.
+</p>
+<p>Use <code><a href="10_d.readme.html">readme.dmat</a></code> to see all global variables of ddmatrix version
+set by this function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="30-em_like.html">em.step</a></code>,
+<code><a href="30-em_like.html">aecm.step</a></code>,
+<code><a href="30-em_like.html">apecm.step</a></code>, <br />
+<code><a href="30-em_like.html">apecma.step</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Examples can be found in the help pages of em.step(),
+# aecm.step(), apecm.step(), apecma.step(), and kmeans.step().
+
+# Examples for ddmatrix version can be found in the help pages of
+# kmeans.step.dmat().
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

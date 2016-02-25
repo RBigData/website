@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Close a netCDF File</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nc_close {pbdNCDF4}"><tr><td>nc_close {pbdNCDF4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Close a netCDF File</h2>
+
+<h3>Description</h3>
+
+<p>Closes an open netCDF file, which flushes any unwritten data to disk.
+Always close a netCDF file when you are done with it!
+You are risking data loss otherwise.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ nc_close( nc )
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nc</code></td>
+<td>
+<p>An object of class <code>ncdf4</code> (as returned by either function
+<code><a href="nc_open.html">nc_open</a></code> or function <code><a href="nc_create.html">nc_create</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Data written to a netCDF file is cached in memory, for better performance.
+This data is only written out to disk when the file is closed.  Therefore, always
+remember to close a netCDF file when done with it.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>David W. Pierce <a href="mailto:dpierce@ucsd.edu">dpierce@ucsd.edu</a></p>
+
+
+<h3>References</h3>
+
+<p>http://dwpierce.com/software
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="nc_sync.html">nc_sync</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: nc &lt;- nc_open("salinity.nc")
+## Not run: data &lt;- ncvar_get( nc )	# Read the "only" var in the file
+## Not run: nc_close(nc)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdNCDF4</em> version 0.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

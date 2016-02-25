@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Reading Profiling Outputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read.prof {pbdPROF}"><tr><td>read.prof {pbdPROF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Reading Profiling Outputs</h2>
+
+<h3>Description</h3>
+
+<p>Reader for profiler outputs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read.prof(file.name, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file.name</code></td>
+<td>
+<p>a full file name.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>options for <code>readLines</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function reads in profiling outputs from MPI-using R code and stores
+the output in a <code>prof</code> class object.  The reading is managed by the
+<code>base::readLines()</code> function.  The user does not need to specify the
+type of profiler output being used (e.g., whether the profiler text is from
+<span class="pkg">fpmpi</span>, <span class="pkg">mpiP</span>, etc.).
+</p>
+<p>Additionally, this method automatically parses the output into a condensed,
+manageable dataframe (the <code>parsed</code> slot of the <code>prof</code> class).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>prof</code> class object.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code> <a href="prof-class.html">prof-class</a> </code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(pbdPROF)
+
+fn &lt;- system.file("data/allreduce.fpmpi", package = "pbdPROF")
+da &lt;- read.prof(fn, lib.type = "fpmpi")
+
+da
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdPROF</em> version 0.3-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

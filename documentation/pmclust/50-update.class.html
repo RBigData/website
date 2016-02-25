@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Update CLASS.spmd Based on the Final Iteration</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Update Class of EM or Kmenas Results {pmclust}"><tr><td>Update Class of EM or Kmenas Results {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Update CLASS.spmd Based on the Final Iteration</h2>
+
+<h3>Description</h3>
+
+<p>Update <code><a href="10_d.readme.html">CLASS.spmd</a></code> based on the final iteration of EM-like
+algorithms.
+</p>
+<p><code>*.dmat</code>'s are <code>ddmatrix</code> versions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  em.update.class()
+  kmeans.update.class()
+
+  em.update.class.dmat()
+  kmeans.update.class.dmat()
+</pre>
+
+
+<h3>Details</h3>
+
+<p>This function takes <code><a href="10_d.readme.html">Z.spmd</a></code> from the global environment
+<code><a href="11_d.set.global.html">.pmclustEnv</a></code> and update <code><a href="10_d.readme.html">CLASS.spmd</a></code>,
+and provides the identification of groups for all data.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code><a href="10_d.readme.html">CLASS.spmd</a></code> will be updated.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="30-em_like.html">em.step</a></code>,
+<code><a href="30-em_like.html">aecm.step</a></code>,
+<code><a href="30-em_like.html">apecm.step</a></code>, <br />
+<code><a href="30-em_like.html">apecma.step</a></code>,
+<code><a href="30-em_like.html">kmeans.step</a></code>. <br />
+<code><a href="30-em_like.html">kmeans.step.dmat</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Examples can be found in the help pages of em.step(),
+# aecm.step(), apecm.step(), apecma.step(), and kmeans.step().
+
+# Examples for ddmatrix version can be found in the help pages of
+# kmeans.step.dmat().
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate Examples for Testing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for generate.basic {pmclust}"><tr><td>generate.basic {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate Examples for Testing</h2>
+
+<h3>Description</h3>
+
+<p>This function will generate a small set of data for testing algorithms.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  generate.basic(N.allspmds, N.spmd, N.K.spmd, N, p, K)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>N.allspmds</code></td>
+<td>
+<p>a collection of sample sizes for all
+<i>S</i> processors, i.e. a vector of
+length <i>S</i>.</p>
+</td></tr>
+<tr valign="top"><td><code>N.spmd</code></td>
+<td>
+<p>total sample size of given processor.</p>
+</td></tr>
+<tr valign="top"><td><code>N.K.spmd</code></td>
+<td>
+<p>sample size of each clusters given processor, i.e.
+sum over <code>N.K.spmd</code> is <code>N.spmd</code>,
+a vector of length
+<i>K</i>.</p>
+</td></tr>
+<tr valign="top"><td><code>N</code></td>
+<td>
+<p>total sample size across all <i>S</i> processors, i.e.
+sum over <code>N.spmd</code> is <code>N</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>dimension of data <code><a href="11_d.set.global.html">X.spmd</a></code>,
+i.e. <code>ncol(<a href="11_d.set.global.html">X.spmd</a>)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>K</code></td>
+<td>
+<p>number of clusters.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For all <i>S</i> processors, this function will generate in total
+<i>N</i> observations from <i>K</i> clusters in <i>p</i> dimensions.
+</p>
+<p>The clusters centers and dispersions are generated automatically inside
+the code. Currently, it is not allowed for users to change, but it is
+not difficult to specify them by mimicking this code.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A set of simulated data and information will be returned in a list variable
+including:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"><code>K</code>               </td><td style="text-align: left;"> number of clusters, as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>p</code>               </td><td style="text-align: left;"> dimension of data
+                                         <code><a href="11_d.set.global.html">X.spmd</a></code>,
+                                         as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N</code>               </td><td style="text-align: left;"> total sample size, as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.allspmds</code>      </td><td style="text-align: left;"> a collection of sample sizes for all
+                                         <i>S</i> processors, as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.spmd</code>          </td><td style="text-align: left;"> total sample size of given processor,
+                                         as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.K.spmd</code>        </td><td style="text-align: left;"> sample size of each clusters given
+                                         processor, as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code><a href="11_d.set.global.html">X.spmd</a></code>   </td><td style="text-align: left;"> generated data set with dimension with
+                                         dimension <code>N.spmd * p</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code><a href="10_d.readme.html">CLASS.spmd</a></code>
+                                    </td><td style="text-align: left;"> true id of each data, a vector of
+                                         length <code>N.spmd</code>
+                                         and has values from 1 to <code>K</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.CLASS.spmd</code>    </td><td style="text-align: left;"> true sample size of each clusters, a
+                                         vector of length <code>K</code>
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="40-generate.MixSim.html">generate.MixSim</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Examples can be found in the help pages of em.step(),
+# aecm.step(), apecm.step(), and apecma.step().
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>
