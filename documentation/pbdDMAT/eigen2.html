@@ -1,148 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>eigen2. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: eigen2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for eigen2 {pbdDMAT}"><tr><td>eigen2 {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>eigen2</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Compute eigenvalues and, optionally, eigenvectors of a real symmetric matrix
+by seraching over ranges of values or ranges of indices.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>eigen2</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>eigen2(x, range&nbsp;=&nbsp;c(-Inf, Inf), range.type&nbsp;=&nbsp;"interval", only.values&nbsp;=&nbsp;FALSE, abstol&nbsp;=&nbsp;1e-08, orfac&nbsp;=&nbsp;0.001)</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>x</dt>
-      <dd>symmetric, numeric ddmatrix.</dd>
-      <dt>range</dt>
-      <dd>A set of interval endpoints, i.e. a numeric pair.  Controls the
-set of values over which the eigenvalue search occurs.</dd>
-      <dt>range.type</dt>
-      <dd>Controls whether interval <code>range</code> refers to a set of
+<h3>Usage</h3>
+
+<pre>
+eigen2(x, range = c(-Inf, Inf), range.type = "interval",
+  only.values = FALSE, abstol = 1e-08, orfac = 0.001)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>symmetric, numeric ddmatrix.</p>
+</td></tr>
+<tr valign="top"><td><code>range</code></td>
+<td>
+<p>A set of interval endpoints, i.e. a numeric pair.  Controls the
+set of values over which the eigenvalue search occurs.</p>
+</td></tr>
+<tr valign="top"><td><code>range.type</code></td>
+<td>
+<p>Controls whether interval <code>range</code> refers to a set of
 possible values for the eigenvalues, or a set of indices for the
-eigenvalues.  Options are "interval" and "index".</dd>
-      <dt>only.values</dt>
-      <dd>logical. Determines whether only the eigenvalues should
-be computed, or if the eigenvectors should as well.</dd>
-      <dt>abstol</dt>
-      <dd>The absolute error tolerance for the eigenvalues.</dd>
-      <dt>orfac</dt>
-      <dd>Specifies which eigenvectors should be reorthogonalized.
+eigenvalues.  Options are &quot;interval&quot; and &quot;index&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>only.values</code></td>
+<td>
+<p>logical. Determines whether only the eigenvalues should
+be computed, or if the eigenvectors should as well.</p>
+</td></tr>
+<tr valign="top"><td><code>abstol</code></td>
+<td>
+<p>The absolute error tolerance for the eigenvalues.</p>
+</td></tr>
+<tr valign="top"><td><code>orfac</code></td>
+<td>
+<p>Specifies which eigenvectors should be reorthogonalized.
 Eigenvectors that correspond to eigenvalues which are within
-tol=orfac*norm(A)of each other are to be reorthogonalized.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+tol=orfac*norm(A)of each other are to be reorthogonalized.</p>
+</td></tr>
+</table>
 
-      <p><dl>
-Returns a distributed matrix.
-</dl></p>
-  
-    </div>
 
-    <div class="Description">
-      <h2>Description</h2>
+<h3>Details</h3>
 
-      <p>Compute eigenvalues and, optionally, eigenvectors of a real symmetric matrix
-by seraching over ranges of values or ranges of indices.</p>
-  
-    </div>
-
-    <div class="Details">
-      <h2>Details</h2>
-
-      <p>This new method computes selected eigenvalues and, optionally, eigenvectors
+<p>This new method computes selected eigenvalues and, optionally, eigenvectors
 of a real symmetric matrix. Eigenvalues and eigenvectors can be selected by
 specifying either a range of values or a range of indices for the desired
-eigenvalues.</p>
-  
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
-# # &gt; mpiexec -np 2 Rscript demo.r
-# 
-# library(pbdDMAT, quiet = TRUE)
-# init.grid()
-# init.grid()
-# 
-# comm.set.seed(seed=1234, diff=TRUE)
-# 
-# x &lt;- crossprod(ddmatrix(&quot;rnorm&quot;, 10, 3, bldim=2))
-# y &lt;- as.matrix(x)
-# 
-# comm.print(eigen(y))
-# 
-# ### Look for eigenvalues in the range 0 to 10
-# ev &lt;- eigen2(x, range=c(0, 10), only.values=TRUE)
-# comm.print(ev)
-# 
-# finalize()
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>eigen2</li>
-    </ul>
-    <ul>
-      <li>Algebra</li><li>Linear</li><li>Methods</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+eigenvalues.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+init.grid()
+
+comm.set.seed(seed=1234, diff=TRUE)
+
+x &lt;- crossprod(ddmatrix("rnorm", 10, 3, bldim=2))
+y &lt;- as.matrix(x)
+
+comm.print(eigen(y))
+
+### Look for eigenvalues in the range 0 to 10
+ev &lt;- eigen2(x, range=c(0, 10), only.values=TRUE)
+comm.print(ev)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

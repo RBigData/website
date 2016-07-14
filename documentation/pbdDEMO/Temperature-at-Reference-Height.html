@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Surface Air Temperature at Reference Height (TREFHT)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Temperature at Reference Height {pbdDEMO}"><tr><td>Temperature at Reference Height {pbdDEMO}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Surface Air Temperature at Reference Height (TREFHT)</h2>
+
+<h3>Description</h3>
+
+<p>This is a practical example in NetCDF4 format and for data reading, writing,
+and transforming. This dataset is a partial output of the Surface Air
+Temperature at Reference Height (TREFHT) which is monthly averaged of Jan.
+2004 from a CAM5 simulation.  This dataset only contains a tiny part of
+ultra-large simulations conducted by Mr Prabhat and Michael Wehner of
+Lawrence Berkeley National Laboratory.
+</p>
+
+
+<h3>Format</h3>
+
+<p>An R data file contains two lists: <code>def</code> for structure
+definition of &ldquo;TREFHT&rdquo; in <code>ncvar4</code> class (see <span class="pkg">pbdNCDF4</span>
+package for details), and <code>data</code> for output values of simulation in a
+matrix where rows are for 1152 longitudes and columns are for 768 latitudes.</p>
+
+
+<h3>Details</h3>
+
+<p>Version 5.0 of the Community Atmosphere Model (CAM) is the latest in a
+series of global atmosphere models developed primarily at the National
+Center for Atmospheric Research (NCAR).
+</p>
+<p><code>TREFHT</code> contains two lists: <code>def</code> and <code>data</code>.
+</p>
+<p><code>def</code> is a list contains usual definitions of NetCDF4. In this case,
+they define the variable &ldquo;TREFHT&rdquo; including 2D dimensions 1152
+longitudes and 768 latitudes, 1 time step, the unit in Kelvin, ... etc.
+</p>
+<p><code>data</code> contains values in matrix with dimension <i>1152*768</i>. Note that this matrix stores data in C format (column
+major), so it needs a transpose to obtains the R/Fortran format (row major).
+Also, the longitude order is not the same as the <span class="pkg">maps</span> package. Please
+see the example below for the adjustment or by calling
+<code>demo('trefht','pbdDEMO')</code> inside an R session.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Mr Prabhat and Michael Wehner.
+</p>
+
+
+<h3>References</h3>
+
+<p>More datasets are available on ESGF
+(<a href="http://www.earthsystemgrid.org/">http://www.earthsystemgrid.org/</a>) through the C20C project (on the
+NERSC portal).
+</p>
+<p>CAM5: <a href="http://www.cesm.ucar.edu/models/cesm1.0/cam/">http://www.cesm.ucar.edu/models/cesm1.0/cam/</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ncvar_put_2D</code> and <code>ncvar_get_2D</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ ## Not run:  library(maps)
+library(RColorBrewer)
+library(pbdDEMO, quiet = TRUE)
+
+lon &lt;- TREFHT$def$dim[[1]]$vals               # longitude
+lat &lt;- TREFHT$def$dim[[2]]$vals               # latitude
+da &lt;- TREFHT$data                             # surface temperature
+
+# Define Axes.
+x &lt;- c(lon[lon &gt; 180] -360, lon[lon &lt;= 195])  # adjustment for maps
+y &lt;- lat
+z &lt;- rbind(da[lon &gt; 180,], da[lon &lt;= 195,])   # adjustment for maps
+xlim &lt;- range(x)
+ylim &lt;- range(y)
+zlim &lt;- range(z)
+col.z &lt;- c(colorRampPalette(c("#0000FF", "#2BFCD3"))(100),
+           colorRampPalette(c("#2BFCD3", "#5300AB"))(100),
+           colorRampPalette(c("#5300AB", "#7CFA82"))(100),
+           colorRampPalette(c("#7CFA82", "#A90055"))(100),
+           colorRampPalette(c("#A90055", "#D6FC28"))(100),
+           colorRampPalette(c("#D6FC28", "#FE0001"))(100))
+
+# Plot
+layout(matrix(c(1, 2), ncol = 1), heights = c(2, 1))
+par(mar = c(4, 4, 4, 0))
+plot(NULL, NULL, xlim = xlim, ylim = ylim, type = "n", axes = FALSE,
+     xlab = "Longitude", ylab = "Latitude", main = "TREFHT (Jan. 2004)")
+image(x, y, z, zlim = zlim, xlim = xlim, ylim = ylim,
+      col = col.z, add = TRUE)
+
+# Add Map.
+map(add = TRUE)
+abline(h = c(-23.5, 0, 23.5), v = 0, lty = 2)
+xtickets &lt;- seq(-180, 180, by = 30)
+ytickets &lt;- seq(-90, 90, by = 30)
+box()
+axis(1, at = xtickets, labels = xtickets)
+axis(2, at = ytickets, labels = ytickets)
+
+# Add Legend.
+z.temp &lt;- matrix(seq(zlim[1], zlim[2], length = 500), ncol = 1)
+ztickets &lt;- seq(230, 300, by = 10)
+par(mar = c(4, 4, 0, 1))
+plot(NULL, NULL, xlim = zlim, ylim = c(0, 1), type = "n", axes = FALSE,
+     xlab = "TREFHT (Kelvin)", ylab = "")
+image(z.temp, 0, z.temp, zlim = zlim, xlim = zlim, ylim = c(0, 1),
+      col = col.z, add = TRUE)
+axis(1, at = ztickets, labels = ztickets)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDEMO</em> version 0.3-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Initialization for EM-like Algorithms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Initialization {pmclust}"><tr><td>Initialization {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Initialization for EM-like Algorithms</h2>
+
+<h3>Description</h3>
+
+<p>These functions implement initialization of EM-like algorithms
+for model-based clustering based on <code><a href="11_d.set.global.html">X.spmd</a></code>, and
+initialization of K-means algorithm by randomly picking samples
+from data based on <code><a href="11_d.set.global.html">X.spmd</a></code>.
+</p>
+<p><code>*.dmat</code>'s are <code>ddmatrix</code> versions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  initial.RndEM(PARAM)
+  initial.em(PARAM, MU = NULL)
+  initial.center(PARAM, MU = NULL)
+
+  initial.RndEM.dmat(PARAM)
+  initial.em.dmat(PARAM, MU = NULL)
+  initial.center.dmat(PARAM, MU = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>PARAM</code></td>
+<td>
+<p>an original set of parameters generated
+by <code><a href="11_d.set.global.html">set.global</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>MU</code></td>
+<td>
+<p>a center matrix with dim = <i>\code{p * K}</i>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For <code>initial.RndEM</code>,
+the procedure is implemented by randomly picking
+<code>.pmclustEnv$CONTROL$RndEM.iter</code> starting points from data
+<code><a href="11_d.set.global.html">X.spmd</a></code>
+and run one E-step to obtain the log likelihood.
+Then pick the starting point with the highest log likelihood as the
+best choice to pursue the MLEs in further EM iterations.
+</p>
+<p>This function repeatedly run <code><a href="30-em_initial.html">initial.em</a></code> by
+<code>.pmclustEnv$CONTROL$RndEM.iter</code> random starts and pick the
+best initializations from the random starts.
+</p>
+<p>For <code>initial.em</code>,
+it takes <code><a href="11_d.set.global.html">X.spmd</a></code> from the global environment and
+randomly pick <i>K</i> of them as the centers of <i>K</i> groups.
+If <code><a href="12_d.param.html">MU</a></code> is specified, then this <code><a href="12_d.param.html">MU</a></code>
+will be the centers.
+The default identity dispersion in <code>PARAM$SIGMA</code> will be used.
+Then, one E-step will be called to obtain the log likelihood and new
+classification will be updated.
+</p>
+<p>This function is used to implement the RndEM procedure for more
+elaborate initialization scheme in <code><a href="30-em_initial.html">initial.RndEM</a></code>.
+Potentially, several random starts should be tried before running EM
+algorithms. This can benefit in two aspects including:
+shorter convergent iterations and better classification results.
+</p>
+<p>For <code>initial.center</code>,
+if <code><a href="12_d.param.html">MU</a></code> is given, then the center will be assigned according.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The best initial starting points <code><a href="12_d.param.html">PARAM</a></code> will be returned among
+all random starting points. The number of random starting points is assigned
+by <code><a href="11_d.set.global.html">set.global</a></code> to a list variable <code><a href="13_d.control.html">CONTROL</a></code>.
+See the help page of <code><a href="30-em_initial.html">initial.em</a></code> and <code><a href="11_d.set.global.html">set.global</a></code>
+for details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+<p>Maitra, R. (2009)
+&ldquo;Initializing partition-optimization algorithms&rdquo;,
+<em>IEEE/ACM Transactions on Computational Biology and Bioinformatics</em>,
+<b>6:1</b>, 114-157.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="11_d.set.global.html">set.global</a></code>,
+<code><a href="30-em_like.html">em.step</a></code>,
+<code><a href="30-em_like.html">aecm.step</a></code>, <br />
+<code><a href="30-em_like.html">apecm.step</a></code>,
+<code><a href="30-em_like.html">apecma.step</a></code>,
+<code><a href="30-em_like.html">kmeans.step</a></code>. <br />
+<code><a href="11_d.set.global.html">set.global.dmat</a></code>,
+<code><a href="30-em_like.html">kmeans.step.dmat</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Examples can be found in the help page of em.step(),
+# aecm.step(), apecm.step(), apecma.step(), and kmeans.step().
+
+# Examples for ddmatrix version can be found in the help pages of
+# kmeans.step.dmat().
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

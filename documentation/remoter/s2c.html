@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Server-to-Client Object Transfer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for s2c {remoter}"><tr><td>s2c {remoter}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Server-to-Client Object Transfer</h2>
+
+<h3>Description</h3>
+
+<p>This function allows you to pass an object from the server to
+the local R session behind the client.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+s2c(object, newname, env = .GlobalEnv)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>A remote R object.</p>
+</td></tr>
+<tr valign="top"><td><code>newname</code></td>
+<td>
+<p>The name the object should take when it is stored on the local
+client's R session. If left blank, the local name will be the
+same as the original (remote) object's name.</p>
+</td></tr>
+<tr valign="top"><td><code>env</code></td>
+<td>
+<p>The environment into which the assignment will take place. The
+default is the global environment.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Localize R objects.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns <code>TRUE</code> invisibly on successful exit.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Prompts are listed to clarify when something is eval'd locally vs remotely
+&gt; library(remoter)
+&gt; y
+###  Error: object 'y' not found
+&gt; remoter::connect("my.remote.server")
+remoteR&gt; x
+### Error: object 'x' not found
+remoteR&gt; x &lt;- "some data"
+remoteR&gt; x
+###  [1] "some data" 
+remoteR&gt; s2c(x, "y")
+remoteR&gt; q()
+&gt; y
+###  [1] "some data"
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>remoter</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

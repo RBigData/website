@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: MPI Demonstrations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for mpi_example {pbdDEMO}"><tr><td>mpi_example {pbdDEMO}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>MPI Demonstrations</h2>
+
+<h3>Description</h3>
+
+<p>These functions are examples of simple statistics via MPI calls.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+mpi.stat(x.gbd)
+
+mpi.bin(x.gbd, breaks = pi/3 * (-3:3))
+
+mpi.quantile(x.gbd, prob = 0.5)
+
+mpi.ols(y.gbd, X.gbd)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x.gbd</code></td>
+<td>
+<p>gbd a GBD vector.</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+<p>a set to break data in groups.</p>
+</td></tr>
+<tr valign="top"><td><code>prob</code></td>
+<td>
+<p>a desired probability for quantile.</p>
+</td></tr>
+<tr valign="top"><td><code>y.gbd</code></td>
+<td>
+<p>a GBD vector.</p>
+</td></tr>
+<tr valign="top"><td><code>X.gbd</code></td>
+<td>
+<p>a GBD matrix.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>x.gbd</code> and <code>y.gbd</code> are vectors with length <code>N.gbd</code>.
+<code>X.gbd</code> is a matrix with dimension <code>N.gbd * p</code> and exists on all
+processors. <code>N.gbd</code> may be vary across processors.
+</p>
+<p>For demonstration purpose, these objects should not contains weird values
+such <code>NA</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>mpi.stat</code> returns sample mean and sample variance.
+<code>mpi.bin</code> returns binning counts for the given breaks.
+<code>mpi.quantile</code> returns a quantile.
+<code>mpi.ols</code> returns ordinary least square estimates (beta_hat).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 4 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 4 Rscript -e "demo(sample_stat,'pbdDEMO',ask=F,echo=F)"
+mpiexec -np 4 Rscript -e "demo(binning,'pbdDEMO',ask=F,echo=F)"
+mpiexec -np 4 Rscript -e "demo(quantile,'pbdDEMO',ask=F,echo=F)"
+mpiexec -np 4 Rscript -e "demo(ols,'pbdDEMO',ask=F,echo=F)"
+mpiexec -np 4 Rscript -e "demo(gbd2dmat,'pbdDEMO',ask=F,echo=F)"
+mpiexec -np 4 Rscript -e "demo(balance,'pbdDEMO',ask=F,echo=F)"
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDEMO</em> version 0.3-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

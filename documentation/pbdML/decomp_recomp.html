@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Decompose/Recompose</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for decomp_recomp {pbdML}"><tr><td>decomp_recomp {pbdML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Decompose/Recompose</h2>
+
+<h3>Description</h3>
+
+<p>Exclude the variance contributed by the principal components
+enumerated in the vector <code>exclude</code> from the data matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+decomp_recomp(x, exclude, center = TRUE, scale = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A matrix or ddmatrix of numeric values.</p>
+</td></tr>
+<tr valign="top"><td><code>exclude</code></td>
+<td>
+<p>A vector of positive integer values which are the principal components
+whose variance contribution should be removed.</p>
+</td></tr>
+<tr valign="top"><td><code>center</code></td>
+<td>
+<p>Logical; determines if the matrix should be centered first.</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+<p>Logical; determines if the matrix should be scaled first.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A matrix or ddmatrix, matching the same type as the input <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Drew Schmidt
+</p>
+
+
+<h3>References</h3>
+
+<p>Inspired by a question from Ahmed Moustafa: <a href="https://twitter.com/AhmedMoustafa/status/646310686725812224">https://twitter.com/AhmedMoustafa/status/646310686725812224</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+## TODO add mpirun message boilerplate
+library(pbdDMAT)
+init.grid()
+
+x &lt;- ddmatrix("rnorm", nrow=100, ncol=10, bldim=c(2,2))
+# Remove the contribution of PC 1's variance
+decomp_recomp(x, 1)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdML</em> version 0.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

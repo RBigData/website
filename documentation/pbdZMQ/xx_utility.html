@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Utility Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Utility Functions {pbdZMQ}"><tr><td>Utility Functions {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Utility Functions</h2>
+
+<h3>Description</h3>
+
+<p>Utility functions
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+zmq.strerror(errno)
+
+zmq.version()
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>errno</code></td>
+<td>
+<p>an integer for the error number</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>zmq.strerror()</code> gets ZeroMQ error message string.
+</p>
+<p><code>zmq.version()</code> print current ZeroMQ version.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>zmq.strerror()</code> returns an R string containing ZeroMQ error
+message.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="a0_d_context.html">zmq.ctx.new</a>()</code>, <code><a href="a0_d_context.html">zmq.ctx.destroy</a>()</code>,
+<code><a href="a1_socket.html">zmq.socket</a>()</code>, <code><a href="a1_socket.html">zmq.close</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(pbdZMQ, quietly = TRUE)
+
+context &lt;- zmq.ctx.new()
+zmq.ctx.destroy(context)
+zmq.strerror(0)
+
+zmq.ctx.destroy(context) # Error since context is free.
+zmq.strerror(14)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

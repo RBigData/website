@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A Timing Function for SPMD Routines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global timer {pbdMPI}"><tr><td>global timer {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> A Timing Function for SPMD Routines </h2>
+
+<h3>Description</h3>
+
+<p>A timing function for use with parallel codes executed in the batch
+SPMD style.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.timer(timed, comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>timed</code></td>
+<td>
+<p>expression to be timed.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Finds the min, mean, and max execution time across all independent 
+processes executing the operation <code>timed</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Drew Schmidt.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

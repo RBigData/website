@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: All Wrapper Functions for rzmq</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Wrapper Functions for rzmq {pbdZMQ}"><tr><td>Wrapper Functions for rzmq {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>All Wrapper Functions for rzmq</h2>
+
+<h3>Description</h3>
+
+<p>Wrapper functions for backwards compatibility with rzmq.  See vignette
+for examples.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+send.socket(socket, data, send.more = FALSE, serialize = TRUE)
+
+receive.socket(socket, unserialize = TRUE, dont.wait = FALSE)
+
+init.context()
+
+init.socket(context, socket.type)
+
+bind.socket(socket, address)
+
+connect.socket(socket, address)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>socket</code></td>
+<td>
+<p>A ZMQ socket.</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>An R object.</p>
+</td></tr>
+<tr valign="top"><td><code>send.more</code></td>
+<td>
+<p>Logical; will more messages be sent?</p>
+</td></tr>
+<tr valign="top"><td><code>serialize, unserialize</code></td>
+<td>
+<p>Logical; determines if serialize/unserialize should be called
+on the sent/received data.</p>
+</td></tr>
+<tr valign="top"><td><code>dont.wait</code></td>
+<td>
+<p>Logical; determines if reception is blocking.</p>
+</td></tr>
+<tr valign="top"><td><code>context</code></td>
+<td>
+<p>A ZMQ context.</p>
+</td></tr>
+<tr valign="top"><td><code>socket.type</code></td>
+<td>
+<p>The type of ZMQ socket as a string, of the form &quot;ZMQ_type&quot;.  Valid 'type'
+values are PAIR, PUB, SUB, REQ, REP, DEALER, PULL, PUSH, XPUB, XSUB, and
+STERAM.</p>
+</td></tr>
+<tr valign="top"><td><code>address</code></td>
+<td>
+<p>A valid address.  See details.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>send.socket()</code>/<code>receive.socket()</code> send/receive messages over
+a socket.  These are simple wrappers around <code>zmq.msg.send()</code> and
+<code>zmq.msg.receive()</code>, respectively.
+</p>
+<p><code>init.context()</code> creates a new ZeroMQ context.  A useful wrapper
+around <code>zmq.ctx.new()</code> which handles freeing memory for you, i.e.
+<code>zmq.ctx.destroy()</code> will automatically be called for you.
+</p>
+<p><code>init.socket()</code> creates a ZeroMQ socket; serves as a high-level
+binding for <code>zmq.socket()</code>, including handling freeing memory
+automatically.  See also <code>.pbd_env$ZMQ.ST</code>.
+</p>
+<p><code>bind.socket()</code>:  see <code>zmq.bind()</code>.
+</p>
+<p><code>connect.socket()</code>:  see <code>zmq.connect()</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

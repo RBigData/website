@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GBD Matrix to Distributed Dense Matrix and vice versa</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gbd_dmat {pbdDEMO}"><tr><td>gbd_dmat {pbdDEMO}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GBD Matrix to Distributed Dense Matrix and vice versa</h2>
+
+<h3>Description</h3>
+
+<p>This function convert a GBD matrix and a distributed dense matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gbd2dmat(X.gbd, skip.balance = FALSE, comm = .pbd_env$SPMD.CT$comm,
+  gbd.major = .pbd_env$gbd.major, bldim = .pbd_env$BLDIM,
+  ICTXT = .pbd_env$ICTXT)
+
+dmat2gbd(X.dmat, bal.info = NULL, comm = .pbd_env$SPMD.CT$comm,
+  gbd.major = .pbd_env$gbd.major)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X.gbd</code></td>
+<td>
+<p>a GBD matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>skip.balance</code></td>
+<td>
+<p>if <code>load.balance</code> were skipped.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>gbd.major</code></td>
+<td>
+<p>1 for row-major storage, 2 for column-major.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>the blocking dimension for block-cyclically distributing the
+matrix across the process grid.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number for return.</p>
+</td></tr>
+<tr valign="top"><td><code>X.dmat</code></td>
+<td>
+<p>a ddmatrix matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>bal.info</code></td>
+<td>
+<p>a returned object from <code>balance.info</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>X.gbd</code> is a matrix with dimension <code>N.gbd * p</code> and exists on all
+processors. <code>N.gbd</code> may be vary across processors.
+</p>
+<p>If <code>skip.balance = TRUE</code>, then <code>load.balance</code> will not be called
+and <code>X.gbd</code> is preassumed to be balanced.
+</p>
+<p>For demonstration purpose, these objects should not contains weird values
+such as <code>NA</code>.
+</p>
+<p><code>dmat2gbd</code> is supposed returned a balanced gbd matrix if
+<code>bal.info</code> is not supplied.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>gbd2dmat</code> returns a ddmatrix object.  <code>dmat2gbd</code> returns
+a (balanced) gbd matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 4 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 4 Rscript -e "demo(gbd_dmat,'pbdDEMO',ask=F,echo=F)"
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDEMO</em> version 0.3-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

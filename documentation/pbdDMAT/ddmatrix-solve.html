@@ -1,126 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>ddmatrix-solve. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Solve</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for ddmatrix-solve {pbdDMAT}"><tr><td>ddmatrix-solve {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Solve</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Solving linear systems and matrix inversion for distributed matrices with R-like syntax, with
+calculations performed by the PBLAS and ScaLAPACK libraries.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Solve</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>"solve"(a)</div>
-<div>"solve"(a, b)</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>a,b</dt>
-      <dd>numeric distributed matrices.  Here, <code>a</code>
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'ddmatrix,ANY'
+solve(a)
+
+## S4 method for signature 'ddmatrix,ddmatrix'
+solve(a, b)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>a, b</code></td>
+<td>
+<p>numeric distributed matrices.  Here, <code>a</code>
 and <code>b</code> must be on the same BLACS context and have the same blocking
-dimension.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+dimension.</p>
+</td></tr>
+</table>
 
-      <p><dl>
-<code>solve()</code> solves systems and performs matrix inversion when argument
+
+<h3>Details</h3>
+
+<p>Extensions of R linear algebra functions.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>solve()</code> solves systems and performs matrix inversion when argument
 <code>b=</code> is missing.
-</dl></p>
-  
-    </div>
+</p>
 
-    <div class="Description">
-      <h2>Description</h2>
 
-      <p>Solving linear systems and matrix inversion for distributed matrices with R-like syntax, with
-calculations performed by the PBLAS and ScaLAPACK libraries.</p>
-  
-    </div>
+<h3>Examples</h3>
 
-    <div class="Details">
-      <h2>Details</h2>
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
 
-      <p>Extensions of R linear algebra functions.</p>
-  
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
-# # &gt; mpiexec -np 2 Rscript demo.r
-# 
-# library(pbdDMAT, quiet = TRUE)
-# init.grid()
-# 
-# x &lt;- ddmatrix(1:9, 3)
-# 
-# y &lt;- solve(t(A) %*% A)
-# print(y)
-# 
-# finalize()
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>ddmatrix-solve</li><li>solve,ddmatrix,ANY-method</li><li>solve,ddmatrix,ddmatrix-method</li>
-    </ul>
-    <ul>
-      <li>Algebra</li><li>Linear</li><li>Methods</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- ddmatrix(1:9, 3)
+
+y &lt;- solve(t(A) %*% A)
+print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,174 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>ddmatrix-constructors. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distributed Matrix Creation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for ddmatrix-constructors {pbdDMAT}"><tr><td>ddmatrix-constructors {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Distributed Matrix Creation</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Methods for simple construction of distributed matrices.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Distributed Matrix Creation</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>ddmatrix(data, ...)</div>
-<div>"ddmatrix"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"ddmatrix"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"ddmatrix"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"ddmatrix"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"ddmatrix"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., min&nbsp;=&nbsp;0, max&nbsp;=&nbsp;1, mean&nbsp;=&nbsp;0, sd&nbsp;=&nbsp;1, rate&nbsp;=&nbsp;1, shape, scale&nbsp;=&nbsp;1, bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>ddmatrix.local(data, ...)</div>
-<div>"ddmatrix.local"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"ddmatrix.local"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"ddmatrix.local"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"ddmatrix.local"(data, nrow&nbsp;=&nbsp;1, ncol&nbsp;=&nbsp;1, byrow&nbsp;=&nbsp;FALSE, ..., min&nbsp;=&nbsp;0, max&nbsp;=&nbsp;1, mean&nbsp;=&nbsp;0, sd&nbsp;=&nbsp;1, rate&nbsp;=&nbsp;1, shape, scale&nbsp;=&nbsp;1, bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>data</dt>
-      <dd>optional data vector.</dd>
-      <dt>...</dt>
-      <dd>Extra arguments</dd>
-      <dt>nrow</dt>
-      <dd>number of rows.  Global rows for <code>ddmatrix()</code>. Local rows
-for <code>ddmatrix.local()</code>.  See details below.</dd>
-      <dt>ncol</dt>
-      <dd>number of columns.  Global columns for <code>ddmatrix()</code>.  Local
-columns for <code>ddmatrix.local()</code>.  See details below.</dd>
-      <dt>byrow</dt>
-      <dd>logical. If <code>FALSE</code> then the distributed matrix will be
-filled by column major storage, otherwise row-major.</dd>
-      <dt>bldim</dt>
-      <dd>blocking dimension.</dd>
-      <dt>ICTXT</dt>
-      <dd>BLACS context number.</dd>
-      <dt>min,max</dt>
-      <dd>Min and max values for random uniform generation.</dd>
-      <dt>mean,sd</dt>
-      <dd>Mean and standard deviation for random normal generation.</dd>
-      <dt>rate</dt>
-      <dd>Rate for random exponential generation.</dd>
-      <dt>shape,scale</dt>
-      <dd>Shape and scale parameters for random weibull generation.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+<h3>Usage</h3>
 
-      <p><dl>
-Returns a distributed matrix.
-</dl></p>
-  
-    </div>
+<pre>
+ddmatrix(data, ...)
 
-    <div class="Description">
-      <h2>Description</h2>
+## S4 method for signature 'ddmatrix'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE,
+  ..., bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
 
-      <p>Methods for simple construction of distributed matrices.</p>
-  
-    </div>
+## S4 method for signature 'missing'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE, ...,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
 
-    <div class="Details">
-      <h2>Details</h2>
+## S4 method for signature 'vector'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE, ...,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
 
-      <p>These methods are simplified methods of creating distributed matrices,
+## S4 method for signature 'matrix'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE, ...,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'character'
+ddmatrix(data, nrow = 1, ncol = 1, byrow = FALSE,
+  ..., min = 0, max = 1, mean = 0, sd = 1, rate = 1, shape,
+  scale = 1, bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+ddmatrix.local(data, ...)
+
+## S4 method for signature 'missing'
+ddmatrix.local(data, nrow = 1, ncol = 1,
+  byrow = FALSE, ..., bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$BLDIM)
+
+## S4 method for signature 'vector'
+ddmatrix.local(data, nrow = 1, ncol = 1, byrow = FALSE,
+  ..., bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'matrix'
+ddmatrix.local(data, nrow = 1, ncol = 1, byrow = FALSE,
+  ..., bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'character'
+ddmatrix.local(data, nrow = 1, ncol = 1,
+  byrow = FALSE, ..., min = 0, max = 1, mean = 0, sd = 1, rate = 1,
+  shape, scale = 1, bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>optional data vector.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Extra arguments</p>
+</td></tr>
+<tr valign="top"><td><code>nrow</code></td>
+<td>
+<p>number of rows.  Global rows for <code>ddmatrix()</code>. Local rows
+for <code>ddmatrix.local()</code>.  See details below.</p>
+</td></tr>
+<tr valign="top"><td><code>ncol</code></td>
+<td>
+<p>number of columns.  Global columns for <code>ddmatrix()</code>.  Local
+columns for <code>ddmatrix.local()</code>.  See details below.</p>
+</td></tr>
+<tr valign="top"><td><code>byrow</code></td>
+<td>
+<p>logical. If <code>FALSE</code> then the distributed matrix will be
+filled by column major storage, otherwise row-major.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>blocking dimension.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+<tr valign="top"><td><code>min, max</code></td>
+<td>
+<p>Min and max values for random uniform generation.</p>
+</td></tr>
+<tr valign="top"><td><code>mean, sd</code></td>
+<td>
+<p>Mean and standard deviation for random normal generation.</p>
+</td></tr>
+<tr valign="top"><td><code>rate</code></td>
+<td>
+<p>Rate for random exponential generation.</p>
+</td></tr>
+<tr valign="top"><td><code>shape, scale</code></td>
+<td>
+<p>Shape and scale parameters for random weibull generation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These methods are simplified methods of creating distributed matrices,
 including random ones.  These methods involve only local computations, i.e.,
 no communication is performed in the construction of a <code>ddmatrix</code> using
-these methods (in contrast to using <code>as.ddmatrix()</code> et al).</p>
-  
-      <p>For non-character inputs, the methods attempt to mimic R as closely as
+these methods (in contrast to using <code>as.ddmatrix()</code> et al).
+</p>
+<p>For non-character inputs, the methods attempt to mimic R as closely as
 possible.  So <code>ddmatrix(1:3, 5, 7)</code> produces the distributed analogue
-of <code>matrix(1:3, 5, 7)</code>.</p>
-  
-      <p>For character inputs, you may also specify additional parametric family
-information.</p>
-  
-      <p>The functions predicated with <code>.local</code> generate data with a fixed local
+of <code>matrix(1:3, 5, 7)</code>.
+</p>
+<p>For character inputs, you may also specify additional parametric family
+information.
+</p>
+<p>The functions predicated with <code>.local</code> generate data with a fixed local
 dimension, i.e., each processor gets an identical amount of data.  Likewise,
 the remaining functions generate a fixed global amount of data, and each
-processor may or may not have an identical amount of local data.</p>
-  
-      <p>To ensure good random number generation, you should only consider using the
+processor may or may not have an identical amount of local data.
+</p>
+<p>To ensure good random number generation, you should only consider using the
 character methods with the <code>comm.set.seed()</code> function from pbdMPI which
-uses the method of L'Ecuyer via the rlecuyer package.</p>
-  
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
-# # &gt; mpiexec -np 2 Rscript demo.r
-# 
-# library(pbdDMAT, quiet = TRUE)
-# init.grid()
-# 
-# dx &lt;- ddmatrix(data=&quot;rnorm&quot;, nrow=5, ncol=6, mean=10, sd=100, bldim=2)
-# dx
-# 
-# dy &lt;- ddmatrix(data=1:4, nrow=7, ncol=5, bldim=2)
-# dy
-# 
-# finalize()
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>ddmatrix</li><li>ddmatrix,character-method</li><li>ddmatrix,ddmatrix-method</li><li>ddmatrix,matrix-method</li><li>ddmatrix,missing-method</li><li>ddmatrix,vector-method</li><li>ddmatrix-constructors</li><li>ddmatrix.local</li><li>ddmatrix.local,character-method</li><li>ddmatrix.local,matrix-method</li><li>ddmatrix.local,missing-method</li><li>ddmatrix.local,vector-method</li>
-    </ul>
-    <ul>
-      <li>Data</li><li>Generation</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+uses the method of L'Ecuyer via the rlecuyer package.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+dx &lt;- ddmatrix(data="rnorm", nrow=5, ncol=6, mean=10, sd=100, bldim=2)
+dx
+
+dy &lt;- ddmatrix(data=1:4, nrow=7, ncol=5, bldim=2)
+dy
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

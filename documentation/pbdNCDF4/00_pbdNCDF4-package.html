@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Programming with Big Data - Interface to Parallel Unidata...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pbdNCDF4-package {pbdNCDF4}"><tr><td>pbdNCDF4-package {pbdNCDF4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Programming with Big Data &ndash; Interface to Parallel Unidata NetCDF4 Format Data Files</h2>
+
+<h3>Description</h3>
+
+<p>This package adds collective parallel read and write capability
+to the R package ncdf4 version 1.8. Typical use is as a
+parallel NetCDF4 file reader in SPMD style programming. Each R
+process reads and writes its own data in a synchronized
+collective mode, resulting in faster parallel performance.
+Performance improvement is conditional on a parallel file system.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Package: </td><td style="text-align: left;"> pbdNCDF4</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  Type: </td><td style="text-align: left;"> Package</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+
+
+  License: </td><td style="text-align: left;"> GPL</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  LazyLoad: </td><td style="text-align: left;"> yes</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>The parallel HDF5 and NetCDF4 (version 4.1 or later) libraries are
+prerequisite, then this package will link with them and improve the
+I/O performance via three mainly functions <code>nc_creat_par</code>,
+<code>nc_open_par</code>, and <code>nc_var_par_access</code> added to the original
+ncdf4 (1.8) package to enable collective reading and writing.
+</p>
+<p>If only serial NetCDF4 and HDF5 libraries are available, then this
+package will function exactly the same as <span class="pkg">ncdf4</span>. All functionalities
+of <span class="pkg">ncdf4</span> (version 1.8) are followed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>George Ostrouchov, Pragneshkumar Patel <a href="mailto:pragnesh@utk.edu">pragnesh@utk.edu</a>,
+Wei-Chen Chen, Drew Schmidt, and David Pierce.
+</p>
+
+
+<h3>References</h3>
+
+<p>The HDF Group:
+<a href="http://www.hdfgroup.org/HDF5/">http://www.hdfgroup.org/HDF5/</a>
+</p>
+<p>Unidata:
+<a href="http://www.unidata.ucar.edu/software/netcdf/">http://www.unidata.ucar.edu/software/netcdf/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>nc_create_par</code>, <code>nc_open_par</code>, <code>nc_var_par_access</code>,
+and <code>ncdump</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 2 Rscript -e "demo(ncwrite,'pbdNCDF4',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(ncread,'pbdNCDF4',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(ncdump,'pbdNCDF4',ask=F,echo=F)"
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdNCDF4</em> version 0.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

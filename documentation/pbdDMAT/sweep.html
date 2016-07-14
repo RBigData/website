@@ -1,108 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>sweep. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sweep</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for sweep {pbdDMAT}"><tr><td>sweep {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Sweep</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Sweep vector or ddmatrix from a distributed matrix.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Sweep</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>sweep(x, MARGIN, STATS, FUN&nbsp;=&nbsp;"-", check.margin&nbsp;=&nbsp;TRUE, ...)</div>
-<div>"sweep"(x, MARGIN, STATS, FUN&nbsp;=&nbsp;"-")</div>
-<div>"sweep"(x, MARGIN, STATS, FUN&nbsp;=&nbsp;"-")</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>x</dt>
-      <dd>numeric distributed matrix.</dd>
-      <dt>MARGIN</dt>
-      <dd>subscript over which the function will be applied</dd>
-      <dt>STATS</dt>
-      <dd>array to be swept out.</dd>
-      <dt>FUN</dt>
-      <dd>function used in the sweep. Only <code>+</code>, <code>-</code>, <code>*</code>,
-and <code>/</code> are accepted.  For more general operations, use <code>apply()</code>.</dd>
-      <dt>check.margin,...</dt>
-      <dd>Ignored.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+<h3>Usage</h3>
 
-      <p><dl>
-Returns a distributed matrix.
-</dl></p>
-  
-    </div>
+<pre>
+sweep(x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)
 
-    <div class="Description">
-      <h2>Description</h2>
+## S4 method for signature 'ddmatrix,ANY,vector'
+sweep(x, MARGIN, STATS, FUN = "-")
 
-      <p>Sweep vector or ddmatrix from a distributed matrix.</p>
-  
-    </div>
-      </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>sweep</li><li>sweep,ddmatrix,ANY,ddmatrix-method</li><li>sweep,ddmatrix,ANY,vector-method</li>
-    </ul>
-    <ul>
-      <li>Methods</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+## S4 method for signature 'ddmatrix,ANY,ddmatrix'
+sweep(x, MARGIN, STATS, FUN = "-")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>MARGIN</code></td>
+<td>
+<p>subscript over which the function will be applied</p>
+</td></tr>
+<tr valign="top"><td><code>STATS</code></td>
+<td>
+<p>array to be swept out.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>function used in the sweep. Only <code>+</code>, <code>-</code>, <code>*</code>,
+and <code>/</code> are accepted.  For more general operations, use <code>apply()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>check.margin, ...</code></td>
+<td>
+<p>Ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

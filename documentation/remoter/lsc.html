@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: ls on Client</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lsc {remoter}"><tr><td>lsc {remoter}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>ls on Client</h2>
+
+<h3>Description</h3>
+
+<p>A function to view environments on the client's R session.  To
+view objects on the server, just use <code>ls()</code>.  Instead of
+using this function, you could also just kill the client, do your
+local operations, then re-run your <code>client()</code> command.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lsc(envir, all.names = FALSE, pattern)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>Environment (as in <code>ls()</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>all.names</code></td>
+<td>
+<p>Logical that determines if all names are returned or those beginning
+with a '.' are omitted (as in <code>ls()</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>pattern</code></td>
+<td>
+<p>Optional regular expression (as in <code>ls()</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>View objects on the client.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns <code>TRUE</code> invisibly on successful exit.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>remoter</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

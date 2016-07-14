@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: File Transfer Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for File Transfer Functions {pbdZMQ}"><tr><td>File Transfer Functions {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>File Transfer Functions</h2>
+
+<h3>Description</h3>
+
+<p>High level functions calling <code>zmq_send()</code> and <code>zmq_recv()</code>
+to transfer a file in 200 KiB chunks.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+zmq.sendfile(port, filename, verbose = FALSE, flags = .pbd_env$ZMQ.SR$BLOCK)
+
+zmq.recvfile(port, endpoint, filename, verbose = FALSE,
+  flags = .pbd_env$ZMQ.SR$BLOCK)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>port</code></td>
+<td>
+<p>A valid tcp port.</p>
+</td></tr>
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>The name (as a string) of the in/out files.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>logical; determines if a progress bar should be shown.</p>
+</td></tr>
+<tr valign="top"><td><code>flags</code></td>
+<td>
+<p>a flag for the method used by <code>zmq_sendfile</code> and
+<code>zmq_recvfile</code></p>
+</td></tr>
+<tr valign="top"><td><code>endpoint</code></td>
+<td>
+<p>A ZMQ socket endpoint.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>zmq.sendfile()</code> binds a <code>ZMQ_PUSH</code> socket, and 
+<code>zmq.recvfile()</code> connects to this with a <code>ZMQ_PULL</code> socket.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>zmq.sendfile()</code> and <code>zmq.recvfile()</code> return
+number of bytes (invisible) in the sent message if successful,
+otherwise returns -1 (invisible) and sets <code>errno</code> to the error
+value, see ZeroMQ manual for details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Drew Schmidt and Christian Heckendorf
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="a2_message.html">zmq.msg.send</a>()</code>, <code><a href="a2_message.html">zmq.msg.recv</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Run the sender and receiver code in separate R sessions.
+
+# Receiver
+library(pbdZMQ, quietly = TRUE)
+zmq.recvfile(55555, "localhost", "/tmp/outfile", verbose=TRUE)
+
+# Sender
+library(pbdZMQ, quietly = TRUE)
+zmq.sendfile(55555, "/tmp/infile", verbose=TRUE)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

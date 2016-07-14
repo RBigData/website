@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fisher's Linear Discriminant</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for fld {pbdML}"><tr><td>fld {pbdML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fisher's Linear Discriminant</h2>
+
+<h3>Description</h3>
+
+<p>Compute the 2-class Fisher's linear discriminant either in 
+serial or parallel.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fld(x, g, checkg = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>The data in the form of a matrix or ddmatrix.</p>
+</td></tr>
+<tr valign="top"><td><code>g</code></td>
+<td>
+<p>The group variable in the form of a matrix/vector or a ddmatrix.
+The values should be 0 and 1 exclusively.</p>
+</td></tr>
+<tr valign="top"><td><code>checkg</code></td>
+<td>
+<p>Logical; should the values of g be confirmed to exclusively be 0's
+and 1's.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that a ddmatrix x and ordinary matrix/vector pairing is possible, 
+but the reverse (matrix/vector x and ddmatrix g) is not.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of class 'fld' containing the prior probabilities, group means, 
+w vector, and c scalar.  In the distributed case, the priors and c scalar
+are both global, while the other values are distributed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Drew Schmidt
+</p>
+
+
+<h3>References</h3>
+
+<p>Duda, R. O., Hart, P. E., &amp; Stork, D. G. (2012). Pattern classification,
+chapter 5. John Wiley &amp; Sons.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+x &lt;- matrix(rnorm(30), 10)
+g &lt;- sample(0:1, size=10, replace=TRUE)
+
+fld(x, g)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdML</em> version 0.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

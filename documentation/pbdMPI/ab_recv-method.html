@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A Rank Receives (Blocking) an Object from the Other Rank</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for recv-method {pbdMPI}"><tr><td>recv-method {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> A Rank Receives (Blocking) an Object from the Other Rank </h2>
+
+<h3>Description</h3>
+
+<p>This method lets a rank receive (blocking) an object from the other
+rank in the same communicator. The default return is the object sent from
+the other rank.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+recv(x.buffer = NULL, rank.source = .pbd_env$SPMD.CT$rank.source,
+     tag = .pbd_env$SPMD.CT$tag, comm = .pbd_env$SPMD.CT$comm,
+     status = .pbd_env$SPMD.CT$status)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x.buffer</code></td>
+<td>
+<p>a buffer to store <code>x</code> sent from the other rank.</p>
+</td></tr>
+<tr valign="top"><td><code>rank.source</code></td>
+<td>
+<p>a source rank where <code>x</code> sent from</p>
+</td></tr>
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>a tag number.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>status</code></td>
+<td>
+<p>a status number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A corresponding <code>send()</code> should be evoked at the corresponding rank
+<code>rank.source</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object is returned by default.
+</p>
+
+
+<h3>Methods</h3>
+
+<p>For calling <code>spmd.recv.*()</code>:
+</p>
+
+<dl>
+<dt><code>signature(x = "ANY")</code></dt><dd></dd>
+<dt><code>signature(x = "integer")</code></dt><dd></dd>
+<dt><code>signature(x = "numeric")</code></dt><dd></dd>
+<dt><code>signature(x = "raw")</code></dt><dd></dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="ac_irecv-method.html">irecv</a>()</code>, <code><a href="ab_send-method.html">send</a>()</code>, <code><a href="ac_isend-method.html">isend</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+.comm.size &lt;- comm.size()
+.comm.rank &lt;- comm.rank()
+
+### Examples.
+N &lt;- 5
+x &lt;- (1:N) + N * .comm.rank
+if(.comm.rank == 0){
+  y &lt;- send(matrix(x, nrow = 1))
+} else if(.comm.rank == 1){
+  y &lt;- recv()
+}
+comm.print(y, rank.print = 1)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

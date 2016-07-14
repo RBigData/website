@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Message Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Message Function {pbdZMQ}"><tr><td>Message Function {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Message Functions</h2>
+
+<h3>Description</h3>
+
+<p>Message functions
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+zmq.msg.send(rmsg, socket, flags = .pbd_env$ZMQ.SR$BLOCK, serialize = TRUE)
+
+zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK, unserialize = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>rmsg</code></td>
+<td>
+<p>an R message</p>
+</td></tr>
+<tr valign="top"><td><code>socket</code></td>
+<td>
+<p>a ZMQ socket</p>
+</td></tr>
+<tr valign="top"><td><code>flags</code></td>
+<td>
+<p>a flag for method of send and receive</p>
+</td></tr>
+<tr valign="top"><td><code>serialize</code></td>
+<td>
+<p>if serialize the <code>rmsg</code></p>
+</td></tr>
+<tr valign="top"><td><code>unserialize</code></td>
+<td>
+<p>if unserialize the received R message</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>zmq.msg.send()</code> sends an R message.
+</p>
+<p><code>zmq.msg.recv()</code> receives an R message.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>zmq.msg.send()</code> returns 0 if successful, otherwise returns -1
+and sets <code>errno</code> to <code>EFAULT</code>.
+</p>
+<p><code>zmq.msg.recv()</code> returns the message if successful, otherwise returns
+-1 and sets <code>errno</code> to <code>EFAULT</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="b0_sendrecv.html">zmq.send</a>()</code>, <code><a href="b0_sendrecv.html">zmq.recv</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Using request-reply pattern.
+
+### At the server, run next in background or the other window.
+library(pbdZMQ, quietly = TRUE)
+
+context &lt;- zmq.ctx.new()
+responder &lt;- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+zmq.bind(responder, "tcp://*:5555")
+buf &lt;- zmq.msg.recv(responder)
+set.seed(1234)
+ret &lt;- rnorm(5)
+print(ret)
+zmq.msg.send(ret, responder)
+zmq.close(responder)
+zmq.ctx.destroy(context)
+
+
+### At a client, run next in foreground.
+library(pbdZMQ, quietly = TRUE)
+
+context &lt;- zmq.ctx.new()
+requester &lt;- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+zmq.connect(requester, "tcp://localhost:5555")
+zmq.msg.send(NULL, requester)
+ret &lt;- zmq.msg.recv(requester)
+print(ret)
+zmq.close(requester)
+zmq.ctx.destroy(context)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

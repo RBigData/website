@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Define a netCDF Variable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ncvar_def {pbdNCDF4}"><tr><td>ncvar_def {pbdNCDF4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Define a netCDF Variable</h2>
+
+<h3>Description</h3>
+
+<p>Defines a netCDF variable.  This variable initially only exists in memory.
+It is later written to disk using <code>nc_create()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ncvar_def( name, units, dim, missval, longname=name, prec="float", 
+ shuffle=FALSE, compression=NA, chunksizes=NA, verbose=FALSE )
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>Name of the variable to be created (character string).  
+The name can 
+optionally have forward slashes in it, in which case the variable will be defined 
+in the indicated group. For example, a variable
+named <code>model3/run1/Temperature</code> will define a group named <code>model3</code>, with a
+subgroup named <code>run1</code>, which will hold a variable named <code>Temperature</code>. Using
+groups forces a netcdf version 4 file to be written. Note that older software might not
+be able to read netcdf version 4 files.</p>
+</td></tr>
+<tr valign="top"><td><code>units</code></td>
+<td>
+<p>The variable's units (character string). Or, pass a zero length string (&rdquo;) to have no units attribute.</p>
+</td></tr>
+<tr valign="top"><td><code>dim</code></td>
+<td>
+<p>The variable's dimension(s) (one or a list of &quot;ncdim4&quot; class objects, as returned by <code>ncdim_def</code>).  To create a variable with NO dimensions, pass an empty list (&quot;list()&quot;). </p>
+</td></tr>
+<tr valign="top"><td><code>missval</code></td>
+<td>
+<p>The variable's missing value. If NO missing value is desired, pass a NULL, or omit this argument entirely. If a NaN missing value is desired, pass an NA.</p>
+</td></tr>
+<tr valign="top"><td><code>longname</code></td>
+<td>
+<p>Optional longer name for the variable, which is assigned to the variable's &quot;long_name&quot; attribute. For example, a variable named &quot;TS&quot; might have the longname &quot;Surface Temperature&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>prec</code></td>
+<td>
+<p>Precision of the created variable.  Valid options: 'short' 'integer' 'float' 'double' 'char'.</p>
+</td></tr>
+<tr valign="top"><td><code>shuffle</code></td>
+<td>
+<p>Turns on (if TRUE) or off (if FALSE, the default) the shuffle filter.  According to 
+netcdf docs, turning the shuffle filter on can improve compression for integer variables.
+Turning the shuffle filter on forces the created file to be in netcdf version 4 format,
+which will not be compatible with older software that only reads netcdf version 3 files.</p>
+</td></tr>
+<tr valign="top"><td><code>compression</code></td>
+<td>
+<p>If set to an integer between 1 (least compression) and 9 (most compression), this
+enables compression for the variable as it is written to the file.
+Turning compression on forces the created file to be in netcdf version 4 format,
+which will not be compatible with older software that only reads netcdf version 3 files.</p>
+</td></tr>
+<tr valign="top"><td><code>chunksizes</code></td>
+<td>
+<p>If set, this must be a vector of integers with a length equal to the number
+of dimensions in the variable. When data from this variable is written to the file, it
+will be buffered in blocks as indicated by the chunksize. The order of dimensions
+in this vector is the standard R ordering of XYZT. In some instances, setting a 
+chunksize that reflects how the variable's data will be read or written can greatly
+reduce read or write times. See the netcdf documentation for more detail on how to set this
+parameter. Enabling this feature forces the created file to be in netcdf version 4 format,
+which will not be compatible with older software that only reads netcdf version 3 files.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>Print debugging information.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This routine creates a netCDF variable in memory.  The variable can then
+be passed to the routine <code>nc_create</code> when writing a file to disk.
+</p>
+<p>Note that this interface to the netCDF library includes more than the
+minimum required by the netCDF standard.  I.e., the netCDF standard allows
+variables with no units or missing values.  This call requires units and 
+a missing value,
+as it is useful to ensure that all variables have units and
+missing values, and considerably easier to include them in this call than it is
+to add them later.  The units and missing value are implemented through attributes
+to the variable, named &quot;units&quot; and &quot;missing_value&quot;, respectively.
+This is standard practice in netCDF files.
+</p>
+<p>After a variable is defined with this call, and created on disk using
+<code><a href="nc_create.html">nc_create</a></code>, then data values for the variable can be written
+to disk using <code>ncvar_put</code>.
+</p>
+<p>This function returns a <code>ncvar</code> object, which describes the newly-created
+variable.  However, the <code>ncvar</code> object is used for more than just
+creating new variables.  The function <code><a href="nc_open.html">nc_open</a></code> returns a <code>ncdf4</code>
+class object that itself contains a list of <code>ncvar4</code> objects that describe
+the variables in an existing, on-disk netCDF file.  (Note that coordinate
+variables are NOT included in this list.  Attributes of the coordinate variables
+are kept in the <code>ncdim4</code> class object instead.)
+</p>
+<p>The <code>ncvar4</code> class object has the following fields, which are all read-only:
+1) name, which is a character string containing the name of the variable;
+2) units, which is a character string containing the contents of the
+variable's &quot;units&quot; attribute; 3) missval, which contains the contents of the
+variable's &quot;missing_value&quot; attribute; 4) longname, which is the 
+contents of the variable's &quot;long_name&quot; attribute, or defaults to the name
+of the variable if there is no &quot;long_name&quot; attribute; 5) ndims, which is the
+number of dimensions this variable has; 6) dim, which is a list of objects of
+class &quot;ncdim4&quot; (see <code><a href="ncdim_def.html">ncdim_def</a></code>), and describe this
+variable's dimensions; 7) unlim, which is TRUE if this variable has an unlimited
+dimension and FALSE otherwise; 8) varsize, which is a convenience array
+that gives the shape of the variable (in XYZT ordering).
+</p>
+<p>Note that the missval attribute does not need to be used much in R, because
+R's special value NA is fully supported.  I.e., when data is read in from an
+existing file, any values equal to the &quot;missing&quot; value are set to NA.  When
+data is written out, any NAs are set equal to the missing value.  If not
+explicitly set by the user, a default value of 1.e30 is used for the missing
+value.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>ncvar4</code> that can later be passed to 
+<code>nc_create()</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>David W. Pierce <a href="mailto:dpierce@ucsd.edu">dpierce@ucsd.edu</a></p>
+
+
+<h3>References</h3>
+
+<p>http://dwpierce.com/software
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="ncdim_def.html">ncdim_def</a></code>, <code><a href="nc_create.html">nc_create</a></code>, 
+<code>ncvar_put</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Define an integer dimension 
+dimState &lt;- ncdim_def( "StateNo", "count", 1:50 )
+
+# Make an integer variable.  Note that an integer variable can have
+# a double precision dimension, or vice versa; there is no fixed
+# relationship between the precision of the dimension and that of the
+# associated variable.  We just make an integer variable here for
+# illustration purposes.
+varPop &lt;- ncvar_def("Pop", "count", dimState, -1, 
+		longname="Population", prec="integer")
+
+# Create a netCDF file with this variable
+ncnew &lt;- nc_create( "states_population.nc", varPop )
+
+# Write some values to this variable on disk.
+popAlabama &lt;- 4447100
+ncvar_put( ncnew, varPop, popAlabama, start=1, count=1 )
+
+# Add source info metadata to file
+ncatt_put( ncnew, 0, "source", "Census 2000 from census bureau web site")
+
+nc_close(ncnew)
+
+# Now illustrate some manipulations of the var.ncdf object
+filename &lt;- "states_population.nc"
+nc &lt;- nc_open(filename)
+print(paste("File",nc$filename,"contains",nc$nvars,"variables"))
+for( i in 1:nc$nvars ) {
+	v &lt;- nc$var[[i]]
+	print(paste("Here is information on variable number",i))
+	print(paste("   Name: ",v$name))
+	print(paste("   Units:",v$units))
+	print(paste("   Missing value:",v$missval))
+	print(paste("   # dimensions :",v$ndims))
+	print(paste("   Variable size:",v$varsize))
+	}
+
+# Illustrate creating variables of various types.  You will find
+# that the type of the missing_value attribute automatically follows
+# the type of the variable.
+dimt &lt;- ncdim_def( "Time", "days", 1:3 ) 
+missval &lt;- -1
+varShort &lt;- ncvar_def( "varShort", "meters", dimt, missval, prec="short")
+varInt   &lt;- ncvar_def( "varInt",   "meters", dimt, missval, prec="integer")
+varFloat &lt;- ncvar_def( "varFloat", "meters", dimt, missval, prec="single")
+varDouble&lt;- ncvar_def( "varDouble","meters", dimt, missval, prec="double")
+nctypes &lt;- nc_create("vartypes.nc", list(varShort,varInt,varFloat,varDouble) )
+nc_close(nctypes)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdNCDF4</em> version 0.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

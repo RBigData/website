@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Read, write, and create netCDF files (including version 4...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ncdf4 {pbdNCDF4}"><tr><td>ncdf4 {pbdNCDF4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read, write, and create netCDF files (including version 4 format)</h2>
+
+<h3>Description</h3>
+
+<p>Read from or write to existing netCDF format files, or create new ones.
+This is the R-ncdf4 package, version 1.6.
+</p>
+
+
+<h3>Details</h3>
+
+<p>More information on this package, including detailed installation instructions,
+can be found at http://dwpierce.com/software.
+</p>
+<p>The netCDF data file format from Unidata is a platform-independent, binary
+file that also contains metadata describing the contents and format of the data
+in the file.  Version 4 of the netcdf library stores data in HDF5 format files;
+earlier versions stored data in a custom format.
+The R package ncdf4 can read either format.
+</p>
+<p>NetCDF files contain one or more variables, which are usually
+structured as regular N-dimensional arrays.  For example, you might
+have a variable named &quot;Temperature&quot; that is a function of longitude,
+latitude, and height. NetCDF files also contain dimensions, which 
+describe the extent of the variables' arrays.  In our Temperature example,
+the dimensions are &quot;longitude&quot;, &quot;latitude&quot;, and &quot;height&quot;. Data can be read from
+or written to variables in arbitrary hyperslabs (for example, you can 
+read or write all the Temperature values at a given height, or at a given
+latitude).  
+</p>
+<p>The R package 'ncdf4' allows
+reading from, writing to, and creation of netCDF files, either netCDF version
+3 or (optionally) netCDF version 4.  If you choose to create version 4
+output files, be aware that older netcdf software might only be
+able to read version 3 files.
+</p>
+<p>Note that both the
+netCDF library and the HDF5 library must already be installed on your machine for 
+this R interface to the library to work.
+</p>
+<p>If you are new to netCDF files, they can be a little overwhelming,
+so here is a brief sketch of what documentation you need to read next.  
+</p>
+<p>If you want to READ data 
+from an already-existing netCDF file, first call <code><a href="nc_open.html">nc_open</a></code> 
+to open the file, then call <code><a href="ncvar_get.html">ncvar_get</a></code> to read the data
+from a variable in the file.  
+</p>
+<p>If you want to WRITE data to a new netCDF file, the procedure is
+to first define the dimensions your data array has, then define the
+variable, then create the file.  So, first call
+<code><a href="ncdim_def.html">ncdim_def</a></code> to define the dimensions that your data
+exists along (for example, latitude, longitude, and time). Then call
+<code><a href="ncvar_def.html">ncvar_def</a></code> to define a variable 
+that uses those dimensions, and will hold your data.
+Then call <code><a href="nc_create.html">nc_create</a></code>
+to create the netCDF file.
+Finally, call <code>ncvar_put</code>
+to write your data to the newly created netCDF file, 
+and <code><a href="nc_close.html">nc_close</a></code> when you are done.
+</p>
+<p>This is version 1.6 of the ncdf4 library. Not all features of netcdf-4 are
+supported yet.
+This version supports compression, chunking, groups, and multiple
+unlimited dimensions.
+User-defined types and &quot;vlens&quot; (variable-length arrays) are not supported yet.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>David W. Pierce <a href="mailto:dpierce@ucsd.edu">dpierce@ucsd.edu</a></p>
+
+
+<h3>References</h3>
+
+<p>http://dwpierce.com/software
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="print.ncdf4.html">print.ncdf4</a></code>,
+<code><a href="nc_open.html">nc_open</a></code>,
+<code><a href="nc_close.html">nc_close</a></code>, 
+<code><a href="nc_create.html">nc_create</a></code>,
+<code><a href="ncdim_def.html">ncdim_def</a></code>,
+<code><a href="ncvar_def.html">ncvar_def</a></code>,
+<code><a href="ncvar_get.html">ncvar_get</a></code>,
+<code>ncvar_put</code>,
+<code><a href="ncvar_change_missval.html">ncvar_change_missval</a></code>,
+<code><a href="ncatt_get.html">ncatt_get</a></code>,
+<code><a href="ncatt_put.html">ncatt_put</a></code>, 
+<code><a href="nc_sync.html">nc_sync</a></code>,
+<code><a href="nc_redef.html">nc_redef</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdNCDF4</em> version 0.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

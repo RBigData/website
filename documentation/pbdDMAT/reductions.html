@@ -1,160 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>reductions. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Arithmetic Reductions: Sums, Means, and Prods</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for reductions {pbdDMAT}"><tr><td>reductions {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Arithmetic Reductions: Sums, Means, and Prods</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Arithmetic reductions for distributed matrices.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Arithmetic Reductions: Sums, Means, and Prods</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>rowMin(x, ...)</div>
-<div>rowMax(x, ...)</div>
-<div>colMin(x, ...)</div>
-<div>colMax(x, ...)</div>
-<div>"rowSums"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"colSums"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"rowMeans"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"colMeans"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"rowMin"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"rowMin"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"colMin"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"colMin"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"rowMax"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"rowMax"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"colMax"(x, na.rm&nbsp;=&nbsp;FALSE)</div>
-<div>"colMin"(x, na.rm&nbsp;=&nbsp;FALSE)</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>x</dt>
-      <dd>numeric distributed matrix</dd>
-      <dt>...</dt>
-      <dd>additional arguments</dd>
-      <dt>na.rm</dt>
-      <dd>logical. Should missing (including <code>NaN</code>) be removed?</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+<h3>Usage</h3>
 
-      <p><dl>
-Returns a global numeric vector.
-</dl></p>
-  
-    </div>
+<pre>
+rowMin(x, ...)
 
-    <div class="Description">
-      <h2>Description</h2>
+rowMax(x, ...)
 
-      <p>Arithmetic reductions for distributed matrices.</p>
-  
-    </div>
+colMin(x, ...)
 
-    <div class="Details">
-      <h2>Details</h2>
+colMax(x, ...)
 
-      <p>Performs the reduction operation on a distributed matrix.</p>
-  
-      <p>There are several legitimately new operations, including <code>rowMin()</code>,
+## S4 method for signature 'ddmatrix'
+rowSums(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+colSums(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+rowMeans(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+colMeans(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+rowMin(x, na.rm = FALSE)
+
+## S4 method for signature 'matrix'
+rowMin(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+colMin(x, na.rm = FALSE)
+
+## S4 method for signature 'matrix'
+colMin(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+rowMax(x, na.rm = FALSE)
+
+## S4 method for signature 'matrix'
+rowMax(x, na.rm = FALSE)
+
+## S4 method for signature 'ddmatrix'
+colMax(x, na.rm = FALSE)
+
+## S4 method for signature 'matrix'
+colMin(x, na.rm = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric distributed matrix</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>logical. Should missing (including <code>NaN</code>) be removed?</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Performs the reduction operation on a distributed matrix.
+</p>
+<p>There are several legitimately new operations, including <code>rowMin()</code>,
 <code>rowMax()</code>, <code>colMin()</code>, and <code>colMax()</code>.  These
 implementations are not really necessary in R because one can easily (and
-reasonably efficiently) do something like</p>
-  
-      <p><code>apply(X=x, MARGIN=1L, FUN=min, na.rm=TRUE)</code></p>
-  
-      <p>But <code>apply()</code> on a <code>ddmatrix</code> is <em>very</em> costly, and should be
-used sparingly.</p>
-  
-      <p><code>sd()</code> will compute the standard deviations of the columns, equivalent
+reasonably efficiently) do something like
+</p>
+<p><code>apply(X=x, MARGIN=1L, FUN=min, na.rm=TRUE)</code>
+</p>
+<p>But <code>apply()</code> on a <code>ddmatrix</code> is <em>very</em> costly, and should be
+used sparingly.
+</p>
+<p><code>sd()</code> will compute the standard deviations of the columns, equivalent
 to calling <code>apply(x, MARGIN=2, FUN=sd)</code> (which will work for
 distributed matrices, by the way). However, this should be much faster and
 use less memory than <code>apply()</code>.  If <code>reduce=FALSE</code> then the return
 is a distributed matrix consisting of one (global) row; otherwise, an
 <code>R</code> vector is returned, with ownership of this vector determined by
-<code>proc.dest</code>.</p>
-  
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
-# # &gt; mpiexec -np 2 Rscript demo.r
-# 
-# library(pbdDMAT, quiet = TRUE)
-# init.grid()
-# 
-# # don&#39;t do this in production code
-# x &lt;- matrix(1:9, 3)
-# x &lt;- as.ddmatrix(x)
-# 
-# y &lt;- sum(colMeans(x))
-# comm.print(y)
-# 
-# finalize()
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>colMax</li><li>colMax,ddmatrix-method</li><li>colMeans,ddmatrix-method</li><li>colMin</li><li>colMin,ddmatrix-method</li><li>colMin,matrix-method</li><li>colSums,ddmatrix-method</li><li>reductions</li><li>rowMax</li><li>rowMax,ddmatrix-method</li><li>rowMax,matrix-method</li><li>rowMeans,ddmatrix-method</li><li>rowMin</li><li>rowMin,ddmatrix-method</li><li>rowMin,matrix-method</li><li>rowSums,ddmatrix-method</li>
-    </ul>
-    <ul>
-      <li>Methods</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+<code>proc.dest</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a global numeric vector.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+# don't do this in production code
+x &lt;- matrix(1:9, 3)
+x &lt;- as.ddmatrix(x)
+
+y &lt;- sum(colMeans(x))
+comm.print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

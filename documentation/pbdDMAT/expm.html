@@ -1,140 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>expm. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Matrix Exponentiation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for expm {pbdDMAT}"><tr><td>expm {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Matrix Exponentiation</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Routines for matrix exponentiation.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Matrix Exponentiation</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>expm(x, t&nbsp;=&nbsp;1, p&nbsp;=&nbsp;6)</div>
-<div>"expm"(x, t&nbsp;=&nbsp;1, p&nbsp;=&nbsp;6)</div>
-<div>"expm"(x, t&nbsp;=&nbsp;1, p&nbsp;=&nbsp;6)</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>x</dt>
-      <dd>A numeric matrix or a numeric distributed matrix.</dd>
-      <dt>t</dt>
-      <dd>Scaling parameter for x.</dd>
-      <dt>p</dt>
-      <dd>Order of the Pade' approximation.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+<h3>Usage</h3>
 
-      <p><dl>
-Returns a distributed matrix.
-</dl></p>
-  
-    </div>
+<pre>
+expm(x, t = 1, p = 6)
 
-    <div class="Description">
-      <h2>Description</h2>
+## S4 method for signature 'matrix'
+expm(x, t = 1, p = 6)
 
-      <p>Routines for matrix exponentiation.</p>
-  
-    </div>
+## S4 method for signature 'ddmatrix'
+expm(x, t = 1, p = 6)
+</pre>
 
-    <div class="Details">
-      <h2>Details</h2>
 
-      <p>Formally, the exponential of a square matrix <code>X</code> is a power series:</p>
-  
-      <p>$expm(X) = id + X/1! + X^2/2! + X^3/3! + \dots$</p>
-  
-      <p>where the powers on the matrix correspond to matrix-matrix multiplications.</p>
-  
-      <p><code>expm()</code> directly computes the matrix exponential of a distributed,
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A numeric matrix or a numeric distributed matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>t</code></td>
+<td>
+<p>Scaling parameter for x.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Order of the Pade' approximation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Formally, the exponential of a square matrix <code>X</code> is a power series:
+</p>
+<p><i>expm(X) = id + X/1! + X^2/2! + X^3/3! + &hellip;</i>
+</p>
+<p>where the powers on the matrix correspond to matrix-matrix multiplications.
+</p>
+<p><code>expm()</code> directly computes the matrix exponential of a distributed,
 dense matrix.  The implementation uses Pade' approximations and a
-scaling-and-squaring technique (see references).</p>
-  
-    </div>
+scaling-and-squaring technique (see references).
+</p>
 
-    <div class="References">
-      <h2>References</h2>
 
-      <p>"New Scaling and Squaring Algorithm for the Matrix Exponential"
-Awad H. Al-Mohy and Nicholas J. Higham, August 2009</p>
-  
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
-# # &gt; mpiexec -np 2 Rscript demo.r
-# 
-# library(pbdDMAT, quiet = TRUE)
-# init.grid()
-# 
-# x &lt;- matrix(&quot;rnorm&quot;, 5, 5, bldim=2)
-# expm(x)
-# 
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>expm</li><li>expm,ddmatrix-method</li><li>expm,matrix-method</li>
-    </ul>
-    <ul>
-      <li>Algebra</li><li>Linear</li><li>Methods</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>References</h3>
+
+<p>&quot;New Scaling and Squaring Algorithm for the Matrix Exponential&quot;
+Awad H. Al-Mohy and Nicholas J. Higham, August 2009
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- matrix("rnorm", 5, 5, bldim=2)
+expm(x)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

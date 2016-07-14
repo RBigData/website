@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Local to Global/Global to Local Indexing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for coords {pbdBASE}"><tr><td>coords {pbdBASE}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Local to Global/Global to Local Indexing</h2>
+
+<h3>Description</h3>
+
+<p>Get the local index given global information.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+indxg2l(INDXGLOB, NB, IPROC, ISRCPROC, NPROCS)
+
+indxl2g(INDXLOC, NB, IPROC, ISRCPROC, NPROCS)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>INDXGLOB</code></td>
+<td>
+<p>Global index.</p>
+</td></tr>
+<tr valign="top"><td><code>NB</code></td>
+<td>
+<p>Block size.</p>
+</td></tr>
+<tr valign="top"><td><code>IPROC</code></td>
+<td>
+<p>Coordinate of the process whose local info is to be determined.</p>
+</td></tr>
+<tr valign="top"><td><code>ISRCPROC</code></td>
+<td>
+<p>The coordinate of the process that possesses the first row/column of the distributed matrix.  That's always 0 pbdDMAT.</p>
+</td></tr>
+<tr valign="top"><td><code>NPROCS</code></td>
+<td>
+<p>Total number of processors over which matrix is distributed.</p>
+</td></tr>
+<tr valign="top"><td><code>INDXLOC</code></td>
+<td>
+<p>Local index.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For advanced users only.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdBASE</em> version 0.5-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A Rprof Function for SPMD Routines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global Rprof {pbdMPI}"><tr><td>global Rprof {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> A Rprof Function for SPMD Routines </h2>
+
+<h3>Description</h3>
+
+<p>A Rprof function for use with parallel codes executed in the batch
+SPMD style.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.Rprof(filename = "Rprof.out", append = FALSE, interval = 0.02,
+           memory.profiling = FALSE, gc.profiling = FALSE,
+           line.profiling = FALSE, numfiles = 100L, bufsize = 10000L,
+           all.rank = .pbd_env$SPMD.CT$Rprof.all.rank,
+           rank.Rprof = .pbd_env$SPMD.CT$rank.source,
+           comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>append</code></td>
+<td>
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>interval</code></td>
+<td>
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>memory.profiling</code></td>
+<td>
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>gc.profiling</code></td>
+<td>
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>line.profiling</code></td>
+<td>
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>numfiles</code></td>
+<td>
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>bufsize</code></td>
+<td>
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>all.rank</code></td>
+<td>
+<p>if calling Rprof on all ranks (default = FALSE).</p>
+</td></tr>
+<tr valign="top"><td><code>rank.Rprof</code></td>
+<td>
+<p>rank for calling Rprof if
+<code>all.rank = FALSE</code> (default = 0).</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>as in <code><a href="../../utils/html/Rprof.html">Rprof</a>()</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

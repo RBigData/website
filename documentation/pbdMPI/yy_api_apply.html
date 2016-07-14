@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Parallel Apply and Lapply Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for apply and lapply {pbdMPI}"><tr><td>apply and lapply {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Parallel Apply and Lapply Functions </h2>
+
+<h3>Description</h3>
+
+<p>The functions are parallel versions of apply and lapply functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pbdApply(X, MARGIN, FUN, ..., pbd.mode = c("mw", "spmd", "dist"),
+         rank.source = .pbd_env$SPMD.CT$rank.root,
+         comm = .pbd_env$SPMD.CT$comm,
+         barrier = TRUE)
+pbdLapply(X, FUN, ..., pbd.mode = c("mw", "spmd", "dist"),
+          rank.source = .pbd_env$SPMD.CT$rank.root,
+          comm = .pbd_env$SPMD.CT$comm,
+          bcast = FALSE, barrier = TRUE)
+pbdSapply(X, FUN, ..., simplify = TRUE, USE.NAMES = TRUE,
+          pbd.mode = c("mw", "spmd", "dist"),
+          rank.source = .pbd_env$SPMD.CT$rank.root,
+          comm = .pbd_env$SPMD.CT$comm,
+          bcast = FALSE, barrier = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>a matrix or array in <code>pbdApply()</code> or a list in
+<code>pbdLapply()</code> and <code>pbdSapply()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>MARGIN</code></td>
+<td>
+<p><code>MARGIN</code> as in the <code>apply()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>as in the <code>apply()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>optional arguments to <code>FUN</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>simplify</code></td>
+<td>
+<p>as in the <code>sapply()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>USE.NAMES</code></td>
+<td>
+<p>as in the <code>sapply()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>pbd.mode</code></td>
+<td>
+<p>mode of distributed data <code>X</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>rank.source</code></td>
+<td>
+<p>a rank of source where <code>X</code> broadcast from.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>bcast</code></td>
+<td>
+<p>if bcast to all ranks.</p>
+</td></tr>
+<tr valign="top"><td><code>barrier</code></td>
+<td>
+<p>if barrier for all ranks.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>All functions are majorly called in manager/workers mode
+(<code>pbd.model = "mw"</code>), and just work the same as their
+serial version.
+</p>
+<p>If <code>pbd.mode = "mw"</code>, the <code>X</code> in <code>rank.source</code> (master)
+will be redistributed to processors (workers), then apply <code>FUN</code>
+on the new data, and results are gathered to <code>rank.source</code>.
+&ldquo;In SPMD, master is one of workers.&rdquo;
+<code>...</code> is also <code>scatter()</code> from <code>rank.source</code>.
+</p>
+<p>If <code>pbd.mode = "spmd"</code>, the same copy of <code>X</code> is supposed to
+exist in all processors, and original <code>apply()</code>, <code>lapply()</code>,
+or <code>sapply()</code> is operated on part of
+<code>X</code>. An <code>allgather()</code> or <code>gather()</code> call is required to
+aggregate results manually.
+</p>
+<p>If <code>pbd.mode = "dist"</code>, the different <code>X</code> is supposed to
+exists in all processors, i.e. &lsquo;distinct or distributed&rsquo; <code>X</code>,
+and original <code>apply()</code>, <code>lapply()</code>, or <code>sapply()</code> is operated
+on the all <code>X</code>. An <code>allgather()</code> or <code>gather()</code> call is
+required to aggregate results manually.
+</p>
+<p>In SPMD, it is better to split data into pieces, and <code>X</code> is a local
+matrix in all processors. Originally, <code>apply()</code> should be sufficient
+in this case. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list or matrix will be returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+.comm.size &lt;- comm.size()
+.comm.rank &lt;- comm.rank()
+
+### Example for pbdApply.
+N &lt;- 100
+x &lt;- matrix((1:N) + N * .comm.rank, ncol = 10)
+y &lt;- pbdApply(x, 1, sum, pbd.mode = "mw")
+comm.print(y)
+
+y &lt;- pbdApply(x, 1, sum, pbd.mode = "spmd")
+comm.print(y)
+
+y &lt;- pbdApply(x, 1, sum, pbd.mode = "dist")
+comm.print(y)
+
+
+### Example for pbdApply for 3D array.
+N &lt;- 60
+x &lt;- array((1:N) + N * .comm.rank, c(3, 4, 5))
+dimnames(x) &lt;- list(lat = paste("lat", 1:3, sep = ""),
+                    lon = paste("lon", 1:4, sep = ""),
+                    time = paste("time", 1:5, sep = ""))
+comm.print(x[,, 1:2])
+
+y &lt;- pbdApply(x, c(1, 2), sum, pbd.mode = "mw")
+comm.print(y)
+
+y &lt;- pbdApply(x, c(1, 2), sum, pbd.mode = "spmd")
+comm.print(y)
+
+y &lt;- pbdApply(x, c(1, 2), sum, pbd.mode = "dist")
+comm.print(y)
+
+
+### Example for pbdLapply.
+N &lt;- 100
+x &lt;- split((1:N) + N * .comm.rank, rep(1:10, each = 10))
+y &lt;- pbdLapply(x, sum, pbd.mode = "mw")
+comm.print(unlist(y))
+
+y &lt;- pbdLapply(x, sum, pbd.mode = "spmd")
+comm.print(unlist(y))
+
+y &lt;- pbdLapply(x, sum, pbd.mode = "dist")
+comm.print(unlist(y))
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

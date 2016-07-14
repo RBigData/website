@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Shell Command of ncdump</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ncdump {pbdNCDF4}"><tr><td>ncdump {pbdNCDF4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Shell Command of ncdump</h2>
+
+<h3>Description</h3>
+
+<p>Call <code>ncdump</code> and print the results.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ncdump(filename, args = "-h")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>Name of the  NetCDF file to be created.</p>
+</td></tr>
+<tr valign="top"><td><code>args</code></td>
+<td>
+<p>as the options in the shell command of <code>ncdump</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Messages of details of the NetCDF file will be printed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>George Ostrouchov, Pragneshkumar Patel <a href="mailto:pragnesh@utk.edu">pragnesh@utk.edu</a>,
+Wei-Chen Chen, and Drew Schmidt.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code>nc_create_par</code>,
+<code>nc_open_par</code>,
+<code>nc_var_par_access</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 2 Rscript -e "demo(ncwrite,'pbdNCDF4',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "ncdump('test_par.nc')"
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdNCDF4</em> version 0.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Load Balancing a Dataset</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for load_balance {pbdDEMO}"><tr><td>load_balance {pbdDEMO}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Load Balancing a Dataset</h2>
+
+<h3>Description</h3>
+
+<p>These functions will rearrange data for all processors such that the data
+amount of each processor is nearly equal.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+balance.info(X.gbd, comm = .pbd_env$.SPMD.CT$comm,
+  gbd.major = .pbd_env$gbd.major, method = .pbd_env$divide.method[1])
+
+load.balance(X.gbd, bal.info = NULL, comm = .pbd_env$SPMD.CT$comm,
+  gbd.major = .pbd_env$gbd.major)
+
+unload.balance(new.X.gbd, bal.info, comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X.gbd</code></td>
+<td>
+<p>a GBD data matrix (converted if not).</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>gbd.major</code></td>
+<td>
+<p>1 for row-major storage, 2 for column-major.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>&quot;block.cyclic&quot; or &quot;block0&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>bal.info</code></td>
+<td>
+<p>a returned object from <code>balance.info</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>new.X.gbd</code></td>
+<td>
+<p>a GBD data matrix or vector</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>X.gbd</code> is the data matrix with dimension <code>N.gbd * p</code> and exists
+on all processors where <code>N.gbd</code> may be vary across processors.  If
+<code>X.gbd</code> is a vector, then it is converted to a <code>N.gbd * 1</code> matrix.
+</p>
+<p><code>balance.info</code> provides the information how to balance data set such
+that all processors own similar amount of data. This information may be also
+useful for tracking where the data go or from.
+</p>
+<p><code>load.balance</code> does the job to transfer data from one processor with
+more data to the other processors with less data based on the balance
+information <code>balance.info</code>.
+</p>
+<p><code>unload.balance</code> is the inversed function of <code>load.balance</code>, and
+it takes the same information <code>bal.info</code> to reverse the balanced result
+back to the original order.  <code>new.X.gbd</code> is usually the output of
+<code>load.balance{X.gbd}</code> or other results of further computing of it.
+Again, if <code>new.X.gbd</code> is a vector, then it is converted to an one
+column matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>balance.info</code> returns a list contains two data frames and two
+vectors.
+</p>
+<p>Two data frames are <code>send</code> and <code>recv</code> for sending and receiving
+data. Each data frame has two columns <code>org</code> and <code>belong</code> for where
+data original in and new belongs.  Number of row of <code>send</code> should equal
+to the <code>N.gbd</code>, and number of row of <code>recv</code> should be nearly equal
+to <code>n = N / COMM.SIZE</code> where <code>N</code> is the total observations of all
+processors.
+</p>
+<p>Two vectors are <code>N.allgbd</code> and <code>new.N.allgbd</code> which are all
+numbers of rows of <code>X.gbd</code> on all processes before and after load
+balance, correspondingly. Both have length equals to <code>comm.size(comm)</code>.
+</p>
+<p><code>load.balance</code> returns a matrix for each processor and the matrix has
+the dimension nearly equal to <code>n * p</code>.
+</p>
+<p><code>unload.balance</code> returns a matrix with the same length/rows as the
+original number of row of <code>X.gbd</code>.
+</p>
+
+
+<h3>Warning(s)</h3>
+
+<p>These function only support total object length is less
+than 2^32 - 1 for machines using 32-bit integer.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run in 4 processors by
+# &gt; mpiexec -np 4 Rscript demo.r
+
+### Setup environment.
+library(pbdDEMO, quiet = TRUE)
+
+### Generate an example data.
+N.gbd &lt;- 5 * (comm.rank() * 2)
+X.gbd &lt;- rnorm(N.gbd * 3)
+dim(X.gbd) &lt;- c(N.gbd, 3)
+comm.cat("X.gbd[1:5,]\n", quiet = TRUE)
+comm.print(X.gbd[1:5,], rank.print = 1, quiet = TRUE)
+
+bal.info &lt;- balance.info(X.gbd)
+new.X.gbd &lt;- load.balance(X.gbd, bal.info)
+org.X.gbd &lt;- unload.balance(new.X.gbd, bal.info)
+
+comm.cat("org.X.gbd[1:5,]\n", quiet = TRUE)
+comm.print(org.X.gbd[1:5,], rank.print = 1, quiet = TRUE)
+if(any(org.X.gbd - X.gbd != 0)){
+  cat("Unbalance fails in the rank ", comm.rank(), "\n")
+}
+
+### Quit.
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDEMO</em> version 0.3-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

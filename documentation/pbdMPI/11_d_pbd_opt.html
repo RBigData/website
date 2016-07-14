@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Set Global pbdR Options</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Set global pbd options {pbdMPI}"><tr><td>Set global pbd options {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Set Global pbdR Options </h2>
+
+<h3>Description</h3>
+
+<p>This is an advanced function to set pbdR options.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pbd_opt(..., bytext = "", envir = .GlobalEnv)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>in argument format <code>option = value</code> to set
+<code>.pbd_env$option &lt;- value</code> inside the <code>envir</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>bytext</code></td>
+<td>
+<p>in text format <code>"option = value"</code> to set
+<code>.pbd_env$option &lt;- value</code> inside the <code>envir</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>by default the global environment is used.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>...</code> allows multiple options in
+<code>envir$.pbd_env</code>, but only in a simple way.
+</p>
+<p><code>bytext</code> allows to assign options by text in
+<code>envir$.pbd_env</code>, but can assign advanced objects. For example,
+<code>"option$suboption &lt;- value"</code> will set
+<code>envir$.pbd_env$option$suboption &lt;- value</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>No value is returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and Drew Schmidt.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="11_d_control.html">.pbd_env</a></code>,
+<code><a href="zz_spmd_control.html">SPMD.CT</a>()</code>,
+<code><a href="zz_spmd_control.html">SPMD.OP</a>()</code>,
+<code><a href="zz_spmd_control.html">SPMD.IO</a>()</code>,
+<code><a href="zz_spmd_control.html">SPMD.TP</a>()</code>, and
+<code><a href="zz_spmd_control.html">.mpiopt_init</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 4 processors by
+### SHELL&gt; mpiexec -np 4 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+
+### Examples.
+ls(.pbd_env)
+pbd_opt(ICTXT = c(2, 2))
+pbd_opt(bytext = "grid.new &lt;- list(); grid.new$ICTXT &lt;- c(4, 4)")
+pbd_opt(BLDIM = c(16, 16), bytext = "grid.new$BLDIM = c(8, 8)")
+ls(.pbd_env)
+.pbd_env$ICTXT
+.pbd_env$BLDIM
+.pbd_env$grid.new
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

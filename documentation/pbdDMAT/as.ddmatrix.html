@@ -1,158 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>as.ddmatrix. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Non-Distributed object to Distributed Object Converters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for as.ddmatrix {pbdDMAT}"><tr><td>as.ddmatrix {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Non-Distributed object to Distributed Object Converters</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>A simplified interface to the <code>distribute()</code> and <code>redistribute()</code>
+functions.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Non-Distributed object to Distributed Object Converters</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>as.ddmatrix(x, ...)</div>
-<div>distribute(x, bldim&nbsp;=&nbsp;.BLDIM, xCTXT&nbsp;=&nbsp;0, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"as.ddmatrix"(x, bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"as.ddmatrix"(x, bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"as.ddmatrix"(x, bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>x</dt>
-      <dd>a numeric matrix</dd>
-      <dt>...</dt>
-      <dd>Additional arguments.</dd>
-      <dt>bldim</dt>
-      <dd>the blocking dimension for block-cyclically distributing the
-matrix across the process grid.</dd>
-      <dt>xCTXT</dt>
-      <dd>the BLACS context number for initial distribution of the matrix
-<code>x</code>.</dd>
-      <dt>ICTXT</dt>
-      <dd>BLACS context number for return.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+<h3>Usage</h3>
 
-      <p><dl>
-Returns a distributed matrix.
-</dl></p>
-  
-    </div>
+<pre>
+as.ddmatrix(x, ...)
 
-    <div class="Description">
-      <h2>Description</h2>
+distribute(x, bldim = .pbd_env$BLDIM, xCTXT = 0, ICTXT = .pbd_env$ICTXT)
 
-      <p>A simplified interface to the <code>distribute()</code> and <code>redistribute()</code>
-functions.</p>
-  
-    </div>
+## S4 method for signature 'matrix'
+as.ddmatrix(x, bldim = .pbd_env$BLDIM,
+  ICTXT = .pbd_env$ICTXT)
 
-    <div class="Details">
-      <h2>Details</h2>
+## S4 method for signature ''NULL''
+as.ddmatrix(x, bldim = .pbd_env$BLDIM,
+  ICTXT = .pbd_env$ICTXT)
 
-      <p>A simplified wrapper for the <code>distribute()</code> function, especially in the
+## S4 method for signature 'vector'
+as.ddmatrix(x, bldim = .pbd_env$BLDIM,
+  ICTXT = .pbd_env$ICTXT)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a numeric matrix</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments.</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>the blocking dimension for block-cyclically distributing the
+matrix across the process grid.</p>
+</td></tr>
+<tr valign="top"><td><code>xCTXT</code></td>
+<td>
+<p>the BLACS context number for initial distribution of the matrix
+<code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number for return.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A simplified wrapper for the <code>distribute()</code> function, especially in the
 case that the matrix <code>x</code> is global (which you really should not ever
-let happen outside of testing, but I won't stop you).</p>
-  
-      <p>The function will only work if <code>x</code> is stored on all processes, or
+let happen outside of testing, but I won't stop you).
+</p>
+<p>The function will only work if <code>x</code> is stored on all processes, or
 <code>x</code> is stored on a single process (does not matter which) and every
-other process has NULL stored for x.</p>
-  
-      <p>If several processes own pieces of the matrix <code>x</code>, then you can not use
+other process has NULL stored for x.
+</p>
+<p>If several processes own pieces of the matrix <code>x</code>, then you can not use
 this function. You will have to create an appropriate <code>ddmatrix</code> on all
-processes and redistriubte the data with the <code>redistribute()</code> function.</p>
-  
-      <p>As usual, the <code>ICTXT</code> number is the BLACS context corresponding to the
-process grid onto which the output distributed matrix will be distributed.</p>
-  
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
-# # &gt; mpiexec -np 2 Rscript demo.r
-# 
-# library(pbdDMAT, quiet = TRUE)
-# init.grid()
-# 
-# if (comm.rank()==0){
-#   x &lt;- matrix(1:16, ncol=4)
-# } else {
-#   x &lt;- NULL
-# }
-# 
-# dx &lt;- as.ddmatrix(x, bldim=2)
-# dx
-# 
-# ### Can also be common to all ranks
-# y &lt;- matrix(1:25, 5, bldim=2)
-# dy &lt;- as.ddmatrix(y)
-# dy
-# 
-# finalize()
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>as.ddmatrix</li><li>as.ddmatrix,NULL-method</li><li>as.ddmatrix,matrix-method</li><li>as.ddmatrix,vector-method</li><li>distribute</li>
-    </ul>
-    <ul>
-      <li>Data</li><li>Distributing</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+processes and redistriubte the data with the <code>redistribute()</code> function.
+</p>
+<p>As usual, the <code>ICTXT</code> number is the BLACS context corresponding to the
+process grid onto which the output distributed matrix will be distributed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a distributed matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+if (comm.rank()==0){
+  x &lt;- matrix(1:16, ncol=4)
+} else {
+  x &lt;- NULL
+}
+
+dx &lt;- as.ddmatrix(x, bldim=2)
+dx
+
+### Can also be common to all ranks
+y &lt;- matrix(1:25, 5, bldim=2)
+dy &lt;- as.ddmatrix(y)
+dy
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

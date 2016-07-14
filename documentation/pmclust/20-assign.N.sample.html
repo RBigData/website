@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Obtain a Set of Random Samples for X.spmd</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for assign.N.sample {pmclust}"><tr><td>assign.N.sample {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Obtain a Set of Random Samples for X.spmd</h2>
+
+<h3>Description</h3>
+
+<p>This utility function samples data randomly from <code><a href="11_d.set.global.html">X.spmd</a></code>
+to form a relatively small subset of original data. The EM algorithm on the
+smaller subset is topically performing fast and capturing rough structures of
+entire dataset.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  assign.N.sample(total.sample = 5000, N.org.spmd)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>total.sample</code></td>
+<td>
+<p>a total number of samples which will be selected from
+the original data <code><a href="11_d.set.global.html">X.spmd</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>N.org.spmd</code></td>
+<td>
+<p>the original data size,
+i.e. <code>nrow(<a href="11_d.set.global.html">X.spmd</a>)</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This utility function performs simple random sampling without replacement
+for the original dataset <code><a href="11_d.set.global.html">X.spmd</a></code>. Different random seeds should
+be set before calling this function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list variable will be returned and containing:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"><code>N</code>          </td><td style="text-align: left;"> total sample size across all
+                                    <i>S</i> processors </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.spmd</code>     </td><td style="text-align: left;"> sample size of given processor </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.allspmds</code> </td><td style="text-align: left;"> a collection of sample sizes for all
+                                    <i>S</i> processors </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>ID.spmd</code>    </td><td style="text-align: left;"> index of selected samples ranged from 1
+                                    to <code>N.org.spmd</code>
+</td>
+</tr>
+
+</table>
+
+<p>Note that <code>N</code> and <code>N.allspmds</code> are the same across all
+<i>S</i> processors, but <code>N.spmd</code> and <code>ID.spmd</code> are most
+likely all distinct. The lengths of these elements are <i>1</i> for
+<code>N</code> and <code>N.spmd</code>, <i>S</i> for <code>N.allspmd</code>, and
+<code>N.spmd</code> for <code>ID.spmd</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="11_d.set.global.html">set.global</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run in 4 processors by
+# &gt; mpiexec -np 4 Rscript demo.r
+
+### Setup environment.
+library(pmclust, quiet = TRUE)
+comm.set.seed(123)
+
+### Generate an example data.
+N.org.spmd &lt;- 5000 + sample(1:1000, 1)
+ret.spmd &lt;- assign.N.sample(total.sample = 5000, N.org.spmd)
+cat("Rank:", comm.rank(), " Size:", ret.spmd$N.spmd,
+    "\n", sep = "")
+
+### Quit.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

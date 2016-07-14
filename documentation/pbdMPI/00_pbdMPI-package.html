@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Programming with Big Data - Interface to MPI</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pbdMPI-package {pbdMPI}"><tr><td>pbdMPI-package {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Programming with Big Data &ndash; Interface to MPI</h2>
+
+<h3>Description</h3>
+
+<p>pbdMPI provides an efficient interface to MPI by utilizing S4
+classes and methods with a focus on Single Program/Multiple Data (SPMD)
+parallel programming style, which is intended for batch parallel
+execution.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Package: </td><td style="text-align: left;"> pbdMPI</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  Type: </td><td style="text-align: left;"> Package</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+
+
+  License: </td><td style="text-align: left;"> Mozilla Public License 2.0</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  LazyLoad: </td><td style="text-align: left;"> yes</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>This package requires an MPI library (OpenMPI, MPICH2, or LAM/MPI).
+The install command (with OpenMPI library) is <br />
+<br />
+<code>&gt; tar zxvf pbdMPI_0.1-0.tar.gz </code> <br />
+<code>&gt; R CMD INSTALL pbdMPI </code> <br />
+<br />
+Other arguments include
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Argument </td><td style="text-align: left;"> Default </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>--with-mpi-type</code>    </td><td style="text-align: left;"> <code>OPENMPI</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>--with-mpi-include</code> </td><td style="text-align: left;"> <code>${MPI_ROOT}/include</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>--with-mpi-libpath</code> </td><td style="text-align: left;"> <code>${MPI_ROOT}/lib</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>--with-mpi</code>         </td><td style="text-align: left;"> <code>${MPI_ROOT}</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>where <code>${MPI_ROOT}</code> is the path to the MPI root.
+See the package source file <code>pbdMPI/configure</code> for details.
+</p>
+<p>After loading <code>library(pbdMPI)</code>, the standard process starts from
+<code><a href="cc_comm.html">init</a>()</code> which set two global variables <code>.comm.size</code>
+and <code>.comm.rank</code>. The standard process should end
+with <code><a href="cc_comm.html">finalize</a>()</code>.
+</p>
+<p>Most functions are assumed to run in SPMD, i.e.
+in batch mode. Ideally, most codes run with <code>mpiexec</code> and <code>Rscript</code>,
+together, such as <br /> <br />
+<code>&gt; mpiexec -np 2 Rscript some_code.r</code> <br /> <br />
+where <code>some_code.r</code> contains whole SPMD program.  
+</p>
+<p>The package source files provide several examples based on <span class="pkg">pbdMPI</span>,
+such as
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Directory </td><td style="text-align: left;"> Examples </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>pbdMPI/inst/examples/test_spmd/</code>        </td><td style="text-align: left;"> major SPMD functions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>pbdMPI/inst/examples/test_rmpi/</code>        </td><td style="text-align: left;"> analog to <span class="pkg">Rmpi</span> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>pbdMPI/inst/examples/test_parallel/</code>    </td><td style="text-align: left;"> analog to <span class="pkg">parallel</span> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>pbdMPI/inst/examples/test_performance/</code> </td><td style="text-align: left;"> performance tests </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>pbdMPI/inst/examples/test_s4/</code>          </td><td style="text-align: left;"> S4 extension </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>pbdMPI/inst/examples/test_cs/</code>          </td><td style="text-align: left;"> client/server examples </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  <code>pbdMPI/inst/examples/test_long_vector/</code> </td><td style="text-align: left;"> long vector examples </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>where <code>test_long_vector</code> needs to recompile with setting
+</p>
+<p><code>#define MPI_LONG_DEBUG 1</code>
+</p>
+<p>in <code>pbdMPI/src/pkg_constant.h</code>.
+</p>
+<p>The current version is mainly written and tested under OpenMPI
+environments in Linux system (xubuntu-11.04). Also, it is tested
+under MPICH2 environments in Windows 7 system.
+It is expected to be fine for other MPI libraries and other OS platforms.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="aa_allgather-method.html">allgather</a>()</code>,
+<code><a href="aa_allreduce-method.html">allreduce</a>()</code>,
+<code><a href="aa_bcast-method.html">bcast</a>()</code>,
+<code><a href="aa_gather-method.html">gather</a>()</code>,
+<code><a href="aa_reduce-method.html">reduce</a>()</code>,
+<code><a href="aa_scatter-method.html">scatter</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 2 Rscript -e "demo(allgather,'pbdMPI',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(allreduce,'pbdMPI',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(bcast,'pbdMPI',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(gather,'pbdMPI',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(reduce,'pbdMPI',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(scatter,'pbdMPI',ask=F,echo=F)"
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,80 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>ddmatrix-class. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class ddmatrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for ddmatrix-class {pbdDMAT}"><tr><td>ddmatrix-class {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Class ddmatrix</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Distributed matrix class.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Class ddmatrix</h1>
 
-<div class="row">
-  <div class="span8">
-        
-    <div class="Description">
-      <h2>Description</h2>
+<h3>Slots</h3>
 
-      <p>Distributed matrix class.</p>
-  
-    </div>
-      </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>ddmatrix-class</li>
-    </ul>
-    <ul>
-      <li>Classes</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+
+<dl>
+<dt><code>DATA</code></dt><dd><p>The local submatrix.</p>
+</dd>
+<dt><code>bldim</code></dt><dd><p>Blocking factor.</p>
+</dd>
+<dt><code>ICTXT</code></dt><dd><p>BLACS ICTXT value.  Should be one of 0, 1, or 2 (initialized from
+<code>pbdBASE::init.grid()</code>) or a custom value greater than 2 (created from
+<code>pbdBASE::blacs_gridinit()</code>).</p>
+</dd>
+</dl>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random Port</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for random_port {pbdZMQ}"><tr><td>random_port {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random Port</h2>
+
+<h3>Description</h3>
+
+<p>Generate a valid, random TCP port.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+random_port(min_port = 49152, max_port = 65536)
+
+random_open_port(min_port = 49152, max_port = 65536, max_tries = 100)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>min_port, max_port</code></td>
+<td>
+<p>The minimum/maximum value to be generated.  The minimum should not
+be below 49152 and the maximum should not exceed 65536 (see
+details).</p>
+</td></tr>
+<tr valign="top"><td><code>max_tries</code></td>
+<td>
+<p>The maximum number of times a random port will be searched for.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>By definition, a TCP port is an unsigned short, and so it can not
+exceed 65535.  Additionally, ports in the range 1024 to 49151 are
+(possibly) registered by ICANN for specific uses.
+</p>
+<p><code>random_port()</code> will simply generate a valid, non-registered
+tcp port.  <code>random_unused_port()</code> will generate a port
+that is available for socket connections.
+</p>
+<p><code>random_open_port()</code> finds a random port not already bound
+to an endpoint.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Drew Schmidt
+</p>
+
+
+<h3>References</h3>
+
+<p>&quot;The Ephemeral Port Range&quot; by Mike Gleason.  
+<a href="http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html">http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+random_port()
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

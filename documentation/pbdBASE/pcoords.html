@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Interchange Between Process Number and BLACS Coordinates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pcoords {pbdBASE}"><tr><td>pcoords {pbdBASE}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Interchange Between Process Number and BLACS Coordinates</h2>
+
+<h3>Description</h3>
+
+<p>Grabs the existing BLACS context grid information.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+base.pnum(ICTXT, PROW, PCOL)
+
+base.pcoord(ICTXT, PNUM)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+<tr valign="top"><td><code>PROW, PCOL</code></td>
+<td>
+<p>BLACS grid location row/column</p>
+</td></tr>
+<tr valign="top"><td><code>PNUM</code></td>
+<td>
+<p>process rank</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For advanced users only. These functions are simple recreations of the BLACS
+routines <code>BLACS_PNUM</code> and <code>BLACS_PCOORD</code>. The former gets the
+process number associated with the BLACS process grid location
+<code>c(MYPROW, MYPCOL)</code>, while the latter does the reverse.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>pnum</code> returns an integer; <code>pcoord</code> returns a list
+containing elements <code>PROW</code> and <code>PCOL</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdBASE, quiet = TRUE)
+init.grid()
+
+blacs_ &lt;- blacs(ICTXT = 0)
+
+# get the ICTXT = 0 BLACS coordsinates for process 0
+myCoords &lt;- pcoord(ICTXT = 0, PNUM = 0)
+
+comm.print(myCoords)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdBASE</em> version 0.5-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

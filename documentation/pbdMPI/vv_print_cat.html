@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global Print and Cat Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global print and cat {pbdMPI}"><tr><td>global print and cat {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global Print and Cat Functions </h2>
+
+<h3>Description</h3>
+
+<p>The functions globally print or cat a variable from specified processors,
+by default messages is shown on screen.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.print(x, all.rank = .pbd_env$SPMD.CT$print.all.rank,
+           rank.print = .pbd_env$SPMD.CT$rank.source,
+           comm = .pbd_env$SPMD.CT$comm,
+           quiet = .pbd_env$SPMD.CT$print.quiet,
+           flush = .pbd_env$SPMD.CT$msg.flush,
+           barrier = .pbd_env$SPMD.CT$msg.barrier,
+           con = stdout(), ...)
+
+comm.cat(..., all.rank = .pbd_env$SPMD.CT$print.all.rank,
+         rank.print = .pbd_env$SPMD.CT$rank.source,
+         comm = .pbd_env$SPMD.CT$comm,
+         quiet = .pbd_env$SPMD.CT$print.quiet, sep = " ", fill = FALSE,
+         labels = NULL, append = FALSE, flush = .pbd_env$SPMD.CT$msg.flush,
+         barrier = .pbd_env$SPMD.CT$msg.barrier, con = stdout())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a variable to be printed.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>variables to be cat.</p>
+</td></tr>
+<tr valign="top"><td><code>all.rank</code></td>
+<td>
+<p>if all ranks print (default = FALSE).</p>
+</td></tr>
+<tr valign="top"><td><code>rank.print</code></td>
+<td>
+<p>rank for printing if not all ranks print (default = 0).</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>communicator for printing (default = 1).</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>FALSE for printing rank number.</p>
+</td></tr>
+<tr valign="top"><td><code>sep</code></td>
+<td>
+<p>sep argument as in the <code>cat()</code> function.</p>
+</td></tr>
+<tr valign="top"><td><code>fill</code></td>
+<td>
+<p>fill argument as in the <code>cat()</code> function.</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+<p>labels argument as in the <code>cat()</code> function.</p>
+</td></tr>
+<tr valign="top"><td><code>append</code></td>
+<td>
+<p>labels argument as in the <code>cat()</code> function.</p>
+</td></tr>
+<tr valign="top"><td><code>flush</code></td>
+<td>
+<p>if flush <code>con</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>barrier</code></td>
+<td>
+<p>if barrier <code>con</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>con</code></td>
+<td>
+<p><code>stdout()</code> is the default to print message.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><strong>Warning:</strong> These two functions use <code>barrier()</code> to make sure
+the well printing process on screen, so should be called by all processors
+to avoid a deadlock. A typical misuse is called inside a condition check,
+such as <code>if(.comm.rank == 0) comm.cat(...)</code>.
+</p>
+<p><code>rank.print</code> can be a integer vector containing the ranks of
+processors which print messages.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>print()</code> or <code>cat()</code> is called for the specified processors
+and the messages of the input variables is shown on screen by default.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+
+### Example.
+comm.print(comm.rank(), rank.print = 1)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

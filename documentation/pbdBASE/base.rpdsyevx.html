@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: rpdsyevx</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for base.rpdsyevx {pbdBASE}"><tr><td>base.rpdsyevx {pbdBASE}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>rpdsyevx</h2>
+
+<h3>Description</h3>
+
+<p>Genearlized eigenvalue problem.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+base.rpdsyevx(jobz, range, n, a, desca, vl, vu, il, iu, abstol = 1e-08,
+  orfac = 0.001)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>jobz</code></td>
+<td>
+<p>Control for if vectors/values/both are returned.</p>
+</td></tr>
+<tr valign="top"><td><code>range</code></td>
+<td>
+<p>Parameter to determine the search criteria for eigenvalues.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>Problem size.</p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+<p>Matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>desca</code></td>
+<td>
+<p>ScaLAPACK descriptor array.</p>
+</td></tr>
+<tr valign="top"><td><code>vl, vu</code></td>
+<td>
+<p>Endpoints of the interval subset of the real line in which to search for eigenvalues, if specified by <code>range</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>il, iu</code></td>
+<td>
+<p>Eigenvalues with indices <code>il</code>, ..., <code>iu</code> will be found, if specified by <code>range</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>abstol</code></td>
+<td>
+<p>Absolute error tolerance for the eigenvalues.</p>
+</td></tr>
+<tr valign="top"><td><code>orfac</code></td>
+<td>
+<p>Eigenvectors with eigenvalues below orfac*norm(a) of each other are reorthogonalized.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For advanced users only.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdBASE</em> version 0.5-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

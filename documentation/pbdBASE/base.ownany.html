@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Determining Local Ownership of a Distributed Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for base.ownany {pbdBASE}"><tr><td>base.ownany {pbdBASE}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Determining Local Ownership of a Distributed Matrix</h2>
+
+<h3>Description</h3>
+
+<p>For advanced users only.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+base.ownany(dim, bldim, ICTXT = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dim</code></td>
+<td>
+<p>global dimension</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>blocking dimension</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A simple wrapper of numroc. The return is the answer to
+the question 'do I own any of the global matrix?'.  Passing a distributed
+matrix is allowed, but often it is convenient to determine that information
+without even having a distributed matrix on hand. In this case, explicitly
+passing the appropriate information to the arguments <code>dim=</code>,
+<code>bldim=</code> (and <code>CTXT=</code> as necessary, since it defaults to 0) while
+leaving <code>x</code> missing will produce the desired result. See the examples
+below for more clarity.
+</p>
+<p>The return for each function is local.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdBASE, quiet = TRUE)
+init.grid()
+
+iown &lt;- ownany(dim=c(4, 4), bldim=c(2, 2), CTXT=0)
+comm.print(iown, all.rank=T)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdBASE</em> version 0.5-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

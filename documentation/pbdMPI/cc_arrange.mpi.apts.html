@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Set or Get MPI Array Pointers in R</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for MPI array pointers {pbdMPI}"><tr><td>MPI array pointers {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Set or Get MPI Array Pointers in R </h2>
+
+<h3>Description</h3>
+
+<p>The function set/get a point address in R where the point point to
+a structure containing MPI arrays.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+arrange.mpi.apts()
+</pre>
+
+
+<h3>Details</h3>
+
+<p>Since Rmpi/pbdMPI use pre-allocate memory to store comm, status,
+datatype, info, request, this function provides a variable in <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>
+to let different APIs share the same memory address.
+</p>
+<p>If the package loads first, then this sets '<code>.__MPI_APTS__</code>'
+in the <code>.GlobalEnv</code> of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>. If the package does not load before other
+MPI APIs, then this points an structure point to the external memory
+according to '<code>.__MPI_APTS__</code>', i.e. pre-set by other MPI APIs.
+</p>
+<p><code>pbdMPI/R/arrange.mpi.apts</code> provides the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> code, and
+<code>pbdMPI/src/pkg_*.*</code> provides the details of this call.
+</p>
+
+
+<h3>Value</h3>
+
+<p>'<code>.__MPI_APTS__</code>' is set in the <code>.GlobalEnv</code> of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### See source code for the details.
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

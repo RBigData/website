@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: All to All</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for alltoall {pbdMPI}"><tr><td>alltoall {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> All to All </h2>
+
+<h3>Description</h3>
+
+<p>These functions make calls to <code>MPI_Alltoall()</code> and
+<code>MPI_Alltoallv()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+spmd.alltoall.integer(x.send, x.recv, send.count, recv.count,
+                      comm = .pbd_env$SPMD.CT$comm)
+spmd.alltoall.double(x.send, x.recv, send.count, recv.count,
+                    comm = .pbd_env$SPMD.CT$comm)
+spmd.alltoall.raw(x.send, x.recv, send.count, recv.count,
+                  comm = .pbd_env$SPMD.CT$comm)
+
+spmd.alltoallv.integer(x.send, x.recv, send.count, recv.count,
+                       sdispls, rdispls, comm = .pbd_env$SPMD.CT$comm)
+spmd.alltoallv.double(x.send, x.recv, send.count, recv.count,
+                      sdispls, rdispls, comm = .pbd_env$SPMD.CT$comm)
+spmd.alltoallv.raw(x.send, x.recv, send.count, recv.count,
+                   sdispls, rdispls, comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x.send</code></td>
+<td>
+<p>an object to send.</p>
+</td></tr>
+<tr valign="top"><td><code>x.recv</code></td>
+<td>
+<p>an object to receive</p>
+</td></tr>
+<tr valign="top"><td><code>send.count</code></td>
+<td>
+<p>send counter</p>
+</td></tr>
+<tr valign="top"><td><code>recv.count</code></td>
+<td>
+<p>recv counter</p>
+</td></tr>
+<tr valign="top"><td><code>sdispls</code></td>
+<td>
+<p>send dis pls</p>
+</td></tr>
+<tr valign="top"><td><code>rdispls</code></td>
+<td>
+<p>recv dis pls</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are very low level functions. Use with cautions. Neigher S4 method nor
+long vector is supported.
+</p>
+
+
+<h3>Value</h3>
+
+<p>These are very low level functions. Use with cautions. Neigher S4 method nor
+long vector is supported.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="aa_allgather-method.html">allgather</a>()</code>, <code><a href="aa_allgather-method.html">allgatherv</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript --vanilla [...].r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+.comm.size &lt;- comm.size()
+.comm.rank &lt;- comm.rank()
+
+### Examples.
+n &lt;- as.integer(2)
+x &lt;- 1:(.comm.size * n)
+comm.cat("Original x:\n", quiet = TRUE)
+comm.print(x, all.rank = TRUE)
+
+x &lt;- as.integer(x)
+y &lt;- spmd.alltoall.integer(x, integer(length(x)), n, n)
+comm.cat("\nAlltoall y:\n", quiet = TRUE)
+comm.print(y, all.rank = TRUE)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

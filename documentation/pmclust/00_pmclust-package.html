@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Parallel Model-Based Clustering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pmclust-package {pmclust}"><tr><td>pmclust-package {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parallel Model-Based Clustering</h2>
+
+<h3>Description</h3>
+
+<p>The pmclust aims to utilize model-based clustering (unsupervised)
+for high dimensional and ultra large data, especially in a distributed
+manner. The package employs pbdMPI to perform a parallel version of
+expectation and maximization (EM) algorithm for finite mixture
+Gaussian models. The unstructured dispersion matrices
+are assumed in the Gaussian models. The implementation is default in
+the single program multiple data (SPMD) programming model.
+The code can be executed through pbdMPI and independent to most MPI
+applications. See the High Performance Statistical Computing (HPSC)
+website for more information, documents and examples.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Package: </td><td style="text-align: left;"> pmclust</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  Type: </td><td style="text-align: left;"> Package</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+
+
+  License: </td><td style="text-align: left;"> GPL</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  LazyLoad: </td><td style="text-align: left;"> yes</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>The main function is <code><a href="01-pmclust_pkmeans.html">pmclust</a></code> implementing the
+parallel EM algorithm for mixture multivariate Gaussian models
+with unstructured dispersions. This function groups a data matrix
+<code><a href="11_d.set.global.html">X.gbd</a></code> or <code><a href="11_d.set.global.html">X.spmd</a></code>
+into <code>K</code> clusters where <code><a href="11_d.set.global.html">X.gbd</a></code> or <code><a href="11_d.set.global.html">X.spmd</a></code> is
+potentially huge and taken from the global environment <code>.GlobalEnv</code>
+or <code><a href="11_d.set.global.html">.pmclustEnv</a></code>.
+</p>
+<p>Other main functions <code><a href="30-em_like.html">em.step</a></code>, <code><a href="30-em_like.html">aecm.step</a></code>,
+<code><a href="30-em_like.html">apecm.step</a></code>, and
+<code><a href="30-em_like.html">apecma.step</a></code> may provide better performance than the
+<code><a href="30-em_like.html">em.step</a></code> in terms of computing time and convergent
+iterations.
+</p>
+<p><code><a href="30-em_like.html">kmeans.step</a></code> provides the fastest clustering among above
+algorithms, but it is restricted by Euclidean distance and spherical
+dispersions.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov
+</p>
+
+
+<h3>References</h3>
+
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+<p>Chen, W.-C. and Maitra, R. (2011)
+&ldquo;Model-based clustering of regression time series data via
+APECM &ndash; an AECM algorithm sung to an even faster beat&rdquo;,
+<em>Statistical Analysis and Data Mining</em>,
+<b>4</b>, 567-578.
+</p>
+<p>Chen, W.-C., Ostrouchov, G., Pugmire, D., Prabhat, M., and Wehner, M. (2013)
+&ldquo;A Parallel EM Algorithm for Model-Based Clustering with
+Application to Explore Large Spatio-Temporal Data&rdquo;,
+<em>Technometrics</em>,
+(revision).
+</p>
+<p>Dempster, A.P., Laird, N.M. and Rubin, D.B. (1977)
+&ldquo;Maximum Likelihood from Incomplete Data via the EM Algorithm&rdquo;,
+<em>Journal of the Royal Statistical Society Series B</em>,
+<b>39</b>, 1-38.
+</p>
+<p>Lloyd., S. P. (1982)
+&ldquo;Least squares quantization in PCM&rdquo;,
+<em>IEEE Transactions on Information Theory</em>,
+<b>28</b>, 129-137.
+</p>
+<p>Meng, X.-L. and Van Dyk, D. (1997)
+&ldquo;The EM Algorithm &ndash; an Old Folk-song Sung to a Fast New Tune&rdquo;,
+<em>Journal of the Royal Statistical Society Series B</em>,
+<b>59</b>, 511-567.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="30-em_like.html">em.step</a></code>,
+<code><a href="30-em_like.html">aecm.step</a></code>,
+<code><a href="30-em_like.html">apecm.step</a></code>, <br />
+<code><a href="30-em_like.html">apecma.step</a></code>,
+<code><a href="30-em_like.html">kmeans.step</a></code>. <br />
+<code><a href="30-em_like.html">em.step.dmat</a></code>,
+<code><a href="30-em_like.html">kmeans.step.dmat</a></code>. <br />
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+mpiexec -np 2 Rscript -e 'demo(gbd_em,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(gbd_aecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(gbd_apecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(gbd_apecma,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(gbd_kmeans,"pmclust",ask=F,echo=F)'
+
+mpiexec -np 2 Rscript -e 'demo(ex_em,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_aecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_apecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_apecma,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_kmeans,"pmclust",ask=F,echo=F)'
+
+mpiexec -np 2 Rscript -e 'demo(dmat_em,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(dmat_kmeans,"pmclust",ask=F,echo=F)'
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

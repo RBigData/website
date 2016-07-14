@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>R: Programming with Big Data - Base Wrappers for Distributed
+Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+<h1> Programming with Big Data - Base Wrappers for Distributed
+Matrices
+<img class="toplogo" src="../../../doc/html/logo.jpg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;pbdBASE&rsquo; version 0.5-0</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="pbdBASE-package.html">pbdBASE-package</a></td>
+<td>ScaLAPACK Wrappers and Utilities</td></tr>
+<tr><td style="width: 25%;"><a href="BASE-Global-Environment.html">.pbdBASEEnv</a></td>
+<td>Global Environment for the pbdBASE Package</td></tr>
+<tr><td style="width: 25%;"><a href="BASE-Global-Environment.html">BASE Global Environment</a></td>
+<td>Global Environment for the pbdBASE Package</td></tr>
+<tr><td style="width: 25%;"><a href="gridinfo.html">base.blacs</a></td>
+<td>Get BLACS Context Grid Information</td></tr>
+<tr><td style="width: 25%;"><a href="blacsexit.html">base.blacsexit</a></td>
+<td>BLACS Exit</td></tr>
+<tr><td style="width: 25%;"><a href="gridinit.html">base.blacs_gridinit</a></td>
+<td>blacs_gridinit</td></tr>
+<tr><td style="width: 25%;"><a href="base.crossprod.html">base.crossprod</a></td>
+<td>crossprod</td></tr>
+<tr><td style="width: 25%;"><a href="base.dallreduce.html">base.dallreduce</a></td>
+<td>dallreduce</td></tr>
+<tr><td style="width: 25%;"><a href="diag.html">base.ddiagmk</a></td>
+<td>diag</td></tr>
+<tr><td style="width: 25%;"><a href="diag.html">base.ddiagtk</a></td>
+<td>diag</td></tr>
+<tr><td style="width: 25%;"><a href="base.descinit.html">base.descinit</a></td>
+<td>descinit</td></tr>
+<tr><td style="width: 25%;"><a href="blacs-min.html">base.dgamn2d</a></td>
+<td>BLACS Min</td></tr>
+<tr><td style="width: 25%;"><a href="blacs-min.html">base.dgamx2d</a></td>
+<td>BLACS Min</td></tr>
+<tr><td style="width: 25%;"><a href="blacs-p2p.html">base.dgerv2d</a></td>
+<td>BLACS Point to Poin</td></tr>
+<tr><td style="width: 25%;"><a href="blacs-p2p.html">base.dgesd2d</a></td>
+<td>BLACS Point to Poin</td></tr>
+<tr><td style="width: 25%;"><a href="blacs-sums.html">base.dgsum2d</a></td>
+<td>BLACS Sums</td></tr>
+<tr><td style="width: 25%;"><a href="base.dhilbmk.html">base.dhilbmk</a></td>
+<td>dhilbmk</td></tr>
+<tr><td style="width: 25%;"><a href="base.dim0.html">base.dim0</a></td>
+<td>maxdim</td></tr>
+<tr><td style="width: 25%;"><a href="finalizer.html">base.finalize</a></td>
+<td>Finalizer</td></tr>
+<tr><td style="width: 25%;"><a href="g2l_coord.html">base.g2l_coord</a></td>
+<td>g2l_coord</td></tr>
+<tr><td style="width: 25%;"><a href="gridexit.html">base.gridexit</a></td>
+<td>gridexit</td></tr>
+<tr><td style="width: 25%;"><a href="blacs-min.html">base.igamn2d</a></td>
+<td>BLACS Min</td></tr>
+<tr><td style="width: 25%;"><a href="blacs-max.html">base.igamx2d</a></td>
+<td>BLACS Max</td></tr>
+<tr><td style="width: 25%;"><a href="blacs-sums.html">base.igsum2d</a></td>
+<td>BLACS Sums</td></tr>
+<tr><td style="width: 25%;"><a href="base.indxg2p.html">base.indxg2p</a></td>
+<td>indxg2p</td></tr>
+<tr><td style="width: 25%;"><a href="l2g_coord.html">base.l2g_coord</a></td>
+<td>l2g_coord</td></tr>
+<tr><td style="width: 25%;"><a href="base.matexp.html">base.matexp</a></td>
+<td>matexp</td></tr>
+<tr><td style="width: 25%;"><a href="base.maxdim.html">base.maxdim</a></td>
+<td>maxdim</td></tr>
+<tr><td style="width: 25%;"><a href="base.minctxt.html">base.minctxt</a></td>
+<td>Get BLACS Context Grid Information</td></tr>
+<tr><td style="width: 25%;"><a href="lclgblmat.html">base.mkgblmat</a></td>
+<td>(Un)Distribute</td></tr>
+<tr><td style="width: 25%;"><a href="lclgblmat.html">base.mksubmat</a></td>
+<td>(Un)Distribute</td></tr>
+<tr><td style="width: 25%;"><a href="base.nbd.html">base.nbd</a></td>
+<td>Next Best Divisor</td></tr>
+<tr><td style="width: 25%;"><a href="base.numroc.html">base.numroc</a></td>
+<td>numroc</td></tr>
+<tr><td style="width: 25%;"><a href="base.ownany.html">base.ownany</a></td>
+<td>Determining Local Ownership of a Distributed Matrix</td></tr>
+<tr><td style="width: 25%;"><a href="pcoords.html">base.pcoord</a></td>
+<td>Interchange Between Process Number and BLACS Coordinates</td></tr>
+<tr><td style="width: 25%;"><a href="base.pdchtri.html">base.pdchtri</a></td>
+<td>pdchtri</td></tr>
+<tr><td style="width: 25%;"><a href="base.pdclvar.html">base.pdclvar</a></td>
+<td>Column Variances</td></tr>
+<tr><td style="width: 25%;"><a href="base.pdhilbmk.html">base.pdhilbmk</a></td>
+<td>pdhilbmk</td></tr>
+<tr><td style="width: 25%;"><a href="base.pdmkcpn1.html">base.pdmkcpn1</a></td>
+<td>pdmkcpn1</td></tr>
+<tr><td style="width: 25%;"><a href="base.pdmvsum.html">base.pdmvsum</a></td>
+<td>R-like Matrix-Vector Sum</td></tr>
+<tr><td style="width: 25%;"><a href="base.pdsweep.html">base.pdsweep</a></td>
+<td>pdsweep</td></tr>
+<tr><td style="width: 25%;"><a href="pcoords.html">base.pnum</a></td>
+<td>Interchange Between Process Number and BLACS Coordinates</td></tr>
+<tr><td style="width: 25%;"><a href="base.procgrid.html">base.procgrid</a></td>
+<td>procgrid</td></tr>
+<tr><td style="width: 25%;"><a href="base.p_matexp_pade_wrap.html">base.p_matexp_pade_wrap</a></td>
+<td>p_matexp_pade_wrap</td></tr>
+<tr><td style="width: 25%;"><a href="base.p_matpow_by_squaring_wrap.html">base.p_matpow_by_squaring_wrap</a></td>
+<td>p_matpow_by_squaring_wrap</td></tr>
+<tr><td style="width: 25%;"><a href="base.rcolcpy.html">base.rcolcpy</a></td>
+<td>R Column Copy</td></tr>
+<tr><td style="width: 25%;"><a href="base.rcolcpy2.html">base.rcolcpy2</a></td>
+<td>R Column Copy-2</td></tr>
+<tr><td style="width: 25%;"><a href="base.rl2blas.html">base.rl2blas</a></td>
+<td>Level 2 R-like BLAS</td></tr>
+<tr><td style="width: 25%;"><a href="base.rl2insert.html">base.rl2insert</a></td>
+<td>R-like Matrix-Vector Insertion</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgecon.html">base.rpdgecon</a></td>
+<td>rpdgecon</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgels.html">base.rpdgels</a></td>
+<td>rpdgels</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgemm.html">base.rpdgemm</a></td>
+<td>rpdgemm</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgemr2d.html">base.rpdgemr2d</a></td>
+<td>rpdgemr2d</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgeqpf.html">base.rpdgeqpf</a></td>
+<td>rpdgeqpf</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgesv.html">base.rpdgesv</a></td>
+<td>rpdgesv</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgesvd.html">base.rpdgesvd</a></td>
+<td>rpdgesvd</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgetrf.html">base.rpdgetrf</a></td>
+<td>rpdgetrf</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdgetri.html">base.rpdgetri</a></td>
+<td>rpdgetri</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdlange.html">base.rpdlange</a></td>
+<td>rpdlange</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdlaprnt.html">base.rpdlaprnt</a></td>
+<td>rpdlaprnt</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdorgqr.html">base.rpdorgqr</a></td>
+<td>rpdorgqr</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdormqr.html">base.rpdormqr</a></td>
+<td>rpdormqr</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdpotrf.html">base.rpdpotrf</a></td>
+<td>rpdpotrf</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdsyev.html">base.rpdsyev</a></td>
+<td>rpdsyev</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdsyevx.html">base.rpdsyevx</a></td>
+<td>rpdsyevx</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdtran.html">base.rpdtran</a></td>
+<td>rpdtran</td></tr>
+<tr><td style="width: 25%;"><a href="base.rpdtrcon.html">base.rpdtrcon</a></td>
+<td>rpdtrcon</td></tr>
+<tr><td style="width: 25%;"><a href="base.rrowcpy.html">base.rrowcpy</a></td>
+<td>R Row Copy</td></tr>
+<tr><td style="width: 25%;"><a href="base.rrowcpy2.html">base.rrowcpy2</a></td>
+<td>R Row Copy-2</td></tr>
+<tr><td style="width: 25%;"><a href="base.tri2zero.html">base.tri2zero</a></td>
+<td>tri2zero</td></tr>
+<tr><td style="width: 25%;"><a href="base.valid_context.html">base.valid_context</a></td>
+<td>BLACS Context Validation</td></tr>
+<tr><td style="width: 25%;"><a href="gridinfo.html">blacs</a></td>
+<td>Get BLACS Context Grid Information</td></tr>
+<tr><td style="width: 25%;"><a href="blacsexit.html">blacsexit</a></td>
+<td>BLACS Exit</td></tr>
+<tr><td style="width: 25%;"><a href="gridinit.html">blacs_gridinit</a></td>
+<td>blacs_gridinit</td></tr>
+<tr><td style="width: 25%;"><a href="coords.html">coords</a></td>
+<td>Local to Global/Global to Local Indexing</td></tr>
+<tr><td style="width: 25%;"><a href="coordspair.html">coordspair</a></td>
+<td>Global to Local/Local to Global Pair Indexing</td></tr>
+<tr><td style="width: 25%;"><a href="diag.html">diag</a></td>
+<td>diag</td></tr>
+<tr><td style="width: 25%;"><a href="finalizer.html">finalize</a></td>
+<td>Finalizer</td></tr>
+<tr><td style="width: 25%;"><a href="finalizer.html">finalizer</a></td>
+<td>Finalizer</td></tr>
+<tr><td style="width: 25%;"><a href="g2lcoord.html">g2lcoord</a></td>
+<td>g2lcoord</td></tr>
+<tr><td style="width: 25%;"><a href="coordspair.html">g2lpair</a></td>
+<td>Global to Local/Local to Global Pair Indexing</td></tr>
+<tr><td style="width: 25%;"><a href="g2l_coord.html">g2l_coord</a></td>
+<td>g2l_coord</td></tr>
+<tr><td style="width: 25%;"><a href="gridexit.html">gridexit</a></td>
+<td>gridexit</td></tr>
+<tr><td style="width: 25%;"><a href="gridinfo.html">gridinfo</a></td>
+<td>Get BLACS Context Grid Information</td></tr>
+<tr><td style="width: 25%;"><a href="gridinit.html">gridinit</a></td>
+<td>blacs_gridinit</td></tr>
+<tr><td style="width: 25%;"><a href="coords.html">indxg2l</a></td>
+<td>Local to Global/Global to Local Indexing</td></tr>
+<tr><td style="width: 25%;"><a href="coords.html">indxl2g</a></td>
+<td>Local to Global/Global to Local Indexing</td></tr>
+<tr><td style="width: 25%;"><a href="init.grid.html">init.grid</a></td>
+<td>Initialize Process Grid</td></tr>
+<tr><td style="width: 25%;"><a href="init.grid.html">InitGrid</a></td>
+<td>Initialize Process Grid</td></tr>
+<tr><td style="width: 25%;"><a href="coordspair.html">l2gpair</a></td>
+<td>Global to Local/Local to Global Pair Indexing</td></tr>
+<tr><td style="width: 25%;"><a href="l2g_coord.html">l2g_coord</a></td>
+<td>l2g_coord</td></tr>
+<tr><td style="width: 25%;"><a href="numroc2.html">numroc2</a></td>
+<td>numroc2</td></tr>
+<tr><td style="width: 25%;"><a href="pcoords.html">pcoords</a></td>
+<td>Interchange Between Process Number and BLACS Coordinates</td></tr>
+</table>
+</body></html>

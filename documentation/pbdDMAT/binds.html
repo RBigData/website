@@ -1,144 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>binds. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Row and Column binds for Distributed Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for binds {pbdDMAT}"><tr><td>binds {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Row and Column binds for Distributed Matrices</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Row and column binds.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Row and Column binds for Distributed Matrices</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>"rbind"(..., ICTXT&nbsp;=&nbsp;.ICTXT, deparse.level&nbsp;=&nbsp;1)</div>
-<div>"cbind"(..., ICTXT&nbsp;=&nbsp;.ICTXT, deparse.level&nbsp;=&nbsp;1)</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>...</dt>
-      <dd>vectors, matrices, or distributed matrices.</dd>
-      <dt>ICTXT</dt>
-      <dd>BLACS communicator number for return object.</dd>
-      <dt>deparse.level</dt>
-      <dd>integer controlling the construction of labels in the
-case of non-matrix-like arguments. Does nothing for distributed matrices.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+<h3>Usage</h3>
 
-      <p><dl>
-Returns a vector, matrix, or distributed matrix, depending on input.
-</dl></p>
-  
-    </div>
+<pre>
+## S4 method for signature 'ANY'
+rbind(..., ICTXT = .pbd_env$ICTXT, deparse.level = 1)
 
-    <div class="Description">
-      <h2>Description</h2>
+## S4 method for signature 'ANY'
+cbind(..., ICTXT = .pbd_env$ICTXT, deparse.level = 1)
+</pre>
 
-      <p>Row and column binds.</p>
-  
-    </div>
 
-    <div class="Details">
-      <h2>Details</h2>
+<h3>Arguments</h3>
 
-      <p>The <code>...</code> list of arguments can be vectors, matrices, or distributed
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>vectors, matrices, or distributed matrices.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS communicator number for return object.</p>
+</td></tr>
+<tr valign="top"><td><code>deparse.level</code></td>
+<td>
+<p>integer controlling the construction of labels in the
+case of non-matrix-like arguments. Does nothing for distributed matrices.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>...</code> list of arguments can be vectors, matrices, or distributed
 matrices so long as non-distributed objects are not used with distributed
 objects. This kind of mixing-and-matching will lead to chaos. Currently no
 check is performed to prevent the user from this mixing-and-matching for
-performance reasons (it is slow enough already).</p>
-  
-    </div>
+performance reasons (it is slow enough already).
+</p>
 
-    <div class="Methods">
-      <h2>Methods</h2>
 
-      <p><dl>
-<dt>list("signature(... = \"ANY\")")</dt><dd>an R
-object.</dd>
- </dl></p>
-  
-      <p></p>
-  
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
-# # &gt; mpiexec -np 2 Rscript demo.r
-# 
-# library(pbdDMAT, quiet = TRUE)
-# init.grid()
-# 
-# x &lt;- ddmatrix(1:16, ncol=4, bldim=2)
-# 
-# y &lt;- rbind(x, x)
-# 
-# print(y)
-# 
-# finalize()
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>binds</li><li>cbind,ANY-method</li><li>rbind,ANY-method</li>
-    </ul>
-    <ul>
-      <li>Methods</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+<h3>Value</h3>
+
+<p>Returns a vector, matrix, or distributed matrix, depending on input.
+</p>
+
+
+<h3>Methods</h3>
+
+ <dl>
+<dt>list(&quot;signature(... = \&quot;ANY\&quot;)&quot;)</dt><dd><p>an R
+object.</p>
+</dd> </dl>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+x &lt;- ddmatrix(1:16, ncol=4, bldim=2)
+
+y &lt;- rbind(x, x)
+
+print(y)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

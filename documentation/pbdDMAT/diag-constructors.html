@@ -1,154 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<title>diag-constructors. pbdDMAT 0.3-3</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distributed Matrix Diagonals</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/highlight.css" rel="stylesheet">
-<link href="css/staticdocs.css" rel="stylesheet">
+<table width="100%" summary="page for diag-constructors {pbdDMAT}"><tr><td>diag-constructors {pbdDMAT}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<h2>Distributed Matrix Diagonals</h2>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-  </head>
+<h3>Description</h3>
 
-  <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">pbdDMAT 0.3-3</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<p>Get the diagonal of a distributed matrix, or construct a distributed matrix
+which is diagonal.
+</p>
 
-    <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Distributed Matrix Diagonals</h1>
 
-<div class="row">
-  <div class="span8">
-    <h2>Usage</h2>
-    <pre><div>"diag"(x, nrow, ncol, type&nbsp;=&nbsp;"matrix", ..., bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"diag"(x, nrow, ncol, type&nbsp;=&nbsp;"matrix", ..., min&nbsp;=&nbsp;0, max&nbsp;=&nbsp;1, mean&nbsp;=&nbsp;0, sd&nbsp;=&nbsp;1, rate&nbsp;=&nbsp;1, shape, scale&nbsp;=&nbsp;1, bldim&nbsp;=&nbsp;.BLDIM, ICTXT&nbsp;=&nbsp;.ICTXT)</div>
-<div>"diag"(x)</div>
-<div>"diag"(x, nrow, ncol)</div></pre>
-    
-    <h2>Arguments</h2>
-    <dl>
-      <dt>x</dt>
-      <dd>distributed matrix or a vector.</dd>
-      <dt>nrow,ncol</dt>
-      <dd>in the case that <code>x</code> is a vector, these specify the
-global dimension of the diagonal distributed matrix to be created.</dd>
-      <dt>type</dt>
-      <dd>character. Options are 'matrix' or 'ddmatrix', with partial
-matching.  This specifies the return type.</dd>
-      <dt>...</dt>
-      <dd>Extra arguments</dd>
-      <dt>bldim</dt>
-      <dd>blocking dimension.</dd>
-      <dt>ICTXT</dt>
-      <dd>BLACS context number.</dd>
-      <dt>min,max</dt>
-      <dd>Min and max values for random uniform generation.</dd>
-      <dt>mean,sd</dt>
-      <dd>Mean and standard deviation for random normal generation.</dd>
-      <dt>rate</dt>
-      <dd>Rate for random exponential generation.</dd>
-      <dt>shape,scale</dt>
-      <dd>Shape and scale parameters for random weibull generation.</dd>
-    </dl>
-    
-    <div class="Value">
-      <h2>Value</h2>
+<h3>Usage</h3>
 
-      <p><dl>
-If a distributed matrix is passed to <code>diag()</code> then it returns a
-global R vector.</p>
-  
-      <p>If a vector (numeric or character) is passed to <code>diag()</code> and
+<pre>
+## S4 method for signature 'vector'
+diag(x, nrow, ncol, type = "matrix", ...,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'character'
+diag(x, nrow, ncol, type = "matrix", ..., min = 0,
+  max = 1, mean = 0, sd = 1, rate = 1, shape, scale = 1,
+  bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT)
+
+## S4 method for signature 'ddmatrix'
+diag(x)
+
+## S4 method for signature 'matrix'
+diag(x, nrow, ncol)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>distributed matrix or a vector.</p>
+</td></tr>
+<tr valign="top"><td><code>nrow, ncol</code></td>
+<td>
+<p>in the case that <code>x</code> is a vector, these specify the
+global dimension of the diagonal distributed matrix to be created.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>character. Options are 'matrix' or 'ddmatrix', with partial
+matching.  This specifies the return type.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Extra arguments</p>
+</td></tr>
+<tr valign="top"><td><code>bldim</code></td>
+<td>
+<p>blocking dimension.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+<tr valign="top"><td><code>min, max</code></td>
+<td>
+<p>Min and max values for random uniform generation.</p>
+</td></tr>
+<tr valign="top"><td><code>mean, sd</code></td>
+<td>
+<p>Mean and standard deviation for random normal generation.</p>
+</td></tr>
+<tr valign="top"><td><code>rate</code></td>
+<td>
+<p>Rate for random exponential generation.</p>
+</td></tr>
+<tr valign="top"><td><code>shape, scale</code></td>
+<td>
+<p>Shape and scale parameters for random weibull generation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Gets the diagonal of a distributed matrix and stores it as a global R vector
+owned by all processes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If a distributed matrix is passed to <code>diag()</code> then it returns a
+global R vector.
+</p>
+<p>If a vector (numeric or character) is passed to <code>diag()</code> and
 <code>type='ddmatrix'</code>, then the return is a diagonal distributed matrix.
-</dl></p>
-  
-    </div>
+</p>
 
-    <div class="Description">
-      <h2>Description</h2>
 
-      <p>Get the diagonal of a distributed matrix, or construct a distributed matrix
-which is diagonal.</p>
-  
-    </div>
+<h3>Examples</h3>
 
-    <div class="Details">
-      <h2>Details</h2>
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
 
-      <p>Gets the diagonal of a distributed matrix and stores it as a global R vector
-owned by all processes.</p>
-  
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# # Save code in a file &quot;demo.r&quot; and run with 2 processors by
-# # &gt; mpiexec -np 2 Rscript demo.r
-# 
-# library(pbdDMAT, quiet = TRUE)
-# init.grid()
-# 
-# ### Grab diagonal of a ddmatrix
-# x &lt;- ddmatrix(1:16, 4, bldim=2)
-# y &lt;- diag(x)
-# comm.print(y)
-# 
-# ### Construct a diagonal ddmatrix
-# eye &lt;- diag(1, 10, type=&quot;ddmatrix&quot;, bldim=2)
-# eye
-# 
-# finalize()
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
-  <div class="span4">
-    <!-- <ul>
-      <li>diag</li><li>diag,character-method</li><li>diag,ddmatrix-method</li><li>diag,matrix-method</li><li>diag,vector-method</li><li>diag-constructors</li>
-    </ul>
-    <ul>
-      <li>Extraction</li><li>Methods</li>
-    </ul> -->
-      
-        
-  </div>
-</div>
-      
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>
+library(pbdDMAT, quiet = TRUE)
+init.grid()
+
+### Grab diagonal of a ddmatrix
+x &lt;- ddmatrix(1:16, 4, bldim=2)
+y &lt;- diag(x)
+comm.print(y)
+
+### Construct a diagonal ddmatrix
+eye &lt;- diag(1, 10, type="ddmatrix", bldim=2)
+eye
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdDMAT</em> version 0.4-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

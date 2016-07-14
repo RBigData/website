@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get BLACS Context Grid Information</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gridinfo {pbdBASE}"><tr><td>gridinfo {pbdBASE}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get BLACS Context Grid Information</h2>
+
+<h3>Description</h3>
+
+<p>Grabs the existing BLACS context grid information.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+base.blacs(ICTXT = 0)
+
+blacs(ICTXT = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>BLACS contexts have important internal use, and advanced users familiar with
+ScaLAPACK might find some advantage in directly manipulating these process
+grids. Most users should not need to directly manage BLACS contexts, in this
+function or elsewhere.
+</p>
+<p>The function effectively serves as a shorthand for
+</p>
+<p><code>eval(parse(text=paste(".__blacs_gridinfo_", ICTXT, sep="")))</code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a list with 5 elements: <code>NPROW</code> and <code>NPCOL</code>, the
+number of process rows and columns respectively; <code>ICTXT</code>, the
+associated BLACS context number; <code>MYROW</code> and <code>MYCOL</code>, the current
+process' row and column position in the process grid.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdBASE, quiet = TRUE)
+init.grid()
+
+mygrid &lt;- blacs(0)
+
+pbdMPI::comm.print(mygrid)
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdBASE</em> version 0.5-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

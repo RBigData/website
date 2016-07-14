@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: rmc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rmc {remoter}"><tr><td>rmc {remoter}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>rmc</h2>
+
+<h3>Description</h3>
+
+<p>A function to remove objects from the client's R session.  To
+remove objects on the server, just use <code>rm()</code>.  Instead of
+using this function, you could also just kill the client, do your
+local operations, then re-run your <code>client()</code> command.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rmc(..., list = character(), envir)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Objects to be removed from the client's R session.</p>
+</td></tr>
+<tr valign="top"><td><code>list</code></td>
+<td>
+<p>Character vector naming objects to be removed (as in <code>rm()</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>Environment (as in <code>rm()</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Remove objects on the client.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns <code>TRUE</code> invisibly on successful exit.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>remoter</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Initialize Process Grid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for InitGrid {pbdBASE}"><tr><td>InitGrid {pbdBASE}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Initialize Process Grid</h2>
+
+<h3>Description</h3>
+
+<p>Manages the creation of BLACS context grids.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+init.grid(NPROW, NPCOL, ICTXT, quiet = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>NPROW</code></td>
+<td>
+<p>number of process rows. Can be missing; see details.</p>
+</td></tr>
+<tr valign="top"><td><code>NPCOL</code></td>
+<td>
+<p>number of process columns. Can be missing; see details.</p>
+</td></tr>
+<tr valign="top"><td><code>ICTXT</code></td>
+<td>
+<p>BLACS context number.</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>logical; controls whether or not information about grid size
+should be printed.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>blacs_gridinit()</code> is for experienced users only.  It is a shallow
+wrapper of the BLACS routine <code>BLACS_GRIDINIT</code>, with the addition of
+creating the <code>.__blacs_gridinfo_ICTXT</code> objects, as described below.
+</p>
+<p>The remainder of this section applies only to <code>init.grid()</code>.
+</p>
+<p>If <code>ICTXT</code> is missing, three variables will be created in the
+<code>.pbdBASEEnv</code> environment:
+</p>
+<p><code>.__blacs_gridinfo_0</code>
+</p>
+<p><code>.__blacs_gridinfo_1</code>
+</p>
+<p><code>.__blacs_gridinfo_2</code>
+</p>
+<p>These variables store the BLACS process grid information for the BLACS
+context corresponding to the trailing digit of the variable. Most users
+should invoke <code>init.grid()</code> in this fashion, namely with ICTXT missing,
+and only do so once.
+</p>
+<p>Contexts 0, 1, and 2 are reserved. Additional custom contexts are possible
+to create, but they must be integers &gt;= 3.
+</p>
+<p>Context 0 is the &ldquo;full&rdquo; process grid of <code>NPROW</code> by <code>NPCOL</code>
+processes; contexts 1 is the process grid consisting of 1 process row and
+<code>NPROW</code>*<code>NPCOL</code> processes columns; context 2 is the process grid
+consisting of <code>NPROW</code>*<code>NPCOL</code> processes rows and 1 process column.
+These contexts can be redundant depending on the number of prcesses
+available.
+</p>
+<p>BLACS contexts have important internal use, and advanced users familiar with
+ScaLAPACK might find some advantage in directly manipulating these process
+grids. Most users should not need to directly manage BLACS contexts, in this
+function or elsewhere.
+</p>
+<p>If the <code>NPROW</code> and <code>NPCOL</code> values are missing, then a best process
+grid will be chosen for the user based on the total available number of
+processes. Here &ldquo;best&rdquo; means as close to a square grid as possible.
+</p>
+<p>The variables <code>.__blacs_gridinfo_ICTXT</code> are just storage mechanisms to
+avoid needing to directly invoke the BLACS routine <code>BLACS_GRIDINFO</code>.
+</p>
+<p>Additionally, another variable is created in the <code>.pbdBASEEnv</code>
+environment, namely <code>.__blacs_initialized</code>. Its existence is to alert
+<code>finalize()</code> to shut down BLACS communicators, if necessary, to prevent
+memory leaks.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Silently returns 0 when successful. Additionally, several variables
+are created in the <code>.pbdBASEEnv</code> environment.  See Details section.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run with 2 processors by
+# &gt; mpiexec -np 2 Rscript demo.r
+
+library(pbdBASE, quiet = TRUE)
+init.grid()
+
+finalize()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdBASE</em> version 0.5-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Divide Job ID by Ranks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for get job id {pbdMPI}"><tr><td>get job id {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Divide Job ID by Ranks </h2>
+
+<h3>Description</h3>
+
+<p>This function obtains job id which can be used to divide jobs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+get.jid(n, method = .pbd_env$SPMD.CT$divide.method[1], all = FALSE,
+        comm = .pbd_env$SPMD.CT$comm, reduced = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>total number of jobs.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>a way to divide jobs.</p>
+</td></tr>
+<tr valign="top"><td><code>all</code></td>
+<td>
+<p>indicate if return all id for each processor.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>reduced</code></td>
+<td>
+<p>indicate if return should be a reduced representation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>n</code> is total number of jobs needed to be divided into all processors
+(<code>comm.size(comm)</code>, i.e. <code>1:n</code> will be split according to
+the rank of processor (<code>comm.rank(comm)</code>) and <code>method</code>.
+Job id will be returned. Currently, three possible methods are provided.
+</p>
+<p><code>"block"</code> will use return id's which are nearly equal size blocks.
+For example,
+7 jobs in 4 processors will have <code>jid=1</code> for rank 0, <code>jid=2,3</code>
+for rank 1, <code>jid=4,5</code> for rank 2, and <code>jid=6,7</code> for rank 3.
+</p>
+<p><code>"block0"</code> will use return id's which are nearly equal size blocks,
+in the opposite direction of <code>"block"</code>.
+For example,
+7 jobs in 4 processors will have <code>jid=1,2</code> for rank 0, <code>jid=3,4</code>
+for rank 1, <code>jid=5,6</code> for rank 2, and <code>jid=7</code> for rank 3.
+</p>
+<p><code>"cycle"</code> will use return id's which are nearly equal size in cycle.
+For example, 7 jobs in 4 processors will have <code>jid=1,5</code> for rank 0,
+<code>jid=2,6</code> for rank 1, <code>jid=3,7</code> for rank 2, and <code>jid=4</code>
+for rank 3.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>get.id()</code> returns a vector containing job id for each individual
+processor if <code>all = FALSE</code>. While it returns a list containing all
+job id for all processor if <code>all = TRUE</code>. The list has length equal
+to <code><a href="cc_comm.html">COMM.SIZE</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="yy_api_task_pull.html">task.pull</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 4 processors by
+### SHELL&gt; mpiexec -np 4 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+
+### Examples.
+comm.cat("&gt;&gt;&gt; block\n", quiet = TRUE)
+jid &lt;- get.jid(7, method = "block")
+comm.print(jid, all.rank = TRUE)
+
+comm.cat("&gt;&gt;&gt; cycle\n", quiet = TRUE)
+jid &lt;- get.jid(7, method = "cycle")
+comm.print(jid, all.rank = TRUE)
+
+comm.cat("&gt;&gt;&gt; block (all)\n", quiet = TRUE)
+alljid &lt;- get.jid(7, method = "block", all = TRUE)
+comm.print(alljid)
+
+comm.cat("&gt;&gt;&gt; cycle (all)\n", quiet = TRUE)
+alljid &lt;- get.jid(7, method = "cycle", all = TRUE)
+comm.print(alljid)
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

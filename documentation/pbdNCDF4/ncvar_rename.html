@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rename an Existing Variable in a netCDF File</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ncvar_rename {pbdNCDF4}"><tr><td>ncvar_rename {pbdNCDF4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Rename an Existing Variable in a netCDF File</h2>
+
+<h3>Description</h3>
+
+<p>Renames an existing variable that currently is part of a netCDF file
+that is on disk.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ ncvar_rename( nc, old_varname, new_varname, verbose=FALSE )
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nc</code></td>
+<td>
+<p>The already-existing netCDF file that we want to manipulate. This must
+be a value of class &quot;ncdf4&quot; returned by a call to <code><a href="nc_open.html">nc_open</a></code><code>(...,write=TRUE).</code></p>
+</td></tr>
+<tr valign="top"><td><code>old_varname</code></td>
+<td>
+<p>The variable in the file that is to be renamed.
+This can be a string with the name of the variable to be renamed,
+or a value of class &quot;ncvar4&quot; returned by a call to <code>ncvar_def()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>new_varname</code></td>
+<td>
+<p>A string containing the new name of the variable.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>If true, run verbosely.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This call allows you to rename a variable that already exists in a netCDF 
+file.
+</p>
+<p>NOTE that the return value of this routine should replace the old netCDF
+file handle that you were using.  This newly returned value reflects the
+modifications to the file that were accomplished by calling this routine.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The updated value of nc that contains the new name.
+This needs to replace the old value of nc in the code.
+I..e, <code>ncid &lt;- ncvar_rename( ncid, ... )</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>David W. Pierce <a href="mailto:dpierce@ucsd.edu">dpierce@ucsd.edu</a></p>
+
+
+<h3>References</h3>
+
+<p>http://dwpierce.com/software
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="ncdim_def.html">ncdim_def</a></code>, <code><a href="nc_create.html">nc_create</a></code>, 
+<code><a href="ncvar_def.html">ncvar_def</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+#===================================================================
+# PART 1.  MAKE A TEST NETCDF FILE THAT WE WILL MANIPULATE IN PART 2
+#===================================================================
+
+#----------------
+# Make dimensions
+#----------------
+xvals &lt;- 1:360
+yvals &lt;- -90:90
+
+nx &lt;- length(xvals)
+ny &lt;- length(yvals)
+
+xdim &lt;- ncdim_def( 'Lon', 'degreesE', xvals )
+ydim &lt;- ncdim_def( 'Lat', 'degreesE', yvals )
+tdim &lt;- ncdim_def( 'Time', 'days since 1900-01-01', 0, unlim=TRUE )
+
+#---------
+# Make var
+#---------
+mv &lt;- 1.e30     # missing value
+var_temp &lt;- ncvar_def( 'Temperature', 'K', list(xdim,ydim,tdim), mv )
+
+#---------------------
+# Make new output file
+#---------------------
+output_fname &lt;- 'test_real3d.nc'
+ncid_new &lt;- nc_create( output_fname, list(var_temp))
+
+#-------------------------------
+# Put some test data in the file
+#-------------------------------
+data_temp &lt;- array(0.,dim=c(nx,ny,1))
+for( j in 1:ny )
+for( i in 1:nx )
+        data_temp[i,j,1] &lt;- sin(i/10)*sin(j/10)
+
+ncvar_put( ncid_new, var_temp, data_temp, start=c(1,1,1), count=c(nx,ny,1))
+
+#--------------------------
+# Close our new output file
+#--------------------------
+nc_close( ncid_new )
+
+#===========================================================================
+# PART 2.  RENAME A NEW VARIABLE TO THE FILE
+#===========================================================================
+
+#-------------------------------------------------
+# Open the existing file we're going to manipulate
+#-------------------------------------------------
+ncid_old &lt;- nc_open( output_fname, write=TRUE )
+
+old_varname &lt;- 'Temperature'
+new_varname &lt;- 'T'
+
+ncid_old &lt;- ncvar_rename( ncid_old, old_varname, new_varname )
+
+print(ncid_old)
+
+nc_close( ncid_old )
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdNCDF4</em> version 0.1-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

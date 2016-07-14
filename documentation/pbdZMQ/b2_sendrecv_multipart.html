@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Send Receive Multiple Raw Buffers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Send Receive Multiple Raw Buffers {pbdZMQ}"><tr><td>Send Receive Multiple Raw Buffers {pbdZMQ}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Send Receive Multiple Raw Buffers</h2>
+
+<h3>Description</h3>
+
+<p>Send and receive functions for multiple raw buffers
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+zmq.send.multipart(socket, parts, serialize = TRUE)
+
+zmq.recv.multipart(socket, unserialize = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>socket</code></td>
+<td>
+<p>a ZMQ socket</p>
+</td></tr>
+<tr valign="top"><td><code>parts</code></td>
+<td>
+<p>a vector of multiple buffers to be sent</p>
+</td></tr>
+<tr valign="top"><td><code>serialize, unserialize</code></td>
+<td>
+<p>if serialize/unserialize the received multiple buffers</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>zmq.send.multipart()</code> is a high level R function to send multiple
+raw messages <code>parts</code> at once.
+</p>
+<p><code>zmq.recv.multipart()</code> is a high level R function to receive multiple
+raw messages at once.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>zmq.send.multipart()</code> returns.
+</p>
+<p><code>zmq.recv.multipart()</code> returns.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="a2_message.html">zmq.msg.send</a>()</code>, <code><a href="a2_message.html">zmq.msg.recv</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Using request-reply pattern.
+
+### At the server, run next in background or the other window.
+library(pbdZMQ, quietly = TRUE)
+
+context &lt;- zmq.ctx.new()
+responder &lt;- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+zmq.bind(responder, "tcp://*:5555")
+
+ret &lt;- zmq.recv.multipart(responder, unserialize = TRUE)
+parts &lt;- as.list(rep("World", 5))
+zmq.send.multipart(responder, parts)
+for(i in 1:5) cat(ret[[i]])
+
+zmq.close(responder)
+zmq.ctx.destroy(context)
+
+### At a client, run next in foreground.
+library(pbdZMQ, quietly = TRUE)
+
+context &lt;- zmq.ctx.new()
+requester &lt;- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+zmq.connect(requester, "tcp://localhost:5555")
+
+parts &lt;- lapply(1:5, function(i.req){ paste("Sending Hello ", i.req, "\n") })
+zmq.send.multipart(requester, parts)
+ret &lt;- zmq.recv.multipart(requester, unserialize = TRUE)
+print(ret)
+
+zmq.close(requester)
+zmq.ctx.destroy(context)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdZMQ</em> version 0.2-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate MixSim Examples for Testing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for generate.MixSim {pmclust}"><tr><td>generate.MixSim {pmclust}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate MixSim Examples for Testing</h2>
+
+<h3>Description</h3>
+
+<p>This function utilizes <span class="pkg">MixSim</span> to generate sets of data
+for testing algorithms.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  generate.MixSim(N, p, K, MixSim.obj = NULL, MaxOmega = NULL,
+                  BarOmega = NULL, PiLow = 1.0, sph = FALSE, hom = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>N</code></td>
+<td>
+<p>total sample size across all <i>S</i> processors, i.e.
+sum over <code>N.spmd</code> is <code>N</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>dimension of data <code><a href="11_d.set.global.html">X.spmd</a></code>,
+i.e. <code>ncol(<a href="11_d.set.global.html">X.spmd</a>)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>K</code></td>
+<td>
+<p>number of clusters.</p>
+</td></tr>
+<tr valign="top"><td><code>MixSim.obj</code></td>
+<td>
+<p>an object returned from <code><a href="../../MixSim/html/MixSim.html">MixSim</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>MaxOmega</code></td>
+<td>
+<p>maximum overlap as in <code><a href="../../MixSim/html/MixSim.html">MixSim</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>BarOmega</code></td>
+<td>
+<p>averaged overlap as in <code><a href="../../MixSim/html/MixSim.html">MixSim</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>PiLow</code></td>
+<td>
+<p>lower bound of mixture proportion as in <code><a href="../../MixSim/html/MixSim.html">MixSim</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>sph</code></td>
+<td>
+<p>sph as in <code><a href="../../MixSim/html/MixSim.html">MixSim</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>hom</code></td>
+<td>
+<p>hom as in <code><a href="../../MixSim/html/MixSim.html">MixSim</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>MixSim.obj</code> is NULL, then <code>BarOmega</code> and <code>MaxOmega</code>
+will be used in <code><a href="../../MixSim/html/MixSim.html">MixSim</a></code> to obtain a new
+<code>MixSim.obj</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A set of simulated data and information will be returned in a list variable
+including:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"><code>K</code>               </td><td style="text-align: left;"> number of clusters, as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>p</code>               </td><td style="text-align: left;"> dimension of data
+                                         <code><a href="11_d.set.global.html">X.spmd</a></code>,
+                                         as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N</code>               </td><td style="text-align: left;"> total sample size, as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.allspmds</code>      </td><td style="text-align: left;"> a collection of sample sizes for all
+                                         <i>S</i> processors, as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.spmd</code>          </td><td style="text-align: left;"> total sample size of given processor,
+                                         as the input </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code><a href="11_d.set.global.html">X.spmd</a></code>   </td><td style="text-align: left;"> generated data set with dimension with
+                                         dimension <code>N.spmd * p</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code><a href="10_d.readme.html">CLASS.spmd</a></code>
+                                    </td><td style="text-align: left;"> true id of each data, a vector of
+                                         length <code>N.spmd</code>
+                                         and has values from 1 to <code>K</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>N.CLASS.spmd</code>    </td><td style="text-align: left;"> true sample size of each clusters, a
+                                         vector of length <code>K</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+             <code>MixSim.obj</code>      </td><td style="text-align: left;"> the true model where data
+                                         <code>X.spmd</code> generated from
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a> and George Ostrouchov.
+</p>
+
+
+<h3>References</h3>
+
+<p>Melnykov, V., Chen, W.-C. and Maitra, R. (2012)
+&ldquo;MixSim: Simulating Data to Study Performance of Clustering
+Algorithms&rdquo;,
+<em>Journal of Statistical Software</em>,
+(accepted).
+</p>
+<p>High Performance Statistical Computing (HPSC) Website:
+<a href="http://thirteen-01.stat.iastate.edu/snoweye/hpsc/">http://thirteen-01.stat.iastate.edu/snoweye/hpsc/</a>
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="40-generate.basic.html">generate.basic</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Save code in a file "demo.r" and run in 4 processors by
+# &gt; mpiexec -np 4 Rscript demo.r
+
+### Setup environment.
+library(pmclust, quiet = TRUE)
+
+### Generate an example data.
+N &lt;- 5000
+p &lt;- 2
+K &lt;- 2
+data.spmd &lt;- generate.MixSim(N, p, K, BarOmega = 0.01)
+X.spmd &lt;- data.spmd$X.spmd
+
+### Run clustering.
+PARAM.org &lt;- set.global(K = K)          # Set global storages.
+# PARAM.org &lt;- initial.em(PARAM.org)    # One initial.
+PARAM.org &lt;- initial.RndEM(PARAM.org)   # Ten initials by default.
+PARAM.new &lt;- apecma.step(PARAM.org)     # Run APECMa.
+em.update.class()                       # Get classification.
+
+### Get results.
+N.CLASS &lt;- get.N.CLASS(K)
+comm.cat("# of class:", N.CLASS, "\n")
+comm.cat("# of class (true):", data.spmd$N.CLASS.spmd, "\n")
+
+### Quit.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pmclust</em> version 0.1-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

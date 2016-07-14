@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global Reading Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for global reading {pbdMPI}"><tr><td>global reading {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Global Reading Functions </h2>
+
+<h3>Description</h3>
+
+<p>These functions are global reading from specified file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.read.table(file, header = FALSE, sep = "", quote = "\"'",
+                dec = ".",
+                na.strings = "NA", colClasses = NA, nrows = -1, skip = 0,
+                check.names = TRUE, fill = !blank.lines.skip,
+                strip.white = FALSE,
+                blank.lines.skip = TRUE, comment.char = "#",
+                allowEscapes = FALSE,
+                flush = FALSE,
+                fileEncoding = "", encoding = "unknown",
+                read.method = .pbd_env$SPMD.IO$read.method[1],
+                balance.method = .pbd_env$SPMD.IO$balance.method[1],
+                comm = .pbd_env$SPMD.CT$comm)
+
+comm.read.csv(file, header = TRUE, sep = ",", quote = "\"",
+              dec = ".", fill = TRUE, comment.char = "", ...,
+              read.method = .pbd_env$SPMD.IO$read.method[1],
+              balance.method = .pbd_env$SPMD.IO$balance.method[1],
+              comm = .pbd_env$SPMD.CT$comm)
+     
+comm.read.csv2(file, header = TRUE, sep = ";", quote = "\"",
+               dec = ",", fill = TRUE, comment.char = "", ...,
+               read.method = .pbd_env$SPMD.IO$read.method[1],
+               balance.method = .pbd_env$SPMD.IO$balance.method[1],
+               comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>header</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>sep</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>quote</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>dec</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>na.strings</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>colClasses</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>nrows</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>skip</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>check.names</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>fill</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>strip.white</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>blank.lines.skip</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>comment.char</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>allowEscapes</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>flush</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>fileEncoding</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>encoding</code></td>
+<td>
+<p>as in <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>as in <code>read.csv*()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>read.method</code></td>
+<td>
+<p>either &quot;gbd&quot; or &quot;common&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>balance.method</code></td>
+<td>
+<p>balance method for <code>read.method = "gbd"</code>
+as <code>nrows = -1</code> and <code>skip = 0</code> are set.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions will apply <code>read.table()</code> locally and sequentially
+from rank 0, 1, 2, ...
+</p>
+<p>By default, rank 0 reads the file only, then scatter to other ranks for
+small datasets (<code>.pbd_env$SPMD.IO$max.read.size</code>) in
+<code>read.method = "gbd"</code>.
+(bcast to others in <code>read.method = "common"</code>.)
+</p>
+<p>As dataset size increases, the reading is performed from each ranks and
+read portion of rows in &quot;gbd&quot; format as described in <span class="pkg">pbdDEMO</span>
+vignettes and used in <span class="pkg">pmclust</span>.
+</p>
+<p><code><a href="ww_comm_balance.html">comm.load.balance</a>()</code> is called for &quot;gbd&quot; method as
+as <code>nrows = -1</code> and <code>skip = 0</code> are set. Note that the default
+method &quot;block&quot; is the better way for performance in general that distributes
+equally and leaves residuals on higher ranks evenly.
+&quot;block0&quot; is the other way around. &quot;block.cyclic&quot; is only useful for
+converting to <code>ddmatrix</code> as in <span class="pkg">pbdDMAT</span>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A distributed data.frame is returned.
+</p>
+<p>All factors are disable and read as characters or as what data should be.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="ww_comm_balance.html">comm.load.balance</a>()</code> and
+<code><a href="ww_comm_write.html">comm.write.table</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 4 processors by
+### SHELL&gt; mpiexec -np 4 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+
+### Check.
+if(comm.size() != 4){
+  comm.stop("4 processors are requried.")
+}
+
+### Manually distributed iris.
+da &lt;- iris[get.jid(nrow(iris)),]
+
+### Dump data.
+comm.write.table(da, file = "iris.txt", quote = FALSE, sep = "\t",
+                 row.names = FALSE)
+
+### Read back in.
+da.gbd &lt;- comm.read.table("iris.txt", header = TRUE, sep = "\t",
+                          quote = "")
+comm.print(c(nrow(da), nrow(da.gbd)), all.rank = TRUE)
+
+### Read in common.
+da.common &lt;- comm.read.table("iris.txt", header = TRUE, sep = "\t",
+                             quote = "", read.method = "common")
+comm.print(c(nrow(da.common), sum(da.common != iris)))
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

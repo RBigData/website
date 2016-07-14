@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Seed Functions for Random Number Generators</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for seed for RNG {pbdMPI}"><tr><td>seed for RNG {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Seed Functions for Random Number Generators </h2>
+
+<h3>Description</h3>
+
+<p>These functions set/end/reset seeds to all ranks.
+By default, these functions are wrappers of <span class="pkg">rlecuyer</span> which implements
+the random number generator with multiple independent streams
+developed by L'Ecuyer et al (2002).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+comm.set.seed(seed, diff = FALSE, state = NULL,
+              comm = .pbd_env$SPMD.CT$comm)
+comm.seed.state(comm = .pbd_env$SPMD.CT$comm)
+comm.end.seed(comm = .pbd_env$SPMD.CT$comm)
+comm.reset.seed(comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>seed</code></td>
+<td>
+<p>one integer or six integers as in <span class="pkg">rlecuyer</span>.</p>
+</td></tr>
+<tr valign="top"><td><code>diff</code></td>
+<td>
+<p>if all ranks use the same stream. (default = FALSE)</p>
+</td></tr>
+<tr valign="top"><td><code>state</code></td>
+<td>
+<p>a new state to overwrite seed.</p>
+</td></tr>
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>comm.set.seed()</code> sets the given <code>seed</code> to all ranks.
+If <code>diff = FALSE</code>, then all ranks generate one stream and use that
+stream. Otherwise, all ranks generate <code><a href="cc_comm.html">COMM.SIZE</a></code> streams and
+use the stream named by <code><a href="cc_comm.html">COMM.RANK</a></code>.
+</p>
+<p>Also, <code>comm.set.seed()</code> can assign to arbitrarily <code>state</code>
+obtained from <code>comm.seed.state()</code>.
+</p>
+<p><code>comm.seed.state()</code> obtains current state of <code>seed</code> which ends the
+stream first (update state), gets the state, and continues the stream
+(pretend as nothing happens).
+</p>
+<p><code>comm.end.seed()</code> ends and deletes <code>seed</code> from all ranks.
+</p>
+<p><code>comm.reset.seed()</code> resets <code>seed</code> to initial start steps which
+end the current <code>seed</code> and reset everything back to the start stream.
+Use this function with caution.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Several hidden objects are set in the <code>.GlobalEnv</code>, see
+<span class="pkg">rlecuyer</span> package for details.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Pierre L'Ecuyer, Simard, R., Chen, E.J., and Kelton, W.D. (2002)
+An Object-Oriented Random-Number Package with Many Long Streams and
+Substreams. Operations Research, 50(6), 1073-1075.
+</p>
+<p><a href="http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf">http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf</a>
+</p>
+<p>Sevcikova, H. and Rossini, T. (2012) rlecuyer: R interface to RNG with
+multiple streams. R Package, URL http://cran.r-project.org/package=rlecuyer
+</p>
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>.lec.SetPackageSeed()</code>,
+<code>.lec.CreateStream()</code>,
+<code>.lec.CurrentStream()</code>,
+<code>.lec.CurrentStreamEnd()</code>,
+<code>.lec.DeleteStream()</code>,
+<code>.lec.SetSeed()</code>, and
+<code>.lec.GetState()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+
+### Examples.
+comm.set.seed(123456)
+comm.print(runif(5), all.rank = TRUE)
+comm.reset.seed()
+comm.print(runif(5), all.rank = TRUE)
+comm.end.seed()
+
+### Obtain the seed state.
+comm.set.seed(123456, diff = TRUE)
+comm.print(runif(5), all.rank = TRUE)
+saved.seed &lt;- comm.seed.state()   ### save the state.
+comm.print(runif(5), all.rank = TRUE)
+comm.end.seed()
+
+### Start from a saved state.
+comm.set.seed(123456, state = saved.seed) ### rewind to the state.
+comm.print(runif(5), all.rank = TRUE)
+comm.end.seed()
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

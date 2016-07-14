@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Communicator Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for communicator {pbdMPI}"><tr><td>communicator {pbdMPI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Communicator Functions </h2>
+
+<h3>Description</h3>
+
+<p>The functions provide controls to communicators.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+barrier(comm = .pbd_env$SPMD.CT$comm)
+comm.is.null(comm = .pbd_env$SPMD.CT$comm)
+comm.rank(comm = .pbd_env$SPMD.CT$comm)
+comm.size(comm = .pbd_env$SPMD.CT$comm)
+comm.dup(comm, newcomm)
+comm.free(comm = .pbd_env$SPMD.CT$comm)
+init(set.seed = TRUE)
+finalize(mpi.finalize = .pbd_env$SPMD.CT$mpi.finalize)
+is.finalized()
+
+comm.abort(errorcode = 1, comm = .pbd_env$SPMD.CT$comm)
+comm.split(comm = .pbd_env$SPMD.CT$comm, color = 0L, key = 0L,
+           newcomm = .pbd_env$SPMD.CT$newcomm)
+comm.disconnect(comm = .pbd_env$SPMD.CT$comm)
+comm.connect(port.name, info = .pbd_env$SPMD.CT$info,
+             rank.root = .pbd_env$SPMD.CT$rank.root,
+             comm = .pbd_env$SPMD.CT$comm,
+             newcomm = .pbd_env$SPMD.CT$newcomm)
+comm.accept(port.name, info = .pbd_env$SPMD.CT$info,
+            rank.root = .pbd_env$SPMD.CT$rank.root,
+            comm = .pbd_env$SPMD.CT$comm,
+            newcomm = .pbd_env$SPMD.CT$newcomm)
+
+port.open(info = .pbd_env$SPMD.CT$info)
+port.close(port.name)
+serv.publish(port.name, serv.name = .pbd_env$SPMD.CT$serv.name,
+             info = .pbd_env$SPMD.CT$info)
+serv.unpublish(port.name, serv.name = .pbd_env$SPMD.CT$serv.name,
+               info = .pbd_env$SPMD.CT$info)
+serv.lookup(serv.name = .pbd_env$SPMD.CT$serv.name,
+            info = .pbd_env$SPMD.CT$info)
+
+intercomm.merge(intercomm = .pbd_env$SPMD.CT$intercomm,
+                high = 0L, comm = .pbd_env$SPMD.CT$comm)
+intercomm.create(local.comm = .pbd_env$SPMD.CT$comm,
+                 local.leader = .pbd_env$SPMD.CT$rank.source,
+                 peer.comm = .pbd_env$SPMD.CT$intercomm,
+                 remote.leader = .pbd_env$SPMD.CT$rank.dest,
+                 tag = .pbd_env$SPMD.CT$tag, 
+                 newintercomm = .pbd_env$SPMD.CT$newcomm)
+
+comm.c2f(comm = .pbd_env$SPMD.CT$comm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>comm</code></td>
+<td>
+<p>a communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>mpi.finalize</code></td>
+<td>
+<p>if MPI should be shutdown.</p>
+</td></tr>
+<tr valign="top"><td><code>set.seed</code></td>
+<td>
+<p>if a random seed preset.</p>
+</td></tr>
+<tr valign="top"><td><code>port.name</code></td>
+<td>
+<p>a port name with default maximum length
+1024 characters for OpenMPI.</p>
+</td></tr>
+<tr valign="top"><td><code>info</code></td>
+<td>
+<p>a info number.</p>
+</td></tr>
+<tr valign="top"><td><code>rank.root</code></td>
+<td>
+<p>a root rank.</p>
+</td></tr>
+<tr valign="top"><td><code>newcomm</code></td>
+<td>
+<p>a new communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>control of subset assignment.</p>
+</td></tr>
+<tr valign="top"><td><code>key</code></td>
+<td>
+<p>control of rank assigment.</p>
+</td></tr>
+<tr valign="top"><td><code>serv.name</code></td>
+<td>
+<p>a service name.</p>
+</td></tr>
+<tr valign="top"><td><code>errorcode</code></td>
+<td>
+<p>an error code to abort MPI.</p>
+</td></tr>
+<tr valign="top"><td><code>intercomm</code></td>
+<td>
+<p>a intercommunicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>high</code></td>
+<td>
+<p>used to order the groups within comm.</p>
+</td></tr>
+<tr valign="top"><td><code>local.comm</code></td>
+<td>
+<p>a local communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>local.leader</code></td>
+<td>
+<p>the leader number of local communicator.</p>
+</td></tr>
+<tr valign="top"><td><code>peer.comm</code></td>
+<td>
+<p>a peer communicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>remote.leader</code></td>
+<td>
+<p>the remote leader number of peer communicator.</p>
+</td></tr>
+<tr valign="top"><td><code>newintercomm</code></td>
+<td>
+<p>a new intercommunicator number.</p>
+</td></tr>
+<tr valign="top"><td><code>tag</code></td>
+<td>
+<p>a tag number.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Another functions are direct calls to MPI library.
+</p>
+<p><code>barrier()</code> blocks all processors until everyone call this.
+</p>
+<p><code>comm.is.null()</code> returns <code>-1</code> if the array of communicators is not
+allocated, i.e. <code>init()</code> is not called yet. It returns <code>1</code>
+if the communicator is not initialized, i.e. <code>NULL</code>. It
+returns <code>0</code> if the communicator is initialized.
+</p>
+<p><code>comm.rank()</code> returns the processor's rank for the given <code>comm</code>.
+</p>
+<p><code>comm.size()</code> returns the total processes for the given <code>comm</code>.
+</p>
+<p><code>comm.dup()</code> duplicate a <code>newcomm</code> from <code>comm</code>.
+</p>
+<p><code>comm.free()</code> free a <code>comm</code>.
+</p>
+<p><code>init()</code> initializes a MPI world, and set two global variables
+<code>.comm.size</code> and <code>.comm.rank</code> in <code>.GlobalEnv</code>. A random seed
+will be preset by default (<code>Sys.getpid() + Sys.time()</code>) to the package
+<span class="pkg">rlecuyer</span>.
+</p>
+<p><code>finalize()</code> frees memory and finishes a MPI world if
+<code>mpi.finalize = TRUE</code>.
+<code>is.finalized()</code> checks if MPI is already finalized.
+</p>
+<p><code>comm.abort()</code> aborts MPI.
+</p>
+<p><code>comm.split()</code> create a <code>newcomm</code> by color and key.
+</p>
+<p><code>comm.disconnect()</code> frees a <code>comm</code>.
+</p>
+<p><code>comm.connect()</code> connects a <code>newcomm</code>.
+</p>
+<p><code>comm.accept()</code> accepts a <code>newcomm</code>.
+</p>
+<p><code>port.open()</code> opens a port and returns the port name.
+</p>
+<p><code>port.close()</code> closes a port by name.
+</p>
+<p><code>serv.publish()</code> publishs a service via <code>port.name</code>.
+</p>
+<p><code>serv.unpublish()</code> unpublishs a service via <code>port.name</code>.
+</p>
+<p><code>serv.lookup()</code> lookup the <code>serv.name</code> and returns the port name.
+</p>
+<p><code>intercomm.merge()</code> merges the <code>intercomm</code> to intracommunicator.
+</p>
+<p><code>intercomm.create()</code> creates a new <code>intercomm</code> from two
+peer intracommunicators.
+</p>
+<p><code>comm.c2f()</code> returns an integer for Fortran MPI support.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Most function return an invisible state of MPI call.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, George Ostrouchov,
+Drew Schmidt, Pragneshkumar Patel, and Hao Yu.
+</p>
+
+
+<h3>References</h3>
+
+<p>Programming with Big Data in R Website:
+<a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### Save code in a file "demo.r" and run with 2 processors by
+### SHELL&gt; mpiexec -np 2 Rscript demo.r
+
+### Initial.
+suppressMessages(library(pbdMPI, quietly = TRUE))
+init()
+.comm.size &lt;- comm.size()
+.comm.rank &lt;- comm.rank()
+
+### Examples .
+comm.print(.comm.size)
+comm.print(.comm.rank, all.rank = TRUE)
+comm.print(comm.rank(), rank.print = 1)
+comm.print(comm.c2f())
+
+### Finish.
+finalize()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdMPI</em> version 0.3-1 <a href="00Index.html">Index</a>]</div>
+</body></html>
