@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: ssh and plink</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ssh_plink {pbdRPC}"><tr><td>ssh_plink {pbdRPC}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>ssh and plink</h2>
+
+<h3>Description</h3>
+
+<p>Commend line tools including <code>ssh</code> for Linux, Mac OSX, Solaris,
+or <code>plink</code> for Windows.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ssh(args = "snoweye@192.168.56.101 whoami", intern = .pbd_env$RPC.CT$intern,
+  wait = .pbd_env$RPC.CT$wait)
+
+plink(args = "snoweye@192.168.56.101 whoami",
+  use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
+  pause = .pbd_env$RPC.CT$pause, intern = .pbd_env$RPC.CT$intern,
+  wait = .pbd_env$RPC.CT$wait)
+
+check_exec(exec)
+
+run_args(exec = "ssh", args = "",
+  use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
+  pause = .pbd_env$RPC.CT$pause, intern = .pbd_env$RPC.CT$intern,
+  wait = .pbd_env$RPC.CT$wait)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>args</code></td>
+<td>
+<p>All in text/characters that are passed to the command line.</p>
+</td></tr>
+<tr valign="top"><td><code>intern, wait</code></td>
+<td>
+<p>arguments passed to <code>system()</code> or <code>shell()</code>
+whereever they are applicable.</p>
+</td></tr>
+<tr valign="top"><td><code>use.shell.exec</code></td>
+<td>
+<p>if <code>shell.exec()</code> is used to execute the <code>plink</code> command in
+windows. No returns can be captured by R when this is <code>TRUE</code> as
+the default, because the authentication may not be generally
+available in most windows system. No easy yet secure way to by passing
+the password from R to external calls in shell.</p>
+</td></tr>
+<tr valign="top"><td><code>pause</code></td>
+<td>
+<p>if pause when <code>shell.exec</code> is used in Windows.</p>
+</td></tr>
+<tr valign="top"><td><code>exec</code></td>
+<td>
+<p>either <code>ssh</code> (i.e. <code>/usr/bin/ssh</code>) or a &ldquo;full path&rdquo;
+to <code>plink</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions only execute option/command on remote servers via secure
+client commands.
+</p>
+<p>NO further input from <code>stdin</code> is expected.
+Outputs or errors may not be captured by R.
+</p>
+<p><code>ssh()</code> starts a ssh command.
+</p>
+<p><code>plink()</code> starts a plink command used by default for Windows.
+</p>
+<p><code>check_exec()</code> runs a quick check on the exec (either ssh or plink)
+for rpc.
+</p>
+<p><code>run_args()</code> runs a rpc via either <code>ssh</code> or <code>plink</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Mainly the message received at the command line will be returned.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(pbdRPC, quietly = TRUE)
+rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+
+### Check an R session.
+cmd &lt;- "Rscript -e 'sessionInfo()'"
+
+### For Linux, Mac OSX, Solaris.
+rpc(cmd = cmd, exec.type = "ssh")
+
+### For Windows.
+rpc(cmd = cmd, exec.type = "plink")
+
+### Manually
+args &lt;- "snoweye@192.168.56.101 Rscript -e 'sessionInfo()'"
+ssh(args)      # Note ssh uses "-p" for server port.
+plink(args)    # Note plink uses "-P" for server port.
+
+### Manually launch a remoter server at background.
+user.hostname &lt;- "snoweye@192.168.56.101"
+preload &lt;- "source ./work-my/00_devel_R"
+rr &lt;- "nohup Rscript -e 'remoter::server()' &gt; .rrlog 2&gt;&amp;1 &lt; /dev/null &amp;"
+args &lt;- paste(user.hostname, " \"", preload, "; ", rr, "\"", sep = "")
+plink(args)
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdRPC</em> version 0.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

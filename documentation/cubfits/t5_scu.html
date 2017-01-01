@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Function for Selection on Codon Usage (SCU)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Selection on Codon Usage {cubfits}"><tr><td>Selection on Codon Usage {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Function for Selection on Codon Usage (SCU)</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the average translational selection per transcript
+include mSCU and SCU (if gene expression is provided) for each gene.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  calc_scu_values(b, y.list, phi.Obs = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>b</code></td>
+<td>
+<p>an object of format <code><a href="xx_dataformat.html">b</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>y.list</code></td>
+<td>
+<p>an object of format <code><a href="xx_dataformat.html">y.list</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>phi.Obs</code></td>
+<td>
+<p>an object of format <code><a href="xx_dataformat.html">phi.Obs</a></code>, for
+SCU only.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes SCU and mSCU for each gene. Typically, this method
+is completely based on estimated parameters of mutation and selection
+such as outputs of MCMC or <code><a href="s1_fitMultinom.html">fitMultinom</a>()</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with two named elements <code>SCU</code> and <code>mSCU</code> are returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Wallace E.W.J., Airoldi E.M., and Drummond D.A.
+&ldquo;Estimating Selection on Synonymous Codon Usage from Noisy Experimental
+Data&rdquo;
+Mol Biol Evol (2013) 30(6):1438&ndash;1453.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="t2_scuo.html">calc_scuo_values</a>()</code>,
+<code><a href="t4_cai.html">calc_cai_values</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(cubfits, quietly = TRUE)
+
+b &lt;- b.Init$roc
+phi.Obs &lt;- ex.train$phi.Obs
+y &lt;- ex.train$y
+y.list &lt;- convert.y.to.list(y)
+mSCU &lt;- calc_scu_values(b, y.list, phi.Obs)$mSCU
+plot(mSCU, log10(phi.Obs), main = "Expression vs mSCU",
+     xlab = "mSCU", ylab = "Expression (log10)")
+
+### Compare with CAI with weights seqinr::cubtab$sc.
+library(seqinr, quietly = TRUE)
+w &lt;- caitab$sc
+names(w) &lt;- codon.low2up(rownames(caitab))
+CAI &lt;- calc_cai_values(y, y.list, w = w)$CAI
+
+plot(mSCU, CAI, main = "CAI vs mSCU",
+     xlab = "mSCU", ylab = "CAI")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

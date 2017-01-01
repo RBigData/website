@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mixed Normal Optimization</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Mixed Normal Optimization {cubfits}"><tr><td>Mixed Normal Optimization {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Mixed Normal Optimization</h2>
+
+<h3>Description</h3>
+
+<p>Constrained optimization for mixed normal in 1D and typically for 2
+components.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  mixnormerr.optim(X, K = 2, param = NULL)
+  dmixnormerr(x, param)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>a gene expression data matrix of dimension <code>N * R</code>
+which has <code>N</code> genes and <code>R</code> replicates.</p>
+</td></tr>
+<tr valign="top"><td><code>K</code></td>
+<td>
+<p>number of components to fit.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>vector of quantiles.</p>
+</td></tr>
+<tr valign="top"><td><code>param</code></td>
+<td>
+<p>parameters of <code>mixnormerr</code>, typically the element
+<code>param</code> of the <code>mixnormerr.optim()</code> returning object.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>mixnormerr.optim()</code>
+maximizes likelihood using <code>constrOptim()</code> based on
+the gene expression data <code>X</code> (usually in log scale)
+for <code>N</code> genes and <code>R</code> replicates (<code>NA</code> is allowed).
+The likelihood of each gene expression
+is a <code>K = 2</code> component mixed normal distribution
+(<i>
+        sum_k p_k N(mu_k, sigma_k^2 + sigma_e^2)</i>)
+with measurement errors of the replicates
+(<i>N(0, sigma_e^2)</i>).
+</p>
+<p>The <code>sigma_k^2</code> is as the error of random component and
+the <code>sigma_e^2</code> is as the error of fixed component. Both
+are within a mixture model of two normal distributions.
+</p>
+<p>The function <code>dmixnormerr()</code> computes the density of the mixed
+normal distribution.
+</p>
+<p><code>param</code> is a parameter list and contains five elements:
+<code>K</code> for number of components,
+<code>prop</code> for proportions,
+<code>mu</code> for centers of components,
+<code>sigma2</code> for variance of components, and
+<code>sigma2.e</code> for variance of measurement errors. 
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>mixnormerr.optim()</code> returns a list containing three main elements
+<code>param</code> is the final results (MLEs), <code>param.start</code> is the starting
+parameters, and <code>optim.ret</code> is the original returns of
+<code>constrOptim()</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This function is limited for small <code>K</code>. An equivalent EM algorithm
+should be done in a more stable way for large <code>K</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="vv_print.html">print.mixnormerr</a>()</code>,
+<code><a href="t1_simulation.html">simu.mixnormerr</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+### Get individual of phi.Obs.
+GM &lt;- apply(yassour[, -1], 1, function(x) exp(mean(log(x[x != 0]))))
+phi.Obs.all &lt;- yassour[, -1] / sum(GM) * 15000
+phi.Obs.all[phi.Obs.all == 0] &lt;- NA
+
+### Run optimization.
+X &lt;- log(as.matrix(phi.Obs.all))
+param.init &lt;- list(K = 2, prop = c(0.95, 0.05), mu = c(-0.59, 3.11),
+                   sigma2 = c(1.40, 0.59), sigma2.e = 0.03)
+ret &lt;- mixnormerr.optim(X, K = 2, param = param.init)
+print(ret)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

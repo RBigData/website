@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Fitted Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Plotmodel {cubfits}"><tr><td>Plotmodel {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot Fitted Models</h2>
+
+<h3>Description</h3>
+
+<p>Plot model results to visualize the effects of mutation and selection
+along with expression levels. 
+The model can be fitted by MCMC or multinomial logistic regression.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  prop.model.roc(b.Init, phi.Obs.lim = c(0.01, 10), phi.Obs.scale = 1,
+                 nclass = 40, x.log10 = TRUE)
+
+  plotmodel(ret.model, main = NULL,
+            xlab = "Production Rate (log10)", ylab = "Proportion",
+            xlim = NULL, lty = 1, x.log10 = TRUE, ...)
+
+  plotaddmodel(ret.model, lty, u.codon = NULL, color = NULL,
+               x.log10 = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>b.Init</code></td>
+<td>
+<p>a <code><a href="xx_dataformat.html">b</a></code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>phi.Obs.lim</code></td>
+<td>
+<p>range of <code>phi.Obs</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>phi.Obs.scale</code></td>
+<td>
+<p>optional scaling factor.</p>
+</td></tr>
+<tr valign="top"><td><code>nclass</code></td>
+<td>
+<p>number of binning classes across the range of <code>phi.Obs</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>x.log10</code></td>
+<td>
+<p><code>log10()</code> transformation of X-axis.</p>
+</td></tr>
+<tr valign="top"><td><code>ret.model</code></td>
+<td>
+<p>model results from <code><a href="b2_plotmodel.html">prop.model.roc</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>an option passed to <code>plot()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>xlab</code></td>
+<td>
+<p>an option passed to <code>plot()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+<p>an option passed to <code>plot()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+<p>range of X-axis.</p>
+</td></tr>
+<tr valign="top"><td><code>lty</code></td>
+<td>
+<p>line type.</p>
+</td></tr>
+<tr valign="top"><td><code>u.codon</code></td>
+<td>
+<p>unique synonymous codon names.</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>a color vector for unique codon, typically returns of
+the internal function <code>get.color()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>options passed to <code>plot()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>plotmodel()</code> plots the fitted curves obtained from
+<code><a href="b2_plotmodel.html">prop.model.roc</a>()</code>.
+</p>
+<p>The function <code>plotaddmodel()</code> can append model curves to a binning plot
+provided unique synonymous codons and colors are given. This function is
+nearly for an internal call within <code>plotmodel()</code>, but is exported and
+useful for workflow.
+</p>
+<p>Currently, only ROC model is supported.
+Colors are controlled by <code><a href="yy_control.html">.CF.PT</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A fitted curve plot is drawn.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="b1_plotbin.html">plotbin</a>()</code>, <code><a href="b1_plotbin.html">prop.bin.roc</a>()</code>, and
+<code><a href="b2_plotmodel.html">prop.model.roc</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+demo(plotbin, 'cubfits', ask = F, echo = F)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Function for Codon Adaptation Index (CAI)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Codon Adaptation Index {cubfits}"><tr><td>Codon Adaptation Index {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Function for Codon Adaptation Index (CAI)</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the Codon Adaptation Index (CAI) for each gene.
+Used as a substitute for expression in cases of without expression
+measurements.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  calc_cai_values(y, y.list, w = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>an object of format <code><a href="xx_dataformat.html">y</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>y.list</code></td>
+<td>
+<p>an object of format <code><a href="xx_dataformat.html">y.list</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>a specified relative frequency of synonymous codons.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes CAI for each gene. Typically, this method
+is completely based on entropy and information theory to estimate
+expression values of sequences according to their codon information.
+</p>
+<p>If the input <code>w</code> is <code>NULL</code>, then empirical values are computed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with two named elements <code>CAI</code> and <code>w</code> are returned
+where <code>CAI</code> are CAI of input sequences (<code>y</code> and <code>y.list</code>)
+and <code>w</code> are the relative frequencey used to computed those CAI's.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Sharp P.M. and Li W.-H.
+&ldquo;The codon Adaptation Index &ndash; a measure of directional synonymous codon
+usage bias, and its potential applications&rdquo;
+Nucleic Acids Res. 15 (3): 1281-1295, 1987.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="t2_scuo.html">calc_scuo_values</a>()</code>,
+<code><a href="t5_scu.html">calc_scu_values</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+rm(list = ls())
+library(cubfits, quietly = TRUE)
+
+y &lt;- ex.train$y
+y.list &lt;- convert.y.to.list(y)
+CAI &lt;- calc_cai_values(y, y.list)$CAI
+plot(CAI, log10(ex.train$phi.Obs), main = "Expression vs CAI",
+     xlab = "CAI", ylab = "Expression (log10)")
+
+### Verify with the seqinr example.
+library(seqinr, quietly = TRUE)
+inputdatfile &lt;- system.file("sequences/input.dat", package = "seqinr")
+input &lt;- read.fasta(file = inputdatfile, forceDNAtolower = FALSE)
+names(input)[65] &lt;- paste(names(input)[65], ".1", sep = "") # name duplicated.
+input &lt;- input[order(names(input))]
+
+### Convert to cubfits format.
+seq.string &lt;- convert.seq.data.to.string(input)
+new.y &lt;- gen.y(seq.string)
+new.y.list &lt;- convert.y.to.list(new.y)
+ret &lt;- calc_cai_values(new.y, new.y.list)
+
+### Rebuild w.
+w &lt;- rep(1, 64)
+names(w) &lt;- codon.low2up(rownames(caitab))
+for(i in 1:64){
+  id &lt;- which(names(ret$w) == names(w)[i])
+  if(length(id) == 1){
+    w[i] &lt;- ret$w[id]
+  }
+}
+CAI.res &lt;- sapply(input, seqinr::cai, w = w)
+
+### Plot.
+plot(CAI.res, ret$CAI,
+     main = "Comparison of seqinR and cubfits results",
+     xlab = "CAI from seqinR", ylab = "CAI from cubfits", las = 1)
+abline(c(0, 1))
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

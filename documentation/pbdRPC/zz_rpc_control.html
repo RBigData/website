@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sets of controls in pbdRPC.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for RPC Control Functions {pbdRPC}"><tr><td>RPC Control Functions {pbdRPC}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sets of controls in pbdRPC.</h2>
+
+<h3>Description</h3>
+
+<p>These sets of controls are used to provide default values in pbdRPC package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+RPC.CT(verbose = FALSE, intern = FALSE, wait = TRUE, check.exec = FALSE,
+  use.shell.exec = TRUE, pause = TRUE)
+
+RPC.LI(exec.type = "ssh", args = "", pport = "22", user = "snoweye",
+  hostname = "192.168.56.101", priv.key = "~/.ssh/id_rsa",
+  priv.key.ppk = "./id_rsa.ppk")
+
+RPC.RR(check = "ps ax|grep '[r]emoter::server'",
+  kill = "kill -9 $(ps ax|grep '[r]emoter::server'|awk '{print $1}')",
+  start = "nohup Rscript -e 'remoter::server()' &gt; .rrlog 2&gt;&amp;1 &lt; /dev/null &amp;",
+  preload = "source ~/work-my/00_set_devel_R; ")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>verbose, intern, wait, check.exec, use.shell.exec, pause</code></td>
+<td>
+<p>RPC control for <code>system</code>, <code>shell.exec</code>, and so on.
+<code>wait = FALSE</code> allows asynchronous commands which need more test.
+e.g. continuously port forwarding without sending commands to background.</p>
+</td></tr>
+<tr valign="top"><td><code>exec.type, args, pport, user, hostname, priv.key, priv.key.ppk</code></td>
+<td>
+<p>RPC login information used by <code><a href="rpc.html">rpc</a>()</code>, <code><a href="ssh_plink.html">ssh</a>()</code>, or
+<code><a href="ssh_plink.html">plink</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>check, kill, start, preload</code></td>
+<td>
+<p>RPC remoter commands used by <code><a href="rpc_rr_example.html">check_rr</a>()</code>,
+<code><a href="rpc_rr_example.html">kill_rr</a>()</code>, or <code><a href="rpc_rr_example.html">start_rr</a>()</code>.
+RPC pbdCS commands used by <code><a href="rpc_cs_example.html">check_cs</a>()</code>,
+<code><a href="rpc_cs_example.html">kill_cs</a>()</code>, or <code><a href="rpc_cs_example.html">start_cs</a>()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="a0_b_control.html">.pbd_env</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pbdRPC</em> version 0.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Data Frame to Other Formats</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Coverting Utility {cubfits}"><tr><td>Coverting Utility {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Data Frame to Other Formats</h2>
+
+<h3>Description</h3>
+
+<p>These utility functions convert data of format divided by amino acids into
+list of format divided by ORFs, or convert data to other formats.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  convert.reu13.df.to.list(reu13.df)
+  convert.y.to.list(y)
+  convert.n.to.list(n)
+
+  convert.y.to.scuo(y)
+  convert.seq.data.to.string(seq.data)
+
+  codon.low2up(x)
+  codon.up2low(x)
+
+  dna.low2up(x)
+  dna.up2low(x)
+
+  convert.b.to.bVec(b)
+  convert.bVec.to.b(bVec, aa.names, model = .CF.CT$model[1])
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>reu13.df</code></td>
+<td>
+<p>a list of <code><a href="xx_dataformat.html">reu13.df</a></code> data frames
+divided by amino acids.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>a list of <code><a href="xx_dataformat.html">y</a></code> data frames divided by amino acids.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>a list of <code><a href="xx_dataformat.html">n</a></code> vectors divided by amino acids.</p>
+</td></tr>
+<tr valign="top"><td><code>seq.data</code></td>
+<td>
+<p>a vector of <code><a href="xx_dataformat.html">seq.data</a></code> format.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a codon or dna string, such &quot;ACG&quot;, &quot;acg&quot;, or &quot;A&quot;, &quot;a&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>b</code></td>
+<td>
+<p>a <code><a href="xx_dataformat.html">b</a></code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>bVec</code></td>
+<td>
+<p>a <code><a href="xx_dataformat.html">bVec</a></code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>aa.names</code></td>
+<td>
+<p>a vector contains amino acid names for analysis.</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>model fitted.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>convert.reu13.df.to.list()</code>, <code>convert.y.to.list()</code>, and
+<code>convert.n.to.list()</code>:
+these utility functions take the inputs divided by amino acids
+and return the outputs divided by ORFs.
+</p>
+<p><code>convert.y.scuo()</code> converts <code><a href="xx_dataformat.html">y</a></code> into <code><a href="xx_dataformat.html">scuo</a></code>
+format.
+</p>
+<p><code>convert.seq.data.to.string()</code> converts <code><a href="xx_dataformat.html">seq.data</a></code> into
+<code><a href="xx_dataformat.html">seq.string</a></code> format.
+</p>
+<p><code>codon.low2up()</code> and <code>codon.up2low()</code> convert codon strings
+between lower or upper cases.
+</p>
+<p><code>convert.bVec.to.b()</code> and <code>convert.b.to.bVec()</code> convert
+objects <code><a href="xx_dataformat.html">b</a></code> and <code><a href="xx_dataformat.html">bVec</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>All functions return the corresponding formats.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="xx_dataformat.html">AllDataFormats</a>,
+<code><a href="u3_rearrange.html">rearrange.n</a>()</code>,
+<code><a href="u3_rearrange.html">rearrange.reu13.df</a>()</code>,
+<code><a href="u3_rearrange.html">rearrange.y</a>()</code>, and
+<code><a href="u0_io.html">read.seq</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+reu13.list &lt;- convert.reu13.df.to.list(ex.train$reu13.df)
+y.list &lt;- convert.y.to.list(ex.train$y)
+n.list &lt;- convert.n.to.list(ex.train$n)
+
+scuo &lt;- convert.y.to.scuo(ex.train$y)
+
+seq.data &lt;- read.seq(get.expath("seq_200.fasta"))
+seq.string &lt;- convert.seq.data.to.string(seq.data)
+
+codon.low2up("acg")
+codon.up2low("ACG")
+
+dna.low2up(c("a", "c", "g"))
+dna.up2low(c("A", "C", "G"))
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

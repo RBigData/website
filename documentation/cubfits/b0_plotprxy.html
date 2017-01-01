@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Predictive X-Y Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Plotprxy {cubfits}"><tr><td>Plotprxy {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Predictive X-Y Plot</h2>
+
+<h3>Description</h3>
+
+<p>This utility function provides a basic plot of production rates.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  plotprxy(x, y, x.ci = NULL, y.ci = NULL,
+           log10.x = TRUE, log10.y = TRUE,
+           add.lm = TRUE, add.one.to.one = TRUE, weights = NULL,
+           add.legend = TRUE,
+           xlim = NULL, ylim = NULL,
+           xlab = "Predicted Production Rate (log10)",
+           ylab = "Observed Production Rate (log10)",
+           main = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>expression values.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>expression values, of the same length of <code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>x.ci</code></td>
+<td>
+<p>confidence interval of <code>x</code>, of dimension
+<code>length{x} * 2</code>, for outliers labeling.</p>
+</td></tr>
+<tr valign="top"><td><code>y.ci</code></td>
+<td>
+<p>confidence interval of <code>y</code>, of dimension
+<code>length{y} * 2</code>, for outliers labeling.</p>
+</td></tr>
+<tr valign="top"><td><code>log10.x</code></td>
+<td>
+<p><code>log10()</code> and mean transformation of x axis.</p>
+</td></tr>
+<tr valign="top"><td><code>log10.y</code></td>
+<td>
+<p><code>log10()</code> and mean transformation of y axis.</p>
+</td></tr>
+<tr valign="top"><td><code>add.lm</code></td>
+<td>
+<p>if add <code>lm()</code> fit.</p>
+</td></tr>
+<tr valign="top"><td><code>add.one.to.one</code></td>
+<td>
+<p>if add one-to-one line.</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>weights to <code>lm()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>add.legend</code></td>
+<td>
+<p>if add default legend.</p>
+</td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+<p>limits of x-axis.</p>
+</td></tr>
+<tr valign="top"><td><code>ylim</code></td>
+<td>
+<p>limits of y-axis.</p>
+</td></tr>
+<tr valign="top"><td><code>xlab</code></td>
+<td>
+<p>an option passed to <code>plot()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+<p>an option passed to <code>plot()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>an option passed to <code>plot()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>As the usual X-Y plot where <code>x</code> and <code>y</code> are expression values.
+</p>
+<p>If <code>add.lm = TRUE</code> and <code>weights</code> are given, then both ordinary
+and weighted least squares results will be plotted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A scatter plot with a fitted <code>lm()</code> line and R squared value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="b1_plotbin.html">plotbin</a>()</code> and <code><a href="b2_plotmodel.html">plotmodel</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+y.scuo &lt;- convert.y.to.scuo(ex.train$y)
+SCUO &lt;- calc_scuo_values(y.scuo)$SCUO
+plotprxy(ex.train$phi.Obs, SCUO)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>
