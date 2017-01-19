@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Set and Get Options for Remote Procedure Call</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rpc_options {pbdRPC}"><tr><td>rpc_options {pbdRPC}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set and Get Options for Remote Procedure Call</h2>
+
+<h3>Description</h3>
+
+<p>Set and get default options of login information for <code>rpc()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rpcopt_set(user = NULL, hostname = NULL, pport = NULL, exec.type = NULL,
+  args = NULL, priv.key = NULL, priv.key.ppk = NULL)
+
+rpcopt_get()
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>user</code></td>
+<td>
+<p>user id for logging to the server.</p>
+</td></tr>
+<tr valign="top"><td><code>hostname</code></td>
+<td>
+<p>the server ip or host name.</p>
+</td></tr>
+<tr valign="top"><td><code>pport</code></td>
+<td>
+<p>ssh port opened on the server.</p>
+</td></tr>
+<tr valign="top"><td><code>exec.type</code></td>
+<td>
+<p>either &quot;ssh&quot; or &quot;plink&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>args</code></td>
+<td>
+<p>arguments to the <code>ssh</code> or <code>plink.exe</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>priv.key</code></td>
+<td>
+<p>file name/path to the private key in OpenSSH format.</p>
+</td></tr>
+<tr valign="top"><td><code>priv.key.ppk</code></td>
+<td>
+<p>file name/path to the private key in PuTTY format.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>rpcopt_set()</code> is to alter default options of login information. 
+The user defined options are set to <code>.pbd_env$RPC.LI</code>.
+<code>rpcopt_get()</code> is to get default options of login information
+from <code>.pbd_env$RPC.LI</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list is returned.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="rpc.html">rpc</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(pbdRPC, quietly = TRUE)
+rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+
+rpcopt_get()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdRPC</em> version 0.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

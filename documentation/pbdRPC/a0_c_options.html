@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Initial controls in pbdRPC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Initial Control Functions {pbdRPC}"><tr><td>Initial Control Functions {pbdRPC}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Initial controls in pbdRPC</h2>
+
+<h3>Description</h3>
+
+<p>Initial control functions
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+.rpcopt_init(envir = .GlobalEnv)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>an environment where RPC controls locate</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>.rpcopt_init()</code> initials default RPC controls.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>.rpcopt_init()</code> initial the RPC control
+at <code>envir</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>ZeroMQ/4.1.0 API Reference:
+<a href="http://api.zeromq.org/4-1:_start">http://api.zeromq.org/4-1:_start</a>
+</p>
+<p>Programming with Big Data in R Website: <a href="http://r-pbd.org/">http://r-pbd.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>.pbd_env</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(pbdRPC, quietly = TRUE)
+rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+
+ls(.pbd_env)
+rm(.pbd_env)
+.rpcopt_init()
+ls(.pbd_env)
+
+.pbd_env$RPC.LI
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdRPC</em> version 0.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

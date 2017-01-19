@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Datasets for Demonstrations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Datasets {cubfits}"><tr><td>Datasets {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Datasets for Demonstrations</h2>
+
+<h3>Description</h3>
+
+<p>Examples of toy data to test and demonstrate <span class="pkg">cubfits</span>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  b.Init
+  ex.test
+  ex.train
+</pre>
+
+
+<h3>Format</h3>
+
+<p>All are in list formats.
+</p>
+
+
+<h3>Details</h3>
+
+<p><code>b.Init</code> contains two sets (<code>roc</code> and <code>rocnse</code>) of
+initial coefficients including mutation and selection parameters for
+3 amino acids 'A', 'C', and 'D' in <code>matrix</code> format.
+Both sets are in <code><a href="xx_dataformat.html">b</a></code> format.
+</p>
+<p><code>ex.train</code> contains a training set of 100 sequences including
+3 <code><a href="xx_dataformat.html">reu13.df</a></code> (codon counts in <code>reu13</code> data frame format
+divided by amino acids),
+3 <code><a href="xx_dataformat.html">y</a></code> (codon counts in simplified data frame format
+divided by amino acids),
+3 <code><a href="xx_dataformat.html">n</a></code> (total amino acid counts in vector format
+divided by amino acids), and
+<code><a href="xx_dataformat.html">phi.Obs</a></code> (observed phi values in vector format).
+</p>
+<p><code>ex.test</code> contains a testing set of the other 100 sequences in the
+same format of <code>ex.train</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="s0_init.function.html">init.function</a>()</code>, <code><a href="a1_cubfits.html">cubfits</a>()</code>,
+<code><a href="a3_cubpred.html">cubpred</a>()</code>, and <code><a href="a2_cubappr.html">cubappr</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+str(b.Init)
+str(ex.test)
+str(ex.train)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

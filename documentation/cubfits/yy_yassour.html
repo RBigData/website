@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Yassour 2009 Yeast Experiment Dataset</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Yassour2009 {cubfits}"><tr><td>Yassour2009 {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Yassour 2009 Yeast Experiment Dataset</h2>
+
+<h3>Description</h3>
+
+<p>Experiments and data are obtained from Yassour et. al. (2009).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  yassour
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A <code>data.frame</code> contains 6303 rows and 5 columns:
+<code>ORF</code> is for gene names in character, and
+<code>YPD0.1</code>, <code>YPD0.2</code>, <code>YPD15.1</code>, and <code>YPD15.2</code> are
+gene expressions in positive double corresponding to 4 controlled
+Yeast experiments.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The original data are available as the URL of the section of Source next.
+As the section of Examples next, data are selected from <code>SD3.xls</code> and
+reordered by <code>ORF</code>.
+</p>
+<p>For further analysis, the Examples section also provides how to
+convert them to <code>phi.Obs</code> values either in geometric means or individually.
+</p>
+
+
+<h3>Source</h3>
+
+<p><a href="http://www.pnas.org/content/early/2009/02/10/0812841106">http://www.pnas.org/content/early/2009/02/10/0812841106</a>
+</p>
+<p><a href="http://www.pnas.org/content/vol0/issue2009/images/data/0812841106/DCSupplemental/SD3.xls">http://www.pnas.org/content/vol0/issue2009/images/data/0812841106/DCSupplemental/SD3.xls</a>
+</p>
+<p>Yassour M, Kaplan T, Fraser HB, Levin JZ, Pfiffner J, Adiconis X,
+Schroth G, Luo S, Khrebtukova I, Gnirke A, Nusbaum C, Thompson DA,
+Friedman N, Regev A. (2009) &ldquo;Ab initio construction of a eukaryotic
+transcriptome by massively parallel mRNA sequencing.&rdquo;
+Proc Natl Acad Sci USA 106(9):3264-9. [PMID:19208812]
+</p>
+
+
+<h3>References</h3>
+
+<p>Wallace E.W.J., Airoldi E.M., and Drummond D.A.
+&ldquo;Estimating Selection on Synonymous Codon Usage from Noisy Experimental
+Data&rdquo;
+Mol Biol Evol (2013) 30(6):1438&ndash;1453.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+### SD3.xls is available from the URL provided in the References.
+da &lt;- read.table("SD3.xls", header = TRUE, sep = "\t", quote = "",
+                 stringsAsFactors = FALSE)
+
+### Select ORF, YPD0.1, YPD0.2, YPD15.1, YPD15.2.
+da &lt;- da[, c(1, 8, 9, 10, 11)]
+colnames(da) &lt;- c("ORF", "YPD0.1", "YPD0.2", "YPD15.1", "YPD15.2")
+
+### Drop inappropriate values (NaN, NA, Inf, -Inf, and 0).
+tmp &lt;- da[, 2:5]
+id.tmp &lt;- rowSums(is.finite(as.matrix(tmp)) &amp; tmp != 0) &gt;= 3
+tmp &lt;- da[id.tmp, 1:5]
+yassour &lt;- tmp[order(tmp$ORF),]    # cubfits::yassour
+
+### Get geometric mean of phi.Obs and scaling similar to Wallace (2013).
+GM &lt;- apply(yassour[, -1], 1, function(x) exp(mean(log(x[x != 0]))))
+phi.Obs &lt;- GM / sum(GM) * 15000
+
+### Get individual of phi.Obs.
+GM &lt;- apply(yassour[, -1], 1, function(x) exp(mean(log(x[x != 0]))))
+phi.Obs.all &lt;- yassour[, -1] / sum(GM) * 15000
+phi.Obs.all[phi.Obs.all == 0] &lt;- NA
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

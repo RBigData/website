@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cedric Plot Utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Cedric Plot Utilities {cubfits}"><tr><td>Cedric Plot Utilities {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cedric Plot Utilities</h2>
+
+<h3>Description</h3>
+
+<p>This utility function provides basic plots by Cedric.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  plotPTraces(pMat, ...)
+  
+  plotExpectedPhiTrace(phiMat, ...)
+  
+  plotCUB(reu13.df.obs, bMat = NULL, bVec = NULL, phi.bin,
+          n.use.samples = 2000, main = "CUB", model.label = c("True Model"),
+          model.lty = 1, weightedCenters = TRUE)
+
+  plotTraces(bMat, names.aa, param = c("logmu", "deltaeta", "deltat"),
+             main = "AA parameter trace")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>reu13.df.obs</code></td>
+<td>
+<p>under development</p>
+</td></tr>
+<tr valign="top"><td><code>bVec</code></td>
+<td>
+<p>a parameter vector</p>
+</td></tr>
+<tr valign="top"><td><code>phi.bin</code></td>
+<td>
+<p>phi values to bin for comparison</p>
+</td></tr>
+<tr valign="top"><td><code>n.use.samples</code></td>
+<td>
+<p>under development</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Main name for plotTraces</p>
+</td></tr>
+<tr valign="top"><td><code>model.label</code></td>
+<td>
+<p>Name of model</p>
+</td></tr>
+<tr valign="top"><td><code>model.lty</code></td>
+<td>
+<p>line type for model</p>
+</td></tr>
+<tr valign="top"><td><code>weightedCenters</code></td>
+<td>
+<p>if centers are weighted.</p>
+</td></tr>
+<tr valign="top"><td><code>names.aa</code></td>
+<td>
+<p>List of amino acids used for estimation</p>
+</td></tr>
+<tr valign="top"><td><code>param</code></td>
+<td>
+<p>select to plot parameter trace for either log(mu) values or
+delta t</p>
+</td></tr>
+<tr valign="top"><td><code>phiMat</code></td>
+<td>
+<p>phi matrix from the output of &quot;cubmultichain&quot;,
+&quot;cubsinglechain&quot;, &quot;cubfits&quot;, &quot;cubappr&quot;, or &quot;cubpred&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>bMat</code></td>
+<td>
+<p>b matrix from the output of &quot;cubmultichain&quot;, &quot;cubsinglechain&quot;,
+&quot;cubfits&quot;, &quot;cubappr&quot;, or &quot;cubpred&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>pMat</code></td>
+<td>
+<p>p matrix from the output of &quot;cubmultichain&quot;, &quot;cubsinglechain&quot;,
+&quot;cubfits&quot;, &quot;cubappr&quot;, or &quot;cubpred&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other ploting options</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>under development
+</p>
+
+
+<h3>Value</h3>
+
+<p>under development
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Cedric Landerer <a href="mailto:cedric.landerer@gmail.com">cedric.landerer@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/clandere/cubfits/">https://github.com/clandere/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>plot
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

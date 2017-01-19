@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Function for Synonymous Codon Usage Order (SCUO) Index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SCUO Index {cubfits}"><tr><td>SCUO Index {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Function for Synonymous Codon Usage Order (SCUO) Index</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the Synonymous Codon Usage Order (SCUO) index for each gene.
+Used as a substitute for expression in cases of without expression
+measurements.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  calc_scuo_values(codon.counts)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>codon.counts</code></td>
+<td>
+<p>an object of format <code><a href="xx_dataformat.html">scuo</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function computes SCUO index for each gene. Typically, this method
+is completely based on entropy and information theory to estimate
+expression values of sequences according to their codon information.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>SCUO</code> indices are returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Drew Schmidt.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://www.tandfonline.com/doi/abs/10.1080/03081070500502967">http://www.tandfonline.com/doi/abs/10.1080/03081070500502967</a>
+</p>
+<p>Wan X.-F., Zhou J., Xu D.
+&ldquo;CodonO: a new informatics method for measuring synonymous codon usage
+bias within and across genomes&rdquo;
+International Journal of General Systems Vol. 35, Iss. 1, 2006.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="t3_scuo.random.html">scuo.random</a>()</code>, <code><a href="t4_cai.html">calc_cai_values</a>()</code>,
+<code><a href="t5_scu.html">calc_scu_values</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+y.scuo &lt;- convert.y.to.scuo(ex.train$y)
+SCUO &lt;- calc_scuo_values(y.scuo)$SCUO
+plotprxy(ex.train$phi.Obs, SCUO, ylab = "SCUO (log10)")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

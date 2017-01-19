@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cedric Convergence Utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Cedric Convergence Utilities {cubfits}"><tr><td>Cedric Convergence Utilities {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cedric Convergence Utilities</h2>
+
+<h3>Description</h3>
+
+<p>This utility function provides convergence related functions by Cedric.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  cubmultichain(cubmethod, reset.qr, seeds=NULL,
+                teston=c("phi", "sphi"), swap=0, swapAt=0.05, monitor=NULL, 
+                min=0, max=160000, nchains=2, conv.thin=10,
+                eps=0.1, ncores=2, ...)
+                          
+  cubsinglechain(cubmethod, frac1=0.1, frac2=0.5, reset.qr,
+                 seed=NULL, teston=c("phi", "sphi"), monitor=NULL, 
+                 min=0, max=160000, conv.thin=10, eps=1, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>cubmethod</code></td>
+<td>
+<p>String to choose method. Options are &quot;cubfits&quot;, &quot;cubappr&quot;, &quot;cubpred&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>reset.qr</code></td>
+<td>
+<p>recalculate QR decomposition matrix of covariance matrix until reset.qr samples are reached</p>
+</td></tr>
+<tr valign="top"><td><code>swap</code></td>
+<td>
+<p>proportion of b matrix parameters to be swaped between convergence checks</p>
+</td></tr>
+<tr valign="top"><td><code>swapAt</code></td>
+<td>
+<p>difference (L1-norm) between two consequtive convergence test leading to a swap in the b matrix</p>
+</td></tr>
+<tr valign="top"><td><code>seeds</code></td>
+<td>
+<p>Vector of seed for random number generation</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+<p>Seed for random number generation</p>
+</td></tr>
+<tr valign="top"><td><code>teston</code></td>
+<td>
+<p>Select data to test convergence on</p>
+</td></tr>
+<tr valign="top"><td><code>monitor</code></td>
+<td>
+<p>A function to monitor the progress of the MCMC. The fucntions expects the result object and for cubmultichain an index i. 
+(cubmultichain call: monitor(x,i), cubsinglechain call: monitor(x))</p>
+</td></tr>
+<tr valign="top"><td><code>min</code></td>
+<td>
+<p>Minimum samples to be obtained. eps is ignored until number of samples reaches min</p>
+</td></tr>
+<tr valign="top"><td><code>max</code></td>
+<td>
+<p>Maximum samples to be obtained. eps is ignored after max samples is obtained</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+<p>Convergence criterium</p>
+</td></tr>
+<tr valign="top"><td><code>conv.thin</code></td>
+<td>
+<p>thinning of samples before performing convergence test</p>
+</td></tr>
+<tr valign="top"><td><code>nchains</code></td>
+<td>
+<p>number of chains to run in parallel</p>
+</td></tr>
+<tr valign="top"><td><code>ncores</code></td>
+<td>
+<p>number of cores to use for parallel execution of chains</p>
+</td></tr>
+<tr valign="top"><td><code>frac1</code></td>
+<td>
+<p>fraction of samples at the beginning of set for Geweke test</p>
+</td></tr>
+<tr valign="top"><td><code>frac2</code></td>
+<td>
+<p>fraction of samples at the end of set for Geweke test</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>named arguments for functions &quot;cubfits&quot;, &quot;cubappr&quot; or &quot;cubpred&quot;</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>under development
+</p>
+
+
+<h3>Value</h3>
+
+<p>under development
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Cedric Landerer <a href="mailto:cedric.landerer@gmail.com">cedric.landerer@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/clandere/cubfits/">https://github.com/clandere/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>cubfits, cubappr, cubpred
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

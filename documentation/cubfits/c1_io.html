@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cedric IO Utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Cedric IO Utilities {cubfits}"><tr><td>Cedric IO Utilities {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cedric IO Utilities</h2>
+
+<h3>Description</h3>
+
+<p>This utility function provides basic IO by Cedric.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  readGenome(fn.genome, ex.sh.aa = 0, rm.first.aa = 0)
+  
+  normalizeDataSet(data)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fn.genome</code></td>
+<td>
+<p>Fasta file with sequences</p>
+</td></tr>
+<tr valign="top"><td><code>ex.sh.aa</code></td>
+<td>
+<p>Ignore sequences with a length less than ex.sh.aa. (After removal of the first rm.first.aa amino acids)</p>
+</td></tr>
+<tr valign="top"><td><code>rm.first.aa</code></td>
+<td>
+<p>Remove the first rm.first.aa amino acids (after start codon)</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>Vector to be normalized. Means will be set to 1</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>under development
+</p>
+
+
+<h3>Value</h3>
+
+<p>under development
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Cedric Landerer <a href="mailto:cedric.landerer@gmail.com">cedric.landerer@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/clandere/cubfits/">https://github.com/clandere/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>under development
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Not run: 
+    library(cubfits)
+    seq.string &lt;- readGenome("my_genome.fasta", 150, 10)
+  
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

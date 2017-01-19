@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Codon Bias Usage Fits</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cubfits-package {cubfits}"><tr><td>cubfits-package {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Codon Bias Usage Fits</h2>
+
+<h3>Description</h3>
+
+<p>Estimating mutation and selection coefficients on synonymous
+codon bias usage based on models of ribosome overhead cost (ROC).
+Multinomial logistic regression and Markov Chain Monte Carlo are used to
+estimate and predict protein production rates with/without the presence of
+expressions and measurement errors.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  Package: </td><td style="text-align: left;"> cubfits</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  Type: </td><td style="text-align: left;"> Package</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  License: </td><td style="text-align: left;"> Mozilla Public License 2.0</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  LazyLoad: </td><td style="text-align: left;"> yes</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>The install command is simply as <br />
+<br />
+<code>&gt; R CMD INSTALL cubfits_*.tar.gz </code> <br />
+<br />
+from a command mode or <br />
+<br />
+<code>R&gt; install.packages("cubfits") </code> <br />
+<br />
+inside an R session.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>, Russell Zaretzki,
+William Howell, Drew Schmidt, and Michael Gilchrist.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="s0_init.function.html">init.function</a>()</code>, <code><a href="a1_cubfits.html">cubfits</a>()</code>,
+<code><a href="a3_cubpred.html">cubpred</a>()</code>, and <code><a href="a2_cubappr.html">cubappr</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+demo(roc.train, 'cubfits', ask = F, echo = F)
+demo(roc.pred, 'cubfits', ask = F, echo = F)
+demo(roc.appr, 'cubfits', ask = F, echo = F)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

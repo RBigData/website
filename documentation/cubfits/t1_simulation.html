@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate ORFs and Expression Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Simulation Tool {cubfits}"><tr><td>Simulation Tool {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate ORFs and Expression Data</h2>
+
+<h3>Description</h3>
+
+<p>These utility functions generate data for simulation studies
+including fake ORFs and expression values.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  simu.orf(n, b.Init, phi.Obs = NULL, AA.prob = NULL, orf.length = NULL,
+           orf.names = NULL, model = .CF.CT$model)
+  simu.phi.Obs(Phi, sigmaW.lim = 1, bias.Phi = 0)
+  simu.mixnormerr(n, param)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of ORFs or sequences.</p>
+</td></tr>
+<tr valign="top"><td><code>b.Init</code></td>
+<td>
+<p>parameters of mutation and selection of format
+<code><a href="xx_dataformat.html">b</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>phi.Obs</code></td>
+<td>
+<p>an object of format <code><a href="xx_dataformat.html">phi.Obs</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>AA.prob</code></td>
+<td>
+<p>proportion of amino acids.</p>
+</td></tr>
+<tr valign="top"><td><code>orf.length</code></td>
+<td>
+<p>lengths of ORFs.</p>
+</td></tr>
+<tr valign="top"><td><code>orf.names</code></td>
+<td>
+<p>names of ORFs.</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>model to be simulated.</p>
+</td></tr>
+<tr valign="top"><td><code>Phi</code></td>
+<td>
+<p>expression values (potentially true expression).</p>
+</td></tr>
+<tr valign="top"><td><code>sigmaW.lim</code></td>
+<td>
+<p>std of measurement errors (between Phi and phi.Obs).</p>
+</td></tr>
+<tr valign="top"><td><code>bias.Phi</code></td>
+<td>
+<p>bias (in log scale) for observed phi.</p>
+</td></tr>
+<tr valign="top"><td><code>param</code></td>
+<td>
+<p>as in <code><a href="u5_mixnorm.html">dmixnormerr</a>()</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>simu.orf()</code> generates ORFs or sequences based on the <code>b.Init</code>
+and <code>phi.Obs</code>.
+</p>
+<p>If <code>phi.Obs</code> is omitted, then standard log normal random variables
+are instead).
+</p>
+<p>If <code>AA.prob</code> is omitted, then uniform proportion is assigned.
+</p>
+<p>If <code>orf.length</code> is omitted, then 10 to 20 codons are randomly
+assigned.
+</p>
+<p>If <code>orf.names</code> is omitted, then &quot;ORF1&quot; to &quot;ORFn&quot; are assigned.
+</p>
+<p><code>simu.phi.Obs()</code> generates <code><a href="xx_dataformat.html">phi.Obs</a></code> by adding normal random
+errors to <code>Phi</code>, and errors have mean 0 and standard deviation
+<code>sigmaW.lim</code>.
+</p>
+<p><code>simu.mixnormerr()</code> generates <code>Phi</code> according to the <code>param</code>,
+and adds normal random errors to <code>Phi</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>simu.orf()</code> returns a list of format <code><a href="xx_dataformat.html">seq.data</a></code>.
+</p>
+<p><code>simu.phi.Obs()</code> returns a vector of format <code><a href="xx_dataformat.html">phi.Obs</a></code>.
+</p>
+<p><code>simu.mixnormerr()</code> returns a list contains three vectors of length
+<code>n</code>: one for expected gene expression <code>Phi</code>, one for observed
+gene expression <code>phi.Obs</code>, and one for the component id <code>id.K</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="u0_io.html">read.seq</a>()</code>, <code><a href="u0_io.html">read.phi.df</a>()</code>,
+<code><a href="u0_io.html">write.seq</a>()</code>, <code><a href="u0_io.html">write.phi.df</a>()</code>, and
+<code><a href="u5_mixnorm.html">mixnormerr.optim</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+set.seed(1234)
+
+# Generate sequences.
+da.roc &lt;- simu.orf(length(ex.train$phi.Obs), b.Init$roc,
+                   phi.Obs = ex.train$phi.Obs, model = "roc")
+names(da.roc) &lt;- names(ex.train$phi.Obs)
+write.fasta(da.roc, names(da.roc), "toy_roc.fasta")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

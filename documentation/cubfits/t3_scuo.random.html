@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate Randomized SCUO Index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Randomize SCUO Index {cubfits}"><tr><td>Randomize SCUO Index {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate Randomized SCUO Index</h2>
+
+<h3>Description</h3>
+
+<p>Generate randomized SCUO indices in log normal distribution, but
+provided original unchanged SCUO order.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  scuo.random(SCUO, phi.Obs = NULL, meanlog = .CF.PARAM$phi.meanlog,
+              sdlog = .CF.PARAM$phi.sdlog)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>SCUO</code></td>
+<td>
+<p>SCUO index returned from <code><a href="t2_scuo.html">calc_scuo_values</a>()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>phi.Obs</code></td>
+<td>
+<p>optional object of format <code><a href="xx_dataformat.html">phi.Obs</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>meanlog</code></td>
+<td>
+<p>mean of log normal distribution.</p>
+</td></tr>
+<tr valign="top"><td><code>sdlog</code></td>
+<td>
+<p>std of log normal distribution.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function takes <code>SCUO</code> indices (outputs of
+<code><a href="t2_scuo.html">calc_scuo_values</a>()</code>)
+computes the rank of them, generates log normal random variables, and
+replaces <code>SCUO</code> indices by those variables in the same rank orders.
+Typically, these random variables are used to replace expression values
+when either no expression is observed or for the purpose of model validation.
+</p>
+<p>If <code>phi.Obs</code> is provided, the mean and std of <code>log(phi.Obs)</code> are used
+for log normal random variables. Otherwise, <code>menalog</code> and <code>sdlog</code>
+are used.
+</p>
+<p>The default <code>meanlog</code> and <code>sdlog</code> was estimated from
+<code>yassour</code> dataset.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of log normal random variables is returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="t2_scuo.html">calc_scuo_values</a>()</code>, <code>yassour</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+### example dataset.
+y.scuo &lt;- convert.y.to.scuo(ex.train$y)
+SCUO &lt;- calc_scuo_values(y.scuo)$SCUO
+plotprxy(ex.train$phi.Obs, SCUO)
+
+### yassour dataset.
+GM &lt;- apply(yassour[, -1], 1, function(x) exp(mean(log(x[x != 0]))))
+phi.Obs &lt;- GM / sum(GM) * 15000
+mean(log(phi.Obs))
+sd(log(phi.Obs))
+ret &lt;- scuo.random(SCUO, meanlog = -0.441473, sdlog = 1.393285)
+plotprxy(ret, SCUO)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

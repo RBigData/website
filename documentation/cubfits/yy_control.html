@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Default Controlling Options</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Controls {cubfits}"><tr><td>Controls {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Default Controlling Options</h2>
+
+<h3>Description</h3>
+
+<p>Default controls of <span class="pkg">cubfits</span> include for models, optimizations, MCMC,
+plotting, global variables, etc.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  .cubfitsEnv
+  .CF.CT
+  .CF.CONF
+  .CF.GV
+  .CF.DP
+  .CF.OP
+  .CF.AC
+  .CF.PT
+  .CF.PARAM
+  .CO.CT
+</pre>
+
+
+<h3>Format</h3>
+
+<p>All are in lists and contain several controlling options.
+</p>
+
+
+<h3>Details</h3>
+
+<p>See <code><a href="s0_init.function.html">init.function</a>()</code> for use cases of these objects.
+</p>
+
+<ul>
+<li>
+<p><code>.cubfitEnv</code> is a default environment to dynamically save functions
+and objects.
+</p>
+</li>
+<li>
+<p><code>.CF.CT</code> is main controls of models. It currently includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>model</code>     </td><td style="text-align: left;"> main models </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>type.p</code>    </td><td style="text-align: left;"> proposal for hyper-parameters </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>type.Phi</code>  </td><td style="text-align: left;"> proposal for Phi </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>model.Phi</code> </td><td style="text-align: left;"> prior of Phi </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>init.Phi</code>  </td><td style="text-align: left;"> initial methods for Phi </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>init.fit</code>  </td><td style="text-align: left;"> how is coefficient proposed </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>parallel</code>  </td><td style="text-align: left;"> parallel functions </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>adaptive</code>  </td><td style="text-align: left;"> method for adaptive MCMC
+    </td>
+</tr>
+
+</table>
+
+</li>
+<li>
+<p><code>.CF.CONF</code> controls the initial and draw scaling. 
+It currently includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>scale.phi.Obs</code>           </td><td style="text-align: left;"> if phi were scaled to mean 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>init.b.Scale</code>            </td><td style="text-align: left;"> initial b scale </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>init.phi.Scale</code>          </td><td style="text-align: left;"> initial phi scale </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>p.nclass</code>                </td><td style="text-align: left;"> number of classes if mixture phi </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>b.DrawScale</code>             </td><td style="text-align: left;"> drawing scale for b if random walk </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>p.DrawScale</code>             </td><td style="text-align: left;"> drawing scale for p if random walk </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>phi.DrawScale</code>           </td><td style="text-align: left;"> random walk scale for phi </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>phi.pred.DrawScale</code>      </td><td style="text-align: left;"> random walk scale for phi.pred </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>sigma.Phi.DrawScale</code>     </td><td style="text-align: left;"> random walk scale for sigma.Phi </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>bias.Phi.DrawScale</code>      </td><td style="text-align: left;"> random walk scale for bias.Phi </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>estimate.bias.Phi</code>       </td><td style="text-align: left;"> if estimate bias of phi during MCMC </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>compute.logL</code>            </td><td style="text-align: left;"> if compute logL in each iteration
+    </td>
+</tr>
+
+</table>
+
+</li>
+<li>
+<p><code>.CF.GV</code> contains global variables for amino acids and codons.
+It currently includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>amino.acid</code>             </td><td style="text-align: left;"> amino acids </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>amino.acid.3</code>           </td><td style="text-align: left;"> amino acids </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>synonymous.codon</code>       </td><td style="text-align: left;"> synonymous codons of amino acids </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>amino.acid.split</code>       </td><td style="text-align: left;"> amino acid 'S' is split </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>amino.acid.split.3</code>     </td><td style="text-align: left;"> amino acid 'S' is split </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>synonymous.codon.split</code> </td><td style="text-align: left;"> synonymous codons of split amino acid
+    </td>
+</tr>
+
+</table>
+
+</li>
+<li>
+<p><code>.CF.OP</code> controls optimizations. It currently includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>optim.method</code>    </td><td style="text-align: left;"> method for <code>optim</code>() </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>stable.min.exp</code>  </td><td style="text-align: left;"> minimum exponent </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>stable.max.exp</code>  </td><td style="text-align: left;"> maximum exponent </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>E.Phi</code>           </td><td style="text-align: left;"> expected Phi </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>lower.optim</code>     </td><td style="text-align: left;"> lower of derivative of logL(x) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>upper.optim</code>     </td><td style="text-align: left;"> upper of derivative of logL(x) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>lower.integrate</code> </td><td style="text-align: left;"> lower of integration of L(x) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>upper.integrate</code> </td><td style="text-align: left;"> upper of integration of L(x)
+    </td>
+</tr>
+
+</table>
+
+</li>
+<li>
+<p><code>.CF.DP</code> is for dumping MCMC iterations. It currently includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>dump</code>             </td><td style="text-align: left;"> if dumping within MCMC </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>iter</code>             </td><td style="text-align: left;"> iterations per dumping </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>prefix.dump</code>      </td><td style="text-align: left;"> path and file names of dumping </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>verbose</code>          </td><td style="text-align: left;"> if verbose </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>iterThin</code>         </td><td style="text-align: left;"> iterations to thin chain </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>report</code>           </td><td style="text-align: left;"> iterations to report </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>report.proc</code>      </td><td style="text-align: left;"> iterations to report <code>proc.time</code>()
+    </td>
+</tr>
+
+</table>
+
+</li>
+<li>
+<p><code>.CF.AC</code> controls adaptive MCMC. It currently includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>renew.iter</code>          </td><td style="text-align: left;"> per renewing iterations </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>target.accept.lower</code> </td><td style="text-align: left;"> target acceptant rate lower bound </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>target.accept.upper</code> </td><td style="text-align: left;"> target acceptant rate upper bound </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>scale.increase</code>      </td><td style="text-align: left;"> increase scale size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>scale.decrease</code>      </td><td style="text-align: left;"> decrease scale size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>sigma.lower</code>         </td><td style="text-align: left;"> lower bound of relative scale size </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>sigma.upper</code>         </td><td style="text-align: left;"> upper bound of relative scale size
+    </td>
+</tr>
+
+</table>
+
+</li>
+<li>
+<p><code>.CF.PT</code> controls the plotting format. It currently includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>color</code> </td><td style="text-align: left;"> color for codons.
+    </td>
+</tr>
+
+</table>
+
+</li>
+<li>
+<p><code>.CF.PARAM</code> controls the parameters and hyperparameters of priors.
+It currently includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>phi.meanlog</code>      </td><td style="text-align: left;"> mean of phi in loca scale </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>phi.sdlog</code>        </td><td style="text-align: left;"> standard deviation of phi in loca scale
+    </td>
+</tr>
+
+</table>
+
+</li>
+<li>
+<p><code>.CO.CT</code> controls the constrained optimization function. It currently
+includes
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>debug</code> </td><td style="text-align: left;"> message printing level of debugging.
+    </td>
+</tr>
+
+</table>
+
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="s0_init.function.html">init.function</a>()</code>, <code><a href="a1_cubfits.html">cubfits</a>()</code>,
+<code><a href="a3_cubpred.html">cubpred</a>()</code>, <code><a href="a2_cubappr.html">cubappr</a>()</code>, and
+<code><a href="u5_mixnorm.html">mixnormerr.optim</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+.CF.CT
+.CF.CONF
+.CF.DP
+.CF.GV
+.CF.OP
+.CF.AC
+.CF.PT
+.CF.PARAM
+.CO.CT
+
+ls(.cubfitsEnv)
+init.function()
+ls(.cubfitsEnv)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

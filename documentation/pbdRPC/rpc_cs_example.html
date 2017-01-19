@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Example Functions of RPC Related to pbdCS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rpc_cs_example {pbdRPC}"><tr><td>rpc_cs_example {pbdRPC}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Example Functions of RPC Related to pbdCS</h2>
+
+<h3>Description</h3>
+
+<p>Example functions of RPC related to pbdCS
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+check_cs(exec.type = .pbd_env$RPC.LI$exec.type, args = .pbd_env$RPC.LI$args,
+  pport = .pbd_env$RPC.LI$pport, user = .pbd_env$RPC.LI$user,
+  hostname = .pbd_env$RPC.LI$hostname, priv.key = .pbd_env$RPC.LI$priv.key,
+  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk, cmd = .pbd_env$RPC.CS$check)
+
+kill_cs(exec.type = .pbd_env$RPC.LI$exec.type, args = .pbd_env$RPC.LI$args,
+  pport = .pbd_env$RPC.LI$pport, user = .pbd_env$RPC.LI$user,
+  hostname = .pbd_env$RPC.LI$hostname, priv.key = .pbd_env$RPC.LI$priv.key,
+  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk, cmd = .pbd_env$RPC.CS$kill)
+
+start_cs(exec.type = .pbd_env$RPC.LI$exec.type, args = .pbd_env$RPC.LI$args,
+  pport = .pbd_env$RPC.LI$pport, user = .pbd_env$RPC.LI$user,
+  hostname = .pbd_env$RPC.LI$hostname, priv.key = .pbd_env$RPC.LI$priv.key,
+  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
+  preload = .pbd_env$RPC.CS$preload, cmd = .pbd_env$RPC.CS$start)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>exec.type</code></td>
+<td>
+<p>either &quot;ssh&quot; or &quot;plink&quot; in character. Windows will force to use &quot;plink&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>args</code></td>
+<td>
+<p>further arguments to &quot;ssh&quot; or &quot;plink&quot; for connecting to the server
+in addition to port, user id, and host name.</p>
+</td></tr>
+<tr valign="top"><td><code>pport</code></td>
+<td>
+<p>ssh port opened on the server.</p>
+</td></tr>
+<tr valign="top"><td><code>user</code></td>
+<td>
+<p>user id for logging to the server.</p>
+</td></tr>
+<tr valign="top"><td><code>hostname</code></td>
+<td>
+<p>the server ip or host name.</p>
+</td></tr>
+<tr valign="top"><td><code>priv.key, priv.key.ppk</code></td>
+<td>
+<p>location of the private key for user authentication, the file will be
+checked first then <code>-i priv.key</code> will be added to <code>args</code>
+when the file exists.
+<code>priv.key.ppk</code> is only used when <code>plink</code> is called.</p>
+</td></tr>
+<tr valign="top"><td><code>cmd</code></td>
+<td>
+<p>the main command to be executed on the server.</p>
+</td></tr>
+<tr valign="top"><td><code>preload</code></td>
+<td>
+<p>further commands preloaded before the main <code>command</code> is executed.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Using either <code>ssh</code> or <code>plink</code> to launch a pbdCS R cluster.
+</p>
+<p>NO further input from <code>stdin</code> is expected.
+Outputs or errors may not be captured by R.
+</p>
+<p><code>start_cs()</code> starts a pbdCS R cluster on remote servers.
+Typical commands to launch a pbdCS R cluster is given in the example.
+The linux/unix commands are as the following:
+</p>
+
+<ul>
+<li><p>1)<code>nohup</code> is for the non-stop call after disconnection.
+</p>
+</li>
+<li><p>2)<code>mpiexec -np 4</code> is for launching 4 MPI instances.
+</p>
+</li>
+<li><p>3)<code>Rscript -e 'pbdCS::pbdserver()'</code> is for R to start the
+pbdCS R cluster within MPI in batch.
+</p>
+</li>
+<li><p>4)<code>&gt; .rrlog</code> is to direct the <code>stdout</code> to a file
+<code>.rrlog</code>
+</p>
+</li>
+<li><p>5)<code>2&gt;&amp;1</code> is to turn <code>stderr</code> to <code>stdout</code> which
+is the file <code>.cslog</code>.
+</p>
+</li>
+<li><p>6)<code>&lt; /dev/null</code> is to get <code>stdin</code> from
+<code>/dev/null</code> which is nothing happen.
+</p>
+</li>
+<li><p>7)<code>&amp;</code> is to put the batch command for the pbdCS R cluster
+in background.
+</p>
+</li></ul>
+
+<p><code>check_cs()</code> checks if there is a pbdCS R cluster on a remote
+server. Lunix/unix commands <code>ps</code> and <code>grep</code> are used.
+</p>
+<p><code>kill_cs()</code> kills the pbdCS R cluster if found.
+Lunix/unix commands <code>ps</code>, <code>grep</code>, <code>awk</code>, and <code>kill</code>
+are used.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Mainly the message received at the command line will be printed, but
+may not be captured by R.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(pbdRPC, quietly = TRUE)
+rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+
+check_cs()    # pid 2857 (may differ)
+kill_cs()     # all pbdCS pids are killed
+check_cs()    # make sure no pbdCS R cluster is running
+
+### use "; " to bypass multiple commands
+preload &lt;- "source ~/work-my/00_set_devel_R; "
+
+### start a new pbdCS R cluster
+start_cs(preload = preload)
+check_cs()
+kill_cs()
+
+### Example: for module load on supercomputers
+preload &lt;- "module load r; "    # e.g. via module load r
+start_cs(preload = preload)
+check_cs()
+kill_cs()
+
+## End(Not run)
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pbdRPC</em> version 0.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

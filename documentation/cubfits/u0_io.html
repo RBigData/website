@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Input and Output Utility</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Input and Output Utility {cubfits}"><tr><td>Input and Output Utility {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Input and Output Utility</h2>
+
+<h3>Description</h3>
+
+<p>These utility functions read and write data of FASTA and phi.df formats.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  read.seq(file.name, forceDNAtolower = FALSE, convertDNAtoupper = TRUE)
+  write.seq(seq.data, file.name)
+
+  read.phi.df(file.name, header = TRUE, sep = "\t", quote = "")
+  write.phi.df(phi.df, file.name)
+
+  get.expath(file.name, path.root = "./ex_data/", pkg = "cubfits")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file.name</code></td>
+<td>
+<p>a file name to read or write.</p>
+</td></tr>
+<tr valign="top"><td><code>forceDNAtolower</code></td>
+<td>
+<p>an option passed to <code>read.fasta()</code> of
+<span class="pkg">seqinr</span> package.</p>
+</td></tr>
+<tr valign="top"><td><code>convertDNAtoupper</code></td>
+<td>
+<p>force everything in upper case.</p>
+</td></tr>
+<tr valign="top"><td><code>header</code></td>
+<td>
+<p>an option passed to <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>sep</code></td>
+<td>
+<p>an option passed to <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>quote</code></td>
+<td>
+<p>an option passed to <code>read.table()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>seq.data</code></td>
+<td>
+<p>a <code><a href="xx_dataformat.html">seq.data</a></code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>phi.df</code></td>
+<td>
+<p>a <code><a href="xx_dataformat.html">phi.df</a></code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>path.root</code></td>
+<td>
+<p>root path for the file name relatively to the pkg.</p>
+</td></tr>
+<tr valign="top"><td><code>pkg</code></td>
+<td>
+<p>package name for the path of root.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>read.seq()</code> and <code>write.seq()</code> typically read and
+write FASTA files (DNA ORFs or sequences).
+</p>
+<p><code>read.phi.df()</code> and <code>write.phi.df()</code> typically read and write
+phi.df files (expression values of ORFs or sequences).
+</p>
+<p><code>get.expath()</code> is only for demonstration returning a full path
+to the file.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>read.seq()</code> returns an object of <code><a href="xx_dataformat.html">seq.data</a></code> format
+which can be converted to <code><a href="xx_dataformat.html">seq.string</a></code> format later via
+<code><a href="u2_convert.html">convert.seq.data.to.string</a>()</code>.
+</p>
+<p><code>read.phi.df()</code> returns an object of <code><a href="xx_dataformat.html">phi.df</a></code> format
+which contains expression values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="u2_convert.html">convert.seq.data.to.string</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+seq.data &lt;- read.seq(get.expath("seq_200.fasta"))
+phi.df &lt;- read.phi.df(get.expath("phi_200.tsv"))
+aa.names &lt;- c("A", "C", "D")
+
+# Read in from FASTA file.
+seq.string &lt;- convert.seq.data.to.string(seq.data)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

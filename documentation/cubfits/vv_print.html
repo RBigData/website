@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Functions for Printing Objects According to Classes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Print {cubfits}"><tr><td>Print {cubfits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Functions for Printing Objects According to Classes</h2>
+
+<h3>Description</h3>
+
+<p>A Class <code>mixnormerr</code> is declared in <span class="pkg">cubfits</span>, and this is the function
+to print and summary objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'mixnormerr'
+print(x, digits = max(4, getOption("digits") - 3), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object with the class attributes.</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>for printing out numbers.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other possible options.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is an useful function for summarizing and debugging.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The results will cat or print on the STDOUT by default.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Wei-Chen Chen <a href="mailto:wccsnow@gmail.com">wccsnow@gmail.com</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://github.com/snoweye/cubfits/">https://github.com/snoweye/cubfits/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="u5_mixnorm.html">mixnormerr.optim</a>()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+suppressMessages(library(cubfits, quietly = TRUE))
+
+### Get individual of phi.Obs.
+GM &lt;- apply(yassour[, -1], 1, function(x) exp(mean(log(x[x != 0]))))
+phi.Obs.all &lt;- yassour[, -1] / sum(GM) * 15000
+phi.Obs.all[phi.Obs.all == 0] &lt;- NA
+
+### Run optimization.
+X &lt;- log(as.matrix(phi.Obs.all))
+param.init &lt;- list(K = 2, prop = c(0.95, 0.05), mu = c(-0.59, 3.11),
+                   sigma2 = c(1.40, 0.59), sigma2.e = 0.03)
+ret &lt;- mixnormerr.optim(X, K = 2, param = param.init)
+print(ret)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>cubfits</em> version 0.1-2 <a href="00Index.html">Index</a>]</div>
+</body></html>
