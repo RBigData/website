@@ -4,8 +4,9 @@ Thank you for enrolling in the "Essentials of High Performance and Parallel Stat
 
 ## Background
 
+* **Location:** Hilton Baltimore, Key Ballroom 8
 * **Date:** August 1, 2017
-* **Location:** Baltimore, MD, USA
+* **Time:** 8:30 AM - 5:00 PM
 * **Presenters:** George Ostrouchov and Wei-Chen Chen
 
 ## Materials
