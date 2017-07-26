@@ -24,7 +24,7 @@ The course includes presentation components and demonstration components. You ca
 In order to run the scripts, you will need to have R, MPI, and several R packages installed.  You can install the "native" versions or, more conveniently, install a docker container we have prepared.  We generally recommend going with Docker for the sake of ease.
 
 * Docker instructions [ [pdf](https://github.com/RBigData/installation-instructions/raw/master/build/docker.pdf) | [html](https://rawgit.com/wrathematics/installation-instructions/master/build/docker.html) ]
-    - Install docker, then follow the "Workshop/Tutorial" section under pbdR Docker Builds
+    - Install Docker, then follow the "Workshop/Tutorial" section under pbdR Docker Builds
 * Native instructions [ [pdf](https://github.com/RBigData/installation-instructions/raw/master/build/native.pdf) | [html](https://rawgit.com/wrathematics/installation-instructions/master/build/native.html) ]
     - Install R, MPI, and the required packages. RStudio is optional, but recommended.
 
