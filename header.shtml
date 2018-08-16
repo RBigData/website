@@ -5,7 +5,9 @@
   <meta name="robots"	content="all" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
   <meta name="description" content="pbdR: Programming with Big Data in R" />
-  <meta name="keywords" content="pbdR,R,Big Data,pbdMPI,pbdSLAP,pbdBASE,pbdDMAT,pbdDEMO,pbdNCDF4,Statistical Computing,Parallel Computing" />
+  <meta name="keywords" content="pbdR,R,Big
+  Data,pbdMPI,pbdSLAP,pbdBASE,pbdDMAT,pbdDEMO,pbdNCDF4,Statistical
+  Computing,Parallel Computing,High Performance Computing, HPC" />
 	
   <meta charset='utf-8' />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
