@@ -1,0 +1,643 @@
+---
+title: "Basic programming"
+author: "nagaraj neerchal"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data Types 
+
+## Arithmetic 
+
+All arithmetic constants are fortunately available in R. 
+We can 
+
+* add 
+* subtract 
+* multiply 
+* divide 
+* exponentiate
+
+etc
+
+```{r}
+2 + 3
+2 - 3
+2 * 3
+pi / 2
+2^3
+
+```
+
+Also, available are modulo arithmetic:
+
+```{r}
+21 %% 10
+```
+
+## Buit-in functions
+
+R has many built-in functions:
+
+```{r}
+exp(1)
+log(10)
+log2(10)
+log(10,2)
+abs(-1 * 1)
+sqrt(5)
+```
+
+Can generate a sequence of integers as follows:
+
+```{r}
+1:9
+seq(1, 9)
+seq(from = 1, to = 9)
+seq(from = 1, to = 9, by = 2)
+```
+
+If function name is used without parentheses, `R` will display its definition.
+
+```{r}
+seq
+```
+
+
+The result of an expression can be assigned it to a named variable with the `<-` or `=` operators.
+
+```{r}
+x <- 2
+y <- x + 3
+y
+x
+x = 2
+y = x + 4
+y
+x
+```
+
+..or increment x as follows:
+
+```{r}
+x <- x + 1
+x
+```
+
+...or more complicated expressions like $y = y+x^2+cos(x)+1/x$ as follows:
+
+```{r}
+y <- y+x^2+cos(x)+1/x
+y
+```
+
+## Vectors
+
+Three basic functions for constructing vectors are
+
+```{r}
+print(x <- seq(1, 20, by = 2))
+print(y <- rep(3, 4))
+print(z <- c(y, x))
+```
+Notice we used the `print()` function to avoid repeating the object on a separate line for the default print method.
+
+Some people are switching away from the `<-` assignment operator to a simple `=`. The rarely used ambiguity for assignment in function parameters is addressed with parentheses.
+```{r}
+print(x = seq(5, 20, by = 5))
+x
+print((x = seq(5, 20, by = 5)))
+x
+```
+
+The : operator takes precedence over operators such as `+` and `-`. Use parentheses when in doubt, or to improve readability.
+
+```{r}
+n <- 10
+print(x <- 1:n + 1)
+print(x <- 1:(n + 1))
+```
+
+Indexing into vectors
+
+```{r}
+x <- seq(10, 20)
+x[9]
+x[12]        # Past the end
+x[2:5]
+ind <- c(1, 3, 5)
+x[ind]
+x[-1]
+x[-c(1, 3, 5, 7)]
+x[x > 11]
+ind <- which(x > 11)
+ind
+x[ind]
+```
+
+Arithmetic on Vectors
+
+```{r}
+x <- c(1, 2, 3)
+y <- c(4, 5, 6)
+x + y            # Most operations are elementwise.
+y - x
+x * y
+y / x
+y^x
+1:4 + 1:2        # Unequal length: shorter vector is repeated.
+1 + 1:10         # Scalar plus vector
+c(1, 2, 3) + c(1, 2)
+```
+
+Some Useful Functions on Vectors
+
+```{r}
+x <- c(5, 4, 3, 6, 7, 8, 9, 10, 1, 2)
+sort(x)
+x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+rev(x)
+x <- seq(1, 10)
+mean(x)
+sum(x)
+prod(x)
+y <- sample(x)
+min(y)
+
+# Draw a sample (with or without replacement) from x at random
+x <- seq(1, 10)
+sample(x)    
+sample(x, size = 5)
+sample(x, replace = TRUE)
+sample(x, replace = TRUE, size = 5)
+```
+
+## Other Data Types:
+
+```{r}
+# Complex numbers
+
+a <- complex(5, 3); b <- complex(7, 2)
+a + b
+
+# Logicals
+
+x <- c(TRUE, TRUE, FALSE); y <- c(TRUE, FALSE, FALSE)
+x & y
+!x
+c(sum(x), prod(x))
+
+#Strings
+
+a <- "my string"
+length(a)
+nchar(a)
+x <- 5
+cat("The answer is", x, ".\n")
+
+str <- sprintf("The answer is %d.", x)
+print(str)
+```
+
+
+Factors represent categorical data. They give descriptive labels, and also emphasize that values are not numbers.
+
+
+```{r}
+x <- sample(1:3, size = 10, replace = TRUE)
+x
+y <- factor(x, labels=c("urban", "suburban", "rural"))
+y
+levels(y)
+
+
+#Splitting numerical data into intervals, using the \code{cut} function.
+x <- rnorm(10)
+x
+cut(x, 3)
+```
+
+Some scalar values with special meanings:
+
+
+```{r}
+y <- log(0)
+y
+is.infinite(y)
+is.na(y)
+x <- log(-1)
+is.na(x)
+z <- c(1, 2, 3, NA, 4)
+is.na(z)
+mean(z)
+mean(z, na.rm = TRUE)
+```
+
+To avoid issues due to rounding error, use `all.equal` to test for numerical equality.
+
+```{r}
+2 * 2 == 4
+sqrt(2) * sqrt(2) == 2
+all.equal(sqrt(2) * sqrt(2), 2)
+```
+
+
+## Matrics
+
+```{r}
+
+# Creating a 3 by 3 matrix of NA's 
+
+matrix(NA, nrow = 3, ncol = 3)
+
+# Creating a 2 by 2 matrices from a given vector of data
+
+matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)
+matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2, byrow = TRUE)
+
+# A diagonal matrix with custom labels
+
+A <- diag(5, 3)        
+rownames(A) <- c("First Row", "Second Row", "Third Row")
+colnames(A) <- c("A", "B", "C")
+print(A)
+nrow(A)
+ncol(A)
+```
+
+Indexing Matrices
+
+
+```{r}
+# Access some specific elements
+
+A <- matrix(seq(1, 9), nrow = 3, ncol = 3)
+A
+A[2, 3]
+A[3, 2]
+
+# First row
+
+A[1, ] 
+
+# Second column
+
+A[,2]        
+
+# Rows 1 and 2
+
+A[c(1, 2), ]   
+
+# Columns 2 and 3 of row 1
+
+A[1, c(2, 3)] 
+```
+
+Matrix Operations
+
+```{r}
+
+A <- B <- matrix(seq(1, 9), nrow = 3, ncol = 3)
+
+# Addition 
+
+A + B
+
+# Multiply by a scalar
+
+3 * A        
+
+# Multiply two matrices
+
+A            
+B
+A %*% B
+
+A <- matrix(c(1, 2, 3), nrow = 3, ncol = 3)
+A
+
+# Transpose
+
+t(A)                
+A <- matrix(c(1, 0, 0, 0, 2, 0, 0, 0, 3), nrow = 3, ncol = 3)
+A
+
+# Inverse of non-singular matrix
+
+solve(A)          
+
+# Kronecker product
+
+x <- matrix(c(1, 2, 3), 1, 3)
+y <- matrix(c(1, 0, 0), 1, 3)
+x %x% y             
+
+
+# Eigen value/vector decomposition
+# Singular valud decomposition
+
+A <- matrix(c(1, 0, 0, 0, 2, 0, 0, 0, 3), nrow = 3, ncol = 3)
+eigen(A)    
+svd(A)        
+```
+
+
+Stacking Matrices
+
+
+```{r}
+A <- matrix(0, nrow = 3, ncol = 3)
+B <- matrix(1, nrow = 3, ncol = 3)
+
+rbind(A, B)
+cbind(A, B)
+```
+
+
+Functions to operate on matrices:
+
+```{r}
+
+# sqrt works elementwise on matrix
+
+A <- matrix(seq(1, 9), nrow = 3, ncol = 3)
+sqrt(A)            
+
+# Note: see the chol function to compute B such that B %*% B = A
+
+# sum and max treat the matrix like a vector
+
+A <- matrix(seq(1, 9), nrow = 3, ncol = 3)
+A
+sum(A)            
+max(A)
+
+# Apply max to each row of A
+
+apply(A, 1, max)
+
+# Apply to columns of A
+
+apply(A, 2, max)
+```
+
+## Arrays
+
+Arrays are similar to matrices, but can have $>2$ dimensions.
+
+```{r}
+A <- array(seq(1, 27), dim = c(3, 3, 3))
+A
+
+# 2nd col from 1st slice
+
+A[, 2, 1] 
+
+# 1st slice
+
+A[, , 1]   
+
+# 1st and 2nd slice
+
+A[, , 1:2]
+
+# Apply the function sum to 3rd slice
+
+apply(A, 3, sum)
+```
+
+## Lists
+
+* Vectors, matrices, and arrays are intended for scalars, usually numbers.
+* Lists can hold elements of varying types.
+* Lists can be used to construct more complicated data structures.
+
+
+```{r}
+x <- list(a = "string value", b = 5.5, c = TRUE)
+print(x)
+
+x$a
+
+x[["a"]]
+
+x[[1]]
+```
+
+Lists are used to return multiple results from a function See e.g. `eigne`
+
+
+```{r}
+eigen
+```
+
+
+Data frames are convenient for data in table format. Each column represents a variable, and can have its own data type.
+
+The `CO2` dataset comes with `R`. First, check the help page using `?CO2`.
+
+```{r}
+#?CO2
+
+# Now let us view the dataset
+
+CO2
+
+# Access each field as a vector using `$` operator.
+
+CO2$uptake
+
+# Access rows or columns using matrix indexing.
+ 
+CO2[3, ]
+CO2[, 4]
+CO2[3, 4]
+
+
+# Create a new `data.frame`
+
+
+data.frame(new.conc = CO2$conc, new.uptake = CO2$uptake)
+
+```
+
+Working with dataframes
+
+
+```{r}
+# Sorting a dataframe by a column
+
+idx <- order(CO2$uptake)
+CO2[idx,]
+
+# Merging with ``inner join'' of data.frames, like SQL.
+
+id <- 1:4
+color <- c("red", "green", "blue", "yellow")
+data1 <- data.frame(id=id,color=color)
+data1
+
+x <- 2:5
+y <- c("square", "trianlge", "circle", "star")
+z <- c("a", "b", "c", "d")
+data2 <- data.frame(id = x, shape = y, letter = z)
+data2
+
+merge(data1, data2, by = "id")
+
+# For more examples of manipulating data.frames, see www.statmethods.net/management
+
+```
+
+
+## Functions
+
+```{r}
+# Functions are objects and can be passed like any other data type in R.
+
+f <- function(x) { x + 1 }
+f(1)
+g <- function(f, x) { f(x)^2 }
+g(f, 1)
+
+# We can also explicitly specify what to return
+
+f <- function(x) {
+  if (x %% 2 == 0)
+    return("even")
+  else
+    return("odd")
+}
+
+# You can run the above function as follows
+
+# source("function.R")
+print(f(1))
+print(f(2))
+
+# Can set default values for arguments.
+f <- function(x, y, z = 100) { c(x, y, z) }
+f(y = 1, x = 3)
+
+# Argument types can be checked manually.
+f <- function(x) { stopifnot(is.numeric(x)); return(x^2) }
+f(1)
+
+# The above code is designed to terminate when user supplies an illegal argument
+# Hence the code will terminate and hence building of the Rmarkdown file. 
+# tryCatch function is used to prevent the exit
+
+tryCatch(f("a"),
+    error = function(e) {
+        return(e)
+    }
+)
+
+
+# Functions can be constructed around variables that are defined outside. This can be a source of confusion.
+
+y <- 5
+f <- function(x) { x + y }
+f(1)
+```
+
+
+## Control Flow
+
+
+```{r}
+# if statement
+
+u <- runif(1)
+if (u < 0.25) {
+    y <- 0
+} else if (u < 0.5) {
+    y <- 1
+} else {
+    y <- 2
+}
+# switch statement
+
+x <- "1"
+switch(x,
+    "1" = "blue",
+    "2" = "green",
+    "3" = "red",
+    "default")
+
+# for loop
+
+for (i in 1:10) { cat("Iteration", i, "\n") }
+
+# while loop
+
+u <- 1
+while (u > 0.1) {
+    u <- runif(1)
+}
+
+# try/catch statement
+
+
+f <- function(x) { stop("Error!!") }
+ret <- tryCatch(f(5),
+    error = function(e) {
+        return(e)
+    }
+)
+
+## ret is the message e
+
+g <- function(x) { x }
+ret <- tryCatch(g(5),
+    error = function(e) {
+        return(e)
+    }
+)
+
+## ret is 5
+
+
+
+
+#  apply statement
+
+
+X <- matrix(rnorm(1000*5), 1000, 5)
+apply(X, 2, sd)
+
+
+# sapply statement
+
+
+f <- function(x) { if (x %% 2 == 0) { "even" } else { "odd" } }
+x <- rpois(8, 5)
+sapply(x, f)
+
+sapply(x, f)
+
+
+
+# \code{lapply} statement
+
+L <- list()
+L[[1]] <- rnorm(100)
+L[[2]] <- rnorm(100)
+L[[3]] <- rnorm(100)
+
+lapply(L, function(x) { c(length(x), mean(x), sd(x)) })
+```
+
+
+
+
+
+
+
+

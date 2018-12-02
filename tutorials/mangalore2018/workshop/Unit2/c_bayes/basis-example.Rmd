@@ -1,0 +1,29 @@
+---
+title: "Basis Example"
+output: pdf_document
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+Draw some x-values and compute the function `cos(x)` on them.
+```{r}
+n <- 1000
+x <- runif(n, -2*pi, 2*pi)
+y <- cos(x)
+```
+
+Fit a spline using the piecewise continuous linear basis (using strategically chosen cutpoints, since we know the function).
+```{r}
+knots <- 2*pi * c(-1/2, 0, 1/2)
+X <- cbind(1, x,
+	(x - knots[1])*(x > knots[1]),
+	(x - knots[2])*(x > knots[2]),
+	(x - knots[3])*(x > knots[3])
+)
+Beta.hat <- solve(t(X) %*% X, t(X) %*% y)
+```
+
+Plot the original function and the fitted spline.
+```{r}
+plot(x, y, ylim = c(-1.2, 1.2), pch = 20, cex = 0.5)
+points(x, X %*% Beta.hat, col = "red", pch = 20, cex = 0.5)
+```

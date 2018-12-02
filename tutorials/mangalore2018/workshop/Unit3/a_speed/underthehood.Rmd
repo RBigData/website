@@ -1,0 +1,57 @@
+---
+title: 'Rcpp: Under the Hood'
+output:
+  pdf_document:
+    number_sections: true
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+library(Rcpp)
+```
+
+``` {r}
+sourceCpp(cacheDir = "~/tmp12345/", cleanupCacheDir = TRUE, code = '
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::NumericVector pow(const Rcpp::NumericVector& x, double y)
+{
+  unsigned int n = x.size();
+  Rcpp::NumericVector z(n);
+    
+  for (unsigned int i = 0; i < n; i++) {
+    z(i) = pow(x(i), y);
+  }
+  return z;
+}
+')
+
+x <- c(1,4,9,16,25,36)
+y <- rnorm(10, 0, 1)
+
+pow(x, 1/2)
+pow(y, 2)
+```
+
+Generated R code.
+``` {r, comment=NA, echo=FALSE}
+file.list <- dir("~/tmp12345/", recursive = TRUE, full.names = TRUE)
+
+idx <- grep("file.*.R$", file.list)
+rfile <- file.list[idx]
+cat(rfile)
+cat(readChar(rfile, file.info(rfile)$size))
+```
+
+Generated C++ code.
+``` {r, comment=NA, echo=FALSE}
+idx <- grep("sourcecpp.*/file.*.cpp$", file.list)
+rfile <- file.list[idx]
+cat(rfile)
+cat(readChar(rfile, file.info(rfile)$size))
+```

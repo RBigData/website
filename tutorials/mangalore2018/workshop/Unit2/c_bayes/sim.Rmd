@@ -1,0 +1,277 @@
+---
+title: "Probit Regression with Simulated Data"
+output:
+  pdf_document:
+    number_sections: true
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(coda)
+library(ggplot2)
+library(pROC)
+source("src/rwmetrop.R")
+source("src/gibbs-probit.R")
+```
+
+Draw simulated dataset.
+```{r}
+set.seed(12345)
+n <- 1000
+x <- runif(n, -2, 2)
+X <- cbind(1, x)
+d <- ncol(X)
+Beta.true <- c(-1, 1)
+p.true <- pnorm(X %*% Beta.true)
+y <- rbinom(n = n, size = 1, prob = p.true)
+```
+
+# Metropolis-Hastings Sampler
+Prepare for Metropolis-Hastings.
+``` {r}
+logpost <- function(parm, Data) {
+	n <- nrow(Data$X)
+	d <- ncol(Data$X)
+	Beta <- parm[1:d]
+	Beta.prior <- sum(dnorm(Beta, 0, sqrt(hyper$var.Beta), log = TRUE))
+	prob <- pnorm(Data$X %*% Beta)
+	ll <- dbinom(Data$y, 1, prob, log = TRUE)
+	sum(ll) + Beta.prior
+}
+
+par.init <- rep(0, d)
+Data <- list(y = y, X = X)
+hyper <- list(var.Beta = 1000)
+```
+
+Here the proposal variance is too small. The sampler is slow to move the chain to the posterior.
+``` {r, fig.height=7}
+proposal <- list(var = diag(d), scale = 0.001)
+metrop.out <- rwmetrop(par.init, logpost, Data, proposal, R = 10000,
+	burn = 0, thin = 1)
+print(metrop.out$accept)
+
+Beta.mcmc <- mcmc(metrop.out$par)
+plot(Beta.mcmc)
+acf(Beta.mcmc)
+```
+
+Here the proposal variance is too large. Draws are accepted too rarely.
+``` {r, fig.height=7}
+proposal <- list(var = diag(d), scale = 0.5)
+metrop.out <- rwmetrop(par.init, logpost, Data, proposal, R = 10000,
+	burn = 0, thin = 1)
+print(metrop.out$accept)
+
+Beta.mcmc <- mcmc(metrop.out$par)
+plot(Beta.mcmc)
+acf(Beta.mcmc)
+```
+
+Changing the shape of the variance seems to permit larger jumps which can still be accepted.
+``` {r, fig.height=7}
+proposal <- list(var = solve(t(X) %*% X), scale = 5.0)
+metrop.out <- rwmetrop(par.init, logpost, Data, proposal, R = 10000,
+	burn = 0, thin = 1)
+print(metrop.out$accept)
+
+Beta.mcmc <- mcmc(metrop.out$par)
+plot(Beta.mcmc)
+acf(Beta.mcmc)
+```
+
+Let's do some thinning to reduce the autocorrelation, and discard the first 1000 draws.
+``` {r, fig.height=7}
+proposal <- list(var = solve(t(X) %*% X), scale = 5.0)
+metrop.out <- rwmetrop(par.init, logpost, Data, proposal, R = 10000,
+	burn = 1000, thin = 10)
+print(metrop.out$accept)
+
+Beta.mcmc <- mcmc(metrop.out$par)
+plot(Beta.mcmc)
+acf(Beta.mcmc)
+```
+
+Compute summary of the posterior.
+``` {r}
+summary(Beta.mcmc)
+```
+
+Plot the saved draws of `Beta`.
+``` {r}
+dat.sim <- data.frame(Beta1 = as.numeric(Beta.mcmc[,1]), Beta2 = as.numeric(Beta.mcmc[,2]))
+dat.true <- data.frame(Beta1 = Beta.true[1], Beta2 = Beta.true[2])
+ggplot(dat.sim, aes(x=Beta1, y=Beta2)) +
+	stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) +
+	scale_fill_gradient(low="lightcyan", high="purple") +
+	ggtitle("Empirical Density of MCMC Draws") +
+	geom_point(data = dat.true, aes(x = Beta1, y = Beta2))
+```
+
+Plot pointwise credible intervals for `pnorm(x^T Beta)` using the saved draws of `Beta`.
+``` {r}
+x.levels <- seq(-2, 2, 0.1)
+dat.plot <- data.frame(
+	x = x.levels,
+	lo = numeric(length(x.levels)),
+	mean = numeric(length(x.levels)),
+	hi = numeric(length(x.levels))
+)
+
+for (idx in 1:length(x.levels)) {
+	x <- x.levels[idx]
+	p.draws <- pnorm(cbind(1, x) %*% t(Beta.mcmc))
+	dat.plot$lo[idx] <- quantile(p.draws, probs = 0.025)
+	dat.plot$mean[idx] <- mean(p.draws)
+	dat.plot$hi[idx] <- quantile(p.draws, probs = 0.975)
+}
+
+ggplot(dat.plot) + 
+	geom_line(aes(x = x, y = lo), lty = 2) +
+	geom_line(aes(x = x, y = mean)) +
+	geom_line(aes(x = x, y = hi), lty = 2) +
+	ylab('p(x)')
+```
+
+Plot means from the posterior predictive distribution using the saved draws of `Beta`.
+``` {r}
+R.keep <- NROW(Beta.mcmc)
+x.levels <- seq(-2, 2, 0.1)
+dat.plot <- data.frame(
+	x = x.levels,
+	mean = numeric(length(x.levels))
+)
+
+for (idx in 1:length(x.levels)) {
+	x <- x.levels[idx]
+	p.draws <- pnorm(cbind(1, x) %*% t(Beta.mcmc))
+	y.draws <- rbinom(R.keep, size = 1, prob = p.draws)
+	dat.plot$mean[idx] <- mean(y.draws)
+}
+
+ggplot(dat.plot) + 
+	geom_line(aes(x = x, y = mean)) +
+	ylab('p(x)')
+```
+
+Use means from the posterior predictive distribution to compute ROC curve.
+``` {r}
+R.keep <- NROW(Beta.mcmc)
+y.hat <- numeric(n)
+
+for (idx in 1:n) {
+	x <- X[idx,]
+	p.draws <- pnorm(cbind(1, x) %*% t(Beta.mcmc))
+	y.draws <- rbinom(R.keep, size = 1, prob = p.draws)
+	y.hat[idx] <- mean(y.draws)
+}
+
+roc.out <- roc(y, y.hat)
+plot(roc.out)
+print(roc.out)
+```
+
+# Gibbs Sampler
+Try the Gibbs sampler and check the diagnostics.
+``` {r, fig.height=7}
+hyper <- list(V.prior = 1000 * diag(d))
+gibbs.out <- gibbs.probit(y, X, R = 1000, burn = 0, thin = 1, hyper = hyper)
+
+Beta.mcmc <- mcmc(gibbs.out$Beta.hist)
+plot(Beta.mcmc)
+acf(Beta.mcmc)
+```
+
+Try a larger sample with some burning and thinning.
+``` {r, fig.height=7}
+hyper <- list(V.prior = 1000 * diag(d))
+gibbs.out <- gibbs.probit(y, X, R = 10000, burn = 1000, thin = 10, hyper = hyper)
+
+Beta.mcmc <- mcmc(gibbs.out$Beta.hist)
+plot(Beta.mcmc)
+acf(Beta.mcmc)
+```
+
+Compute summary of the posterior draws for `Beta`.
+``` {r}
+summary(Beta.mcmc)
+```
+
+Plot the saved draws of `Beta`.
+``` {r}
+dat.sim <- data.frame(Beta1 = as.numeric(Beta.mcmc[,1]), Beta2 = as.numeric(Beta.mcmc[,2]))
+dat.true <- data.frame(Beta1 = Beta.true[1], Beta2 = Beta.true[2])
+ggplot(dat.sim, aes(x=Beta1, y=Beta2)) +
+	stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) +
+	scale_fill_gradient(low="lightcyan", high="purple") +
+	ggtitle("Empirical Density of MCMC Draws") +
+	geom_point(data = dat.true, aes(x = Beta1, y = Beta2))
+```
+
+Plot pointwise credible intervals for `pnorm(x^T Beta)` using the saved draws of `Beta`.
+``` {r}
+x.levels <- seq(-2, 2, 0.1)
+dat.plot <- data.frame(
+	x = x.levels,
+	lo = numeric(length(x.levels)),
+	mean = numeric(length(x.levels)),
+	hi = numeric(length(x.levels))
+)
+
+for (idx in 1:length(x.levels)) {
+	x <- x.levels[idx]
+	p.draws <- pnorm(cbind(1, x) %*% t(Beta.mcmc))
+	dat.plot$lo[idx] <- quantile(p.draws, probs = 0.025)
+	dat.plot$mean[idx] <- mean(p.draws)
+	dat.plot$hi[idx] <- quantile(p.draws, probs = 0.975)
+}
+
+ggplot(dat.plot) + 
+	geom_line(aes(x = x, y = lo), lty = 2) +
+	geom_line(aes(x = x, y = mean)) +
+	geom_line(aes(x = x, y = hi), lty = 2) +
+	ylab('p(x)')
+```
+
+Plot means from the posterior predictive distribution using the saved draws of `Beta`.
+``` {r}
+R.keep <- NROW(Beta.mcmc)
+x.levels <- seq(-2, 2, 0.1)
+dat.plot <- data.frame(
+	x = x.levels,
+	mean = numeric(length(x.levels))
+)
+
+for (idx in 1:length(x.levels)) {
+	x <- x.levels[idx]
+	p.draws <- pnorm(cbind(1, x) %*% t(Beta.mcmc))
+	y.draws <- rbinom(R.keep, size = 1, prob = p.draws)
+	dat.plot$mean[idx] <- mean(y.draws)
+}
+
+ggplot(dat.plot) + 
+	geom_line(aes(x = x, y = mean)) +
+	ylab('p(x)')
+```
+
+Use means from the posterior predictive distribution to compute ROC curve.
+``` {r}
+R.keep <- NROW(Beta.mcmc)
+y.hat <- numeric(n)
+
+for (idx in 1:n) {
+	x <- X[idx,]
+	p.draws <- pnorm(cbind(1, x) %*% t(Beta.mcmc))
+	y.draws <- rbinom(R.keep, size = 1, prob = p.draws)
+	y.hat[idx] <- mean(y.draws)
+}
+
+roc.out <- roc(y, y.hat)
+plot(roc.out)
+print(roc.out)
+```

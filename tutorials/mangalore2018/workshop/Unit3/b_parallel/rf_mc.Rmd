@@ -1,0 +1,99 @@
+---
+title: "rf_mc"
+author: "GO"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Random Forest
+Random forest is a nonparametric technique that fits collections of simple decision trees or regression trees to random selections of variables. If *p* is the number of variables, then regression trees are fit to samples of *p/3* variables at a time.
+```{r}
+library(ggplot2)
+data(diamonds)
+set.seed(seed = 7654321)
+## diamonds = diamonds[sample(nrow(diamonds), 10000), ]
+library(randomForest)
+```
+
+```{r}
+t0 <- proc.time()
+
+n = nrow(diamonds)
+n_test = floor(0.2 * n)
+i_test = sample.int(n, n_test)
+train = diamonds[-i_test,]
+test = diamonds[i_test,]
+
+rf.all = randomForest(price ~ ., train, ntree = 300, importance=TRUE)
+pred = predict(rf.all, test)
+proc.time() - t0
+
+rf.all
+plot(rf.all)
+```
+
+Looks like about 150 trees would be sufficient.
+
+# Random Forest Diagnostics
+Let's look at some diagnostics.
+```{r}
+p = ggplot(data.frame(predicted=pred, actual=test$price), aes(actual, predicted)) + geom_point()
+p
+p + scale_x_log10() + scale_y_log10()
+varImpPlot(rf.all, type=1, scale=TRUE)
+varImpPlot(rf.all, type=2, scale=TRUE)
+```
+
+The two importance plots give very different pictures. The first, %incMSE, gives mean increase in out-of-bag MSE when a predictor is randomly permuted. The second, IncNodePurity, gives mean decrease in MSE when a predictor is used for a split. It seems reasonable that all of *color*, *clarity*, and *carat* are important in *price* prediction. Lengths *x*, *y*, and *z* may be important for splits as they sometimes indicate unusual shapes.
+```{r}
+ggplot(tidyr::gather(dplyr::select(diamonds, x, y, z)), aes(key, value)) + geom_boxplot()
+```
+
+# Random Forest - multicore parallel
+Below is the *mclapply()* version of the random forest code above. We will run this with 2 cores as I have 2 cores on this laptop. The detectCores() actually shows 4 cores because each of the cores is hyperthreaded. Whether hyperthreading helps depends on the situation. In this case it seems counterproductive.
+```{r}
+t0 = proc.time()
+library(parallel)
+RNGkind("L'Ecuyer-CMRG")
+set.seed(seed = 7654321)
+
+n = nrow(diamonds)
+n_test = floor(0.2 * n)
+i_test = sample.int(n, n_test)
+train = diamonds[-i_test, ]
+test = diamonds[i_test, ]
+
+detectCores() # there are 2 cores, each hyperthreaded, so 4 is result
+nc = 2       #   but in this case the code runs slower with 4 
+ntree = lapply(splitIndices(300, nc), length)
+rf = function(x) randomForest(price ~ ., train, ntree=x, importance=TRUE) # mc
+rf.out = mclapply(ntree, rf, mc.cores = nc)
+rf.all = do.call(combine, rf.out)
+
+crows = splitIndices(nrow(test), nc) 
+rfp = function(x) as.vector(predict(rf.all, test[x, ])) 
+cpred = mclapply(crows, rfp, mc.cores = nc) 
+pred = do.call(c, cpred) 
+cat("MSE =", sum((pred - test$price)^2)/length(pred), "\n")
+proc.time() - t0
+```
+
+Note the time reduction nearly in half. Looks like more cores would continue to improve the time. It is not quite half because the data splitting is not parallel and there is the additional work of combining two random forest models.
+
+Let's plot the actual versus predicted again.
+```{r}
+p = ggplot(data.frame(predicted=pred, actual=test$price), aes(actual, predicted)) + geom_point()
+p
+p + scale_x_log10() + scale_y_log10()
+```
+
+Note slight differences due to parallel random number generation. Each core is guaranteed to have different random numbers, but they are not the same as the serial generation.

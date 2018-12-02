@@ -1,0 +1,78 @@
+---
+title: "Bootstrap Example"
+output:
+  pdf_document:
+    number_sections: true
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this example, we will bootstrap the distribution of coefficient estimates in a linear regression. We can compare the bootstrapped distribution to the theoretical distribution (which is well known).
+
+```{r}
+library(ggplot2)
+library(mvtnorm)
+```
+
+Generate some data from ordinary least squares model.
+```{r}
+set.seed(1234)
+n <- 400
+x <- runif(n, -2, 2)
+X <- cbind(1, x)
+Beta.true <- c(-1, 1)
+sigma.true <- 0.5
+y <- rnorm(n, X %*% Beta.true, sigma.true)
+```
+
+Run the bootstrap.
+```{r}
+set.seed(1234)
+lm.out <- lm(y ~ x)
+Beta.hat <- coef(lm.out)
+V.hat <- vcov(lm.out)
+
+B <- 500
+Beta.boot <- matrix(NA, B, 2)
+
+for (b in 1:B) {
+	idx.boot <- sample(1:n, size = n, replace = TRUE)
+	lm.boot <- lm(y ~ x, subset = idx.boot)
+	Beta.boot[b,] <- coef(lm.boot)
+}
+```
+
+Compare the distribution of `Beta.boot` from bootstrap with the theoretical distribution. Center the theoretical distribution at `Beta.hat` rather than `Beta.true`, to see if we got the variability correct (acknowledging that estimates themselves will differ from the truth).
+``` {r, fig.show='hold', fig.width=4.25}
+V.true <- sigma.true^2 * solve(t(X) %*% X)
+
+hist(Beta.boot[,1], freq = FALSE)
+curve(dnorm(x, Beta.hat[1], sqrt(V.true[1,1])), add = TRUE)
+
+hist(Beta.boot[,2], freq = FALSE)
+curve(dnorm(x, Beta.hat[2], sqrt(V.true[2,2])), add = TRUE)
+```
+
+
+Plot of 2-d empirical density from simulation versus the normal distribution from large sample theory.
+``` {r, fig.show='hold', fig.width=4.25, fig.height=3.25}
+dat.sim <- data.frame(x = Beta.boot[,1], y = Beta.boot[,2])
+
+dat.mvn <- expand.grid(
+	x = seq(min(dat.sim$x), max(dat.sim$x), length.out = 100),
+	y = seq(min(dat.sim$y), max(dat.sim$y), length.out = 100))
+dat.mvn$dens <- dmvnorm(dat.mvn, mean = Beta.hat, sigma = V.true)
+
+ggplot(dat.sim, aes(x=x, y=y)) + 
+	stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) +
+	scale_fill_gradient(low="lightcyan", high="purple") +
+	ggtitle("Empirical Density of MLE")
+
+ggplot(dat.mvn, aes(x=x, y=y)) + 
+    geom_raster(aes(fill = dens)) +
+	scale_fill_gradient(low="lightcyan", high="purple") +
+	ggtitle("MVN Density Based on MLE")
+```

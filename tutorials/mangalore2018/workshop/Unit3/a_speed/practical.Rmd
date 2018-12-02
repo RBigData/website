@@ -1,0 +1,403 @@
+---
+title: "Practical Rcpp"
+output:
+  html_document:
+    df_print: paged
+  pdf_document:
+    number_sections: yes
+geometry: left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+library(Rcpp)
+library(RcppArmadillo)
+```
+
+# Modular Code Practice
+A good practice for Rcpp programmers is to initially write code in R, ensure that it is correct, and then write a C++ version. The C++ version can then be easily compared to the R version.
+
+Suppose $X_1, \ldots, X_n \stackrel{\text{iid}}{\sim} \text{Categ}(1, \ldots, K; \pi_1, \ldots, \pi_K)$. Let us compute the density in both R and Rcpp.
+
+``` {r}
+dcateg <- function(x, Pi, log = FALSE)
+{
+	if (log) {
+		log(Pi[x])
+	} else {
+		Pi[x]
+	}
+}
+```
+
+``` {Rcpp}
+// [[Rcpp::depends("RcppArmadillo")]]
+#include <RcppArmadillo.h>
+
+// [[Rcpp::export]]
+arma::vec dcateg_cpp(const arma::uvec& x, const arma::vec& Pi, bool log = false)
+{
+	if (log) {
+		return arma::log(Pi(x-1));
+	} else {
+		return Pi(x-1);
+	}
+}
+```
+
+``` {r}
+set.seed(1234)
+J <- 5
+Pi <- 1:J / sum(1:J)
+x <- sample(1:J, size = 20, replace = TRUE, prob = Pi)
+```
+
+``` {r}
+dcateg(x, Pi, log = FALSE)
+dcateg_cpp(x, Pi, log = FALSE)
+
+dcateg(x, Pi, log = TRUE)
+dcateg_cpp(x, Pi, log = TRUE)
+```
+
+When functions use the random number generator, comparing R and C++ versions is much easier when the same numbers can be generated in both settings.
+
+``` {Rcpp}
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::NumericVector draw(unsigned int n, double mu, double sigma)
+{
+	return Rcpp::rnorm(n, mu, sigma);
+}
+```
+
+``` {r}
+set.seed(1234)
+rnorm(20, 0, 3)
+
+set.seed(1234)
+draw(20, 0, 3)
+```
+
+Now consider a small simulation to study the sampling mean $\bar{X}$ from our categorical sample.
+``` {r}
+sim <- function(R, n, Pi)
+{
+	res <- numeric(R)
+	for (r in 1:R)	 {
+		x <- sample(1:J, size = n, replace = TRUE, prob = Pi)
+		res[r] <- mean(x)
+	}
+	return(res)
+}
+
+xbar <- sim(R = 10000, n = 20, Pi)
+quantile(xbar, probs = seq(0, 1, 0.1))
+```
+
+There appears not to be an Rcpp version of `sample`. To work around this, we will write our own drawing function in Rcpp.
+
+``` {Rcpp}
+// [[Rcpp::depends("RcppArmadillo")]]
+#include <RcppArmadillo.h>
+
+// Return the index of the draw, 0-based
+// Probabilties must be normalized for this method to work
+long unsigned int rcateg(const arma::vec& Pi)
+{
+	size_t J = Pi.size();
+	double u = R::runif(0, 1);
+	double qq = 0;
+
+	for (size_t j = 0; j < J; j++) {
+		qq += Pi(j);
+		if (u < qq) {
+			return j;
+		}
+	}
+
+	return J-1;
+}
+
+// [[Rcpp::export]]
+arma::uvec rcateg(long unsigned int n, const arma::vec& Pi)
+{
+	arma::uvec x(n);
+	for (size_t i = 0; i < n; i++) {
+		x(i) = rcateg(Pi);
+	}
+	return x + 1;
+}
+
+// [[Rcpp::export]]
+arma::vec sim_cpp(unsigned int R, unsigned int n, const arma::vec& Pi)
+{
+	arma::vec res(R);
+	for (unsigned int r = 0; r < R; r++) {
+		arma::uvec x = rcateg(n, Pi);
+		res(r) = double(sum(x)) / n;
+	}
+	return(res);
+}
+```
+
+Redo the simulation in R, drawing from `rcateg` instead of `sample`.
+``` {r}
+sim2 <- function(R, n, Pi)
+{
+	res <- numeric(R)
+	for (r in 1:R) {
+		x <- rcateg(n, Pi)
+		res[r] <- mean(x)
+	}
+	return(res)
+}
+```
+
+``` {r}
+set.seed(1234)
+sim2(R = 100, n = 20, Pi)
+
+set.seed(1234)
+as.numeric(sim_cpp(R = 100, n = 20, Pi))
+```
+
+In a complicated R program, it is helpful to express major operations as functions. These functions can be converted to Rcpp as needed. We will see an example outside of this document.
+
+# Debugging with Print Statements
+Print statements are a simple way to debug. Consider computing the log-likelihood of $X_1, \ldots, X_n \stackrel{\text{iid}}{\sim} \text{N}(\mu, \sigma^2)$.
+
+``` {Rcpp}
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+double loglik(const Rcpp::NumericVector& x, double mu, double sigma)
+{
+	double ll = 0;
+	for (unsigned int i = 0; i < x.size(); i++) {
+		ll += R::dnorm(x(i), mu, sigma, true);
+	}
+	
+	return ll;
+}
+```
+
+Underflow can occur if we work on the probability scale and take the log at the end. Printing some of the intermediate steps helps to see this.
+``` {Rcpp}
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+double likelihood(const Rcpp::NumericVector& x, double mu, double sigma)
+{
+	double lik = 1;
+	for (unsigned int i = 0; i < x.size(); i++) {
+		lik *= R::dnorm(x(i), mu, sigma, false);
+		if (lik < 1e-320) {
+			Rprintf("At step %d, lik = %g\\n", i, lik);
+		}
+	}
+	
+	return lik;
+}
+```
+
+``` {r}
+set.seed(1234)
+
+n <- 50
+x <- rnorm(n, mean = 2, sd = 1)
+log(likelihood(x, mu = 2, sigma = 1))
+loglik(x, mu = 2, sigma = 1)
+
+n <- 530
+x <- rnorm(n, mean = 2, sd = 1)
+log(likelihood(x, mu = 2, sigma = 1))
+loglik(x, mu = 2, sigma = 1)
+```
+
+# Exceptions
+Can throw exceptions from C++ up to R.
+``` {Rcpp}
+#include <Rcpp.h>
+
+double my_sqrt(double x) {
+	if (x < 0) {
+		Rcpp::stop("x was negative!");
+	}
+	return pow(x, 0.5);
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector my_sqrt(const Rcpp::NumericVector& x)
+{
+	Rcpp::NumericVector z(x.size());
+	for (unsigned int i = 0; i < x.size(); i++) {
+		z(i) = my_sqrt(x(i));
+	}
+	return z;
+}
+```
+
+``` {r, error=TRUE}
+set.seed(1234)
+x <- rnorm(10, mean = 0, sd = 1)
+my_sqrt(x)
+```
+
+Catch an exception in C++ and handle it there.
+``` {Rcpp}
+#include <Rcpp.h>
+
+double my_sqrt(double x) {
+	if (x < 0) {
+		Rcpp::stop("x was negative!");
+	}
+	return pow(x, 0.5);
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector my_sqrt2(const Rcpp::NumericVector& x)
+{
+	Rcpp::NumericVector z(x.size());
+	z.fill(NAN);
+	for (unsigned int i = 0; i < x.size(); i++) {
+		try {
+			z(i) = my_sqrt(x(i));
+		} catch (const std::exception& e) {
+			Rprintf("%s\\n", e.what());
+		}
+	}
+	return z;
+}
+```
+
+``` {r}
+round(x, 3)
+my_sqrt2(x)
+x^(0.5)
+```
+
+Catch an exception in R which was thrown from C++.
+``` {r}
+result <- tryCatch({
+	my_sqrt(x)
+}, error = function(e) {
+	cat("Caught an error:\n")
+	print(e)
+
+	# Take the sqrt of abs(x) instead
+	my_sqrt(abs(x))
+})
+```
+
+# Logging Progress
+It can be helpful to log important steps with a timestamp.
+``` {r}
+logger <- function(msg, ...) {
+	sys.time <- as.character(Sys.time())
+	cat(sys.time, "-", sprintf(msg, ...))
+}
+```
+
+``` {r}
+logger("Starting MCMC\n")
+Sys.sleep(1)
+logger("Finished MCMC\n")
+```
+
+We can also log important steps in C++ code.
+``` {Rcpp}
+#include <Rcpp.h>
+#include <unistd.h>
+
+Rcpp::Datetime timestamp() {
+  time_t t;
+  time(&t);
+  return Rcpp::Datetime(t);
+}
+
+Rcpp::String timestring() {
+	char buffer[50];
+	const Rcpp::Datetime& dt = timestamp();
+	sprintf(buffer, "%04d-%02d-%02d %02d:%02d:%02d", dt.getYear(), dt.getMonth(),
+		dt.getDay(), dt.getHours(), dt.getMinutes(), dt.getSeconds());
+	return Rcpp::String(buffer);
+}
+
+// [[Rcpp::export]]
+void test(unsigned int elapsed) {
+	Rprintf("%s - Starting MCMC\\n", timestring().get_cstring());
+	sleep(elapsed);
+	Rprintf("%s - Finished MCMC\\n", timestring().get_cstring());
+}
+```
+
+``` {r}
+test(5)
+```
+
+# Measuring Speed
+We have already seen logging, which can be used to measure elapsed time. We can also wrap function calls with `system.time` (and related functions).
+
+``` {r}
+system.time(sim2(R = 10000, n = 20, Pi))
+system.time(sim_cpp(R = 10000, n = 20, Pi))
+```
+
+Or use `Sys.time` to take measurements at two points in the code, and compute the difference.
+``` {r}
+st1 <- Sys.time()
+res1 <- sim2(R = 10000, n = 20, Pi)
+end1 <- Sys.time()
+
+st2 <- Sys.time()
+res2 <- sim_cpp(R = 10000, n = 20, Pi)
+end2 <- Sys.time()
+
+# Print difftime objects
+print(end1 - st1)
+print(end2 - st2)
+
+# Convert to raw numbers which are convenient for other calculations
+as.numeric(end1 - st1, units = "secs")
+as.numeric(end2 - st2, units = "secs")
+```
+
+Microbenchmarking is convenient for repeating the same calculation many times and extracting statistics on run times.
+
+``` {r}
+library(microbenchmark)
+
+mb <- microbenchmark(
+	sim2(R = 10000, n = 20, Pi),
+	sim_cpp(R = 10000, n = 20, Pi),
+	times = 100)
+print(mb)
+```
+
+# Measuring Memory Use
+The `pryr` package provides some functions to keep track of memory usage.
+
+``` {r}
+library(pryr)
+
+mem_used()
+
+X <- matrix(NA, 10000, 10000)
+mem_used()
+
+object_size(X)
+
+mem_change(Y <- matrix(NA, 1000, 1000))
+mem_change(Y <- matrix(NA, 2000, 2000))
+
+mem_change(rm(X))
+mem_change(rm(Y))
+gc()
+
+mem_used()
+```

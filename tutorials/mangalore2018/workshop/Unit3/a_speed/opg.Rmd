@@ -1,0 +1,200 @@
+---
+title: "OPG Algorithm with Rcpp"
+output:
+  html_document:
+    number_sections: true
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+library(Rcpp)
+library(RcppArmadillo)
+library(ggplot2)
+library(MASS)
+```
+
+# Read the diamonds data
+``` {r}
+head(diamonds)
+dat <- as.data.frame(diamonds)
+dat$x <- scale(dat$x)
+dat$y <- scale(dat$y)
+dat$z <- scale(dat$z)
+dat$table <- scale(dat$table)
+dat$depth <- scale(dat$depth)
+dat$carat <- scale(dat$carat)
+n <- nrow(diamonds)
+
+X <- model.matrix(log(price) ~ x + y + z + depth + table + carat - 1,
+	data = diamonds)
+y <- log(diamonds$price)
+```
+
+# Kernel weights
+Compute kernel weights between the rows of `X` and the rows of `X0`. First in R.
+``` {r}
+kern.weights <- function(X, X0, h)
+{
+	n <- NROW(X)
+	p <- NCOL(X)
+	n0 <- NROW(X0)
+	stopifnot(p == NCOL(X0))
+	W.raw <- matrix(0, n, n0)
+
+	# Gaussian kernel
+	kern <- function(u) { exp(-rowSums(u^2) / 2) }
+
+	for (idx2 in 1:n0) {
+		# Vectorized to avoid a nested loop
+		U <- X - matrix(X0[idx2,], n, p, byrow = TRUE)
+		W.raw[,idx2] <- kern(U / h)
+	}
+
+	W <- W.raw * matrix(1 / colSums(W.raw), n, n0, byrow = TRUE)
+	return(W)
+}
+```
+
+Now in Rcpp.
+``` {Rcpp}
+// [[Rcpp::depends(RcppArmadillo)]]
+#include <RcppArmadillo.h>
+
+// [[Rcpp::export]]
+arma::vec normalize(const arma::vec& x)
+{
+	return x / sum(x);
+}
+
+// [[Rcpp::export]]
+double gauss_kern(const arma::vec& x)
+{
+	return exp(-dot(x,x) / 2);
+}
+
+// [[Rcpp::export]]
+arma::mat kern_weights_cpp(const arma::mat& X, const arma::mat& X0, double h)
+{
+	size_t n = X.n_rows;
+	size_t n0 = X0.n_rows;
+	size_t d = X.n_cols;
+	if (d != X0.n_cols) {
+		Rcpp::stop("d != X0.n_cols");
+	}
+	arma::mat W = arma::zeros(n, n0);
+
+	for (size_t idx2 = 0; idx2 < n0; idx2++) {
+		for (size_t idx1 = 0; idx1 < n; idx1++) {
+			arma::vec u = arma::trans(X.row(idx1) - X0.row(idx2));
+			W(idx1,idx2) = gauss_kern(u / h) / (h*d);
+		}
+		if (arma::any(W.col(idx2) > 0)) {
+			W.col(idx2) = normalize(W.col(idx2));
+		}
+	}
+
+	return W;
+}
+```
+
+Check results to make sure they match.
+``` {r}
+x0 <- t(X[1,])
+head( ww1 <- kern.weights(X, X0 = x0, h = 1) )
+head( ww2 <- kern_weights_cpp(X, X0 = x0, h = 1) )
+print( sum(abs(ww1 - ww2)) )
+```
+
+# Local coefficients
+Compute local regression coefficients at point `x0`. First in R.
+``` {r}
+solve.local <- function(y, X, x0, h, ww)
+{
+	p <- length(x0)
+	n <- length(y)
+	ww <- as.numeric(ww)
+
+	X0 <- matrix(x0, n, p, byrow = TRUE)
+	Z <- cbind(1, X - X0)
+	xi <- ginv(t(Z) %*% (ww * Z)) %*% (t(Z) %*% (ww * y))
+	return(xi)
+}
+```
+
+Now in Rcpp.
+``` {Rcpp}
+// [[Rcpp::depends(RcppArmadillo)]]
+#include <RcppArmadillo.h>
+
+// [[Rcpp::export]]
+arma::vec solve_local_cpp(const arma::vec& y, const arma::mat& X,
+	const arma::vec& x0, double h, const arma::vec& ww)
+{
+	size_t p = x0.n_elem;
+	size_t n = y.n_elem;
+
+	arma::mat X0 = arma::repmat(arma::trans(x0), n, 1);
+	arma::mat Z = arma::join_rows(arma::ones(n,1), X - X0);
+	arma::mat WW = repmat(ww, 1, p+1);
+	arma::vec xi = arma::pinv(arma::trans(Z) * (WW % Z)) * (arma::trans(Z) * (ww % y));
+	return xi;
+}
+```
+
+Check results to make sure they match.
+``` {r}
+x0 <- t(X[1,])
+ww <- kern.weights(X, X0 = x0, h = 1)
+
+solve.local(y, X, x0, h = 1, ww)
+solve_local_cpp(y, X, x0, h = 1, ww)
+```
+
+# Compare timings
+
+``` {r}
+h <- 1
+idx <- 1:500
+
+# Do both operations in R
+st <- Sys.time()
+for (i in idx) {
+	x0 <- t(X[i,])
+	ww <- kern.weights(X, X0 = x0, h = h)	
+	xi <- solve.local(y, X, x0, h = h, ww)
+}
+cat("Elapsed secs ", as.numeric(Sys.time() - st, units = "secs"), "\n")
+
+# Do weights in R and local coeffs in C++
+st <- Sys.time()
+for (i in idx) {
+	x0 <- t(X[i,])
+	ww <- kern.weights(X, X0 = x0, h = h)	
+	xi <- solve_local_cpp(y, X, x0, h = h, ww)
+}
+cat("Elapsed secs ", as.numeric(Sys.time() - st, units = "secs"), "\n")
+
+# Do weights in C++ and local coeffs in R
+st <- Sys.time()
+for (i in idx) {
+	x0 <- t(X[i,])
+	ww <- kern_weights_cpp(X, X0 = x0, h = h)	
+	xi <- solve.local(y, X, x0, h = h, ww)
+}
+cat("Elapsed secs ", as.numeric(Sys.time() - st, units = "secs"), "\n")
+
+# Do both operations in C++
+st <- Sys.time()
+for (i in idx) {
+	x0 <- t(X[i,])
+	ww <- kern_weights_cpp(X, X0 = x0, h = h)	
+	xi <- solve_local_cpp(y, X, x0, h = h, ww)
+}
+cat("Elapsed secs ", as.numeric(Sys.time() - st, units = "secs"), "\n")
+```
+
+A complete OPG code is available in the workshop materials.

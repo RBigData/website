@@ -1,0 +1,125 @@
+---
+title: "Numerical Tools"
+output:
+  pdf_document:
+    number_sections: true
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+library(ggplot2)
+```
+
+# Optimization
+``` {r}
+f <- function(x) { cos(0.5*pi*x[1]) + cos(0.5*pi*x[2]) }
+
+dat.plot <- expand.grid(
+    x = seq(-2, 2, 0.05),
+    y = seq(-2, 2, 0.05))
+dat.plot$f <- apply(dat.plot, 1, f)
+
+ggplot(dat.plot, aes(x=x, y=y)) + 
+	geom_raster(aes(fill = f)) +
+	geom_contour(aes(z = f), binwidth = 0.2) +
+	scale_fill_gradient(low="white", high="blue")
+
+optim.out <- optim(c(-1,1), f, method = "BFGS", control = list(fnscale = -1))
+print(optim.out)
+```
+
+# Integration
+If $X \sim \text{Beta}(a,b)$, then moment generating function is
+\begin{align*}
+M_X(t) = \int_0^1 e^{tx} \frac{x^{a-1} (1-x)^{b-1}}{ B(a,b) } dx.
+\end{align*}
+
+To evaluate this numerically at $a = 2, b = 1.5, t = 1$,
+``` {r}
+f <- function(x, a, b, t) {
+    exp(t*x) * x^(a - 1) * (1-x)^(b-1) / beta(a,b)
+}
+```
+
+A more stable version of the function
+``` {r}
+g <- function(x, a, b, t) {
+    exp( t*x + (a - 1)*log(x) + (b-1)*log(1-x) - lbeta(a,b) )
+}
+```
+
+``` {r}
+integrate(f, lower = 0, upper = 1, a = 2, b = 1.5, t = 1)
+integrate(g, lower = 0, upper = 1, a = 2, b = 1.5, t = 1)
+```
+
+# Root Finding
+Let $f$ be the density of the F-distribution with degrees of freedom $(a = 5, b = 10)$;
+\begin{align*}
+f(x) = \frac{1}{B(a,b)} \left(\frac{a}{b}\right)^{a/2} x^{a/2 - 1} \left(1 + \frac{a}{b} x \right)^{-(a + b)/2},
+\quad x > 0.
+\end{align*}
+
+Find the points $x$ such that $f(x) = 0.1$.
+``` {r}
+h <- 0.1
+df1 <- 5
+df2 <- 10
+f <- function(x, h, df1, df2) { df(x, df1, df2) - h }
+
+curve(df(x, df1, df2), xlim = c(0,6))
+abline(c(0.1,0), lty = 2)
+
+lo <- uniroot(f, interval = c(0, 1), df1 = df1, df2 = df2, h = h)
+hi <- uniroot(f, interval = c(1, 3), df1 = df1, df2 = df2, h = h)
+print(lo)
+print(hi)
+pf(hi$root, df1=df1, df2=df2) - pf(lo$root, df1=df1, df2=df2)
+```
+
+# Solving Systems of Equations
+Solve the following system of equations for $x$;
+
+\begin{align*}
+&A x = b, \quad \text{where} \\
+&A =
+\begin{pmatrix}
+4 & 1 & 0 & 0 \\
+1 & 4 & 1 & 0 \\
+0 & 1 & 4 & 1 \\
+0 & 0 & 1 & 4
+\end{pmatrix}
+\quad
+x =
+\begin{pmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+x_4
+\end{pmatrix}
+\quad
+b =
+\begin{pmatrix}
+1 \\
+1 \\
+1 \\
+1
+\end{pmatrix}
+\end{align*}
+
+``` {r}
+A <- matrix(0, 4, 4)
+diag(A) <- 4
+diag(A[-1, -4]) <- 1
+diag(A[-4, -1]) <- 1
+print(A)
+
+b <- rep(1, 4)
+
+print(x <- solve(A, b))
+A %*% x
+```
