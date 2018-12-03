@@ -1,0 +1,32 @@
+Fields are described here:
+https://www.epa.gov/enviro/tri-ez-search
+
+1. TRIFID
+TRI Facility Id. An identifier that uniquely identifies a facility and is of
+the format ZZZZZNNNNNSSSSS, where ZZZZZ = Zip code, NNNNN = first 5 consonants
+of the name, and SSSSS = first 5 non-blank non-special characters in the street
+address.
+
+2. PRIMARY SIC CODE
+The primary Standard Industrial Classification (SIC) code.
+
+3. DOCUMENT CONTROL NUMBER
+DOC_CTRL_NUM is a unique identification number assigned to each submission.
+
+4. CHEMICAL NAME
+The name of the chemical or chemical category listed in Section 372.
+
+5. TOTAL AIR EMISSIONS
+
+6. TOTAL SURFACE WATER DISCHARGE
+
+7. TOTAL UNDERGROUND INJECTION
+
+8. TOTAL ON-SITE LAND RELEASES
+
+9. TOTAL TRANSFERRED OFF-SITE FOR FURTHER WASTE MANAGEMENT
+
+10. SUM OF ALL RELEASES
+
+
+TBD: What are fields 5-10? What units are they in? How are they measured (e.g. over a certain time period)?
