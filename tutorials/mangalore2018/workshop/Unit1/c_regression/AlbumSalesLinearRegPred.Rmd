@@ -1,0 +1,143 @@
+---
+title: 'SLR Example: Album Sales Data'
+author: "NKN"
+date: "January 1, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#load relevant libraries
+```{r}
+library(readr)
+library(ggplot2)
+library(xtable)
+```
+
+#Read the data
+```{r,results="asis"}
+library(knitr)
+AlbumSales1 <- read_csv("../../../data/csv/AlbumSales1.csv")
+head(AlbumSales1)
+names(AlbumSales1)
+summary(AlbumSales1)
+kable(summary(AlbumSales1))
+print(xtable(summary(AlbumSales1)),type="html")
+
+```
+
+#ScatterPlot
+```{r}
+attach(AlbumSales1)
+plot(adverts,sales)
+title("Scatterplot of Sales Figures vs Advertisement Expenditure")
+
+```
+
+
+#Fancy Scatterplot
+```{r}
+attach(AlbumSales1)
+scatter <- ggplot(AlbumSales1, aes(adverts, sales))
+scatter + geom_point() + geom_smooth() + labs(x = "Ad Exp", y = "Sales") + ggtitle("      Scatterplot of Sales Figures vs Advertisement Expenditure")
+
+```
+
+
+#Fancy Scatterplot with the Regression Line added
+```{r}
+attach(AlbumSales1)
+scatter <- ggplot(AlbumSales1, aes(adverts, sales))
+scatter + geom_point() + 
+	geom_smooth() +
+	geom_smooth(method = "lm", colour = "Red") + 
+	labs(x = "Ad Exp", y = "Sales") + 
+	ggtitle("      Scatterplot of Sales Figures vs Advertisement Expenditure")
+
+```
+
+
+#Fitting a Simple Linear Regression
+```{r}
+AlbumSales.out1 <- lm(sales ~ adverts, data = AlbumSales1)
+summary(AlbumSales.out1)
+
+```
+
+# What are all these numbers:
+
+$$ \mbox{Residual Standard Error} = 65.99 = \sqrt{\frac{ \mbox{ Residual Sum of Squares}}{198} } $$
+
+$$ \mbox{Therefore,  RSS=}  198* (65.99)^2 = 198*4354.68=862226.7$$
+
+
+
+$$ \mbox{Now, we can find SSTotal from RSS and } R^2: $$
+$$0.3346=R^2=1-\frac{RSS}{SST} \implies SST= \frac{RSS}{(1-R^2)}= \frac{862226.7}{1-0.3346}=1295802;  \mbox{   and  SSModel=SST-RSS=}1295802-862227=433575  $$ 
+
+$$ \mbox{ The F-statistics: } \frac{ \mbox{MSModel} }{ \mbox{MSError}} = \frac{ \mbox{SSModel/DF} }{ \mbox{RSS/DF}} =
+\frac{ \mbox{433575/1} }{ \mbox{862227/198}} = 99.59 $$
+
+# Compute the p-value for the above F-statistic
+# For small p-values, we can find the upper bound as needed by some publications as follows.
+```{r}
+pvalue <- 1-pf(99.59,1,198)
+formatC(pvalue, format = "e", digits = 8)
+print(pvalue)
+```
+
+Now, we can construct the traditional ANOVA:
+
+```{r xtable, results="asis"}
+library(xtable)
+tab <- xtable(summary(AlbumSales.out1)$coef, digits=c(0, 2, 2, 1, 2))
+print(tab, type="html")
+```
+
+
+Check your results below using R's anova function
+
+
+
+#Check your results below using R's anova function
+```{r}
+summary(AlbumSales.out1)
+anova(AlbumSales.out1)
+```
+
+
+#Predictions and Confidence Intervals for the conditional mean
+```{r}
+predict(AlbumSales.out1,data.frame(adverts=c(100)),interval=c("prediction"),se.fit=TRUE)$fit[1,] 
+predict(AlbumSales.out1,data.frame(adverts=c(100)),interval=c("confidence"),se.fit=TRUE)$fit[1,]
+
+```
+
+
+![Alt text](figures/predictionORmeans.png)
+$$
+\begin{array}{rl} 
+\mbox{Point Prediction:} & \hat{Y} = \hat{\beta_0}+ \hat{\beta_1} x  \\
+\mbox{Prediction Interval:}  & \hat{\beta_0}+ \hat{\beta_1} x \pm t_{\alpha/2,n-2} \hat{\sigma} \sqrt{ 1+ \frac{1}{n} + \frac{(x-\bar{X})^2}{S_{XX}} }
+\end{array}
+
+$$
+
+$$
+\begin{array}{rl} 
+\mbox{Point Estimate:} & \hat{Y} = \hat{\beta_0}+ \hat{\beta_1} x  \\
+\mbox{Interval Estimate:}  & \hat{\beta_0}+ \hat{\beta_1} x \pm t_{\alpha/2,n-2} \hat{\sigma} \sqrt{\frac{1}{n} + \frac{(x-\bar{X})^2}{S_{XX}} }
+\end{array}
+$$
+#Predictions and Confidence Intervals for the conditional mean
+```{r}
+predict(AlbumSales.out1,data.frame(adverts=c(100,200)),interval=c("prediction"),se.fit=TRUE)$fit[1:2,] 
+predict(AlbumSales.out1,data.frame(adverts=c(100,200)),interval=c("confidence"),se.fit=TRUE)$fit[1:2,]
+
+```
+
+
+
+
