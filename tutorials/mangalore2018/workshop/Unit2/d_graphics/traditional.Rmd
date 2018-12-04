@@ -1,0 +1,101 @@
+---
+title: "Traditional Graphics"
+output: pdf_document
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The `plot` function can be used to make 2-d plots of (discrete) data.
+``` {r}
+x <- seq(0,1,0.1)
+y <- x^2
+plot(x, y)
+```
+
+We can also connect the points with lines.
+``` {r}
+x <- seq(0,1,0.1)
+y <- x^2
+plot(x, y, type = "b")
+```
+
+We can plot a function, say the normal density function `dnorm`.
+``` {r}
+curve(dnorm, -4, 4)
+```
+
+Create a histogram using the included `Nile` dataset.
+``` {r}
+print(Nile)
+hist(Nile)
+```
+
+Boxplots can be created very quickly. Consider the `chickwts` dataset.
+``` {r}
+head(chickwts)
+boxplot(weight ~ feed, data = chickwts)
+```
+
+Overlay a curve on a plot.
+``` {r}
+mu.hat <- mean(Nile)
+sigma.hat <- sd(Nile)
+hist(Nile, freq = FALSE)
+curve(dnorm(x, mean = mu.hat, sd = sigma.hat), add = TRUE)
+```
+
+Instead of having the plot display in a window, request it to be written to a file using functions like `pdf`, `jpeg`, and `bmp`.
+```{r, eval=FALSE}
+pdf("plot.pdf", height=4, width=4)
+hist(Nile)
+dev.off()
+```
+
+* The function `dev.off()` closes the graphics file after writing to it.
+* The units of `height` and `weight` are inches.
+* To save a plot during Rstudio during interactive use, see the `Export` menu above the plot.
+
+
+There are lower-level plotting functions available for drawing shapes. `abline` can be used to draw lines, e.g. to plot a simple linear regression.
+``` {r}
+head(cars)
+fit <- lm(cars$dist ~ cars$speed)
+print(fit)
+plot(cars)
+abline(coef = fit$coefficients)
+```
+
+Draw polygons by connecting points.
+``` {r}
+x <- c(1, 0, -1, 0)
+y <- c(0, 1, 0, -1)
+plot(x,y)
+polygon(x,y)
+```
+
+Draw rectangles with `rect` and line segments with `segments`.
+``` {r}
+plot.new()  # Create an empty plot window, and add the parts manually
+plot.window(xlim=c(-2,2), ylim=c(-2,2))
+axis(1)
+axis(2)
+title(main="My title")
+title(xlab="x-label")
+title(ylab="y-label")
+box()
+rect(xleft = -1, ybottom = -1, xright = 1, ytop = 1, col="yellow", border = "red")
+segments(x0 = -2, y0 = -2, x1 = 0, y1 = 2, col="green")
+segments(x0 = 0, y0 = 2, x1 = 2, y1 = -2, col="green")
+segments(x0 = -2, y0 = -2, x1 = 2, y1 = -2, col="green")
+```
+
+Multiple plots in one figure.
+``` {r}
+par(mfrow = c(1,2))
+curve(dnorm(x), xlim = c(-3,3))
+curve(pnorm(x), xlim = c(-3,3))
+dev.off()
+```

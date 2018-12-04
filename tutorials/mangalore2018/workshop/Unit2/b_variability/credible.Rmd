@@ -1,0 +1,73 @@
+---
+title: "Empirical Coverage Study for a Credible Interval"
+output:
+  pdf_document:
+    number_sections: true
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+n <- 20
+p <- 0.5
+m <- rep(1, n)
+y <- rbinom(n, size = m, prob = p)
+
+a.prior <- 1
+b.prior <- 1
+curve(dbeta(x, a.prior, b.prior), main = "Prior Distribution")
+
+alpha <- 0.05
+lo <- qbeta(alpha/2, sum(y) + a.prior, sum(m) - sum(y) + b.prior)
+hi <- qbeta(1 - alpha/2, sum(y) + a.prior, sum(m) - sum(y) + b.prior)
+
+curve(dbeta(x, sum(y) + a.prior, sum(m) - sum(y) + b.prior),
+	main = "Posterior Distribution")
+```
+
+``` {r}
+credible.int <- function(y, m, a, b, alpha = 0.05) {
+	lo <- qbeta(alpha/2, sum(y) + a, sum(m) - sum(y) + b)
+	hi <- qbeta(1 - alpha/2, sum(y) + a, sum(m) - sum(y) + b)
+	list(lo = lo, hi = hi)
+}
+
+n.levels <- c(10, 20, 50, 100, 200, 500, 5000)
+p.levels <- c(0.01, 0.05, 0.1, 0.2, 0.5)
+R <- 2000
+a.prior <- 1
+b.prior <- 1
+
+covg <- array(NA, dim = c(length(n.levels), length(p.levels), R))
+width <- array(NA, dim = c(length(n.levels), length(p.levels), R))
+
+for (idx1 in 1:length(n.levels)) {
+	for (idx2 in 1:length(p.levels)) {
+		n <- n.levels[idx1]
+		p <- p.levels[idx2]
+		m <- rep(1, n)
+		cat("Now working on n =",n, "p =", p, "\n")
+
+		for (r in 1:R) {
+			y <- rbinom(n, size = m, prob = p)
+			res <- credible.int(y, m, a.prior, b.prior)
+			covg[idx1, idx2, r] <- (res$lo < p && p < res$hi)
+			width[idx1, idx2, r] <- res$hi - res$lo
+		}
+	}
+}
+
+ecovg <- apply(covg, c(1,2), mean)
+rownames(ecovg) <- sprintf("n=%d", n.levels)
+colnames(ecovg) <- sprintf("p=%0.2f", p.levels)
+print(round(ecovg, 4))
+
+ewidth <- apply(width, c(1,2), mean)
+rownames(ewidth) <- sprintf("n=%d", n.levels)
+colnames(ewidth) <- sprintf("p=%0.2f", p.levels)
+print(round(ewidth, 4))
+```
+

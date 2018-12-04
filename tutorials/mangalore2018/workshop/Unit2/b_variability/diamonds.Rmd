@@ -1,0 +1,148 @@
+---
+title: "Analysis Diamond Data with OPG Algorithm"
+output:
+  pdf_document:
+    number_sections: true
+    df_print: kable
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+Cross-validation and bootstrap on the diamonds dataset. Be aware that this file takes some time to knit!
+``` {r}
+library(ggplot2, quietly = TRUE)
+library(dplyr, quietly = TRUE)
+library(Rcpp, quietly = TRUE)
+sourceCpp("../../src/mave/02_Rcpp/mave.cpp")
+source("../../src/mave/02_Rcpp/mave.R")
+
+# Set verbose to TRUE for lots of logging
+verbose <- FALSE
+```
+
+# Read the data
+``` {r}
+head(diamonds)
+dat <- as.data.frame(diamonds)
+dat$x <- scale(dat$x)
+dat$y <- scale(dat$y)
+dat$z <- scale(dat$z)
+dat$table <- scale(dat$table)
+dat$depth <- scale(dat$depth)
+dat$carat <- scale(dat$carat)
+n <- nrow(diamonds)
+
+X <- model.matrix(log(price) ~ x + y + z + depth + table + carat - 1,
+	data = diamonds)
+y <- log(diamonds$price)
+```
+
+# Cross-validation
+``` {r}
+set.seed(1234)
+
+n.cv <- 2000
+idx.cv <- sample(1:n, size = n.cv, replace = FALSE)
+idx.test <- setdiff(1:n, idx.cv)
+set <- ifelse(1:n %in% idx.cv, "cv", "test")
+
+color <- rep(NA, n)
+color[set == "cv"] <- "blue"
+color[set == "test"] <- "darkorange"
+
+# Set up folds for K-fold cross-validation
+K <- 5
+fold.grp <- sample((1:n.cv - 1) %% K + 1)
+folds <- split(1:n.cv, f = fold.grp)
+
+h.levels <- seq(0.1, 4, length = 100)
+na <- rep(NA, length(h.levels))
+tab <- data.frame(h = h.levels, mape = na)
+
+st <- Sys.time()
+for (idx1 in 1:length(h.levels)) {
+	h <- h.levels[idx1]
+	y.hat.cv <- rep(NA, n.cv)
+	for (k in 1:K) {
+		if (verbose) { printf("Fold %d\n", k) }
+
+		# These index into idx.cv
+		idx.fold <- folds[[k]]
+		idx.notfold <- as.integer(unlist(folds[-k]))
+
+		# These index into the original data
+		idx.cv.train <- idx.cv[idx.notfold]
+		idx.cv.val <- idx.cv[idx.fold]
+
+		fit.cv <- opg(y[idx.cv.train], X[idx.cv.train,], h = h, d = 1)
+		pred.cv <- predict(fit.cv, X.new = X[idx.cv,])
+		y.hat.cv[idx.fold] <- pred.cv[idx.fold]
+
+	}
+	tab$mape[idx1] <- mean(abs(y[idx.cv] - y.hat.cv))
+
+	if (verbose) {
+		printf("h[%d]: %0.4f\n", idx1, h)
+		printf("  cv MAPE: %0.4f\n", tab$mape[idx1])
+	}
+}
+printf("Elapsed time of CV: %f sec\n", as.numeric(Sys.time() - st, units = "secs"))
+# print(tab)
+
+ggplot(tab, aes(h, mape)) + geom_line(lwd = 1.1)
+h.cv <- h.levels[which.min(tab$mape)]
+
+# Check results for best model according to CV
+fit.out <- opg(y[idx.cv], X[idx.cv,], h = h.cv, d = 1)
+print(fit.out)
+pred.out <- predict(fit.out, X.new = X)
+
+ggplot(data.frame(y, pred.out), aes(y, pred.out)) +
+    geom_point(color = color) +
+    stat_function(fun = identity, lwd = 1.1)
+
+ggplot(data.frame(y, pred.out), aes(y, pred.out)) +
+    geom_point(color = color) +
+    stat_function(fun = identity, lwd = 1.1) +
+	xlim(range(y)) +
+	ylim(range(y))
+
+rx <- X %*% fit.out$B
+ggplot(data.frame(rx, y), aes(rx, y)) +
+    geom_point(color = color)
+```
+
+# Bootstrap
+Run the bootstrap procedure.
+``` {r}
+set.seed(1234)
+n.train <- 2000
+idx.train <- sample(1:n, size = n.train, replace = FALSE)
+idx.test <- setdiff(1:n, idx.train)
+
+fit.out <- opg(y[idx.train], X[idx.train,], h = h.cv, d = 1)
+pred.out <- predict(fit.out, X.new = X[idx.train,])
+rx.train <- X[idx.train,] %*% fit.out$B
+print(fit.out)
+
+B <- 500
+pred.boot <- matrix(NA, n.train, B)
+
+st <- Sys.time()
+for (b in 1:B) {
+	if (verbose) { printf("Computing boostrap iteration %d\n", b) }
+	idx.boot <- sample(idx.train, size = n.train, replace = TRUE)
+	fit.boot <- opg(y[idx.boot], X[idx.boot,], h = h.cv, d = 1)
+	pred.boot[,b] <- predict(fit.boot, X.new = X[idx.train,])
+}
+printf("Elapsed time of Bootstrap: %f sec\n", as.numeric(Sys.time() - st, units = "secs"))
+
+alpha <- 0.05
+lo <- apply(pred.boot, 1, quantile, prob = alpha/2)
+hi <- apply(pred.boot, 1, quantile, prob = 1 - alpha/2)
+dat <- data.frame(idx = idx.train, rx = rx.train, yhat = pred.out, lo, hi)
+```
+
+Look at some results of the bootstrap.
+``` {r}
+head(dat)
+```

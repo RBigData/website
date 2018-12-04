@@ -1,0 +1,166 @@
+---
+title: "Data Manipulation with dplyr"
+output:
+  pdf_document:
+    number_sections: true
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+library(dplyr)
+```
+
+# Working with a Single Dataset
+``` {r}
+data(mpg, package = "ggplot2")
+tail(mpg)
+```
+
+## Filter Rows
+Use `filter` to choose rows from a dataset.
+``` {r}
+mpg %>%
+	filter(manufacturer == "toyota")
+
+mpg %>%
+	filter(manufacturer == "toyota") %>%
+	filter(class == "compact")
+
+mpg %>%
+	filter(manufacturer == "toyota" & model == "corolla")
+```
+
+## Select Columns
+Use `select` to choose columns from a dataset.
+``` {r}
+mpg %>% 
+	filter(manufacturer == "toyota" & model == "corolla") %>%
+	select(year, trans, cty, hwy)
+
+mpg %>% 
+	filter(manufacturer == "toyota" & model == "corolla") %>%
+	select(manufacturer:cyl)
+
+mpg %>%
+	filter(manufacturer == "toyota" & model == "corolla") %>%
+	select(-(manufacturer:cyl))
+```
+
+## Mutate Columns
+Use `mutate` to transform variables (columns) in a dataset. Transformations can be functions of more than one column.
+``` {r}
+mpg %>%
+	filter(manufacturer == "toyota" & model == "corolla") %>%
+	mutate(cty_kpg = 1.6 * cty, hwy_kpg = 1.6 * hwy) %>%
+	mutate(avg_mpg = 0.5 * cty + 0.5 * hwy) %>%
+	select(-manufacturer, -model, -trans)
+```
+
+## Arrange (Sort) Rows
+Use `arrange` to sort a dataset.
+``` {r}
+mpg %>% 
+	filter(manufacturer == "toyota" & class == "compact") %>%
+	arrange(year) %>%
+	select(manufacturer:cyl)
+
+mpg %>% 
+	filter(manufacturer == "toyota" & class == "compact") %>%
+	arrange(desc(year)) %>%
+	select(manufacturer:cyl)
+
+mpg %>% 
+	filter(manufacturer == "toyota" & class == "compact") %>%
+	arrange(desc(year), desc(cyl), desc(displ)) %>%
+	select(manufacturer:cyl)
+```
+
+## Group By
+Use `group_by` and `summarize` to group rows together and compute summaries, such as the sum or average of a variable.
+``` {r}
+mpg %>%
+	group_by(manufacturer) %>%
+	summarize(count = n())
+
+mpg %>%
+	group_by(class)  %>%
+	summarize(count = n(), avg_cty = mean(cty), sd_cty = sd(cty)) %>%
+	arrange(desc(avg_cty))
+
+
+```
+
+# Working with Relational Data
+The `nycflights13` dataset is featured in chapter 13 of the book *R for Data Science*.
+``` {r}
+library(nycflights13)
+
+head(airlines)
+head(airports)
+head(flights)
+head(planes)
+head(weather)
+```
+
+## Inner Joins
+Let's do an `inner_join` between flight destinations and airports
+``` {r}
+flights %>% 
+	inner_join(airports, by = c("dest" = "faa")) %>%
+	select(year, month, day, dep_time, name)
+
+flights %>% 
+	inner_join(airports, by = c("dest" = "faa")) %>%
+	select(year, month, day, dep_time, name) %>%
+	group_by(name) %>%
+	summarize(count = n())
+```
+
+## Outer Joins
+To demonstrate outer joins, let's set up a table with prices of several models of cars.
+
+* An `inner_join` only returns rows that have a match in both datasets.
+* A `left_join` is one type of outer join; it returns all rows in the "left" dataset and assumes `NA` for columns from the "right" dataset which did not have a match.
+* On the other hand, a `right_join` returns all rows in the "right" dataset...
+``` {r}
+options(width=100)
+prices <- tibble(
+	mfr = c("toyota", "toyota", "toyota"),
+	model = c("corolla", "camry", "prius"),
+	price = c(18000, 22000, 23000)
+)
+
+mpg %>%
+	inner_join(prices, by = c("manufacturer" = "mfr", "model" = "model")) %>%
+	select(-trans, -class)
+
+mpg %>%
+	left_join(prices, by = c("manufacturer" = "mfr", "model" = "model")) %>%
+	select(-trans, -class)
+
+mpg %>%
+	left_join(prices, by = c("manufacturer" = "mfr", "model" = "model")) %>%
+	select(-trans, -class) %>%
+	filter(manufacturer == "toyota")
+
+mpg %>%
+	right_join(prices, by = c("manufacturer" = "mfr", "model" = "model")) %>%
+	select(-trans, -class)
+```
+
+## Cartesian Joins
+A cartesian join simply joins every row of the left dataset to every row of the right dataset. Let's create two small tables to demonstrate a cartesian join. Try `merge` in base R and `expand` in the tidyverse.
+``` {r}
+library(tidyr)
+
+dat1 <- data.frame(my_factor = factor(c('a','b','c','d')))
+dat2 <- data.frame(my_int = 1:3)
+merge(dat1, dat2)
+
+dat1 %>% 
+	expand(my_factor, my_int = dat2$my_int)
+```

@@ -1,0 +1,165 @@
+---
+title: "Cross-validation Example"
+output:
+  pdf_document:
+    number_sections: true
+geometry: "left=0.5cm,right=0.5cm,top=0.5cm,bottom=1.5cm"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Generate some data. If an observation has Euclidean distance from the origin between sqrt(1/4) and 1, then its in class 1; otherwise it's in class 0.
+```{r}
+library(ggplot2)
+library(gridExtra)
+
+set.seed(1234)
+n <- 20^2
+x1 <- seq(-sqrt(2), sqrt(2), length.out = sqrt(n))
+x2 <- seq(-sqrt(2), sqrt(2), length.out = sqrt(n))
+X <- as.matrix(expand.grid(x1, x2))
+r2 <- X[,1]^2 + X[,2]^2
+y <- as.integer(r2 < 1 & r2 > 1/4)
+dat <- data.frame(x1 = X[,1], x2 = X[,2], y = y)
+
+color <- numeric(n)
+color[dat$y == 1] <- "black"
+color[dat$y == 0] <- "red"
+
+ggplot(dat, aes(x1, x2)) +
+    geom_point(color = color) +
+	ggtitle("Observed Classes")+
+	annotate("path",
+		x = cos(seq(0, 2*pi, length.out=100)),
+		y = sin(seq(0, 2*pi, length.out=100))) +
+	annotate("path",
+		x = sqrt(1/4) * cos(seq(0, 2*pi, length.out=100)),
+		y = sqrt(1/4) * sin(seq(0, 2*pi, length.out=100)))
+```
+
+Write a simple N-nearest neighbors algorithm.
+``` {r}
+nearest.neighbors <- function(y, X, X.new, N)
+{
+	stopifnot(ncol(X) == 2)
+	stopifnot(ncol(X.new) == 2)
+	n <- nrow(X)
+	n.new <- nrow(X.new)
+	y.hat <- integer(n.new)
+
+	for (i in 1:n.new) {
+		Z <- X - matrix(X.new[i,], n, 2, byrow = TRUE)
+		D <- sqrt(rowSums(Z^2))
+		idx.ordered <- order(D)
+		y.hat[i] <- mean(y[idx.ordered[1:N]]) > 0.5
+	}
+
+	return(y.hat)
+}
+```
+
+Draw another dataset which is not necessarily on the original grid.
+``` {r}
+n.new <- 810
+X.new <- cbind(
+	runif(n.new, -sqrt(2), sqrt(2)),
+	runif(n.new, -sqrt(2), sqrt(2))
+)
+```
+
+`N = 1` might be a bit too small.
+``` {R}
+y.hat <- nearest.neighbors(dat$y, X, X.new, N = 1)
+
+color <- numeric(n.new)
+color[y.hat == 1] <- "black"
+color[y.hat == 0] <- "red"
+
+dat.new <- data.frame(x1 = X.new[,1], x2 = X.new[,2], y.hat = y.hat)
+ggplot(dat.new, aes(x1, x2)) +
+    geom_point(color = color) +
+	ggtitle("Predicted Classes") +
+	annotate("path",
+		x = cos(seq(0, 2*pi, length.out=100)),
+		y = sin(seq(0, 2*pi, length.out=100))) +
+	annotate("path",
+		x = sqrt(1/4) * cos(seq(0, 2*pi, length.out=100)),
+		y = sqrt(1/4) * sin(seq(0, 2*pi, length.out=100)))
+```
+
+`N = 70` seems to be a poor choice.
+``` {R}
+y.hat <- nearest.neighbors(dat$y, X, X.new, N = 70)
+
+color <- numeric(n.new)
+color[y.hat == 1] <- "black"
+color[y.hat == 0] <- "red"
+
+dat.new <- data.frame(x1 = X.new[,1], x2 = X.new[,2], y.hat = y.hat)
+ggplot(dat.new, aes(x1, x2)) +
+    geom_point(color = color) +
+	ggtitle("Predicted Classes") +
+	annotate("path",
+		x = cos(seq(0, 2*pi, length.out=100)),
+		y = sin(seq(0, 2*pi, length.out=100))) +
+	annotate("path",
+		x = sqrt(1/4) * cos(seq(0, 2*pi, length.out=100)),
+		y = sqrt(1/4) * sin(seq(0, 2*pi, length.out=100)))
+```
+
+Run cross-validation.
+``` {r}
+set.seed(1234)
+idx.train <- sample(1:n, size = ceiling(0.8*n))
+idx.test <- setdiff(1:n, idx.train)
+color <- ifelse(1:n %in% idx.train, "blue", "darkorange")
+
+# Set up folds for cross-validation
+K <- 10
+fold.grp <- sample((1:n - 1) %% K + 1)
+folds <- split(1:n, f = fold.grp)
+
+N.levels <- 1:70
+na <- rep(NA, length(N.levels))
+tab <- data.frame(N = N.levels, sape = na)
+
+for (idx1 in 1:length(N.levels)) {
+	N <- N.levels[idx1]
+	y.hat.cv <- rep(NA, n)
+	for (k in 1:K) {
+		idx.fold <- folds[[k]]
+		idx.notfold <- as.integer(unlist(folds[-k]))
+		y.hat.cv[idx.fold] <- nearest.neighbors(dat$y[idx.notfold], X[idx.notfold,],
+			X[idx.fold,], N = N)
+	}
+	tab$sape[idx1] <- sum(abs(y - y.hat.cv))
+}
+
+ggplot(tab, aes(N, sape)) + geom_line(lwd = 1.1)
+
+N.cv <- N.levels[which.min(tab$sape)]
+cat("Cross-validation selected degree", N.cv, "\n")
+```
+
+Results for out choice of N from cross-validation
+``` {R}
+y.hat <- nearest.neighbors(dat$y, X, X.new, N = N.cv)
+
+color <- numeric(n.new)
+color[y.hat == 1] <- "black"
+color[y.hat == 0] <- "red"
+
+dat.new <- data.frame(x1 = X.new[,1], x2 = X.new[,2], y.hat = y.hat)
+ggplot(dat.new, aes(x1, x2)) +
+    geom_point(color = color) +
+	ggtitle("Predicted Classes") +
+	annotate("path",
+		x = cos(seq(0, 2*pi, length.out=100)),
+		y = sin(seq(0, 2*pi, length.out=100))) +
+	annotate("path",
+		x = sqrt(1/4) * cos(seq(0, 2*pi, length.out=100)),
+		y = sqrt(1/4) * sin(seq(0, 2*pi, length.out=100)))
+```
+
