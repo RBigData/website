@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#load relevant libraries
+#Load relevant libraries
 ```{r}
 library(readr)
 library(ggplot2)
@@ -17,15 +17,13 @@ library(xtable)
 ```
 
 #Read the data
-```{r,results="asis"}
-library(knitr)
+```{r}
 AlbumSales1 <- read_csv("../../data/csv/AlbumSales1.csv")
 head(AlbumSales1)
 names(AlbumSales1)
 summary(AlbumSales1)
+library(knitr)
 kable(summary(AlbumSales1))
-print(xtable(summary(AlbumSales1)),type="html")
-
 ```
 
 #ScatterPlot
