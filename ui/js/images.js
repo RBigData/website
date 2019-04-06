@@ -20,7 +20,7 @@ function banner() { };
   
   numpics=3;
   
-  if (n < 0.7) // slight bias for UT
+  if (n < 0.5) // slight bias for UT - not any more
   {
     for (i=0; i<numpics; i++){
       document.write( ut[i] );
